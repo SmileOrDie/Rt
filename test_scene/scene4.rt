@@ -1,0 +1,49 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    scene4.rt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/01/04 13:11:01 by shamdani          #+#    #+#              #
+#    Updated: 2016/12/15 17:17:35 by shamdani         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# windows size declaration
+img_size 640 400
+
+# Ambient declaration
+ambient 0.1
+
+# windows size declaration
+img_size 520 300
+
+# camera declaration
+cam 0 150 -500 0 0 0 0 -1 0 60 150
+
+# light declaration
+light 1 1 0 -50 170 -250 1
+
+# light declaration
+light 1 1 0 50 170 -250 1
+
+# light declaration
+light 1 0 0 0 170 -250 1
+
+
+###################################################
+
+# plane declaration
+plane 100 100 100 0 -50 300 0 1 0
+
+# plane declaration
+plane 100 100 100   0 50 300  0 0 1
+
+# plane declaration
+#plane 100 100 100   0 250 300  0 1 0
+
+###################################################
+
+# sphere declaration				
+sphere 0 0 255  0 70 -120 50

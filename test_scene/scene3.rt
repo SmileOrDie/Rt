@@ -1,0 +1,111 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    scene3.rt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/01/04 13:11:01 by shamdani          #+#    #+#              #
+#    Updated: 2016/12/15 17:17:35 by shamdani         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Scene3 du rtv1
+# after the declaration of element, if you doesn't give a value to parameter its automaticly set to 0.
+
+# Ambient declaration
+ambient 0.0009
+
+# windows size declaration
+#img_size 2520 1300
+#img_size 520 300
+
+# camera declaration
+cam 0 150 -700 0 0 0 0 -1 0 60 150
+
+# light declaration
+light 1 1 1 -70 70 -250 1
+
+# light declaration
+light 1 1 1 70 70 -250 1
+
+# light declaration
+light 1 1 1 0 70 -350 1
+
+# sphere declaration
+# sphere 255 255 255 0 150 -1700 20
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 -200 250 200 30
+
+# cylinder declaration
+cylinder 155 0 0 -200 100 200 0 1 0 20
+
+# sphere declaration
+sphere 155 0 0 -200 -50 200 30
+
+###################################################
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 200 250 200 30
+
+# cylinder declaration
+cylinder 155 0 0 200 100 200 0 1 0 20
+
+# sphere declaration
+sphere 155 0 0 200 -50 200 30
+
+###################################################
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 200 250 -200 30
+
+# cylinder declaration
+cylinder 155 0 0 200 100 -200 0 1 0 20
+
+# sphere declaration
+sphere 155 0 0 200 -50 -200 30
+
+###################################################
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 -200 250 -200 30
+
+# cylinder declaration
+cylinder 155 0 0 -200 100 -200 0 1 0 20
+
+# sphere declaration
+sphere 155 0 0 -200 -50 -200 30
+
+###################################################
+
+#prout  0 9 8 7 0 0 0 0 0 0 0
+
+###################################################
+
+# plane declaration
+plane 100 100 100 0 -50 300 0 1 0
+
+# plane declaration
+plane 100 100 100   0 50 300  0 0 1
+
+# plane declaration
+plane 100 100 100   0 250 300  0 1 0
+
+###################################################
+
+# cone declaration
+cone 0 0 255 0 100 -100 0 1 0 40
+
+# sphere declaration
+sphere 0 0 255  0 100 -100 30
+
+###################################################
