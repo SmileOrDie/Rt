@@ -12,6 +12,19 @@
 
 #include "../includes/rtv1.h"
 
+static int		ft_env_check(char *str)
+{
+	if (!ft_strcmp(str, "light"))
+		return (1);
+	else if (!ft_strcmp(str, "cam"))
+		return (1);
+	else if (!ft_strcmp(str, "ambient"))
+		return (1);
+	else if (!ft_strcmp(str, "thread"))
+		return (1);
+	return (0);
+}
+
 static void		creat_lst(char **line, t_env *e, int count)
 {
 	int len;
@@ -20,8 +33,8 @@ static void		creat_lst(char **line, t_env *e, int count)
 	if (len == 3 && ft_strcmp(line[0], "img_size") == 0 && e->flag == 0)
 	{
 		e->flag = 1;
-		e->mlx->w = ft_atoi(line[1]);
-		e->mlx->h = ft_atoi(line[2]);
+		e->mlx->w = 4 * ft_atoi(line[1]);
+		e->mlx->h = 4 * ft_atoi(line[2]);
 	}
 	else if (len > 7 && e->obj && ft_strcmp(line[0], "light") != 0
 		&& ft_strcmp(line[0], "cam") != 0)
@@ -35,8 +48,7 @@ static void		creat_lst(char **line, t_env *e, int count)
 		e->obj = add_obj(line, len, count);
 		e->l_obj = e->obj;
 	}
-	else if ((len > 7 || len == 2) && (ft_strcmp(line[0], "light") == 0
-		|| ft_strcmp(line[0], "cam") == 0 || !ft_strcmp(line[0], "ambient")))
+	else if ((len > 7 || len == 2) && ft_env_check(line[0]))
 		add_env(line, e);
 	ft_tablen(&line, 1);
 }

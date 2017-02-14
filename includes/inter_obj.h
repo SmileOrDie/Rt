@@ -21,6 +21,7 @@ typedef struct	s_ioc
 	t_vector	tmp2;
 	t_vector	dir_dir;
 	t_vector	o_dir;
+
 }				t_ioc;
 
 typedef struct	s_iocy

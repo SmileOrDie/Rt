@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:47:49 by shamdani          #+#    #+#             */
-/*   Updated: 2017/01/09 18:32:05 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/01/24 14:26:26 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		l_color(t_env *e)
 {
 	double tmp;
 
-	tmp = pow(ft_clamp(e->light->angle, 0, 1), 150) * 255;
+	tmp = pow(ft_clamp(e->angle, 0, 1), 150) * 255;
 	e->r += tmp * e->light->color->x;
 	e->g += tmp * e->light->color->y;
 	e->b += tmp * e->light->color->z;
@@ -59,13 +59,13 @@ static void		add_light(t_env *e, double t, t_vector *phit)
 		if (!(inter_obj(e, phit, &dir_l, &t)))
 		{
 			e->obj->angle_func(e, phit, &dir_l);
-			e->r += e->c_hit->r * e->light->color->x * e->light->angle;
-			e->g += e->c_hit->g * e->light->color->y * e->light->angle;
-			e->b += e->c_hit->b * e->light->color->z * e->light->angle;
+			e->r += e->c_hit->r * e->light->color->x * e->angle;
+			e->g += e->c_hit->g * e->light->color->y * e->angle;
+			e->b += e->c_hit->b * e->light->color->z * e->angle;
 			l_color(e);
 		}
 		else
-			e->light->angle = 0;
+			e->angle = 0;
 		e->light = e->light->next;
 	}
 	e->flag = 0;
@@ -101,17 +101,24 @@ static void		ft_raytracer(int x, int y, t_env *e)
 	}
 }
 
-void			start_ray(t_env *e)
+void			*start_ray(void *env)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	t_env		*e;
 
-	x = -1;
-	while (++x < e->mlx->w)
-	{
-		y = -1;
-		while (++y < e->mlx->h)
+
+	e = (t_env*)env;
+	x = e->l.x_start;
+	while (x < e->l.x_end)
+	{	
+		y = e->l.y_start;
+		while (y < e->l.y_end)
+		{
 			ft_raytracer(x, y, e);
+			y++;
+		}
+		x++;
 	}
-	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
+	pthread_exit(NULL);
 }

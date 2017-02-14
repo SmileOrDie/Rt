@@ -23,6 +23,7 @@ typedef struct	s_aoc
 	double		n2;
 	float		dist;
 	double		tmp;
+	t_vector	norm;
 }				t_aoc;
 
 typedef struct	s_aoco
@@ -36,6 +37,7 @@ typedef struct	s_aoco
 	t_vector	c;
 	double		alpha;
 	double		dist;
+	t_vector	norm;
 }				t_aoco;
 
 #endif

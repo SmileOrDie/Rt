@@ -14,11 +14,14 @@
 # after the declaration of element, if you doesn't give a value to parameter its automaticly set to 0.
 
 # Ambient declaration
-ambient 0.0009
+ambient 0.00000000000009
 
 # windows size declaration
-#img_size 2520 1300
+img_size 2520 1300
 #img_size 520 300
+
+# nombre de thread (auto / '0' :calcule lui meme le nombre de thread ideal)
+thread 0
 
 # camera declaration
 cam 0 150 -700 0 0 0 0 -1 0 60 150
@@ -31,6 +34,12 @@ light 1 1 1 70 70 -250 1
 
 # light declaration
 light 1 1 1 0 70 -350 1
+
+# light declaration
+# light 1 1 1 0 70 0 1
+
+# light declaration
+#light 1 1 1 0 70 0 1
 
 # sphere declaration
 # sphere 255 255 255 0 150 -1700 20

@@ -63,6 +63,18 @@ static void			add_light(char **line, t_env *e)
 	}
 }
 
+static void			nb_thread_cal(t_env *e, char **line)
+{
+	int thread;
+
+	thread = ft_atoi(line[1]);
+	if (thread == 0 && e->flag == 1)
+		e->nb_thread = (e->mlx->w * e->mlx->h) / VAL;
+	else
+		e->nb_thread = thread;
+	e->nb_thread = ft_clamp_min(e->nb_thread, 1);
+}
+
 void				add_env(char **line, t_env *e)
 {
 	if (ft_strcmp(line[0], "light") == 0)
@@ -74,4 +86,6 @@ void				add_env(char **line, t_env *e)
 	}
 	else if (ft_strcmp(line[0], "ambient") == 0)
 		e->amb = ft_atof(line[1]);
+	else if (ft_strcmp(line[0], "thread") == 0)
+		nb_thread_cal(e, line);
 }

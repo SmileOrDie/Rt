@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2016/12/19 17:31:01 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:53:29 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 # define ESC 53
 
 # define W 650
 # define H 480
-
+# define VAL 156000
 # define T 2000000
 
 # define NUMBER_ARG "number of argument not right :"
@@ -38,7 +40,9 @@ typedef struct		s_mlx
 	void			*mlx;
 	void			*win;
 	void			*img;
-	char			*data;
+	void			*img4;
+	unsigned char	*data;
+	unsigned char	*data4;
 	int				bpp;
 	int				sizeline;
 	int				endian;
@@ -123,6 +127,24 @@ typedef struct		s_quad
 	double			q;
 }					t_quad;
 
+typedef struct		s_limit
+{
+	int				x_start;
+	int				x_end;
+	int				y_start;
+	int				y_end;
+}					t_limit;
+
+typedef struct		s_timex
+{
+	long int		pars;
+	long int		ray;
+	long int		total;
+	int				pars_f;
+	int				ray_f;
+	int				total_f;
+}					t_timex;
+
 typedef struct		s_env
 {
 	t_mlx			*mlx;
@@ -132,12 +154,18 @@ typedef struct		s_env
 	t_obj			*l_obj;
 	t_obj			*obj;
 	t_color			*c_hit;
-	int				flag;
+	t_limit			l;
 	double			amb;
+	int				flag;
 	int				r;
 	int				g;
 	int				b;
+	double			angle;
+	t_timex			*chrono;
+	int 			nb_thread;
 }					t_env;
+
+void				init_mlx(t_env *e);
 
 void				ft_parse(char *name_file, t_env *e);
 
@@ -146,7 +174,7 @@ int					solve_quad(double a, double b, double c, double *t);
 int					keypress(int key, t_env *e);
 int					redcross(t_env *e);
 
-void				start_ray(t_env *e);
+void				*start_ray(void *e);
 
 t_obj				*add_obj(char **line, int len, int count);
 
@@ -164,6 +192,11 @@ int					inter_cone
 void				ft_error(char *error, char *in);
 void				ft_error_var(t_vector *v, char *str, int f);
 
+void				time_mode(char *str, t_env *e);
+
+// t_env				*save_env(t_env *e);
+void				pthread_ray(t_env *e);
+
 void				ft_angle_sphere(void *e, t_vector *hit, t_vector *dir_l);
 void				ft_angle_plane(void *e, t_vector *np, t_vector *dir_l);
 void				ft_angle_cylinder
@@ -173,5 +206,7 @@ void				ft_angle_cone(void *env, t_vector *hit, t_vector *dir_l);
 t_color				*get_color
 (unsigned char r, unsigned char g, unsigned char b);
 void				put_pixel(int x, int y, t_env *e);
+
+void				*ft_aliasing(void *e);
 
 #endif
