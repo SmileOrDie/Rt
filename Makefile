@@ -6,11 +6,11 @@
 #    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#              #
-#    Updated: 2016/12/15 19:55:30 by shamdani         ###   ########.fr        #
+#    Updated: 2017/03/10 18:26:30 by ldesprog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= rtv1
+NAME	= rt
 CC		= gcc
 WFLAGS	= -Wall -Wextra -Werror -g
 OPTI	= -I
