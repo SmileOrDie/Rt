@@ -17,8 +17,8 @@
 ambient 0.1
 
 # windows size declaration
-img_size 2520 1300
-#img_size 520 300
+#img_size 2520 1300
+img_size 520 300
 
 # camera declaration
 cam 0 100 -700 0 0 0 0 -1 0 60 150

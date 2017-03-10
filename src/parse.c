@@ -3,26 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldesprog <ldesprog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/01/09 18:34:55 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/03/09 17:51:46 by ldesprog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rtv1.h"
 
-static int		ft_env_check(char *str)
+t_obj			*ft_increase_nb_obj(t_obj *obj, int nb_obj)
 {
-	if (!ft_strcmp(str, "light"))
-		return (1);
-	else if (!ft_strcmp(str, "cam"))
-		return (1);
-	else if (!ft_strcmp(str, "ambient"))
-		return (1);
-	else if (!ft_strcmp(str, "thread"))
-		return (1);
-	return (0);
+	t_obj *new;
+	int i;
+
+	new = (t_obj *)malloc(sizeof(t_obj) * (nb_obj + 1));
+	if (S_MALLOC)
+		printf("%s\n", STR_MALLOC);
+	i = 0;
+	if (obj)
+	{
+		while (i < nb_obj)
+		{
+			new[i] = obj[i];
+			i++;
+		}
+		free(obj);
+	}
+	return (new);
 }
 
 static void		creat_lst(char **line, t_env *e, int count)
@@ -33,22 +41,19 @@ static void		creat_lst(char **line, t_env *e, int count)
 	if (len == 3 && ft_strcmp(line[0], "img_size") == 0 && e->flag == 0)
 	{
 		e->flag = 1;
-		e->mlx->w = 4 * ft_atoi(line[1]);
-		e->mlx->h = 4 * ft_atoi(line[2]);
+		e->mlx->w = ft_atoi(line[1]);
+		e->mlx->h = ft_atoi(line[2]);
 	}
-	else if (len > 7 && e->obj && ft_strcmp(line[0], "light") != 0
+	else if (len > 7 && ft_strcmp(line[0], "light") != 0
 		&& ft_strcmp(line[0], "cam") != 0)
 	{
-		e->obj->next = add_obj(line, len, count);
-		e->obj = e->obj->next;
+		e->l_obj = ft_increase_nb_obj(e->l_obj, e->nb_obj);
+		e->l_obj[e->nb_obj] = add_obj(line, len, count);
+		e->l_obj[e->nb_obj].id = e->nb_obj;
+		e->nb_obj++;
 	}
-	else if (len > 7 && ft_strcmp(line[0], "light")
-		&& ft_strcmp(line[0], "cam"))
-	{
-		e->obj = add_obj(line, len, count);
-		e->l_obj = e->obj;
-	}
-	else if ((len > 7 || len == 2) && ft_env_check(line[0]))
+	else if ((len > 7 || len == 2) && (ft_strcmp(line[0], "light") == 0
+		|| ft_strcmp(line[0], "cam") == 0 || !ft_strcmp(line[0], "ambient")))
 		add_env(line, e);
 	ft_tablen(&line, 1);
 }
@@ -60,7 +65,7 @@ static void		ft_check_var(t_env *e)
 				" a variable ambient, width or height can't be <= 0");
 	else if (e->cam == NULL)
 		ft_error("camera error :", "no cam");
-	else if (e->obj == NULL)
+	else if (e->l_obj == NULL)
 		ft_error("object error :", "no object");
 }
 
@@ -86,7 +91,5 @@ void			ft_parse(char *name, t_env *e)
 	close(fd);
 	if (r == -1)
 		ft_error(FILES_E, name);
-	e->obj = e->l_obj;
-	e->light = e->d_light;
 	ft_check_var(e);
 }

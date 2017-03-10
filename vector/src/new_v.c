@@ -12,30 +12,12 @@
 
 #include "../includes/vector.h"
 
-t_vector	*new_v(double x, double y, double z)
-{
-	t_vector *new;
-
-	new = NULL;
-	if (!(new = (t_vector *)malloc(sizeof(t_vector))))
-		ft_error(MALLOC, "t_vector *new_v(double a, double b, double c);");
-	else
-	{
-		new->x = x;
-		new->y = y;
-		new->z = z;
-		new->p = 1;
-	}
-	return (new);
-}
-
-t_vector	new_v2(double x, double y, double z)
+t_vector	new_v(double x, double y, double z)
 {
 	t_vector new;
 
 	new.x = x;
 	new.y = y;
 	new.z = z;
-	new.p = 1;
 	return (new);
 }

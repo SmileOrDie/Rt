@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldesprog <ldesprog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/01/23 13:53:29 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:14:46 by ldesprog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <pthread.h>
-# include <sys/time.h>
+#include <fcntl.h>
+# include <OpenCL/opencl.h>
+# include <sys/stat.h>
+# include <string.h>
 
 # define ESC 53
 
 # define W 650
 # define H 480
-# define VAL 156000
+
 # define T 2000000
 
 # define NUMBER_ARG "number of argument not right :"
@@ -35,178 +37,135 @@
 # define ARG_N "argument can't be -NULL- in :"
 # define MLX "mlx failed :"
 
+# define S_MALLOC 0
+# define STR_MALLOC "il faut securiser ce malloc"
+
 typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
 	void			*img;
-	void			*img4;
-	unsigned char	*data;
-	unsigned char	*data4;
+	char			*data;
 	int				bpp;
 	int				sizeline;
 	int				endian;
 	int				w;
 	int				h;
+	int				crenelage;
 }					t_mlx;
 
 typedef struct		s_color
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	int				r;
+	int				g;
+	int				b;
+	int				t;
 }					t_color;
-
-typedef struct		s_sphere
-{
-	t_vector		*pos;
-	double			radius;
-}					t_sphere;
-
-typedef struct		s_cyl
-{
-	t_vector		*pos;
-	t_vector		*dir;
-	double			radius;
-}					t_cyl;
-
-typedef struct		s_cone
-{
-	t_vector		*pos;
-	t_vector		*dir;
-	double			angle;
-	int				m;
-}					t_cone;
-
-typedef struct		s_plane
-{
-	t_vector		*dir;
-	t_vector		*point;
-}					t_plane;
 
 typedef	struct		s_obj
 {
-	void			*obj;
-	t_color			*color;
-	int				(*inter_func)(void *s, t_vector *o, t_vector *dir,
-									double *t);
-	void			(*angle_func)(void *e, t_vector *o, t_vector *dir);
-	struct s_obj	*next;
+	int				type;
+	int				id;
+	double			vide2;
+	double			vide3;
+	double			vide4;
+	t_vector		pos;
+	t_vector		dir;
+	t_vector		point;
+	double			radius;
+	double			angle;
+	t_color			color;
+	double			t;
+	double			ind_refrac; // 1 -> +
+	double			ind_reflec; // 0 -> 1
+	double			ind_transp; //0 -> 1
 }					t_obj;
 
 typedef struct		s_cam
 {
-	t_vector		*eye;
-	t_vector		*l_at;
-	t_vector		*up;
+	t_vector		eye;
+	t_vector		l_at;
+	t_vector		up;
 	double			dist;
 	double			fov;
 	double			h;
 	double			w;
-	t_vector		*c;
-	t_vector		*l;
-	t_vector		*n;
-	t_vector		*u;
+	t_vector		c;
+	t_vector		l;
+	t_vector		n;
+	t_vector		u;
 }					t_cam;
 
 typedef struct		s_light
 {
-	t_vector		*pos;
-	t_vector		*color;
-	double			angle;
-	t_vector		norm;
-	struct s_light	*next;
+	t_vector		pos;
+	t_vector		color;
+	// double			angle;
+	// double			vide;
+	// double			vide2;
+	// double			vide3;
+	// t_vector		norm;
 }					t_light;
 
-typedef struct		s_quad
+typedef struct			s_opencl
 {
-	double			delta;
-	double			sqrt_delta;
-	double			x0;
-	double			x1;
-	double			q;
-}					t_quad;
-
-typedef struct		s_limit
-{
-	int				x_start;
-	int				x_end;
-	int				y_start;
-	int				y_end;
-}					t_limit;
-
-typedef struct		s_timex
-{
-	long int		pars;
-	long int		ray;
-	long int		total;
-	int				pars_f;
-	int				ray_f;
-	int				total_f;
-}					t_timex;
+	cl_platform_id		platform;
+	cl_device_id		device;
+	cl_context			context;
+	cl_command_queue	command_queue;
+	cl_program			kernel_program;
+	cl_kernel			kernel;
+	cl_mem				data;
+	cl_mem				obj;
+	cl_mem				light;
+	cl_mem				env;
+	cl_mem				mlx;
+	cl_mem				cam;
+}						t_opencl;
 
 typedef struct		s_env
 {
 	t_mlx			*mlx;
-	t_cam			*cam;
 	t_light			*light;
-	t_light			*d_light;
 	t_obj			*l_obj;
-	t_obj			*obj;
-	t_color			*c_hit;
-	t_limit			l;
-	double			amb;
+	t_obj			*tab_transp;
+	t_obj			*tab_transp_l;
+	void			*vide;
+	void			*vide2;
+	t_cam			*cam;
+	t_obj			obj;
+	t_vector		norm;
+	t_color			c_hit;
 	int				flag;
+	double			amb;
+	double			angle;
 	int				r;
 	int				g;
 	int				b;
-	double			angle;
-	t_timex			*chrono;
-	int 			nb_thread;
+	int				nb_obj;
+	int				nb_light;
+	double			move;
+	double			truc1;
+	double			truc2;
+	t_opencl		*cl;
 }					t_env;
 
-void				init_mlx(t_env *e);
-
 void				ft_parse(char *name_file, t_env *e);
-
-int					solve_quad(double a, double b, double c, double *t);
 
 int					keypress(int key, t_env *e);
 int					redcross(t_env *e);
 
-void				*start_ray(void *e);
-
-t_obj				*add_obj(char **line, int len, int count);
+t_obj				add_obj(char **line, int len, int count);
 
 void				add_env(char **line, t_env *e);
 
-int					inter_sphere
-(void *s, t_vector *o, t_vector *dir, double *t);
-int					inter_plane
-(void *s, t_vector *o, t_vector *dir, double *t);
-int					inter_cylinder
-(void *cylinder, t_vector *o, t_vector *dir, double *t);
-int					inter_cone
-(void *cone, t_vector *o, t_vector *dir, double *t);
-
 void				ft_error(char *error, char *in);
-void				ft_error_var(t_vector *v, char *str, int f);
+void				ft_error_var(t_vector v, char *str, int f);
 
-void				time_mode(char *str, t_env *e);
+t_color				get_color(unsigned char r, unsigned char g, unsigned char b);
 
-// t_env				*save_env(t_env *e);
-void				pthread_ray(t_env *e);
-
-void				ft_angle_sphere(void *e, t_vector *hit, t_vector *dir_l);
-void				ft_angle_plane(void *e, t_vector *np, t_vector *dir_l);
-void				ft_angle_cylinder
-(void *env, t_vector *hit, t_vector *dir_l);
-void				ft_angle_cone(void *env, t_vector *hit, t_vector *dir_l);
-
-t_color				*get_color
-(unsigned char r, unsigned char g, unsigned char b);
-void				put_pixel(int x, int y, t_env *e);
-
-void				*ft_aliasing(void *e);
-
+void				ft_launch_calc(t_env *e, t_opencl *cl);
+void				ft_init_opencl(t_env *e, t_opencl *cl, int nb_source, t_env *tab_env);
 #endif
+
+

@@ -20,16 +20,16 @@ void			ft_error(char *error, char *in)
 	exit(-1);
 }
 
-void			ft_error_var(t_vector *v, char *str, int f)
+void			ft_error_var(t_vector v, char *str, int f)
 {
 	if (f == 1)
 	{
-		if (v->x <= 0 || v->y <= 0 || v->z <= 0)
+		if (v.x <= 0 || v.y <= 0 || v.z <= 0)
 			ft_error("vector can't be NULL or negatif : ", str);
 	}
 	else
 	{
-		if (v->x < 0 || v->y < 0 || v->z < 0)
+		if (v.x < 0 || v.y < 0 || v.z < 0)
 			ft_error("vector can't be negatif : ", str);
 	}
 }

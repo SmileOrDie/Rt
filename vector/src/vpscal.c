@@ -12,7 +12,7 @@
 
 #include "../includes/vector.h"
 
-double	vpscal(t_vector *a, t_vector *b)
+double	vpscal(t_vector a, t_vector b)
 {
-	return ((a->x * b->x) + (a->y * b->y) + (a->z * b->z));
+	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }

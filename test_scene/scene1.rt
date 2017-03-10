@@ -19,10 +19,8 @@
 # Ambient declaration
 ambient 0.1
 
-thread 0
-
 # windows size declaration
-img_size 960 1080
+img_size 520 300
 
 # camera declaration
 cam 0 150 -500 0 0 0 0 -1 0 60 150

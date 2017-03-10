@@ -6,7 +6,7 @@
 #    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/04 13:11:01 by shamdani          #+#    #+#              #
-#    Updated: 2016/12/15 17:17:35 by shamdani         ###   ########.fr        #
+#    Updated: 2017/03/05 14:26:15 by magouin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,12 @@
 # after the declaration of element, if you doesn't give a value to parameter its automaticly set to 0.
 
 # Ambient declaration
-ambient 0.00000000000009
+#ambient 1
+ambient 0.00000001
 
 # windows size declaration
-img_size 2520 1300
-#img_size 520 300
+#img_size 2520 1300
+img_size 800 500
 
 # nombre de thread (auto / '0' :calcule lui meme le nombre de thread ideal)
 thread 0

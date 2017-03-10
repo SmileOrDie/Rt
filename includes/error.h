@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:24:22 by shamdani          #+#    #+#             */
-/*   Updated: 2017/01/11 19:39:06 by shamdani         ###   ########.fr       */
+/*   Updated: 2016/12/19 17:12:17 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define MALLOC "failed function malloc in :"
 # define ARG_N "argument can't be -NULL- in :"
 # define MLX "mlx failed :"
-# define THREAD_C_E "ERROR; return code from pthread_create() is"
 
 void		ft_error(char *error, char *in);
 

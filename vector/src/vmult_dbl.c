@@ -12,18 +12,10 @@
 
 #include "../includes/vector.h"
 
-t_vector	*vmult_dbl(t_vector *a, double b)
-{
-	t_vector *ret;
-
-	ret = new_v(a->x * b, a->y * b, a->z * b);
-	return (ret);
-}
-
-t_vector	vmult_dbl2(t_vector *a, double b)
+t_vector	vmult_dbl(t_vector a, double b)
 {
 	t_vector ret;
 
-	ret = new_v2(a->x * b, a->y * b, a->z * b);
+	ret = new_v(a.x * b, a.y * b, a.z * b);
 	return (ret);
 }

@@ -12,9 +12,9 @@
 
 #include "../includes/vector.h"
 
-double	vsize(t_vector *v)
+double	vsize(t_vector v)
 {
-	if (!v || (v->x == 0 && v->y == 0 && v->z == 0))
+	if (v.x == 0 && v.y == 0 && v.z == 0)
 		return (0);
 	return (sqrt(vpscal(v, v)));
 }
