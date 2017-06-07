@@ -94,12 +94,9 @@ void				*boucle(void *env)
 	t_vector	p_cam;
 	t_vector	v_ray;
 	t_env		*e;
-	// int			size;
 
 	e = (t_env *)env;
 	y = 0;
-	// size = 0;
-	// e->nb_obj_pix[e->start] = &size;
 	while (y < e->mlx->h)
 	{
 		x = e->start;
@@ -188,7 +185,6 @@ void				get_image(t_env *e)
 	while (i < e->mlx->h * e->mlx->w)
 	{
 		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag);
-		// printf("pixel = %d %d %d\n", pixel.r, pixel.g, pixel.b);
 		e->mlx->data[i * 4 + 2] = pixel.r;
 		e->mlx->data[i * 4 + 1] = pixel.g;
 		e->mlx->data[i * 4 + 0] = pixel.b;
@@ -241,7 +237,6 @@ void				*ft_launch(void *env)
 		i++;
 	}
 	size[0] = *(e->nb_obj_pix[0]) + *(e->nb_obj_pix[1]) + *(e->nb_obj_pix[2]);
-	printf("Essaye de faire malloc\n");
 	if (!(e->tab_light = (t_l_obj *)malloc(sizeof(t_l_obj) * size[0])))
 		ft_error(MALLOC, "ft_launch");
 	printf("creation tab_light\n");
@@ -256,6 +251,7 @@ void				*ft_launch(void *env)
 		printf("Get image finish\n");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
 		mlx_do_sync(e->mlx->mlx);
+		printf("affiche\n");
 	}
 	i = 0;
 	while (i < e->mlx->h * e->mlx->w)
@@ -265,14 +261,8 @@ void				*ft_launch(void *env)
 	}
 	free(e->tab_three);
 	free(e->tab_light);
-	printf("Affichage\n");
-
-	// ft_exit2(e);
 	printf("free finish\n");
-	// exit(1);
-	// mlx_loop();
 	pthread_exit(NULL);
-	// return (0);
 }
 
 void		free_l_obj(t_obj **lst, int nb)

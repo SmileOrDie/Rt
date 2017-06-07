@@ -216,6 +216,7 @@ t_color2			get_color(unsigned char r, unsigned char g, unsigned char b);
 void				creat_lst(char **line, t_env *e, int count);
 
 void				ft_launch_calc(t_env *e, t_opencl *cl);
+void				ft_creat_lst_obj(t_env *e);
 void				ft_init_opencl(t_env *e, t_opencl *cl);
 
 // void				start_cl(t_env *e, t_opencl *cl, t_env *tab_env);
