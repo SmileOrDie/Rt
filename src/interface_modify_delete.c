@@ -6,29 +6,51 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 12:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/20 13:44:46 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/07 14:19:30 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
+void			del_light(t_envg *e, int i)
+{
+	t_parse_light *b;
+
+	// b = e->parse_light;
+	while (i + 1)
+	{
+		b = b->next;
+		i--;
+	}
+}
 
 void			del_elem(t_envg *e, int i)
 {
+	// if (e->light >= 0)
+	// {
+	// 	while (i < e->e->nb_light)
+	// 	{
+	// 		e->e->light[i] = e->e->light[i + 1];
+	// 		i++;
+	// 	}
+	// 	e->e->nb_light--;
+	// 	return ;
+	// }
+	// while (i < e->e->nb_obj)
+	// {
+	// 	e->e->l_obj[i] = e->e->l_obj[i + 1];
+	// 	i++;
+	// }
+	// e->e->nb_obj--;
 	if (e->light >= 0)
 	{
-		while (i < e->e->nb_light)
-		{
-			e->e->light[i] = e->e->light[i + 1];
-			i++;
-		}
-		e->e->nb_light--;
+
 		return ;
 	}
 	while (i < e->e->nb_obj)
 	{
-		e->e->l_obj[i] = e->e->l_obj[i + 1];
-		i++;
+	// 	e->e->l_obj[i] = e->e->l_obj[i + 1];
+	// 	i++;
 	}
 	e->e->nb_obj--;
 }

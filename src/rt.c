@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 12:16:15 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/07 14:12:11 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,13 @@ void				*ft_launch(void *env)
 	size[0] = 0;
 	size[1] = 0;
 	size[2] = 0;
+	i = 0;
+	while (i < e->nb_obj)
+	{
+		printf("%d %d %d id = %d\n", e->l_obj[i].color.r, e->l_obj[i].color.g, e->l_obj[i].color.b, e->l_obj[i].id);
+		i++;
+	}
+
 	e->nb_obj_pix[0] = &(size[0]);
 	e->nb_obj_pix[1] = &(size[1]);
 	e->nb_obj_pix[2] = &(size[2]);
@@ -268,6 +275,13 @@ void				*ft_launch(void *env)
 	// return (0);
 }
 
+void		free_l_obj(t_obj **lst, int nb)
+{
+	if (nb < 1)
+		return ;
+	free(*lst);
+}
+
 void			ft_creat_lst_obj(t_env *e)
 {
 	t_parse_obj			*parse_obj_b;
@@ -276,6 +290,7 @@ void			ft_creat_lst_obj(t_env *e)
 
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
+	free_l_obj(&e->l_obj, e->nb_obj);
 	i = 0;
 	while (parse_obj_b)
 	{
@@ -283,7 +298,6 @@ void			ft_creat_lst_obj(t_env *e)
 		i++;
 	}
 	e->nb_obj = i;
-	printf("%d\n", e->nb_obj);
 	i = 0;
 	while (parse_light_b)
 	{
@@ -291,7 +305,6 @@ void			ft_creat_lst_obj(t_env *e)
 		i++;
 	}
 	e->nb_light = i;
-	printf("%d\n", e->nb_light);
 	if (!(e->l_obj = (t_obj *)malloc(sizeof(t_obj) * e->nb_obj)))
 		ft_error(MALLOC, "e->l_obj -> rt.h");
 	if (!(e->light = (t_light *)malloc(sizeof(t_light) * e->nb_light)))
@@ -325,13 +338,14 @@ void			parse_file(char *name , t_env *e)
 	int		len_name;
 
 	len_name = ft_strlen(name);
+	e->parse_light = NULL;
+	e->parse_obj = NULL;
 	if (!ft_strcmp(name + (len_name - 3), ".rt"))
 		ft_parse(name, e);
 	else if (!ft_strcmp(name + (len_name - 5), ".json"))
-	{
 		ft_parse_j(name, e);
-		ft_creat_lst_obj(e);
-	}
+
+	ft_creat_lst_obj(e);
 }
 
 int				main(int ac, char **av)

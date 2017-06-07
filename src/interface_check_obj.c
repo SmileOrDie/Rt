@@ -12,19 +12,7 @@
 
 #include "../includes/interface_rt.h"
 
-	// ft_strcpy(e->line[1], type_obj[(e->e->l_obj[obj].type - 1)]);
-	// ft_strcpy(e->line[2], e->e->l_obj[obj].name);
-	// ft_strcpy_nbr(e->line[3], e->e->l_obj[obj].pos.x);
-	// ft_strcpy_nbr(e->line[4], e->e->l_obj[obj].pos.y);
-	// ft_strcpy_nbr(e->line[5], e->e->l_obj[obj].pos.z);
-	// ft_strcpy_nbr(e->line[6], e->e->l_obj[obj].dir.x);
-	// ft_strcpy_nbr(e->line[7], e->e->l_obj[obj].dir.y);
-	// ft_strcpy_nbr(e->line[8], e->e->l_obj[obj].dir.z);
-	// ft_strcpy_nbr(e->line[9], e->e->l_obj[obj].color.r);
-	// ft_strcpy_nbr(e->line[10], e->e->l_obj[obj].color.g);
-	// ft_strcpy_nbr(e->line[11], e->e->l_obj[obj].color.b);
-
-int 		sphere_check(char **def)			
+int 		sphere_check(char **def)
 {
 	if (!def[2][0])
 		return (1);
@@ -37,7 +25,7 @@ int 		sphere_check(char **def)
 	return (-1);
 }
 
-int 		circle_check(char **def)			
+int 		circle_check(char **def)
 {
 	if (!def[2][0])
 		return (1);
@@ -54,7 +42,7 @@ int 		circle_check(char **def)
 	return (-1);
 }
 
-int 		plane_check(char **def)			
+int 		plane_check(char **def)
 {
 	if (!def[2][0])
 		return (1);
@@ -69,7 +57,7 @@ int 		plane_check(char **def)
 	return (-1);
 }
 
-int 		cyl_check(char **def)			
+int 		cyl_check(char **def)
 {
 	if (!def[2][0])
 		return (1);
@@ -84,7 +72,7 @@ int 		cyl_check(char **def)
 	return (-1);
 }
 
-int 		cone_check(char **def)			
+int 		cone_check(char **def)
 {
 	if (!def[2][0])
 		return (1);
@@ -99,7 +87,7 @@ int 		cone_check(char **def)
 	return (-1);
 }
 
-int 		light_check(char **def)			
+int 		light_check(char **def)
 {
 	if (!def[2][0])
 		return (1);

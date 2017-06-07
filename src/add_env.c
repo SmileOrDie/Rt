@@ -51,35 +51,29 @@ static void			add_cam(char **line, t_env *e)
 		(e->cam->h / 2));
 }
 
-t_light				*ft_increase_nb_light(t_light *light, int nb_light)
-{
-	t_light *new;
-	int i;
-
-	if (!(new = (t_light *)malloc(sizeof(t_light) * (nb_light + 1))))
-		ft_error(MALLOC, "add_env.c => ft_increase_nb_light(...)");
-	i = 0;
-	if (light)
-	{
-		while (i < nb_light)
-		{
-			new[i] = light[i];
-			i++;
-		}
-		free(light);
-	}
-	return (new);
-}
-
 static void			add_light(char **line, t_env *e)
 {
-	e->light = ft_increase_nb_light(e->light, e->nb_light);
-	e->light[e->nb_light].pos = new_v(ft_atof(line[4]), ft_atof(line[5]), ft_atof(line[6]));
-	e->light[e->nb_light].color = (t_color2){ft_atof(line[1]) * ft_atof(line[7]) * 255, ft_atof(line[2]) * ft_atof(line[7]) * 255, ft_atof(line[3]) * ft_atof(line[7]) * 255, 0};
-	// e->light[e->nb_light].angle = 1;
-	// printf("%s\n", line[7]);
-	e->light[e->nb_light].name = (ft_tablen(&line, 0) != 9) ? "light" : ft_strdup(line[8]);
-	e->nb_light++;
+	t_parse_light *parse_light_end;
+	t_parse_light *parse_light_b;
+
+	parse_light_b = e->parse_light;
+	while (parse_light_b && parse_light_b->next)
+		parse_light_b = parse_light_b->next;
+	if (!(parse_light_end = 
+		(t_parse_light *)malloc(sizeof(t_parse_light))))
+		ft_error(MALLOC, "creat_lst -> parce.c");
+	parse_light_end->light.pos = new_v(ft_atof(line[4]), ft_atof(line[5])
+		, ft_atof(line[6]));
+	parse_light_end->light.color = (t_color2){ft_atof(line[1]) *
+		ft_atof(line[7]) * 255, ft_atof(line[2]) * ft_atof(line[7]) * 255,
+		ft_atof(line[3]) * ft_atof(line[7]) * 255, 0};
+	parse_light_end->light.name = (ft_tablen(&line, 0) != 9) ? "light" :
+		ft_strdup(line[8]);	
+	parse_light_end->next = NULL;
+	if (e->parse_light)
+		parse_light_b->next = parse_light_end;
+	else
+		e->parse_light = parse_light_end;
 }
 
 void				add_env(char **line, t_env *e)
