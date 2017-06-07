@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 12:07:51 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:16:29 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 	if (ft_strcmp(rez, "radius") == 0 && ((y = *x) || 1))
 	{
 		if (((tmp = get_number(line, x)) || 1) && tmp != 0)
-			e->parse_obj->obj.radius = ft_clamp(
-				ft_for_atof(line, y, *x), 0, 3);
+			e->parse_obj->obj.radius = ft_clamp_min(
+				ft_for_atof(line, y, *x), 0);
 		else
 			ft_error(N_NUM, "add_obj22");
 	}

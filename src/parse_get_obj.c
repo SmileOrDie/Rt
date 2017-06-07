@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:27:58 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 13:43:08 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/07 17:13:48 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ int				get_object(char *line, int *x, t_env *e, char *name)
 	if (ft_strcmp(name, "sphere") == 0)
 		add_obj2(line, x, e, 1);
 	else if (ft_strcmp(name, "cone") == 0)
-		add_obj2(line, x, e, 3);
-	else if (ft_strcmp(name, "cylinder") == 0)
 		add_obj2(line, x, e, 4);
+	else if (ft_strcmp(name, "cylinder") == 0)
+		add_obj2(line, x, e, 3);
 	else if (ft_strcmp(name, "plane") == 0)
 		add_obj2(line, x, e, 2);
+	else if (ft_strcmp(name, "circle") == 0)
+		add_obj2(line, x, e, 5);
+	else if (ft_strcmp(name, "square") == 0)
+		add_obj2(line, x, e, 6);
 	else
 		ft_error(OBJ_I, "get_object");
 	line[*x] != '}' ? ft_error(J_SON, "get_object") : (*x)++;

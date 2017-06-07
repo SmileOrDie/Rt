@@ -22,3 +22,34 @@ double			inter_circle(t_obj p, t_vector o, t_vector dir)
 	}
 	return (-1.0);
 }
+
+double			inter_square(t_obj p, t_vector o, t_vector dir)
+{
+	double		d;
+	double		nd;
+	double		te;
+	t_vector	p_hit;
+	t_vector	u;
+	t_vector	v;
+	t_vector	cross;
+
+	d = vpscal(p.dir, vsub(p.pos, o));
+	nd = vpscal(p.dir, dir);
+	te = d / nd;
+	if (nd < 0.00001 && nd > -0.00001)
+		return (-1);
+	if (te > 0)
+	{
+		cross = (t_vector){1, 1, 1, 0};
+		p_hit = vadd(o, vmult_dbl(dir, te));
+		u = vsub(p_hit, p.pos);
+		vnorm(&cross);
+		v = vcross(cross, p.dir);
+		cross = vrot(p.dir, p.angle, cross);
+		cross = vmult_dbl(cross, p.radius / 2);
+		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
+			return (te);
+		return (0);
+	}
+	return (-1.0);
+}

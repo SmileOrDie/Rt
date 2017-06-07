@@ -55,6 +55,8 @@ double4			vsub(double4 a, double4 b);
 double4			new_v(double x, double y, double z);
 double4			vadd(double4 a, double4 b);
 double4			vhit(double4 pos, double4 dir, double dist);
+double4			vrot(double4 u, double angle, double4 point);
+double4			vcross(double4 a, double4 b);
 double4			vmult(double4 a, double4 b);
 double4			vmult_dbl(double4 a, double b);
 double4			vnorm(double4 a);
@@ -65,11 +67,15 @@ double			vsize(double4 v);
 double			solve_quad(double a, double b, double c);
 double			inter_sphere(t_obj sp, double4 o, double4 dir);
 double			inter_plane(t_obj p, double4 o, double4 dir);
+double			inter_circle(t_obj p, double4 o, double4 dir);
+double			inter_square(t_obj p, double4 o, double4 dir);
 double			inter_cylinder(t_obj cyl, double4 o, double4 dir);
 double			inter_cone(t_obj cone, double4 o, double4 dir);
 
 double4			ft_angle_sphere(t_obj s, double4 hit);
 double4			ft_angle_plane(t_obj p);
+double4			ft_angle_circle(t_obj p);
+double4			ft_angle_square(t_obj p);
 double4			ft_angle_cylinder(t_obj obj, double4 p_hit);
 double4			ft_angle_cone(t_obj obj, double4 p_hit);
 
@@ -78,4 +84,3 @@ uchar4			l_shine(uchar4	 , uchar4	 olor, double angle);
 uchar4			add_light(__global t_env_cl *e, uchar4	 ixel, double4 p_hit, t_obj obj);
 uchar4			ft_start( __global t_env_cl *e, __global t_obj *lst_obj, t_l_obj lst);
 void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double tr, int *tab_obj_light_id, double *tab_obj_light_t);
-

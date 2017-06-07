@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/18 15:36:43 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/07 14:51:35 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 double	return_dist(t_obj obj, t_vector p_ray, t_vector v_ray)
 {
-	static double (*inter[5])(t_obj, t_vector, t_vector) = {inter_sphere, inter_plane, inter_cylinder, inter_cone};
+	static double (*inter[6])(t_obj, t_vector, t_vector) = {inter_sphere, inter_plane, inter_cylinder, inter_cone, inter_circle, inter_square};
 
 	return (inter[obj.type - 1](obj, p_ray, v_ray));
 }
@@ -80,7 +80,7 @@ t_color2		add_color(t_color2 c1, t_color2 c2)
 	rez.r = c1.r + c2.r;
 	rez.g = c1.g + c2.g;
 	rez.b = c1.b + c2.b;
-	return (rez);	
+	return (rez);
 }
 
 t_color2		l_shine(t_color2 c, t_color2 color, double angle)
@@ -117,7 +117,7 @@ void		add_branch(t_three **n_branch, int id, t_vector p_hit, double coef, t_colo
 
 t_vector	return_v_norm(int type, t_obj obj, t_vector p_hit)
 {
-	static t_vector (*angle[5])(t_obj, t_vector) = {ft_angle_sphere, ft_angle_plane, ft_angle_cylinder, ft_angle_cone};
+	static t_vector (*angle[6])(t_obj, t_vector) = {ft_angle_sphere, ft_angle_plane, ft_angle_cylinder, ft_angle_cone, ft_angle_circle, ft_angle_square};
 
 	return (angle[type - 1](obj, p_hit));
 }

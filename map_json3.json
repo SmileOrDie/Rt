@@ -2,21 +2,21 @@
 	"sphere"  :
 	{
 		"name": "sphere_1",
-		"radius" :  30,
+		"radius" :  80,
 		"pos" :
 		{
-			"x" : -200,
-			"y" : 255,
-			"z" : 200
+			"x" : 0,
+			"y" : 50,
+			"z" : -150
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 0,
+		"ind_reflec" : 0.80,
 		"ind_transp" : 0,
 		"color" :
 		{
-			"r" : 155,
-			"g" : 0,
-			"b" : 0
+			"r" : 0,
+			"g" : 200,
+			"b" : 200
 		}
 	},
 	"cylinder"  :
@@ -344,17 +344,17 @@
 		"angle" :  40,
 		"pos" :
 		{
-			"x" : 0,
+			"x" : 200,
 			"y" : 100,
 			"z" : -100
 		},
-		"ind_refrac" : 1.33,
+		"ind_refrac" : 1,
 		"ind_reflec" : 0,
-		"ind_transp" : 0,
+		"ind_transp" : 1,
 		"color" :
 		{
-			"r" : 0,
-			"g" : 0,
+			"r" : 255,
+			"g" : 255,
 			"b" : 255
 		},
 		"dir" :
@@ -363,33 +363,6 @@
 			"y" : 1,
 			"z" : 0
 		},
-	},
-	"square"  :
-	{
-		"name": "square_center",
-		"radius" :  300,
-		"pos" :
-		{
-			"x" : 0,
-			"y" : 100,
-			"z" : -100
-		},
-		"ind_refrac" : 1.33,
-		"ind_reflec" : 0,
-		"ind_transp" : 0,
-		"color" :
-		{
-			"r" : 10,
-			"g" : 250,
-			"b" : 255
-		},
-		"dir" :
-		{
-			"x" : 1,
-			"y" : 0,
-			"z" : 1
-		},
-		"angle" : 0,
 	},
 	"ambient" : 0.00000001,
 	"light" :

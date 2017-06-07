@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:31:56 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 12:27:41 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/07 16:19:10 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void			parse_json2(char *line, t_env *e, int *x, char *rez)
 	else if (ft_strcmp(rez, "ambient") == 0)
 		get_ambient(line, x, e);
 	else if (ft_strcmp(rez, "sphere") == 0 || ft_strcmp(rez, "cone") == 0
-		|| ft_strcmp(rez, "cylinder") == 0 || ft_strcmp(rez, "plane") == 0)
+		|| ft_strcmp(rez, "cylinder") == 0 || ft_strcmp(rez, "plane") == 0
+		|| ft_strcmp(rez, "circle") == 0 || ft_strcmp(rez, "square") == 0)
 		get_object(line, x, e, rez);
 	else if (ft_strcmp(rez, "image size") == 0)
 		get_image_size(line, x, e);

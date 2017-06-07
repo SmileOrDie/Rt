@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 14:14:43 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/07 16:22:42 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,8 @@ void				ft_init_opencl(t_env *e, t_opencl *cl);
 
 double				inter_sphere(t_obj sp, t_vector o, t_vector dir);
 double				inter_plane(t_obj sp, t_vector o, t_vector dir);
+double				inter_circle(t_obj sp, t_vector o, t_vector dir);
+double				inter_square(t_obj sp, t_vector o, t_vector dir);
 double				inter_cylinder(t_obj sp, t_vector o, t_vector dir);
 double				inter_cone(t_obj sp, t_vector o, t_vector dir);
 
@@ -230,6 +232,8 @@ t_color2			add_color(t_color2 c1, t_color2 c2);
 t_color2			mult_color(t_color2 c, double coef);
 t_vector			ft_angle_sphere(t_obj s, t_vector v_1);
 t_vector			ft_angle_plane(t_obj p, t_vector v_1);
+t_vector			ft_angle_circle(t_obj p, t_vector v_1);
+t_vector			ft_angle_square(t_obj p, t_vector v_1);
 t_vector			ft_angle_cylinder(t_obj s, t_vector v_1);
 t_vector			ft_angle_cone(t_obj s, t_vector v_1);
 

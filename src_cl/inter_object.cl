@@ -22,6 +22,59 @@ double			solve_quad(double a, double b, double c)
 	return (-1);
 }
 
+double			inter_circle(t_obj p, double4 o, double4 dir)
+{
+	double		d;
+	double		nd;
+	double		te;
+	double4		qe;
+
+	qe = vsub(p.pos, o);
+	d = vpscal(p.dir, qe);
+	nd = vpscal(p.dir, dir);
+	te = d / nd;
+	if (nd < 0.00001 && nd > -0.00001)
+		return (-1);
+	if (te > 0)
+	{
+		if (vsize(vsub(vadd(vmult_dbl(dir, te), o), p.pos)) > p.radius)
+			return (-1);
+		return (te);
+	}
+	return (-1.0);
+}
+
+double			inter_square(t_obj p, double4 o, double4 dir)
+{
+	double		d;
+	double		nd;
+	double		te;
+	double4		p_hit;
+	double4		u;
+	double4		v;
+	double4		cross;
+
+	d = vpscal(p.dir, vsub(p.pos, o));
+	nd = vpscal(p.dir, dir);
+	te = d / nd;
+	if (nd < 0.00001 && nd > -0.00001)
+		return (-1);
+	if (te > 0)
+	{
+		cross = (double4){1, 1, 1, 0};
+		p_hit = vadd(o, vmult_dbl(dir, te));
+		u = vsub(p_hit, p.pos);
+		cross = vnorm(cross);
+		v = vcross(cross, p.dir);
+		cross = vrot(p.dir, p.angle, cross);
+		cross = vmult_dbl(cross, p.radius / 2);
+		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
+			return (te);
+		return (0);
+	}
+	return (-1.0);
+}
+
 double			inter_sphere(t_obj sp, double4 o, double4 dir)
 {
 	double4		dist_s;

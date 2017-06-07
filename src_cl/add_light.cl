@@ -52,6 +52,10 @@ t_obj		inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *
 			dist = inter_cylinder(e->l_obj[i], p_ray, v_ray);
 		else if (e->l_obj[i].type == 4)
 			dist = inter_cone(e->l_obj[i], p_ray, v_ray);
+		else if (e->l_obj[i].type == 5)
+			dist = inter_circle(e->l_obj[i], p_ray, v_ray);
+		else if (e->l_obj[i].type == 6)
+			dist = inter_square(e->l_obj[i], p_ray, v_ray);
 		else
  			printf("nouvelle obj = %d i = %d\n", e->l_obj[i].type, i);
 		if (dist != -1)
@@ -99,7 +103,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj)
 	tab_obj_light_t[0] = -1;
 
 	while (i < e->nb_light)
-	{	
+	{
 		tab_obj_light_t[0] = -1;
 		v_light = vsub(p_hit, e->light[i].pos);
 		v_light = vnorm(v_light);
@@ -120,7 +124,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj)
 
 		if (obj.type == 1)
 			v_norm = ft_angle_sphere(obj, p_hit);
-		else if (obj.type == 2)
+		else if (obj.type == 2 || obj.type == 5 || obj.type == 6)
 			v_norm = ft_angle_plane(obj);
 		else if (obj.type == 3)
 			v_norm = ft_angle_cylinder(obj, p_hit);
@@ -156,41 +160,3 @@ __kernel void	ft_start_calc(__global uchar4 *color_lst, __global t_obj *lst_obj,
 	e->l_obj = lst_obj;
 	color_lst[index] = add_light(e, (uchar4){0, 0, 0, 0}, (double4){lst[index].p_hit_x, lst[index].p_hit_y, lst[index].p_hit_z, 0}, lst_obj[lst[index].id]);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
