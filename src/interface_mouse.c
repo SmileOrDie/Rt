@@ -137,7 +137,11 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 		else if (y > 830 && y < 900 && e->volet.home == 1 && (e->e->nb_obj > 0 && e->e->cam != NULL))
 		{
 			if (e->run == 1)
+			{
+				pthread_join(e->thread, NULL);
+				e->thread = NULL;
 				ft_exit(e);
+			}
 			e->run = 1;
 			init_mlx1(e->e);
 			event_touch(e);

@@ -211,12 +211,11 @@ void				*ft_launch(void *env)
 	size[1] = 0;
 	size[2] = 0;
 	i = 0;
-	while (i < e->nb_obj)
-	{
-		printf("%d %d %d id = %d\n", e->l_obj[i].color.r, e->l_obj[i].color.g, e->l_obj[i].color.b, e->l_obj[i].id);
-		i++;
-	}
-
+	// while (i < e->nb_obj)
+	// {
+	// 	printf("%d %d %d id = %d\n", e->l_obj[i].color.r, e->l_obj[i].color.g, e->l_obj[i].color.b, e->l_obj[i].id);
+	// 	i++;
+	// }
 	e->nb_obj_pix[0] = &(size[0]);
 	e->nb_obj_pix[1] = &(size[1]);
 	e->nb_obj_pix[2] = &(size[2]);

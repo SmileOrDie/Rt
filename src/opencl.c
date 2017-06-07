@@ -107,12 +107,15 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 	init_cl_e(e, e->cl_e);
 	cl->kernel = clCreateKernel(cl->kernel_program, "ft_start_calc", &err);
 	err ? ft_error(KERNEL, ft_strjoin("clCreateKernel -> cl->kernel -> ", ft_itoa(err))) : 0;
-	printf("e->l_obj[3].color.b = %d\n", e->l_obj[3].color.b);
-	printf("%lu\n", sizeof(t_obj));
+	// printf("e->l_obj[3].color.b = %d\n", e->l_obj[3].color.b);
+	// printf("%lu\n", sizeof(t_obj));
 	cl->obj = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_obj) * e->nb_obj, e->l_obj, &err);
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->l_obj -> ", ft_itoa(err))) : 0;
-	cl->light = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_light) * e->nb_light, e->light, &err);
-	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->light -> ", ft_itoa(err))) : 0;
+	if (e->nb_light != 0)
+	{
+		cl->light = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_light) * e->nb_light, e->light, &err);
+		err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->light -> ", ft_itoa(err))) : 0;
+	}
 	cl->env = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_env_cl), e->cl_e, &err);
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e -> ", ft_itoa(err))) : 0;
 	cl->lst = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_l_obj) * *(e->nb_obj_pix[0]), e->cl_e->lst, &err);

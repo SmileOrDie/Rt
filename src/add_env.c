@@ -67,7 +67,7 @@ static void			add_light(char **line, t_env *e)
 	parse_light_end->light.color = (t_color2){ft_atof(line[1]) *
 		ft_atof(line[7]) * 255, ft_atof(line[2]) * ft_atof(line[7]) * 255,
 		ft_atof(line[3]) * ft_atof(line[7]) * 255, 0};
-	parse_light_end->light.name = (ft_tablen(&line, 0) != 9) ? "light" :
+	parse_light_end->light.name = (ft_tablen(&line, 0) != 9) ? ft_strdup("light") :
 		ft_strdup(line[8]);	
 	parse_light_end->next = NULL;
 	if (e->parse_light)
