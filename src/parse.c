@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 12:07:49 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/07 13:44:08 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_obj			*ft_increase_nb_obj(t_obj *obj, int nb_obj)
 {
-	t_obj *new;
-	int i;
+	t_obj	*new;
+	int		i;
 
 	new = (t_obj *)malloc(sizeof(t_obj) * (nb_obj + 1));
 	if (S_MALLOC)
@@ -33,7 +33,7 @@ t_obj			*ft_increase_nb_obj(t_obj *obj, int nb_obj)
 	return (new);
 }
 
-void		creat_lst(char **line, t_env *e, int count)
+void			creat_lst(char **line, t_env *e, int count)
 {
 	int len;
 
