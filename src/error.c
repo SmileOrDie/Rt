@@ -6,11 +6,11 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 16:42:12 by shamdani          #+#    #+#             */
-/*   Updated: 2017/01/09 19:08:26 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/04/18 13:03:42 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "../includes/rt.h"
 
 void			ft_error(char *error, char *in)
 {

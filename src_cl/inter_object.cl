@@ -13,14 +13,12 @@ double			solve_quad(double a, double b, double c)
 		q = -0.5 * (b + sqrt_delta);
 		x0 = q / a;
 		x1 = (q + sqrt_delta) / a;
-		if (x0 >= 0.1 && (x1 <= 0.1 || x1 >= x0))
+		if (x0 > 0.00001 && (x1 < 0.00001 || x1 >= x0))
 			return (x0);
-		if (x1 >= 0.1)
+		if (x1 > 0.00001)
 			return (x1);
 		return (-1);
 	}
-	else if (delta == 0)
-		return (0);
 	return (-1);
 }
 
@@ -36,14 +34,14 @@ double			inter_sphere(t_obj sp, double4 o, double4 dir)
 	dist_s = vsub(sp.pos, o);
 	b = vpscal(dir, dist_s);
 	d = b * b - vpscal(dist_s, dist_s) + sp.radius * sp.radius;
-	if (d < 0.01)
+	if (d <= 0.00001)
 		return (-1);
 	a = sqrt(d);
 	t0 = b - a;
 	t1 = b + a;
-	if (t0 > 0)
+	if (t0 > 0.00001 && (t1 < 0.00001 || t1 >= t0))
 		return (t0);
-	else if (t1 > 0)
+	else if (t1 > 0.00001)
 		return (t1);
 	return (-1.0);
 }
@@ -55,10 +53,12 @@ double			inter_plane(t_obj p, double4 o, double4 dir)
 	double		te;
 	double4		qe;
 
-	qe = vsub(p.point, o);
+	qe = vsub(p.pos, o);
 	d = vpscal(p.dir, qe);
 	nd = vpscal(p.dir, dir);
 	te = d / nd;
+	if (nd < 0.00001 && nd > -0.00001)
+		return (-1);
 	if (te > 0)
 		return (te);
 	return (-1.0);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldesprog <ldesprog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/03/09 17:51:46 by ldesprog         ###   ########.fr       */
+/*   Updated: 2017/06/07 12:07:49 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "../includes/rt.h"
 
 t_obj			*ft_increase_nb_obj(t_obj *obj, int nb_obj)
 {
@@ -33,7 +33,7 @@ t_obj			*ft_increase_nb_obj(t_obj *obj, int nb_obj)
 	return (new);
 }
 
-static void		creat_lst(char **line, t_env *e, int count)
+void		creat_lst(char **line, t_env *e, int count)
 {
 	int len;
 

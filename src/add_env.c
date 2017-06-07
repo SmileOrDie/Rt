@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   add_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldesprog <ldesprog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:21:56 by shamdani          #+#    #+#             */
-/*   Updated: 2017/03/10 18:19:39 by ldesprog         ###   ########.fr       */
+/*   Updated: 2017/04/28 14:41:48 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "../includes/rt.h"
 
-t_color			get_color(unsigned char r, unsigned char g, unsigned char b)
+t_color2			get_color(unsigned char r, unsigned char g, unsigned char b)
 {
-	t_color		color;
+	t_color2		color;
 
 	color.r = r;
 	color.g = g;
@@ -56,9 +56,8 @@ t_light				*ft_increase_nb_light(t_light *light, int nb_light)
 	t_light *new;
 	int i;
 
-	new = (t_light *)malloc(sizeof(t_light) * (nb_light + 1));
-	if (S_MALLOC)
-		printf("%s\n", STR_MALLOC);
+	if (!(new = (t_light *)malloc(sizeof(t_light) * (nb_light + 1))))
+		ft_error(MALLOC, "add_env.c => ft_increase_nb_light(...)");
 	i = 0;
 	if (light)
 	{
@@ -76,9 +75,10 @@ static void			add_light(char **line, t_env *e)
 {
 	e->light = ft_increase_nb_light(e->light, e->nb_light);
 	e->light[e->nb_light].pos = new_v(ft_atof(line[4]), ft_atof(line[5]), ft_atof(line[6]));
-	e->light[e->nb_light].color = new_v(ft_atof(line[1]) * ft_atof(line[7]), ft_atof(line[2])
-	* ft_atof(line[7]), ft_atof(line[3]) * ft_atof(line[7]));
+	e->light[e->nb_light].color = (t_color2){ft_atof(line[1]) * ft_atof(line[7]) * 255, ft_atof(line[2]) * ft_atof(line[7]) * 255, ft_atof(line[3]) * ft_atof(line[7]) * 255, 0};
 	// e->light[e->nb_light].angle = 1;
+	// printf("%s\n", line[7]);
+	e->light[e->nb_light].name = (ft_tablen(&line, 0) != 9) ? "light" : ft_strdup(line[8]);
 	e->nb_light++;
 }
 

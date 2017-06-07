@@ -3,63 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   event_key.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldesprog <ldesprog@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/03/09 18:46:05 by ldesprog         ###   ########.fr       */
+/*   Updated: 2017/04/19 16:57:46 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rtv1.h"
+#include "../includes/interface_rt.h"
 
-void	ft_exit(t_env *e)
-{
-	clReleaseKernel(e->cl->kernel);
-	clReleaseProgram(e->cl->kernel_program);
-	clReleaseCommandQueue(e->cl->command_queue);
-	clReleaseMemObject(e->cl->data);
-	clReleaseMemObject(e->cl->obj);
-	clReleaseMemObject(e->cl->light);
-	clReleaseMemObject(e->cl->env);
-	clReleaseMemObject(e->cl->mlx);
-	clReleaseMemObject(e->cl->cam);
-	clReleaseContext(e->cl->context);
-	exit(0);
-}
 
-int		keypress(int key, t_env *e)
+int		keypress(int key, t_envg *e)
 {
 	(void)e;
 	// printf("%i\n", key);
 	if (key == ESC)
+	{
+		// ft_exit3(e->e);
 		ft_exit(e);
+	}
 	else if (key == 123)
 	{
-		e->cam->eye.x += 10;
-		e->cam->l_at.x += 10;
-		e->move = 1;
-		ft_launch_calc(e, e->cl);
+		e->e->cam->eye.x += 10;
+		e->e->cam->l_at.x += 10;
+	// 	e->e->move = 1;
+	// 	ft_launch_calc(e->e, e->e->cl);
 	}
 	else if (key == 124)
 	{
-		e->cam->eye.x -= 10;
-		e->cam->l_at.x -= 10;
-		e->move = 1;
-		ft_launch_calc(e, e->cl);
+		e->e->cam->eye.x -= 10;
+		e->e->cam->l_at.x -= 10;
+	// 	e->e->move = 1;
+	// 	ft_launch_calc(e->e, e->e->cl);
 	}
 	else if (key == 125)
 	{
-		e->cam->eye.y += 10;
-		e->cam->l_at.y += 10;
-		e->move = 1;
-		ft_launch_calc(e, e->cl);
+		e->e->cam->eye.y += 10;
+		e->e->cam->l_at.y += 10;
+	// 	e->e->move = 1;
+	// 	ft_launch_calc(e->e, e->e->cl);
 	}
 	else if (key == 126)
 	{
-		e->cam->eye.y -= 10;
-		e->cam->l_at.y -= 10;
-		e->move = 1;
-		ft_launch_calc(e, e->cl);
+		e->e->cam->eye.y -= 10;
+		e->e->cam->l_at.y -= 10;
+	// 	e->e->move = 1;
+	// 	ft_launch_calc(e->e, e->e->cl);
 	}
 	return (1);
 }
@@ -67,6 +56,7 @@ int		keypress(int key, t_env *e)
 int		redcross(t_env *e)
 {
 	(void)e;
-	ft_exit(e);
+	// ft_exit3(e);
+	exit(1);
 	return (1);
 }

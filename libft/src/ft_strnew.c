@@ -18,7 +18,7 @@ char	*ft_strnew(size_t size)
 	int		n;
 
 	n = (int)size;
-	str = malloc(size);
+	str = malloc(size + 1);
 	if (str == NULL)
 		return (NULL);
 	while (n < (int)size - 1)
@@ -26,5 +26,6 @@ char	*ft_strnew(size_t size)
 		str[n] = '\0';
 		n++;
 	}
+	str[size] = '\0';
 	return (str);
 }

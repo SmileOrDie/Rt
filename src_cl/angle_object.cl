@@ -1,32 +1,24 @@
-void			ft_angle_sphere(t_obj s, double4 hit, double4 dir_l, t_light light, __global t_env *e)
+double4		ft_angle_sphere(t_obj s, double4 hit)
 {
-	double4	pho;
-	double		tmp;
+	double4		pho;
 
 	pho = vsub(hit, s.pos);
 	pho = vnorm(pho);
-	e->norm = pho;
-	tmp = vpscal(pho, dir_l);
-	e->angle = (tmp < 0) ? 0 : tmp;
+	return (pho);
 }
 
-void			ft_angle_plane(t_obj p, double4 dir_l, t_light light, __global t_env *e)
+double4		ft_angle_plane(t_obj p)
 {
-	double		tmp;
-
-	e->norm = p.dir;
-	tmp = vpscal(p.dir, dir_l);
-	e->angle = (tmp < 0) ? tmp * -1 : tmp;
+	return (p.dir);
 }
 
-void			ft_angle_cylinder(t_obj obj, double4 p_hit, double4 l_vector, t_light light, __global t_env *e)
+double4		ft_angle_cylinder(t_obj obj, double4 p_hit)
 {
 	double4	b;
 	double4	c;
 	double		n;
 	double		n2;
 	float		dist;
-	double		tmp;
 
 	b = vsub(p_hit, obj.pos);
 	n = vpscal(b, b);
@@ -45,19 +37,16 @@ void			ft_angle_cylinder(t_obj obj, double4 p_hit, double4 l_vector, t_light lig
 		b.y = -(obj.dir.y * dist) + obj.pos.y;
 		b.z = -(obj.dir.z * dist) + obj.pos.z;
 	}
-	e->norm = vsub(p_hit, b);
-	e->norm = vnorm(e->norm);
-	tmp = vpscal(e->norm, l_vector);
-	e->angle = (tmp < 0) ? tmp * -1 : tmp;
+	return (vnorm(vsub(p_hit, b)));
 }
 
-void			ft_angle_cone(t_obj obj, double4 p_hit, double4 l_vector, t_light light, __global t_env *e)
+double4		ft_angle_cone(t_obj obj, double4 p_hit)
 {
 	double		hypo;
 	double		opp;
 	double		adj;
-	double4	b;
-	double4	c;
+	double4		b;
+	double4		c;
 	double		alpha;
 	double		dist;
 
@@ -77,7 +66,5 @@ void			ft_angle_cone(t_obj obj, double4 p_hit, double4 l_vector, t_light light, 
 		c.y = obj.dir.y * -adj + obj.pos.y;
 		c.z = obj.dir.z * -adj + obj.pos.z;
 	}
-	e->norm = vsub(p_hit, c);
-	e->norm = vnorm(e->norm);
-	e->angle = ft_clamp_min(vpscal(e->norm, l_vector), 0);
+	return (vnorm(vsub(p_hit, c)));
 }

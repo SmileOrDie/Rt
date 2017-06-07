@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#             */
-/*   Updated: 2016/12/15 19:53:41 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/05 17:21:56 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,31 @@
 
 char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	size_t	c;
 	int		d;
+	int		f;
 
-	c = 0;
 	d = 0;
-	while (src[d] != '\0' && c < n)
+	f = 0;
+	while (src[d] != '\0' && (size_t)d < n)
 	{
-		dest[d] = src[d];
-		d++;
-		c++;
+		if (src[d] == '\\')
+			d++;
+		else
+		{
+			dest[f] = src[d];
+			d++;
+			f++;
+		}
 	}
 	if (src[d] == '\0')
 	{
-		while (c < n)
+		while ((size_t)d < n)
 		{
-			dest[d] = '\0';
+			dest[f] = '\0';
 			d++;
-			c++;
+			f++;
 		}
 	}
+	dest[n] = '\0';
 	return (dest);
 }

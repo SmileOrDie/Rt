@@ -23,6 +23,16 @@ double		ft_clamp(double a, double b, double c)
 	return (r);
 }
 
+double4 vcross_prod(double4 a, double4 b)
+{
+	double4 new;
+
+	new.x = a.y * b.z - a.z * b.y;
+	new.y = a.z * b.x - a.x * b.z;
+	new.z = a.x * b.y - a.y * b.x;
+	return (new);
+}
+
 double4	new_v(double x, double y, double z)
 {
 	double4 new;
