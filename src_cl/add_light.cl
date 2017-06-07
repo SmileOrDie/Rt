@@ -17,7 +17,6 @@ void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double tr, int *tab
 
 	x = 0;
 	y = 0;
-	// id != 1 ? printf("id = %d tr = %f\n", id, tr) : 0;
 	while (x < e->nb_obj && tab_obj_light_t[x] != -1 && tab_obj_light_t[x] <= tr)
 		x++;
 	while (y < e->nb_obj && tab_obj_light_t[y] != -1)
@@ -41,9 +40,6 @@ t_obj		inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *
 	i = 0;
 	while (i < e->nb_obj)
 	{
- 		// printf("des baiser\n");
-		// printf("test\n");
-		// printf("e->l_obj[i].id = %d\n", e->l_obj[i].id);
 		if (e->l_obj[i].type == 1)
 			dist = inter_sphere(e->l_obj[i], p_ray, v_ray);
 		else if (e->l_obj[i].type == 2)
@@ -53,13 +49,13 @@ t_obj		inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *
 		else if (e->l_obj[i].type == 4)
 			dist = inter_cone(e->l_obj[i], p_ray, v_ray);
 		else
- 			printf("nouvelle obj = %d i = %d\n", e->l_obj[i].type, i);
+ 			printf("nouvel obj = %d i = %d\n", e->l_obj[i].type, i);
 		if (dist != -1)
 			ft_create_tab_obj_light(e, i, dist, tab_obj_light_id, tab_obj_light_t);
-		else
-		{
+		// else
+		// {
 			// printf("id = %d, px = %f et vf = %f\n", e->l_obj[i].id, p_ray.x, v_ray.x);
-		}
+		// }
 		i++;
 	}
 }
@@ -97,9 +93,8 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj)
 
 	i = 0;
 	tab_obj_light_t[0] = -1;
-
 	while (i < e->nb_light)
-	{	
+	{
 		tab_obj_light_t[0] = -1;
 		v_light = vsub(p_hit, e->light[i].pos);
 		v_light = vnorm(v_light);
@@ -149,48 +144,8 @@ __kernel void	ft_start_calc(__global uchar4 *color_lst, __global t_obj *lst_obj,
 	uchar4 pixel;
 	t_obj obj;
 
-
-
 	index = get_global_id(0);
 	e->light = light;
 	e->l_obj = lst_obj;
 	color_lst[index] = add_light(e, (uchar4){0, 0, 0, 0}, (double4){lst[index].p_hit_x, lst[index].p_hit_y, lst[index].p_hit_z, 0}, lst_obj[lst[index].id]);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

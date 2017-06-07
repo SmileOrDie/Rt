@@ -11,23 +11,12 @@
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
-// typedef struct		s_light
-// {
-// 	t_vector		pos;
-// 	t_color2		color;
-// 	double			vide;
-// 	double			vide2;
-// 	char 			*name;
-// }					t_light;
+
 void			del_light(t_envg *e, int i)
 {
 	t_parse_light *b;
 	t_parse_light *f_l;
 
-	// t_light a = {{0, 0, 0, 0}, {255, 255, 255, 0}, 0, 0, NULL};
-	// t_light c = {{0, 0, 0, 0}, {255, 255, 255, 0}, 0, 0, NULL};
-
-	// c == a ? printf("ca marche\n") : 0;
 	b = e->e->parse_light;
 	if (i > 0)
 	{
@@ -51,7 +40,6 @@ void			del_light(t_envg *e, int i)
 		free(b->light.name);
 		free(b);
 	}
-	ft_creat_lst_obj(e->e);
 }
 
 void			init_id(t_env *e)
@@ -102,7 +90,6 @@ void			del_obj(t_envg *e, int i)
 		b = NULL;
 	}
 	init_id(e->e);
-	ft_creat_lst_obj(e->e);
 }
 void			del_elem(t_envg *e, int i)
 {
@@ -110,6 +97,7 @@ void			del_elem(t_envg *e, int i)
 		del_light(e, i);
 	else
 		del_obj(e, i);	
+	ft_creat_lst_obj(e->e);
 }
 
 static	void	ft_strcpy_nbr(char *dest, double d)
@@ -161,6 +149,7 @@ void		modif_list(t_envg *e, int obj)
 	type_obj[2] = "cylinder";
 	type_obj[3] = "cone";
 	type_obj[4] = "circle";
+
 	load_img(e, 3);
 	e->f_key = 0;
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};
@@ -188,7 +177,6 @@ void		modif_list(t_envg *e, int obj)
 
 void		modif_default(t_envg *e)
 {
-	// cam 0 150 -500 0 0 0 0 -1 0 60 150
 	if (!e->e->cam)
 	{
 	 	ft_strcpy_nbr(e->line[19], 0);

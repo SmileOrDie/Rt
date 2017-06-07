@@ -12,17 +12,6 @@
 
 #include "../includes/interface_rt.h"
 
-static char			*ft_strjoin_2(char *str1, char *str2)
-{
-	char *ret;
-	char *tmp;
-
-	tmp = ft_strjoin(str1, " ");
-	ret = ft_strjoin(tmp, str2);
-	free(tmp);
-	return (ret);
-}
-
 static void			reset_line(char **line)
 {
 	int i;
@@ -37,85 +26,94 @@ static void			reset_line(char **line)
 	}
 }
 
-static char 		*creat_elem3(t_envg *e, char *line)
+t_light				new_light(t_envg *e)
 {
-	char *line_t;
+	t_light l;
 
-	if ((ft_strcmp("sphere", e->line[1]) == 0) || (ft_strcmp("cylinder", e->line[1]) == 0) || (ft_strcmp("circle", e->line[1]) == 0))
-		line_t = ft_strjoin_2(line, e->line[12]);
-	else if (ft_strcmp(e->line[1], "light") == 0)
-		line_t = (ft_strcmp(e->line[12], ".") == 0) ? ft_strjoin_2(line, "1") : ft_strjoin_2(line, e->line[12]);
-	else if (ft_strcmp(e->line[1], "cone") == 0)
-		line_t = ft_strjoin_2(line, e->line[13]);
-	else
-		return (line);
-	free(line);
-	return(line_t);
+	l.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]), ft_atof(e->line[5]));
+	l.color = (t_color2){ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
+	l.name = ft_strdup(e->line[1]);
+	return(l);	
 }
 
-static char 		*creat_elem2(t_envg *e, char *line)
+t_obj				new_obj(t_envg *e)
 {
-	char *line_t;
+	t_obj obj;
 
-	if (!ft_strcmp("sphere", e->line[1]))
-		return(line);
-	if (!ft_strcmp("light", e->line[1]))
+	(!ft_strcmp(e->line[1], "sphere")) ? obj.type = 1 : 0;
+	(!ft_strcmp(e->line[1], "plane")) ? obj.type = 2 : 0;
+	(!ft_strcmp(e->line[1], "cylinder")) ? obj.type = 3 : 0;
+	(!ft_strcmp(e->line[1], "cone")) ? obj.type = 4 : 0;
+	(!ft_strcmp(e->line[1], "circle")) ? obj.type = 5 : 0;
+	(!ft_strcmp(e->line[1], "square")) ? obj.type = 6 : 0;
+	(!ft_strcmp(e->line[1], "cube")) ? obj.type = 7 : 0;
+	(!ft_strcmp(e->line[1], "cone_l")) ? obj.type = 8 : 0;
+	(!ft_strcmp(e->line[1], "cylinder_l")) ? obj.type = 9 : 0;
+	obj.id = e->e->nb_obj;
+	obj.radius = ft_atof(e->line[12]);;
+	obj.ind_refrac = ft_atof(e->line[14]);
+	obj.ind_reflec = ft_atof(e->line[15]);
+	obj.angle = ft_atof(e->line[12]);
+	obj.name = ft_strdup(e->line[2]);
+	obj.ind_transp = ft_atof(e->line[13]);
+	obj.color = (t_color2){ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
+	obj.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]), ft_atof(e->line[5]));
+	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]), ft_atof(e->line[8]));
+	e->e->nb_obj++;
+	return(obj);	
+}
+
+static void			creat_light(t_envg *e)
+{	
+	t_parse_light *b;
+	t_parse_light *new;
+
+	if (!(new = (t_parse_light *)malloc(sizeof(t_parse_light))))
+		ft_error(MALLOC, "new_l -> inteface_create_obj.h");
+	new->light = new_light(e);
+	new->next = NULL; 
+	b = e->e->parse_light;
+	if (b)
 	{
-		line_t = ft_strjoin_2(line, "1");
-		free(line);
-		return (line_t);
+		while (b->next)
+			b = b->next;
+		b->next = new;
 	}
-	line_t = ft_strjoin_2(line, e->line[6]);
-	free(line);
-	line = ft_strjoin_2(line_t, e->line[7]);
-	free(line_t);
-	line_t = ft_strjoin_2(line, e->line[8]);
-	free(line);
-	return (line_t);
+	else 
+		b = new;
 }
 
-void				add_obj_compo(t_envg *e, char **line)
+static void			creat_obj(t_envg *e)
 {
-	char *s_tmp;
-	char *s_tmp2;
+	t_parse_obj *b;
+	t_parse_obj *new;
 
-	s_tmp = ft_strjoin_2(*line, e->line[13]);
-	free(*line);
-	s_tmp2 = ft_strjoin_2(s_tmp, e->line[14]);
-	free(s_tmp);
-	*line = ft_strjoin_2(s_tmp2, e->line[15]);
+	if (!(new = (t_parse_obj *)malloc(sizeof(t_parse_obj))))
+		ft_error(MALLOC, "e->l_obj -> rt.h");
+	new->obj = new_obj(e);
+	new->next = NULL;
+	b = e->e->parse_obj;
+	if (b)
+	{
+		while (b->next)
+			b = b->next;
+		b->next = new;
+	}
+	else 
+		b = new;
 }
 
 void				creat_elem(t_envg *e)
 {
-	char *line;
-	char *line_t;
-
 	if ((e->error = check_var_obj(e->line)) != -1)
 		return ;
-	line = ft_strjoin_2(e->line[1], e->line[9]);
-	line_t = ft_strjoin_2(line, e->line[10]);
-	free(line);
-	line = ft_strjoin_2(line_t, e->line[11]);
-	free(line_t);
-	line_t = ft_strjoin_2(line, e->line[3]);
-	free(line);
-	line = ft_strjoin_2(line_t, e->line[4]);
-	free(line_t);
-	line_t = ft_strjoin_2(line, e->line[5]);
-	free(line);
-	line = creat_elem2(e, line_t);
-	line_t = creat_elem3(e, line);
-	if (ft_strcmp("light", e->line[1]))
-		add_obj_compo(e, &line_t);
-	line = ft_strjoin_2(line_t, e->line[2]);
-	printf("%s\n", line);
-	creat_lst(ft_strsplit(line, ' '), e->e, -1);
-	free(line);
-	free(line_t);
-	reset_line(e->line);
+	if (!ft_strcmp("light", e->line[1]))
+		creat_light(e);
+	else
+		creat_obj(e);
+	ft_creat_lst_obj(e->e);
+	reset_line(e->line);	
 }
-// cam 0 150 -500 0 0 0 0 -1 0 60 150
 
 t_vector		creat_cam_2(t_envg *e, int i)
 {

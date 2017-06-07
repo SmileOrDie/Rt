@@ -15,48 +15,46 @@
 
 int		keypress(int key, t_envg *e)
 {
-	(void)e;
-	// printf("%i\n", key);
+	pthread_join(e->thread, NULL);
 	if (key == ESC)
 	{
 		// ft_exit3(e->e);
 		ft_exit(e);
 	}
-	else if (key == 123)
+	if (key == 123)
 	{
 		e->e->cam->eye.x += 10;
-		e->e->cam->l_at.x += 10;
-	// 	e->e->move = 1;
-	// 	ft_launch_calc(e->e, e->e->cl);
+		// pthread_create(&thread, NULL, ft_launch, e->e);
+		// e->e->cam->l_at.x += 10;
 	}
 	else if (key == 124)
 	{
 		e->e->cam->eye.x -= 10;
-		e->e->cam->l_at.x -= 10;
-	// 	e->e->move = 1;
-	// 	ft_launch_calc(e->e, e->e->cl);
+		// pthread_create(&thread, NULL, ft_launch, e->e);
+		// e->e->cam->l_at.x -= 10;
 	}
 	else if (key == 125)
 	{
 		e->e->cam->eye.y += 10;
-		e->e->cam->l_at.y += 10;
-	// 	e->e->move = 1;
-	// 	ft_launch_calc(e->e, e->e->cl);
+		// pthread_create(&thread, NULL, ft_launch, e->e);
+		// e->e->cam->l_at.y += 10;
 	}
 	else if (key == 126)
 	{
 		e->e->cam->eye.y -= 10;
-		e->e->cam->l_at.y -= 10;
-	// 	e->e->move = 1;
-	// 	ft_launch_calc(e->e, e->e->cl);
+		// e->e->cam->l_at.y -= 10;
+			// pthread_create(&e->thread, NULL, ft_launch, e->e);
+			// pthread_join(e->thread, NULL);
 	}
+	else
+		return (1);
+	pthread_create(&e->thread, NULL, ft_launch, e->e);
 	return (1);
 }
 
 int		redcross(t_env *e)
 {
 	(void)e;
-	// ft_exit3(e);
 	exit(1);
 	return (1);
 }
