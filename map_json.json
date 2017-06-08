@@ -364,10 +364,10 @@
 			"z" : 0
 		},
 	},
-	"square"  :
+	"sphere"  :
 	{
-		"name": "square_center",
-		"radius" :  300,
+		"name": "sphere_center",
+		"radius" :  30,
 		"pos" :
 		{
 			"x" : 0,
@@ -379,8 +379,8 @@
 		"ind_transp" : 0,
 		"color" :
 		{
-			"r" : 10,
-			"g" : 250,
+			"r" : 0,
+			"g" : 0,
 			"b" : 255
 		},
 		"dir" :
