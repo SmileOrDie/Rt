@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 15:55:01 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/09 16:45:36 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:39:42 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void    static apply_blur_to_t(int *rgb, int i, int *tab)
           + tab[i + 30] * 1 + tab[i + 34] * 4 + tab[i + 38] * 6
           + tab[i + 42] * 4 + tab[i + 46] * 1;
 }
-void    filter_blur(t_env *e, int x, int y)/////////////////////a passe en matrice 5/5 https://en.wikipedia.org/wiki/Kernel_(image_processing)
+void    filter_blur(t_env *e, int x, int y)////a passe en matrice 5/5 https://en.wikipedia.org/wiki/Kernel_(image_processing)
 {
     int     *tab = NULL;
     int     rgb[5];

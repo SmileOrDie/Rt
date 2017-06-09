@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/09 15:34:40 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:39:11 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,6 @@ static void		init_mlx1(t_envg *e)
 			e->filter.green == 1 ? e->e->filter_t = &filter_green : 0;
 			e->filter.red == 1 ? e->e->filter_t = &filter_red : 0;
 			e->filter.cartoon == 1 ? e->e->filter_t = &filter_cartoon : 0;
-			printf("a\n");
-			// e->e->flag = 3;
-			// e->filt[e->e->flag] (e->e, 0, 0);
 }
 
 static void		event_touch(t_envg *e)
