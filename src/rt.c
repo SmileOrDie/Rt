@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 12:16:15 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/09 11:36:38 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,9 @@ void				*boucle(void *env)
 	t_vector	p_cam;
 	t_vector	v_ray;
 	t_env		*e;
-	// int			size;
 
 	e = (t_env *)env;
 	y = 0;
-	// size = 0;
-	// e->nb_obj_pix[e->start] = &size;
 	while (y < e->mlx->h)
 	{
 		x = e->start;
@@ -188,7 +185,6 @@ void				get_image(t_env *e)
 	while (i < e->mlx->h * e->mlx->w)
 	{
 		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag);
-		// printf("pixel = %d %d %d\n", pixel.r, pixel.g, pixel.b);
 		e->mlx->data[i * 4 + 2] = pixel.r;
 		e->mlx->data[i * 4 + 1] = pixel.g;
 		e->mlx->data[i * 4 + 0] = pixel.b;
@@ -214,6 +210,12 @@ void				*ft_launch(void *env)
 	size[0] = 0;
 	size[1] = 0;
 	size[2] = 0;
+	i = 0;
+	// while (i < e->nb_obj)
+	// {
+	// 	printf("%d %d %d id = %d\n", e->l_obj[i].color.r, e->l_obj[i].color.g, e->l_obj[i].color.b, e->l_obj[i].id);
+	// 	i++;
+	// }
 	e->nb_obj_pix[0] = &(size[0]);
 	e->nb_obj_pix[1] = &(size[1]);
 	e->nb_obj_pix[2] = &(size[2]);
@@ -234,7 +236,6 @@ void				*ft_launch(void *env)
 		i++;
 	}
 	size[0] = *(e->nb_obj_pix[0]) + *(e->nb_obj_pix[1]) + *(e->nb_obj_pix[2]);
-	printf("Essaye de faire malloc\n");
 	if (!(e->tab_light = (t_l_obj *)malloc(sizeof(t_l_obj) * size[0])))
 		ft_error(MALLOC, "ft_launch");
 	printf("creation tab_light\n");
@@ -247,8 +248,12 @@ void				*ft_launch(void *env)
 		printf("apply add_light\n");
 		get_image(e);
 		printf("Get image finish\n");
+
+		if (e->flag > 0)//////////////////////////////////filter
+			choice_filter(e);
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
 		mlx_do_sync(e->mlx->mlx);
+		printf("affiche\n");
 	}
 	i = 0;
 	while (i < e->mlx->h * e->mlx->w)
@@ -258,14 +263,15 @@ void				*ft_launch(void *env)
 	}
 	free(e->tab_three);
 	free(e->tab_light);
-	printf("Affichage\n");
-
-	// ft_exit2(e);
 	printf("free finish\n");
-	// exit(1);
-	// mlx_loop();
 	pthread_exit(NULL);
-	// return (0);
+}
+
+void		free_l_obj(t_obj **lst, int nb)
+{
+	if (nb < 1)
+		return ;
+	free(*lst);
 }
 
 void			ft_creat_lst_obj(t_env *e)
@@ -276,6 +282,7 @@ void			ft_creat_lst_obj(t_env *e)
 
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
+	free_l_obj(&e->l_obj, e->nb_obj);
 	i = 0;
 	while (parse_obj_b)
 	{
@@ -283,7 +290,6 @@ void			ft_creat_lst_obj(t_env *e)
 		i++;
 	}
 	e->nb_obj = i;
-	printf("%d\n", e->nb_obj);
 	i = 0;
 	while (parse_light_b)
 	{
@@ -291,7 +297,6 @@ void			ft_creat_lst_obj(t_env *e)
 		i++;
 	}
 	e->nb_light = i;
-	printf("%d\n", e->nb_light);
 	if (!(e->l_obj = (t_obj *)malloc(sizeof(t_obj) * e->nb_obj)))
 		ft_error(MALLOC, "e->l_obj -> rt.h");
 	if (!(e->light = (t_light *)malloc(sizeof(t_light) * e->nb_light)))
@@ -325,13 +330,14 @@ void			parse_file(char *name , t_env *e)
 	int		len_name;
 
 	len_name = ft_strlen(name);
+	e->parse_light = NULL;
+	e->parse_obj = NULL;
 	if (!ft_strcmp(name + (len_name - 3), ".rt"))
 		ft_parse(name, e);
 	else if (!ft_strcmp(name + (len_name - 5), ".json"))
-	{
 		ft_parse_j(name, e);
-		ft_creat_lst_obj(e);
-	}
+
+	ft_creat_lst_obj(e);
 }
 
 int				main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 12:13:33 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/09 11:27:10 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,25 +177,25 @@ typedef struct			s_parse_obj
 
 typedef struct			s_env
 {
-	t_mlx				*mlx;
-	t_light				*light;
-	t_obj				*l_obj;
+	t_mlx						*mlx;
+	t_light					*light;
+	t_obj						*l_obj;
 	t_parse_obj			*parse_obj;
 	t_parse_light		*parse_light;
-	t_cam				*cam;
-	double				amb;
-	double				angle;
-	int					start;
-	t_l_obj				*tab_light;
-	int					nb_obj;
-	int					nb_light;
-	double				default_indice;
-	double				actual_indice;
-	long int			*nb_obj_pix[3];
-	t_three				**tab_three;
-	int					flag;
-	t_env_cl			*cl_e;
-}						t_env;
+	t_cam						*cam;
+	double					amb;
+	double					angle;
+	int							start;
+	t_l_obj					*tab_light;
+	int							nb_obj;
+	int							nb_light;
+	double					default_indice;
+	double					actual_indice;
+	long int				*nb_obj_pix[3];
+	t_three					**tab_three;
+	int							flag;
+	t_env_cl				*cl_e;
+}									t_env;
 
 void				*ft_launch(void *env);
 
@@ -216,12 +216,15 @@ t_color2			get_color(unsigned char r, unsigned char g, unsigned char b);
 void				creat_lst(char **line, t_env *e, int count);
 
 void				ft_launch_calc(t_env *e, t_opencl *cl);
+void				ft_creat_lst_obj(t_env *e);
 void				ft_init_opencl(t_env *e, t_opencl *cl);
 
 // void				start_cl(t_env *e, t_opencl *cl, t_env *tab_env);
 
 double				inter_sphere(t_obj sp, t_vector o, t_vector dir);
 double				inter_plane(t_obj sp, t_vector o, t_vector dir);
+double				inter_circle(t_obj sp, t_vector o, t_vector dir);
+double				inter_square(t_obj sp, t_vector o, t_vector dir);
 double				inter_cylinder(t_obj sp, t_vector o, t_vector dir);
 double				inter_cone(t_obj sp, t_vector o, t_vector dir);
 
@@ -229,6 +232,8 @@ t_color2			add_color(t_color2 c1, t_color2 c2);
 t_color2			mult_color(t_color2 c, double coef);
 t_vector			ft_angle_sphere(t_obj s, t_vector v_1);
 t_vector			ft_angle_plane(t_obj p, t_vector v_1);
+t_vector			ft_angle_circle(t_obj p, t_vector v_1);
+t_vector			ft_angle_square(t_obj p, t_vector v_1);
 t_vector			ft_angle_cylinder(t_obj s, t_vector v_1);
 t_vector			ft_angle_cone(t_obj s, t_vector v_1);
 
@@ -266,4 +271,16 @@ void				get_light(char *line, int *x, t_env *e);
 void				get_image_size(char *line, int *x, t_env *e);
 void				ft_parse_json(char *line, t_env *e);
 
+///filtre
+void  choice_filter(t_env *e);
+void 	apply_color_pix(t_env *e, int *rgb, int x, int y);
+int  *lecture_img_for_blur(t_env *e, int x, int y, int i);
+int  	apply_color_pix_for_blur(t_env *e, int *rgb, int x, int y);
+void  lecture_img(t_env *e, int **rgb, int x, int y);
+void 	filter_sepia(t_env *e, int *rgb, int x, int y);
+void 	filter_red(t_env *e, int *rgb, int x, int y);
+void  filter_blue(t_env *e, int *rgb, int x, int y);
+void  filter_green(t_env *e, int *rgb, int x, int y);
+void 	filter_blur(t_env *e, int *rgb, int x, int y);
+void    filter_cartoon(t_env *e, int *rgb, int x, int y);
 #endif
