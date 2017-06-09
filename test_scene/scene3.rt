@@ -1,0 +1,121 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    scene3.rt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/01/04 13:11:01 by shamdani          #+#    #+#              #
+#    Updated: 2017/05/20 18:20:05 by magouin          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Scene3 du rtv1
+# after the declaration of element, if you doesn't give a value to parameter its automaticly set to 0.
+
+# Ambient declaration
+#ambient 1
+ambient 0.00000001
+
+# windows size declaration
+#img_size 2520 1200
+img_size 800 500
+
+# nombre de thread (auto / '0' :calcule lui meme le nombre de thread ideal)
+thread 0
+
+# camera declaration
+cam 0 150 -700 0 0 0 0 -1 0 60 150
+
+# light declaration
+light 1 1 1 -70 70 -250 1
+
+# light declaration
+light 1 1 1 70 70 -250 1
+
+# light declaration
+light 1 1 1 0 70 -350 1
+
+# light declaration
+# light 1 1 1 0 70 0 1
+
+# light declaration
+#light 1 1 1 0 70 0 1
+
+# sphere declaration
+# sphere 255 255 255 0 150 -1700 20
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 -200 250 200 30 0.0 1.33 0.0 Sphere_1
+
+# cylinder declaration
+cylinder 155 0 0 -200 100 200 0 1 0 20 0.0 1.33 0.0 cylindre_1
+
+# sphere declaration
+sphere 155 0 0 -200 -50 200 30 0.0 1.33 0.0 Sphere_2
+
+###################################################
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 200 250 200 30 0 1.33 0.0 Sphere_3
+
+# cylinder declaration
+cylinder 155 0 0 200 100 200 0 1 0 20 0.0 1.33 0.0 cylindre_2
+
+# sphere declaration
+sphere 155 0 0 200 -50 200 30 0.0 1.33 0.0 Sphere_4
+
+###################################################
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 200 250 -200 30 0.0 1.33 0.0 Sphere_4
+
+# cylinder declaration
+cylinder 155 0 0 200 100 -200 0 1 0 20 0.0 1.33 0.0 cylindre_3
+
+# sphere declaration
+sphere 155 0 0 200 -50 -200 30 0.0 1.33 0.0 Sphere_5
+
+###################################################
+
+###################################################
+
+# sphere declaration
+sphere 155 0 0 -200 250 -200 30 0.0 1.33 0.0 Sphere_6
+
+# cylinder declaration
+cylinder 155 0 0 -200 100 -200 0 1 0 20 0.0 1.33 0.0 cylindre_4
+
+# sphere declaration
+sphere 155 0 0 -200 -50 -200 30 0.0 1.33 0.0 Sphere_7
+
+###################################################
+
+#prout  0 9 8 7 0 0 0 0 0 0 0
+
+###################################################
+
+# plane declaration
+plane 100 100 100 0 -50 300 0 1 0 0.0 1.33 0.0 plan_1
+
+# plane declaration
+plane 100 100 100   0 50 300  0 0 1 0.0 1.33 0.0 plan_2
+
+# plane declaration
+plane 100 100 100   0 250 300  0 1 0 0.0 1.33 0.0 plan_3
+
+###################################################
+
+# cone declaration
+cone 0 0 255 0 100 -100 0 1 0 40 0.0 1.33 0.0 cone_1
+
+# sphere declaration
+sphere 0 0 255  0 100 -100 30 0.0 1.33 0.0 sphere_center
+
+###################################################
