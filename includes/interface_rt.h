@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/05 14:09:26 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/09 11:38:50 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ typedef struct			s_filter
 	int					green;
 	int					red;
 	int					sepia;
-	int 				old;
+	int 				blur;
 	int					cartoon;
 } 						t_filter;
 
