@@ -79,6 +79,7 @@ double			ft_for_atof(char *line, int y, int x)
 	tmp = malloc(sizeof(char) * (x - y + 1));
 	ft_strncpy(tmp, line + y, x - y);
 	nb = ft_atof(tmp);
+	free(tmp);
 	return (nb);
 }
 

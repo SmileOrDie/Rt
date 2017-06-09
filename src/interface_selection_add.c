@@ -57,10 +57,9 @@ static int	select_add_1(t_envg *e, int x, int y, int i)
 			return (i);
 		i++;
 	}
-	if (!ft_strcmp(e->line[1], "square") || !ft_strcmp(e->line[1], "cube"))
-	{
-
-	}
+	if (x > e->line_pos[31].w && x < e->line_pos[31].w + 40 &&
+			y > e->line_pos[31].h && y < e->line_pos[31].h + 30)
+			return (31);
 	return (i);
 }
 
@@ -69,7 +68,7 @@ int			select_add(t_envg *e, int x, int y)
 	int i;
 
 	i = select_add_1(e, x, y, 0);
-	if (i <= 15)
+	if (i <= 15 || i == 31)
 		return (i);
 	else if (x > e->line_pos[30].w && x < e->line_pos[30].w + 100 &&
 		y > e->line_pos[30].h && y < e->line_pos[30].h + 50)

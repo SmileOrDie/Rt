@@ -60,4 +60,5 @@ void			ft_parse_j(char *name, t_env *e)
 	read(fd, line, st.st_size);
 	close(fd);
 	ft_parse_json(line, e);
+	free(line);
 }

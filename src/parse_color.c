@@ -56,6 +56,7 @@ t_color2	get_t_color(char *line, int *x)
 		free_space(line, x);
 		get_t_color2(line, x, name, &rez);
 		free_space(line, x);
+		free(name);
 		if (line[*x] != ',')
 			break ;
 		else

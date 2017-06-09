@@ -13,7 +13,7 @@
 #include "../includes/rt.h"
 
 t_cam	g_default_camera = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60,
-	60, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}};
+	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}};
 
 void	get_camera3(t_env *e)
 {
@@ -83,6 +83,7 @@ void	get_camera(char *line, int *x, t_env *e)
 		free_space(line, x);
 		get_camera2(line, x, e, name);
 		free_space(line, x);
+		free(name);
 		if (line[*x] != ',')
 			break ;
 		else

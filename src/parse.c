@@ -49,10 +49,7 @@ void		creat_lst(char **line, t_env *e, int count)
 	}
 	else if (len > 7 && ft_strcmp(line[0], "light") != 0
 		&& ft_strcmp(line[0], "cam") != 0)
-	{
 		add_lst_obj(e, add_obj(line, len, count));
-		// printf("obj%s id%d\n", e->parse_obj->obj.name, e->parse_obj->obj.id);
-	}
 	else if ((len > 7 || len == 2) && (ft_strcmp(line[0], "light") == 0
 		|| ft_strcmp(line[0], "cam") == 0 || !ft_strcmp(line[0], "ambient")))
 		add_env(line, e);

@@ -1,0 +1,177 @@
+{
+	"sphere"  :
+	{
+		"name": "spherounette",
+		"radius" :  50,
+		"pos" :
+		{
+			"x" : 125,
+			"y" : 0.4567,
+			"z" : -0.9
+		},
+		"ind_refrac" : 1.56,
+		"ind_reflec" : 0.5673263,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+
+			"g" : 255,
+			"b" : 256
+		}
+	},
+	"sphere"  :
+	{
+		"name": "spherounette****",
+		"radius" :  55,
+		"pos" :
+		{
+			"x" : 250,
+			"y" : 0.4567,
+			"z" : -0.9
+		},
+		"ind_refrac" : 1.56,
+		"ind_reflec" : 0.5673263,
+		"ind_transp" : 214800687800000.8888,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		}
+	},
+	"cone"  :
+	{
+		"name": "conette",
+		"radius" :  50,
+		"pos" :
+		{
+			"x" : 30.2,
+			"y" : 100,
+			"z" : 800
+		},
+		"ind_refrac" : 1.7,
+		"ind_reflec" : 0.2,
+		"ind_transp" : 0.6,
+		"color" :
+		{
+			"r" : 0,
+			"g" : 255,
+			"b" : 255
+		},
+		"angle" :30,
+		"dir" :
+		{
+			"x" : 500,
+			"y" : 100,
+			"z" : 200
+		},
+	},
+	"ambient" : 0.1,
+	"plane"  :
+	{
+		"name": "planounet",
+		"pos" :
+		{
+			"x" : 125,
+			"y" : 25,
+			"z" : -200
+		},
+		"ind_refrac" : 1.0,
+		"ind_reflec" : 0.5,
+		"ind_transp" : 0.8,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 0,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 500,
+			"y" : 100,
+			"z" : 200
+		},
+	},
+	"cylinder"  :
+	{
+		"name": "cycy",
+		"radius" :  20,
+		"pos" :
+		{
+			"x" : 125,
+			"y" : 0.4567,
+			"z" : -0.9
+		},
+		"ind_refrac" : 1.9,
+		"ind_reflec" : 1.7,
+		"ind_transp" : 0.2,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 0
+		},
+		"dir" :
+		{
+			"x" : 500,
+			"y" : 100,
+			"z" : 200
+		}
+	},
+	"cylinder"  :
+	{
+		"name": "cdg\"hfgjk",
+		"radius" :  20,
+		"pos" :
+		{
+			"x" : 125,
+			"y" : 0.4567,
+			"z" : -0.9
+		},
+		"ind_refrac" : 1.9,
+		"ind_reflec" : 0.7,
+		"ind_transp" : 0.2,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 0
+		},
+		"dir" :
+		{
+			"x" : 500,
+			"y" : 100,
+			"z" : 200
+		}
+	},
+	"light" :
+	{
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light1"
+	},
+	"camera" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 0
+		},
+
+		"up" :
+		{
+			"x" : 125,
+			"y" : 0.4567,
+			"z" : -0.9
+		},
+		"fov" : 60,
+		"dist" : 200
+	},
+	"image size" : [   456  , 456   ]
+}

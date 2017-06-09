@@ -32,23 +32,23 @@ static int		select_pos(t_envg *e, int x, int y)
 
 static void		volet_target(t_envg *e)
 {
-	if (e->volet.add == 1 && e->pos > 0 && e->pos <= 15)
+	if (e->volet.add == 1 && ((e->pos > 0 && e->pos <= 15) || e->pos == 31))
 	{
 		e->f_key = 1;
 		(e->pos == 1) ? load_img(e, e->pos_value[16]) :
 		load_img(e, e->pos_value[e->pos] + 1);
-		if (e->pos > 2 && e->pos <= 15)
+		if (e->pos > 2 && (e->pos <= 15 || e->pos == 31))
 			print_line(e, e->pos, 3);
 		else
 			print_line(e, e->pos, 30);
 	}
-	else if (e->volet.conf == 1 && ((e->pos > 0 && e->pos <= 15) ||
+	else if (e->volet.conf == 1 && (((e->pos > 0 && e->pos <= 15) || e->pos == 31) ||
 		(e->pos >= 19 && e->pos <= 26)))
 	{
 		e->f_key = 1;
 		(e->pos == 1) ? load_img(e, e->pos_value[16]) :
 		load_img(e, e->pos_value[e->pos] + 1);
-		if ((e->pos > 2 && e->pos <= 15) || (e->pos >= 19 && e->pos <= 26))
+		if (((e->pos > 2 && e->pos <= 15) || e->pos == 31) || (e->pos >= 19 && e->pos <= 26))
 			print_line(e, e->pos, 3);
 		else
 			print_line(e, e->pos, 30);
@@ -96,19 +96,25 @@ void	ft_exit(t_envg *e)
 	e->run = 0;
 }
 
-static void		init_mlx1(t_env *e)
+static void		init_mlx1(t_envg *e)
 {
-	if (!(e->mlx->win =
-		mlx_new_window(e->mlx->mlx, e->mlx->w, e->mlx->h, "rtv1")))
+	if (!(e->e->mlx->win =
+		mlx_new_window(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h, "rtv1")))
 		ft_error(MLX,
-			"static int init_mlx(t_env *e) (=>mlx_new_window())-(rtv1.c))");
-	else if (!(e->mlx->img = mlx_new_image(e->mlx->mlx, e->mlx->w, e->mlx->h)))
+			"static int init_mlx(t_env *e) (=>mlx_new_window())-(mouse.c))");
+	else if (!(e->e->mlx->img = mlx_new_image(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h)))
 		ft_error(MLX,
-			"static int init_mlx(t_env *e) (=>mlx_new_image())-(rtv1.c))");
-	else if (!(e->mlx->data = mlx_get_data_addr(e->mlx->img, &(e->mlx->bpp),
-		&(e->mlx->sizeline), &(e->mlx->endian))))
+			"static int init_mlx(t_env *e) (=>mlx_new_image())-(mouse.c))");
+	else if (!(e->e->mlx->data = mlx_get_data_addr(e->e->mlx->img, &(e->e->mlx->bpp),
+		&(e->e->mlx->sizeline), &(e->e->mlx->endian))))
 		ft_error(MLX,
-			"static int init_mlx(t_env *e) (=>mlx_get_data_addr())-(rtv1.c))");
+			"static int init_mlx(t_env *e) (=>mlx_get_data_addr())-(mouse.c))");
+	(e->filter.blue == 1) ? e->e->flag = 1 : 0;
+	(e->filter.green == 1) ?e->e->flag = 2 : 0;
+	(e->filter.red == 1) ? e->e->flag = 3 : 0;
+	(e->filter.sepia == 1) ?e->e->flag = 4 : 0;
+	(e->filter.old == 1) ?e->e->flag = 5 : 0;
+	(e->filter.cartoon == 1) ?e->e->flag = 6 : 0;
 }
 
 static void		event_touch(t_envg *e)
@@ -143,14 +149,14 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 				ft_exit(e);
 			}
 			e->run = 1;
-			init_mlx1(e->e);
+			init_mlx1(e);
 			event_touch(e);
 			pthread_create(&e->thread, NULL, ft_launch, e->e);
 		}
 		e->pos = select_pos(e, x, y);
-		if (e->volet.add == 1 && ((e->pos > 0 && e->pos <= 15) || e->pos == -1))
+		if (e->volet.add == 1 && (((e->pos > 0 && e->pos <= 15) || e->pos == 31) || e->pos == -1))
 			e->pos = add_tab(e);
-		else if (e->volet.conf == 1 && (((e->pos > 0 && e->pos <= 15) ||
+		else if (e->volet.conf == 1 && ((((e->pos > 0 && e->pos <= 15) || e->pos == 31) ||
 			(e->pos >= 19 && e->pos <= 26)) || e->pos == -1))
 		{
 			e->i_lst = (e->light == -1) ? 0 : e->i_lst;
