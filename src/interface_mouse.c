@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/21 16:08:15 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/09 17:39:11 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		select_pos(t_envg *e, int x, int y)
 		return (select_conf(e, x, y));
 	else if (e->volet.other == 1)
 		return (select_info(e, x, y));
-	else if (e->volet.del == 1) 
+	else if (e->volet.del == 1)
 		return (select_del(e, x, y));
 	else if (e->volet.home == 1)
 		return (select_home(e, x, y));
@@ -96,19 +96,26 @@ void	ft_exit(t_envg *e)
 	e->run = 0;
 }
 
-static void		init_mlx1(t_env *e)
+static void		init_mlx1(t_envg *e)
 {
-	if (!(e->mlx->win =
-		mlx_new_window(e->mlx->mlx, e->mlx->w, e->mlx->h, "rtv1")))
+	if (!(e->e->mlx->win =
+		mlx_new_window(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h, "rtv1")))
 		ft_error(MLX,
 			"static int init_mlx(t_env *e) (=>mlx_new_window())-(rtv1.c))");
-	else if (!(e->mlx->img = mlx_new_image(e->mlx->mlx, e->mlx->w, e->mlx->h)))
+	else if (!(e->e->mlx->img = mlx_new_image(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h)))
 		ft_error(MLX,
 			"static int init_mlx(t_env *e) (=>mlx_new_image())-(rtv1.c))");
-	else if (!(e->mlx->data = mlx_get_data_addr(e->mlx->img, &(e->mlx->bpp),
-		&(e->mlx->sizeline), &(e->mlx->endian))))
+	else if (!(e->e->mlx->data = mlx_get_data_addr(e->e->mlx->img, &(e->e->mlx->bpp),
+		&(e->e->mlx->sizeline), &(e->e->mlx->endian))))
 		ft_error(MLX,
 			"static int init_mlx(t_env *e) (=>mlx_get_data_addr())-(rtv1.c))");
+			e->e->filter_t = NULL;
+			e->filter.old == 1 ? e->e->filter_t = &filter_blur : 0;
+			e->filter.sepia == 1 ? e->e->filter_t = &filter_sepia : 0;
+			e->filter.blue == 1 ? e->e->filter_t = &filter_blue : 0;
+			e->filter.green == 1 ? e->e->filter_t = &filter_green : 0;
+			e->filter.red == 1 ? e->e->filter_t = &filter_red : 0;
+			e->filter.cartoon == 1 ? e->e->filter_t = &filter_cartoon : 0;
 }
 
 static void		event_touch(t_envg *e)
@@ -143,7 +150,7 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 				ft_exit(e);
 			}
 			e->run = 1;
-			init_mlx1(e->e);
+			init_mlx1(e);
 			event_touch(e);
 			pthread_create(&e->thread, NULL, ft_launch, e->e);
 		}

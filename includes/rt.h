@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 16:22:42 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/10 15:24:32 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ typedef struct			s_env
 	long int			*nb_obj_pix[3];
 	t_three				**tab_three;
 	int					flag;
+	void 				(*filter_t)(struct s_env * , int, int);
 	t_env_cl			*cl_e;
 }						t_env;
 
@@ -270,5 +271,16 @@ void				get_ambient(char *line, int *x, t_env *e);
 void				get_light(char *line, int *x, t_env *e);
 void				get_image_size(char *line, int *x, t_env *e);
 void				ft_parse_json(char *line, t_env *e);
+
+void 	apply_color_pix(t_env *e, int *rgb, int x, int y);
+int  *lecture_img_for_blur(t_env *e, int x, int y, int i);
+int  	apply_color_pix_for_blur(t_env *e, int *rgb, int x, int y);
+void  lecture_img(t_env *e, int rgb[5], int x, int y);
+void 	filter_sepia(t_env *e, int x, int y);
+void 	filter_red(t_env *e, int x, int y);
+void  filter_blue(t_env *e, int x, int y);
+void  filter_green(t_env *e, int x, int y);
+void 	filter_blur(t_env *e, int x, int y);
+void    filter_cartoon(t_env *e, int x, int y);
 
 #endif

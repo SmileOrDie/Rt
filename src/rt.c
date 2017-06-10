@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 14:12:11 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/10 15:23:59 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,9 @@ void				*ft_launch(void *env)
 		printf("apply add_light\n");
 		get_image(e);
 		printf("Get image finish\n");
+		printf("Start filter\n");
+		e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
+		printf("filter finish\n");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
 		mlx_do_sync(e->mlx->mlx);
 		printf("affiche\n");
