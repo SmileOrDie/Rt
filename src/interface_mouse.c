@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/09 17:39:11 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/10 15:30:51 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ static int		select_pos(t_envg *e, int x, int y)
 
 static void		volet_target(t_envg *e)
 {
-	if (e->volet.add == 1 && e->pos > 0 && e->pos <= 15)
+	if (e->volet.add == 1 && ((e->pos > 0 && e->pos <= 15) || e->pos == 31))
 	{
 		e->f_key = 1;
 		(e->pos == 1) ? load_img(e, e->pos_value[16]) :
 		load_img(e, e->pos_value[e->pos] + 1);
-		if (e->pos > 2 && e->pos <= 15)
+		if (e->pos > 2 && (e->pos <= 15 || e->pos == 31))
 			print_line(e, e->pos, 3);
 		else
 			print_line(e, e->pos, 30);
 	}
-	else if (e->volet.conf == 1 && ((e->pos > 0 && e->pos <= 15) ||
+	else if (e->volet.conf == 1 && (((e->pos > 0 && e->pos <= 15) || e->pos == 31) ||
 		(e->pos >= 19 && e->pos <= 26)))
 	{
 		e->f_key = 1;
 		(e->pos == 1) ? load_img(e, e->pos_value[16]) :
 		load_img(e, e->pos_value[e->pos] + 1);
-		if ((e->pos > 2 && e->pos <= 15) || (e->pos >= 19 && e->pos <= 26))
+		if (((e->pos > 2 && e->pos <= 15) || e->pos == 31) || (e->pos >= 19 && e->pos <= 26))
 			print_line(e, e->pos, 3);
 		else
 			print_line(e, e->pos, 30);
@@ -155,9 +155,9 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 			pthread_create(&e->thread, NULL, ft_launch, e->e);
 		}
 		e->pos = select_pos(e, x, y);
-		if (e->volet.add == 1 && ((e->pos > 0 && e->pos <= 15) || e->pos == -1))
+		if (e->volet.add == 1 && (((e->pos > 0 && e->pos <= 15) || e->pos == 31) || e->pos == -1))
 			e->pos = add_tab(e);
-		else if (e->volet.conf == 1 && (((e->pos > 0 && e->pos <= 15) ||
+		else if (e->volet.conf == 1 && ((((e->pos > 0 && e->pos <= 15) || e->pos == 31) ||
 			(e->pos >= 19 && e->pos <= 26)) || e->pos == -1))
 		{
 			e->i_lst = (e->light == -1) ? 0 : e->i_lst;

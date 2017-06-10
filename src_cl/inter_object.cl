@@ -67,7 +67,6 @@ double			inter_square(t_obj p, double4 o, double4 dir)
 		cross = vnorm(cross);
 		v = vcross(cross, p.dir);
 		cross = vrot(p.dir, p.angle, cross);
-		cross = vmult_dbl(cross, p.radius / 2);
 		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
 			return (te);
 		return (0);

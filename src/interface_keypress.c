@@ -42,13 +42,13 @@ static int     interface_keypress_2(int key, t_envg *e, int *val, char *li)
     pr = ft_print_key(key, e);
     if (!(ft_strcmp(pr, "right delete")) || !(ft_strcmp(pr, "delete")))
     {
-        *val = ((e->pos > 2 && e->pos <= 15) || (e->pos >= 19 && e->pos <= 26))
+        *val = ((e->pos > 2 && e->pos <= 15) || e->pos == 31 || (e->pos >= 19 && e->pos <= 26))
         ? 3 : 30;
         del_line(e);
     }
     else if (!(ft_strcmp(pr, "return")) || !(ft_strcmp(pr, "enter")))
         pression = interface_keypress_1(e);
-    else if (((e->pos > 2 && e->pos <= 15) || (e->pos >= 19 && e->pos <= 26)))
+    else if (((e->pos > 2 && e->pos <= 15) || e->pos == 31 || (e->pos >= 19 && e->pos <= 26)))
     {
         *val = 3;
         add_line(li, pr, 1);
@@ -85,9 +85,10 @@ int             interface_keypress(int key, t_envg *e)
     else if (e->f_key)
     {
         pression = interface_keypress_2(key, e, &val, line);
-        (((e->pos >= 2 && e->pos <= 15) || (e->pos >= 19 && e->pos <= 26)) &&
-            pression == 0) ? load_img(e, e->pos_value[e->pos] + 1) : 0;
-                print_line(e, e->pos, val);
+        // (((e->pos > 2 && e->pos <= 15) || e->pos == 31 || (e->pos >= 19 && e->pos <= 26)) &&
+        //     pression == 0) ? load_img(e, e->pos_value[e->pos] + 1) : 0;
+        pression == 0 ? load_img(e, e->pos_value[e->pos] + 1) : 0;
+        print_line(e, e->pos, val);
     }
     return (1);
 }

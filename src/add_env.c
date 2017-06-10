@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
 t_color2			get_color(unsigned char r, unsigned char g, unsigned char b)
 {

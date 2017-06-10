@@ -364,9 +364,9 @@
 			"z" : 0
 		},
 	},
-	"sphere"  :
+	"square"  :
 	{
-		"name": "sphere_center",
+		"name": "square_center",
 		"radius" :  30,
 		"pos" :
 		{
@@ -387,7 +387,7 @@
 		{
 			"x" : 1,
 			"y" : 0,
-			"z" : 1
+			"z" : 0
 		},
 		"angle" : 0,
 	},
@@ -461,7 +461,7 @@
 			"z" : 0
 		},
 		"fov" : 60,
-		"dist" : 150
+		"dist" : 350
 	},
 	"image size" : [  800  , 500 ]
 }

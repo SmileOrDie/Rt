@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
 static t_obj	new_sphere(t_color2 color, t_vector pos, char **line)
 {
@@ -18,6 +18,7 @@ static t_obj	new_sphere(t_color2 color, t_vector pos, char **line)
 
 	if (ft_atof(line[7]) < 0.1)
 		ft_error(ft_strjoin(line[7], " < error radius in :"), "sphere");
+	obj.angle = 0;
 	obj.pos = pos;
 	obj.radius = ft_atof(line[7]);
 	obj.type = 1;
@@ -36,6 +37,8 @@ static t_obj	new_plane(t_color2 color, t_vector dir, t_vector point, char **line
 	t_obj		obj;
 
 	ft_error_var(dir, "plane -> orientation", 0);
+	obj.angle = 0;
+	obj.radius = 0;
 	obj.dir = dir;
 	vnorm(&obj.dir);
 	obj.pos = point;
@@ -55,6 +58,7 @@ static t_obj	new_cylinder(t_color2 co, t_vector d, t_vector po, char **line)
 	ft_error_var(d, "cylinder -> orientation", 0);
 	if (ft_atof(line[10]) < 0.1)
 		ft_error(ft_strjoin(line[10], " < error radius in :"), "cyl...");
+	obj.angle = 0;
 	obj.dir = d;
 	vnorm(&obj.dir);
 	obj.pos = po;
@@ -75,6 +79,7 @@ static t_obj	new_cone(t_color2 co, t_vector dir, t_vector pos, char **line)
 	if (ft_atof(line[10]) > 89 || ft_atof(line[10]) < 1)
 		ft_error(ft_strjoin(line[10], " <-- error angle in :"), "cone");
 	ft_error_var(dir, "cone -> orientation", 0);
+	obj.radius = 0;
 	obj.dir = dir;
 	vnorm(&obj.dir);
 	obj.pos = pos;

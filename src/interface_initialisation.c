@@ -14,8 +14,6 @@
 
 static void		init_pos_value(t_envg *e)
 {
-	// if (!(e->pos_value = (int *)malloc(sizeof(int) * 31)))
-	// 	return ;
 	e->pos_value[0] = 12;
 	e->pos_value[1] = 6;
 	e->pos_value[2] = 6;
@@ -43,6 +41,7 @@ static void		init_pos_value(t_envg *e)
 	e->pos_value[25] = 8;
 	e->pos_value[26] = 8;
 	e->pos_value[30] = 13;
+	e->pos_value[31] = 8;
 }
 
 static void		init_line_pos(t_envg *e)
@@ -78,6 +77,7 @@ static void		init_line_pos(t_envg *e)
 	e->line_pos[28] = (t_pos_i){WI / 2 - 62, 830};
 	e->line_pos[29] = (t_pos_i){WI / 2 - 62, 830};
 	e->line_pos[30] = (t_pos_i){250, HE - 200};
+	e->line_pos[31] = (t_pos_i){91, 485};	
 }
 
 void			init_envg(t_envg *e, t_env *env)

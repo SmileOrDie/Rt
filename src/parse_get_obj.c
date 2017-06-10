@@ -12,8 +12,8 @@
 
 #include "../includes/interface_rt.h"
 
-t_obj	g_default_object = {2, -1, 50, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0},
-	{0, 0, 0, 0}, 60, NULL, 0, {255, 255, 255, 255}};
+t_obj	g_default_object = {2, -1, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0},
+			{0, 0, 0, 0}, 0, NULL, 0, {255, 255, 255, 255}};
 t_light	g_default_light = {{0, 0, 0, 0}, {255, 255, 255, 255}, 0, 0, NULL};
 
 void			increase_l_obj(t_env *e)
@@ -29,6 +29,7 @@ int				get_object(char *line, int *x, t_env *e, char *name)
 {
 	increase_l_obj(e);
 	e->parse_obj->obj = g_default_object;
+	e->parse_obj->obj.name = ft_strdup(name);
 	line[*x] != '{' ? ft_error(J_SON, "get_object") : (*x)++;
 	if (ft_strcmp(name, "sphere") == 0)
 		add_obj2(line, x, e, 1);
@@ -64,7 +65,10 @@ void			get_light2(char *line, int *x, t_env *e, char *name)
 	if (ft_strcmp(name, "pos") == 0)
 		e->parse_light->light.pos = get_t_vector(line, x);
 	if (ft_strcmp(name, "name") == 0)
+	{
+		free(e->parse_light->light.name);
 		get_string(line, x, &(e->parse_light->light.name));
+	}
 }
 
 void			get_light(char *line, int *x, t_env *e)
@@ -73,6 +77,7 @@ void			get_light(char *line, int *x, t_env *e)
 
 	increase_light(e);
 	e->parse_light->light = g_default_light;
+	e->parse_light->light.name = ft_strdup("light"); 
 	line[*x] != '{' ? ft_error(J_SON, "get_light") : (*x)++;
 	free_space(line, x);
 	while (line[*x] && line[*x] != '}')
@@ -84,6 +89,7 @@ void			get_light(char *line, int *x, t_env *e)
 		free_space(line, x);
 		get_light2(line, x, e, name);
 		free_space(line, x);
+		free(name);
 		if (line[*x] != ',')
 			break ;
 		else

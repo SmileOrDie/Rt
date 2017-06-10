@@ -33,8 +33,8 @@ int			select_del(t_envg *e, int x, int y)
 {
 	int i;
 
-	i = -1;
-	while (++i < 15)
+	i = 0;
+	while (i < 15 && i < e->e->nb_obj)
 	{
 		if (x > 40 && x < 60 && y > 200 + (i * 30) && y < 200 + (i * 30) + 20)
 		{
@@ -46,6 +46,7 @@ int			select_del(t_envg *e, int x, int y)
 			del_tab(e);
 			return (0);
 		}
+		++i;
 	}
 	select_del_1(e, x, y);
 	return (i);

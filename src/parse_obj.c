@@ -41,7 +41,10 @@ void	add_obj23(char *line, int *x, t_env *e, char *rez)
 	int tmp;
 
 	if (ft_strcmp(rez, "name") == 0)
+	{
+		free(e->parse_obj->obj.name);
 		get_string(line, x, &(e->parse_obj->obj.name));
+	}
 	add_obj22(line, x, e, rez);
 	if (ft_strcmp(rez, "ind_reflec") == 0 && ((y = *x) || 1))
 		if ((tmp = get_number(line, x)))
@@ -91,6 +94,7 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 		add_obj23(line, x, e, rez);
 		add_obj24(line, x, e, rez);
 		free_space(line, x);
+		free(rez);
 		if (line[*x] != ',')
 			break ;
 		line[*x] == ',' ? (*x)++ : 0;

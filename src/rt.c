@@ -303,10 +303,13 @@ void			ft_creat_lst_obj(t_env *e)
 		ft_error(MALLOC, "e->light -> rt.h");
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
+	i = 0;
 	while (parse_obj_b)
 	{
-		e->l_obj[parse_obj_b->obj.id] = parse_obj_b->obj;
+		e->l_obj[i] = parse_obj_b->obj;
+		e->l_obj[i].id = i;
 		parse_obj_b = parse_obj_b->next;
+		i++;
 	}
 	i = 0;
 	while (parse_light_b)
@@ -316,14 +319,15 @@ void			ft_creat_lst_obj(t_env *e)
 		i++;
 	}
 }
-void			free_env(t_env *e)
-{
-	free(e->l_obj);
-	free(e->light);
-	free(e->cam);
-	free(e->cl_e->cl);
-	free(e->mlx);
-}
+
+// void			free_env(t_env *e)
+// {
+// 	free(e->l_obj);
+// 	free(e->light);
+// 	free(e->cam);
+// 	free(e->cl_e->cl);
+// 	free(e->mlx);
+// }
 
 void			parse_file(char *name , t_env *e)
 {
@@ -336,8 +340,8 @@ void			parse_file(char *name , t_env *e)
 		ft_parse(name, e);
 	else if (!ft_strcmp(name + (len_name - 5), ".json"))
 		ft_parse_j(name, e);
-
 	ft_creat_lst_obj(e);
+	e->flag = 0;
 }
 
 int				main(int ac, char **av)
@@ -347,8 +351,9 @@ int				main(int ac, char **av)
 	init(&e);
 	if (ac == 2)
 		parse_file(av[1] , &e);
+
 	ft_init_opencl(&e, e.cl_e->cl);
+
 	graphic_interface(&e);
-	// free_env(&e);
 	return (1);
 }

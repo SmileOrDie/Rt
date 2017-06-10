@@ -18,12 +18,15 @@ static void			reset_line(char **line)
 	int len;
 
 	i = 0;
-	while (++i <= 13)
+	while (++i <= 15)
 	{
 		len = ft_strlen(line[i]);
 		while (len >= 0)
 			line[i][len--] = '\0';
 	}
+	len = ft_strlen(line[31]);
+	while (len >= 0)
+		line[31][len--] = '\0';
 }
 
 t_light				new_light(t_envg *e)
@@ -32,7 +35,7 @@ t_light				new_light(t_envg *e)
 
 	l.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]), ft_atof(e->line[5]));
 	l.color = (t_color2){ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
-	l.name = ft_strdup(e->line[1]);
+	l.name = ft_strdup(e->line[2]);
 	return(l);	
 }
 
@@ -50,10 +53,10 @@ t_obj				new_obj(t_envg *e)
 	(!ft_strcmp(e->line[1], "cone_l")) ? obj.type = 8 : 0;
 	(!ft_strcmp(e->line[1], "cylinder_l")) ? obj.type = 9 : 0;
 	obj.id = e->e->nb_obj;
-	obj.radius = ft_atof(e->line[12]);;
+	obj.radius = ft_atof(e->line[12]);
 	obj.ind_refrac = ft_atof(e->line[14]);
 	obj.ind_reflec = ft_atof(e->line[15]);
-	obj.angle = ft_atof(e->line[12]);
+	obj.angle = ft_atof(e->line[31]);
 	obj.name = ft_strdup(e->line[2]);
 	obj.ind_transp = ft_atof(e->line[13]);
 	obj.color = (t_color2){ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
@@ -80,7 +83,7 @@ static void			creat_light(t_envg *e)
 		b->next = new;
 	}
 	else 
-		b = new;
+		e->e->parse_light = new;
 }
 
 static void			creat_obj(t_envg *e)
@@ -99,8 +102,8 @@ static void			creat_obj(t_envg *e)
 			b = b->next;
 		b->next = new;
 	}
-	else 
-		b = new;
+	else
+		e->e->parse_obj = new;
 }
 
 void				creat_elem(t_envg *e)
@@ -153,4 +156,3 @@ void			creat_cam(t_envg *e)
 		e->e->cam->eye.z - e->e->cam->n.z * e->e->cam->dist);
 	e->e->cam->l = creat_cam_2(e, 0);;
 }
-

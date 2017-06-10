@@ -133,10 +133,17 @@ void 		modif_light(t_envg *e, int light)
 	ft_strcpy_nbr(e->line[3], e->e->light[light].pos.x);
 	ft_strcpy_nbr(e->line[4], e->e->light[light].pos.y);
 	ft_strcpy_nbr(e->line[5], e->e->light[light].pos.z);
-	ft_strcpy_nbr(e->line[9], e->e->light[light].color.r / 255.0);
-	ft_strcpy_nbr(e->line[10], e->e->light[light].color.g / 255.0);
-	ft_strcpy_nbr(e->line[11], e->e->light[light].color.b / 255.0);
-	ft_strcpy(e->line[12], ".");
+	ft_strcpy(e->line[6], "-\0\0");
+	ft_strcpy(e->line[7], "-\0\0");
+	ft_strcpy(e->line[8], "-\0\0");
+	ft_strcpy_nbr(e->line[9], e->e->light[light].color.r);
+	ft_strcpy_nbr(e->line[10], e->e->light[light].color.g);
+	ft_strcpy_nbr(e->line[11], e->e->light[light].color.b);
+	ft_strcpy(e->line[12], "-\0\0");
+	ft_strcpy(e->line[13], "-\0\0");
+	ft_strcpy(e->line[14], "-\0\0");
+	ft_strcpy(e->line[15], "-\0\0");
+	ft_strcpy(e->line[31], "-\0\0");
 	conf_tab(e);
 }
 
@@ -164,14 +171,11 @@ void		modif_list(t_envg *e, int obj)
 	ft_strcpy_nbr(e->line[9], e->e->l_obj[obj].color.r);
 	ft_strcpy_nbr(e->line[10], e->e->l_obj[obj].color.g);
 	ft_strcpy_nbr(e->line[11], e->e->l_obj[obj].color.b);
-	(e->e->l_obj[obj].type == 1 || e->e->l_obj[obj].type == 3 ||
-		e->e->l_obj[obj].type == 5) ?
-	ft_strcpy_nbr(e->line[12], e->e->l_obj[obj].radius) : 0;
-	(e->e->l_obj[obj].type == 4) ? ft_strcpy_nbr(e->line[12],
-		e->e->l_obj[obj].angle) : 0;
+	ft_strcpy_nbr(e->line[12], e->e->l_obj[obj].radius);
 	ft_strcpy_nbr(e->line[13], e->e->l_obj[obj].ind_transp);
 	ft_strcpy_nbr(e->line[14], e->e->l_obj[obj].ind_refrac);
 	ft_strcpy_nbr(e->line[15], e->e->l_obj[obj].ind_reflec);
+	ft_strcpy_nbr(e->line[31], e->e->l_obj[obj].angle);
 	conf_tab(e);
 }
 

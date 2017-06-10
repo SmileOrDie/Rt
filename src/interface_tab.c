@@ -27,6 +27,12 @@ int				add_tab(t_envg *e)
 		e->pos = i;
 		load_img(e, e->pos_value[i]);
 		print_line(e, i, (i > 2) ? 3 : 30);
+		if (i == 15)
+		{
+			e->pos = 31;
+			load_img(e, e->pos_value[e->pos]);
+			print_line(e, e->pos, 3);
+		}
 		i++;
 	}
 	e->pos = 30;
@@ -66,6 +72,12 @@ int				conf_tab(t_envg *e)
 			e->pos = i;
 			load_img(e, e->pos_value[i]);
 			print_line(e, i, (i > 2) ? 3 : 30);
+			if (i == 15)
+			{
+				e->pos = 31;
+				load_img(e, e->pos_value[e->pos]);
+				print_line(e, e->pos, 3);
+			}
 			i++;
 		}
 	}
@@ -78,6 +90,7 @@ int				conf_tab(t_envg *e)
 void			home_tab(t_envg *e)
 {
 	e->volet = (t_tab_valid) {1, 0, 0, 0, 0};
+	e->f_key = 0;
 	load_img(e, 1);
 	load_img(e, 15);
 	(e->i_lst > 15) ? load_img(e, 16) : 0;

@@ -47,6 +47,7 @@ void			ft_parse_json(char *line, t_env *e)
 		free_space(line, &x);
 		parse_json2(line, e, &x, rez);
 		free_space(line, &x);
+		free(rez);
 		if (line[x] != ',')
 			break ;
 		else

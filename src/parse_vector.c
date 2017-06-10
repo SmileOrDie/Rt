@@ -56,6 +56,7 @@ t_vector	get_t_vector(char *line, int *x)
 			ft_error(J_SON, "get_t_vector") : ((*x)++);
 		free_space(line, x);
 		get_t_vector2(line, x, name, &rez);
+		free(name);
 		if (line[*x] != ',')
 			break ;
 		else
