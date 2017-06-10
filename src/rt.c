@@ -187,7 +187,6 @@ void				get_image(t_env *e)
 	i = 0;
 	// printf("coucou\n");
 	img = malloc(e->mlx->h * e->mlx->w * 4);
-	// printf("coucou2\n");
 	while (i < e->mlx->h * e->mlx->w)
 	{
 		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
@@ -201,20 +200,23 @@ void				get_image(t_env *e)
 		flag = 0;
 	}
 	i = 0;
+	// printf("coucou2\n");
 	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
 	{
 		tmpy = 0;
 		color[0] = 0;
 		color[1] = 0;
 		color[2] = 0;
+		// printf("i = %d\n", i);
 		while (tmpy < e->anti_a)
 		{
 			tmpx = 0;
 			while (tmpx < e->anti_a)
 			{
-				color[0] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 2 + tmpx * 4 + tmpy * e->mlx->w * 4];
-				color[1] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 1 + tmpx * 4 + tmpy * e->mlx->w * 4];
-				color[2] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 0 + tmpx * 4 + tmpy * e->mlx->w * 4];
+				// printf("i = /%d\n", i);
+				color[0] += img[(i * e->anti_a * 4) % (e->mlx->w * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 2 + tmpx * 4 + tmpy * e->mlx->w * 4];
+				color[1] += img[(i * e->anti_a * 4) % (e->mlx->w * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 1 + tmpx * 4 + tmpy * e->mlx->w * 4];
+				color[2] += img[(i * e->anti_a * 4) % (e->mlx->w * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 0 + tmpx * 4 + tmpy * e->mlx->w * 4];
 				tmpx++;
 			}
 			tmpy++;
@@ -385,6 +387,7 @@ int				main(int ac, char **av)
 	t_env		e;
 
 	init(&e);
+	e.anti_a = 1;
 	if (ac == 2)
 		parse_file(av[1] , &e);
 
