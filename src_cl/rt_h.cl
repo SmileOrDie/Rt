@@ -1,18 +1,20 @@
 
 typedef	struct			s_obj
 {
-	int					type;
-	int					id;
+	double				angle;
 	double				radius;
 	double				ind_refrac; // 1 -> +
 	double				ind_reflec; // 0 -> 1
 	double4				pos;
 	double4				dir;
 	double4				point;
-	double				angle;
-	void				*name;
 	double				ind_transp; //0 -> 1
+	int					vide2;
+	void				*name;
 	uchar4				color;
+	unsigned short int	id;
+	unsigned char		type;
+	unsigned char		id_texture;
 }						t_obj;
 
 typedef struct			s_light

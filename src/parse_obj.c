@@ -25,7 +25,7 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 		else
 			ft_error(N_NUM, "add_obj22");
 	}
-	if (ft_strcmp(rez, "ind_refrac") == 0 && ((y = *x) || 1))
+	else if (ft_strcmp(rez, "ind_refrac") == 0 && ((y = *x) || 1))
 	{
 		if ((tmp = get_number(line, x) || 1) && tmp != 0)
 			e->parse_obj->obj.ind_refrac = ft_clamp(
@@ -33,6 +33,8 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 		else
 			ft_error(N_NUM, "add_obj22");
 	}
+	// else if (ft_strcmp(rez, "texture") == 0)
+	// 	get_string(line, x, &(e->parse_obj->obj.texture));
 }
 
 void	add_obj23(char *line, int *x, t_env *e, char *rez)

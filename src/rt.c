@@ -60,30 +60,29 @@ t_env			*ft_create_tab_env(t_env e)
 // 	// exit(0);
 // }
 
-void				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag)
+double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag)
 {
-	static int i = 0;
+	static int		i = 0;
+	static double	coef_t = 0;
 
 
-	flag ? (i = 0) : 0;
+	flag == 2 ? (i = 0) : 0;
+	flag ? (coef_t = 0) : 0;
 	if (branch && branch->r_reflec)
-	{
 		get_l_pix(branch->r_reflec, tab_light, l_obj, 0);
-	}
 	if (branch && branch->r_refrac)
-	{
 		get_l_pix(branch->r_refrac, tab_light, l_obj, 0);
-	}
-
-	if (branch && branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec) > 0.039)
+	if (branch && branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec) > 0.04)
 	{
 		// printf("test2 voila\n");
 		tab_light[i].id = branch->id;
 		tab_light[i].p_hit_x = branch->p_hit.x;
 		tab_light[i].p_hit_y = branch->p_hit.y;
 		tab_light[i].p_hit_z = branch->p_hit.z;
+		coef_t += branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec);
 		i++;
 	}
+	return (coef_t);
 
 }
 
@@ -133,16 +132,16 @@ void				get_l_tab(t_env *e)
 	char	flag;
 
 	i = 0;
-	flag = 1;
+	flag = 2;
 	while (i < e->mlx->h * e->mlx->w)
 	{
-		get_l_pix(e->tab_three[i], e->tab_light, e->l_obj, flag);
+		e->coef_t[i] = get_l_pix(e->tab_three[i], e->tab_light, e->l_obj, flag);
 		i++;
-		flag = 0;
+		flag = 1;
 	}
 }
 
-t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag)
+t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, double coef_t)
 {
 	t_color2			color_ray;
 	static int			i = 0;
@@ -152,22 +151,22 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag)
 		return ((t_color2){0, 0, 0, 0});
 	if (branch->r_reflec)
 	{
-		color_ray = get_pixel(branch->r_reflec, pixel, e, 0);
+		color_ray = get_pixel(branch->r_reflec, pixel, e, 0, coef_t);
 		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id].ind_reflec);
 		pixel = add_color(pixel, color_ray);
 	}
 	if (branch->r_refrac)
 	{
-		color_ray = get_pixel(branch->r_refrac, pixel, e, 0);
+		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
 		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id].ind_transp * (1 - e->l_obj[branch->id].ind_reflec));
 		color_ray.r = color_ray.r * (1 - branch->c_origin.r / 255.0);
 		color_ray.g = color_ray.g * (1 - branch->c_origin.g / 255.0);
 		color_ray.b = color_ray.b * (1 - branch->c_origin.b / 255.0);
 		pixel = add_color(pixel, color_ray);
 	}
-	if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) > 0.039)
+	if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) > 0.04)
 	{
-		color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec));
+		color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) / coef_t);
 		pixel = add_color(pixel, color_ray);
 		i++;
 	}
@@ -184,7 +183,7 @@ void				get_image(t_env *e)
 	i = 0;
 	while (i < e->mlx->h * e->mlx->w)
 	{
-		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag);
+		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
 		e->mlx->data[i * 4 + 2] = pixel.r;
 		e->mlx->data[i * 4 + 1] = pixel.g;
 		e->mlx->data[i * 4 + 0] = pixel.b;
@@ -200,9 +199,12 @@ void				*ft_launch(void *env)
 	int			i;
 	long int	size[3];
 	pthread_t	tab_thread[3];
+	// double		coef[((t_env*)env)->mlx->h * ((t_env*)env)->mlx->w];
 
 	printf("Ft_lauch execution\n");
 	e = (t_env *)env;
+	// e->coef_t = coef;
+	e->coef_t = malloc(sizeof(double) * e->mlx->w * e->mlx->h);
 	e->actual_indice = 1;
 	if (!(e->tab_three = (t_three **)malloc(sizeof(t_three *) * e->mlx->w * e->mlx->h)))
 		ft_error(MALLOC, "ft_launch");

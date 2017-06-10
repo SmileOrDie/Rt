@@ -48,92 +48,94 @@
 # define S_MALLOC 0
 # define STR_MALLOC "il faut securiser ce malloc! ou?"
 
-typedef struct		s_mlx
+typedef struct			s_mlx
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-	char			*data;
-	int				bpp;
-	int				sizeline;
-	int				endian;
-	int				w;
-	int				h;
-	int				crenelage;
-}					t_mlx;
+	void				*mlx;
+	void				*win;
+	void				*img;
+	char				*data;
+	int					bpp;
+	int					sizeline;
+	int					endian;
+	int					w;
+	int					h;
+	int					crenelage;
+}						t_mlx;
 
-typedef struct		s_color
+typedef struct			s_color
 {
-	int				r;
-	int				g;
-	int				b;
-	int				t;
-}					t_color;
+	int					r;
+	int					g;
+	int					b;
+	int					t;
+}						t_color;
 
-typedef struct		s_color2
+typedef struct			s_color2
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	unsigned char	vide;
-}					t_color2;
+	unsigned char		r;
+	unsigned char		g;
+	unsigned char		b;
+	unsigned char		vide;
+}						t_color2;
 
-typedef	struct		s_obj
+typedef	struct			s_obj
 {
-	int				type;
-	int				id;
-	double			radius;
-	double			ind_refrac; // 1 -> +
-	double			ind_reflec; // 0 -> 1
-	t_vector		pos;
-	t_vector		dir;
-	t_vector		point; //verif utilite
-	double			angle;
-	char			*name;
-	double			ind_transp; //0 -> 1
-	t_color2		color;
-}					t_obj;
+	double				angle;
+	double				radius;
+	double				ind_refrac; // 1 -> +
+	double				ind_reflec; // 0 -> 1
+	t_vector			pos;
+	t_vector			dir;
+	t_vector			point; //verif utilite
+	double				ind_transp; //0 -> 1
+	int					vide2;
+	char				*name;
+	t_color2			color;
+	unsigned short int	id;
+	unsigned char		type;
+	unsigned char		id_texture;
+}						t_obj;
 
-typedef struct		s_cam
+typedef struct			s_cam
 {
-	t_vector		eye;
-	t_vector		l_at;
-	t_vector		up;
-	double			dist;
-	double			fov;
-	double			h;
-	double			w;
-	t_vector		c;
-	t_vector		l;
-	t_vector		n;
-	t_vector		u;
-}					t_cam;
+	t_vector			eye;
+	t_vector			l_at;
+	t_vector			up;
+	double				dist;
+	double				fov;
+	double				h;
+	double				w;
+	t_vector			c;
+	t_vector			l;
+	t_vector			n;
+	t_vector			u;
+}						t_cam;
 
-typedef struct		s_three
+typedef struct			s_three
 {
-	t_color2		c_origin;
-	int 			id;
-	t_vector		p_hit;
-	struct	s_three *r_reflec;
-	struct	s_three *r_refrac;
-}					t_three;
+	t_color2			c_origin;
+	int 				id;
+	t_vector			p_hit;
+	struct	s_three 	*r_reflec;
+	struct	s_three 	*r_refrac;
+}						t_three;
 
-typedef struct		s_l_obj
+typedef struct			s_l_obj
 {
-	int				id;
-	double			p_hit_x;
-	double			p_hit_y;
-	double			p_hit_z;
-}					t_l_obj;
+	int					id;
+	double				p_hit_x;
+	double				p_hit_y;
+	double				p_hit_z;
+}						t_l_obj;
 
-typedef struct		s_light
+typedef struct			s_light
 {
-	t_vector		pos;
-	t_color2		color;
-	double			vide;
-	double			vide2;
-	char 			*name;
-}					t_light;
+	t_vector			pos;
+	t_color2			color;
+	double				vide;
+	double				vide2;
+	char 				*name;
+}						t_light;
 
 typedef struct			s_opencl
 {
@@ -183,6 +185,7 @@ typedef struct			s_env
 	t_parse_obj			*parse_obj;
 	t_parse_light		*parse_light;
 	t_cam				*cam;
+	double				*coef_t;
 	double				amb;
 	double				angle;
 	int					start;

@@ -52,8 +52,8 @@ t_obj		inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *
 			dist = inter_circle(e->l_obj[i], p_ray, v_ray);
 		else if (e->l_obj[i].type == 6)
 			dist = inter_square(e->l_obj[i], p_ray, v_ray);
-		else
- 			printf("nouvel obj = %d i = %d\n", e->l_obj[i].type, i);
+		// else
+ 			// printf("nouvel obj = %d i = %d\n", e->l_obj[i].type, i);
 		if (dist != -1)
 			ft_create_tab_obj_light(e, i, dist, tab_obj_light_id, tab_obj_light_t);
 		// else
@@ -149,6 +149,10 @@ __kernel void	ft_start_calc(__global uchar4 *color_lst, __global t_obj *lst_obj,
 	t_obj obj;
 
 	index = get_global_id(0);
+	// index == 0 ? printf(" t_env_cl_size %ld\n", sizeof(t_env_cl)) : 0;
+	// index == 0 ? printf(" t_obj %ld\n", sizeof(t_obj)) : 0;
+	// index == 0 ? printf(" t_l_obj %ld\n", sizeof(t_l_obj)) : 0;
+	// index == 0 ? printf(" t_light %ld\n", sizeof(t_light)) : 0;
 	e->light = light;
 	e->l_obj = lst_obj;
 	color_lst[index] = add_light(e, (uchar4){0, 0, 0, 0}, (double4){lst[index].p_hit_x, lst[index].p_hit_y, lst[index].p_hit_z, 0}, lst_obj[lst[index].id]);
