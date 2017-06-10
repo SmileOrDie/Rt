@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:31:56 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 16:19:10 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/10 17:11:15 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void			parse_json2(char *line, t_env *e, int *x, char *rez)
 {
+	int		y;
+
 	if (ft_strcmp(rez, "camera") == 0)
 		get_camera(line, x, e);
 	else if (ft_strcmp(rez, "light") == 0)
@@ -26,6 +28,14 @@ void			parse_json2(char *line, t_env *e, int *x, char *rez)
 		get_object(line, x, e, rez);
 	else if (ft_strcmp(rez, "image size") == 0)
 		get_image_size(line, x, e);
+	else if (ft_strcmp(rez, "anti-aliasing") == 0)
+	{
+		y = *x;
+		if (get_number(line, x) == 1)
+			e->anti_a = ft_clamp(ft_atoi(line + y), 1, 4);
+		else
+			ft_error(N_NUM, "parse_json2");
+	}
 	else
 		ft_error(OBJ_I, "parse_json");
 }
@@ -36,6 +46,7 @@ void			ft_parse_json(char *line, t_env *e)
 	char	*rez;
 
 	x = 0;
+	e->anti_a = 1;
 	line[x] != '{' ? ft_error(J_SON, "parse_json") : x++;
 	free_space(line, &x);
 	while (line[x] && line[x] != '}')

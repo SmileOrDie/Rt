@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 15:24:32 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/10 18:43:23 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ typedef struct			s_env
 	int					flag;
 	void 				(*filter_t)(struct s_env * , int, int);
 	t_env_cl			*cl_e;
+	int					anti_a;
 }						t_env;
 
 void				*ft_launch(void *env);
@@ -254,6 +255,7 @@ void				graphic_interface(t_env *scene);
 /*
 **	/parcer/parser_*.c
 */
+void				get_camera3(t_env *e);
 void				free_space(char *line, int *x);
 int					get_string(char *line, int *x, char **str);
 int					get_number(char *line, int *x);

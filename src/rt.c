@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 15:23:59 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/10 18:33:06 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,20 +175,54 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, d
 
 void				get_image(t_env *e)
 {
-	int			i;
-	t_color2	pixel;
-	char		flag;
+	int				i;
+	int				tmpx;
+	int				tmpy;
+	t_color2		pixel;
+	char			flag;
+	unsigned char 	*img;
+	int				color[3];
 
 	flag = 1;
 	i = 0;
+	// printf("coucou\n");
+	img = malloc(e->mlx->h * e->mlx->w * 4);
+	// printf("coucou2\n");
 	while (i < e->mlx->h * e->mlx->w)
 	{
 		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
-		e->mlx->data[i * 4 + 2] = pixel.r;
-		e->mlx->data[i * 4 + 1] = pixel.g;
-		e->mlx->data[i * 4 + 0] = pixel.b;
+		img[i * 4 + 2] = pixel.r;
+		img[i * 4 + 1] = pixel.g;
+		img[i * 4 + 0] = pixel.b;
+		// e->mlx->data[i * 4 + 2] = pixel.r;
+		// e->mlx->data[i * 4 + 1] = pixel.g;
+		// e->mlx->data[i * 4 + 0] = pixel.b;
 		i++;
 		flag = 0;
+	}
+	i = 0;
+	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
+	{
+		tmpy = 0;
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		while (tmpy < e->anti_a)
+		{
+			tmpx = 0;
+			while (tmpx < e->anti_a)
+			{
+				color[0] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 2 + tmpx * 4 + tmpy * e->mlx->w * 4];
+				color[1] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 1 + tmpx * 4 + tmpy * e->mlx->w * 4];
+				color[2] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 0 + tmpx * 4 + tmpy * e->mlx->w * 4];
+				tmpx++;
+			}
+			tmpy++;
+		}
+		e->mlx->data[i * 4 + 0] = color[2] / e->anti_a / e->anti_a;
+		e->mlx->data[i * 4 + 1] = color[1] / e->anti_a / e->anti_a;
+		e->mlx->data[i * 4 + 2] = color[0] / e->anti_a / e->anti_a;
+		i++;
 	}
 }
 
