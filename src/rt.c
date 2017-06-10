@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 15:23:59 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/10 18:52:23 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ void			parse_file(char *name , t_env *e)
 	len_name = ft_strlen(name);
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
+
 	if (!ft_strcmp(name + (len_name - 3), ".rt"))
 		ft_parse(name, e);
 	else if (!ft_strcmp(name + (len_name - 5), ".json"))
@@ -351,11 +352,11 @@ int				main(int ac, char **av)
 	t_env		e;
 
 	init(&e);
+		e.tmp_texture = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
 
 	ft_init_opencl(&e, e.cl_e->cl);
-
 	graphic_interface(&e);
 	return (1);
 }

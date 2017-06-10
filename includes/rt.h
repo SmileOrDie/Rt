@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 15:24:32 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/10 18:31:34 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ typedef struct			s_env
 	t_three				**tab_three;
 	int					flag;
 	void 				(*filter_t)(struct s_env * , int, int);
+	char				**path_texture;
+	char				*tmp_texture;
 	t_env_cl			*cl_e;
 }						t_env;
 
