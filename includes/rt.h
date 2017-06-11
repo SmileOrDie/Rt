@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 18:43:23 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/11 15:22:16 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "../libft/includes/libft.h"
 # include "../vector/includes/vector.h"
-# include <mlx.h>
+# include "../minilibx/mlx.h"
+// # include <mlx.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
