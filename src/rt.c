@@ -366,23 +366,60 @@ void			ft_creat_lst_obj(t_env *e)
 // 	free(e->mlx);
 // }
 
-void			ft_affiche_textures(t_env *e)
+// void			ft_affiche_textures(t_env *e)
+// {
+// 	int x;
+
+// 	x = 0;
+// 	while (e->path_tex[x])
+// 	{
+// 		printf("e->path_tex: %s\n", e->path_tex[x]);
+// 		x++;
+// 	}
+// 	x = 0;
+// 	while (x < e->nb_obj)
+// 	{
+// 		printf("obj %d a pour texture %d\n", x, e->l_obj[x].id_texture);
+// 		x++;
+// 	}
+// }
+
+void			ft_get_image_texture(t_env *e)
 {
-	int x;
+	int			x;
+	char		*path;
+	struct stat	test;
 
 	x = 0;
 	while (e->path_tex[x])
-	{
-		printf("e->path_tex: %s\n", e->path_tex[x]);
 		x++;
-	}
+	e->texture = malloc(sizeof(t_mlx) * x);
 	x = 0;
-	while (x < e->nb_obj)
+	while (e->path_tex[x])
 	{
-		printf("obj %d a pour texture %d\n", x, e->l_obj[x].id_texture);
+		path = ft_strjoin("./", e->path_tex[x]);
+		if (stat(path, &test) == -1)
+			ft_error("File texture doesn't exist : ", path);
+		if (!(e->texture[x].img = mlx_xpm_file_to_image(e->mlx->mlx, path, &e->texture[x].w, &e->texture[x].h)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
+		if (!(e->texture[x].data = mlx_get_data_addr(e->texture[x].img,
+			&e->texture[x].bpp, &e->texture[x].sizeline, &e->texture[x].endian)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
+		int y;
+
+		y = 0;
+		printf("size = %d %d\n", e->texture[x].w, e->texture[x].h);
+		while (y < e->texture[x].w * e->texture[x].h)
+		{
+			printf("%d ", e->texture[x].data[y]);
+			y++;
+		}
+		sleep(3);
+		free(path);
 		x++;
 	}
 }
+
 
 void			parse_file(char *name , t_env *e)
 {

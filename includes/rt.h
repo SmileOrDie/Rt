@@ -200,6 +200,8 @@ typedef struct			s_env
 	void 				(*filter_t)(struct s_env * , int, int);
 	t_env_cl			*cl_e;
 	char				**path_tex;
+	t_mlx				*texture;
+	int					(*size_tex)[2];
 	int					anti_a;
 }						t_env;
 
@@ -256,6 +258,7 @@ void				graphic_interface(t_env *scene);
 /*
 **	/parcer/parser_*.c
 */
+void				ft_get_image_texture(t_env *e);
 void				get_camera3(t_env *e);
 void				free_space(char *line, int *x);
 int					get_string(char *line, int *x, char **str);
