@@ -12,6 +12,40 @@
 
 #include "../includes/interface_rt.h"
 
+void	get_texture(char *line, int *x, t_env *e)
+{
+	char	*path;
+	char	**new;
+	int		y;
+
+	y = 0;
+	get_string(line, x, &path);
+	while ((e->path_tex)[y] != NULL)
+	{
+		if (ft_strcmp(path, (e->path_tex)[y]) == 0)
+		{
+			e->parse_obj->obj.id_texture = y + 1;
+			break ;
+		}
+		y++;
+	}
+	if ((e->path_tex)[y] == NULL)
+	{
+		new = malloc(sizeof(char*) * (y + 2));
+		y = 0;
+		while ((e->path_tex)[y] != NULL)
+		{
+			new[y] = (e->path_tex)[y];
+			y++;
+		}
+		new[y] = path;
+		new[y + 1] = NULL;
+		free(e->path_tex);
+		e->path_tex = new;
+		e->parse_obj->obj.id_texture = y + 1;
+	}
+}
+
 void	add_obj22(char *line, int *x, t_env *e, char *rez)
 {
 	int y;
@@ -33,8 +67,8 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 		else
 			ft_error(N_NUM, "add_obj22");
 	}
-	// else if (ft_strcmp(rez, "texture") == 0)
-	// 	get_string(line, x, &(e->parse_obj->obj.texture));
+	else if (ft_strcmp(rez, "texture") == 0)
+		get_texture(line, x, e);
 }
 
 void	add_obj23(char *line, int *x, t_env *e, char *rez)

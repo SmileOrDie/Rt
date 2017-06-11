@@ -15,7 +15,7 @@
 
 # include "../libft/includes/libft.h"
 # include "../vector/includes/vector.h"
-# include <mlx.h>
+# include "../minilibx/mlx.h"
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -199,6 +199,7 @@ typedef struct			s_env
 	int					flag;
 	void 				(*filter_t)(struct s_env * , int, int);
 	t_env_cl			*cl_e;
+	char				**path_tex;
 	int					anti_a;
 }						t_env;
 
