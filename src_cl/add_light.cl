@@ -116,7 +116,6 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj)
 			transp -= (1 - e->l_obj[tab_obj_light_id[count]].ind_transp) * transp;
 			count++;
 		}
-
 		if (obj.type == 1)
 			v_norm = ft_angle_sphere(obj, p_hit);
 		else if (obj.type == 2 || obj.type == 5 || obj.type == 6)
@@ -142,14 +141,14 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj)
 	return (pixel);
 }
 
-__kernel void	ft_start_calc(__global uchar4 *color_lst, __global t_obj *lst_obj, __global t_light *light, __global t_env_cl *e, __global t_l_obj *lst)
+__kernel void	ft_start_calc(__global uchar4 *color_lst, __global t_obj *lst_obj, __global t_light *light, __global t_env_cl *e, __global t_l_obj *lst, __global t_mlx *texture)
 {
-	int index;
-	uchar4 pixel;
-	t_obj obj;
+	int		index;
+	uchar4	pixel;
+	t_obj	obj;
+	int		y;
 
 	index = get_global_id(0);
-	// index == 0 ? printf(" t_env_cl_size %ld\n", sizeof(t_env_cl)) : 0;
 	// index == 0 ? printf(" t_obj %ld\n", sizeof(t_obj)) : 0;
 	// index == 0 ? printf(" t_l_obj %ld\n", sizeof(t_l_obj)) : 0;
 	// index == 0 ? printf(" t_light %ld\n", sizeof(t_light)) : 0;

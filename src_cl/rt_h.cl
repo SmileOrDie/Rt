@@ -1,3 +1,17 @@
+typedef struct			s_mlx
+{
+	void				*mlx;
+	void				*win;
+	void				*img;
+	void				*data;
+	int					bpp;
+	int					sizeline;
+	int					endian;
+	int					w;
+	int					h;
+	int					crenelage;
+	double				vide;
+}						t_mlx;
 
 typedef	struct			s_obj
 {
@@ -40,10 +54,10 @@ typedef struct			s_env_cl
 	__global uchar4		*color_lst;
 	__global t_light	*light;
 	__global t_obj		*l_obj;
+	__global t_mlx		*texture;
 	int					nb_obj;
 	int					nb_light;
 	void				*cl;
-	long int			vacuum;
 	double 				vacuum2;
 }						t_env_cl;
 

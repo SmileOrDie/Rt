@@ -393,6 +393,7 @@ void			ft_get_image_texture(t_env *e)
 	x = 0;
 	while (e->path_tex[x])
 		x++;
+	e->nb_tex = x;
 	e->texture = malloc(sizeof(t_mlx) * x);
 	x = 0;
 	while (e->path_tex[x])
@@ -405,17 +406,19 @@ void			ft_get_image_texture(t_env *e)
 		if (!(e->texture[x].data = mlx_get_data_addr(e->texture[x].img,
 			&e->texture[x].bpp, &e->texture[x].sizeline, &e->texture[x].endian)))
 			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
-		int y;
+		// if (x == 2)
+		// {
+		// 	int y;
 
-		y = 0;
-		printf("size = %d %d\n", e->texture[x].w, e->texture[x].h);
-		while (y < e->texture[x].w * e->texture[x].h)
-		{
-			printf("%d ", e->texture[x].data[y]);
-			y++;
-		}
-		sleep(3);
-		free(path);
+		// 	y = 0;
+		// 	printf("size = %d %d\n", e->texture[x].w, e->texture[x].h);
+		// 	while (y < e->texture[x].w * e->texture[x].h)
+		// 	{
+		// 		printf("%d ", e->texture[x].data[y]);
+		// 		y++;
+		// 	}
+		// 	free(path);
+		// }
 		x++;
 	}
 }

@@ -60,6 +60,7 @@ typedef struct			s_mlx
 	int					w;
 	int					h;
 	int					crenelage;
+	double				vide;
 }						t_mlx;
 
 typedef struct			s_color
@@ -145,7 +146,9 @@ typedef struct			s_opencl
 	cl_command_queue	command_queue;
 	cl_program			kernel_program;
 	cl_kernel			kernel;
+	cl_mem				*data;
 	cl_mem				lst;
+	cl_mem				texture;
 	cl_mem				obj;
 	cl_mem				light;
 	cl_mem				env;
@@ -158,10 +161,10 @@ typedef struct			s_env_cl
 	t_color2			*color_lst;
 	t_light				*light;
 	t_obj				*l_obj;
+	t_mlx				*texture;
 	int					nb_obj;
 	int					nb_light;
 	t_opencl			*cl;
-	long int			vacuum;
 	double 				vacuum2;
 }						t_env_cl;
 
@@ -203,6 +206,7 @@ typedef struct			s_env
 	t_mlx				*texture;
 	int					(*size_tex)[2];
 	int					anti_a;
+	int					nb_tex;
 }						t_env;
 
 void				*ft_launch(void *env);

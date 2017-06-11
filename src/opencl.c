@@ -134,6 +134,9 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->lst -> ", ft_itoa(err))) : 0;
 	cl->color_lst = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_color2) * *(e->nb_obj_pix[0]), e->cl_e->color_lst, &err);
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->color_lst -> ", ft_itoa(err))) : 0;
+	cl->texture = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_mlx) * e->nb_tex, e->texture, &err);
+	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->color_lst -> ", ft_itoa(err))) : 0;
+	(err = clSetKernelArg(cl->kernel, 5, sizeof(cl_mem), (void *)&cl->texture)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 0 -> ", ft_itoa(err))) : 0;
 	(err = clSetKernelArg(cl->kernel, 4, sizeof(cl_mem), (void *)&cl->lst)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 0 -> ", ft_itoa(err))) : 0;
 	(err = clSetKernelArg(cl->kernel, 1, sizeof(cl_mem), (void *)&cl->obj)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 1 -> ", ft_itoa(err))) : 0;
 	(err = clSetKernelArg(cl->kernel, 2, sizeof(cl_mem), (void *)&cl->light)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 2 -> ", ft_itoa(err))) : 0;
