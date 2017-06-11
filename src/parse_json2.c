@@ -46,7 +46,6 @@ void			ft_parse_json(char *line, t_env *e)
 	char	*rez;
 
 	x = 0;
-	e->anti_a = 1;
 	line[x] != '{' ? ft_error(J_SON, "parse_json") : x++;
 	free_space(line, &x);
 	while (line[x] && line[x] != '}')

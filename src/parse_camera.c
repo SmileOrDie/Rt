@@ -61,7 +61,6 @@ void	get_camera2(char *line, int *x, t_env *e, char *name)
 		else
 			ft_error(N_NUM, "get_camera2");
 	}
-	get_camera3(e);
 }
 
 void	get_camera(char *line, int *x, t_env *e)
