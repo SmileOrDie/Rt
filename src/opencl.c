@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   opencl.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/10 16:25:56 by pde-maul          #+#    #+#             */
+/*   Updated: 2017/06/10 16:25:59 by pde-maul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/rt.h"
 
 char	*ft_create_source(char *file_name)
@@ -168,12 +180,12 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 	clReleaseMemObject(cl->color_lst);
 	// clReleaseContext(cl->context);
 // 	// exit(0);;
-			
-// }	
+
+// }
 	// printf("end\n");
 
-	// printf("%ld\n", sizeof(t_env_cl));	
-	// printf("finished\n");	
+	// printf("%ld\n", sizeof(t_env_cl));
+	// printf("finished\n");
 	// err = clEnqueueReadBuffer(cl->command_queue, cl->data, CL_TRUE, 0, sizeof(char) * e->mlx->w * e->mlx->h, e->mlx->data + 0 * e->mlx->w * e->mlx->h, 0, NULL, NULL);
 	// i = 1;
 	// err = clEnqueueReadBuffer(cl->command_queue, cl->data, CL_TRUE, 0, sizeof(char) * e->mlx->w * e->mlx->h, e->mlx->data + 1 * e->mlx->w * e->mlx->h, 0, NULL, NULL);

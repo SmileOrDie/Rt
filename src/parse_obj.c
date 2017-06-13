@@ -6,16 +6,49 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 17:16:29 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/10 18:56:31 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
+/*
+static void 	cherche_texture(t_env *env, char *tmp)
+{
+	char *tmp3;
+	int		i;
 
+	i = 0;
+	tmp3 = NULL;
+	if (env->tmp_texture)
+	{
+		tmp3 = ft_strdup(env->tmp_texture);
+			printf("final\n");
+		free(env->tmp_texture);
+	}
+	env->tmp_texture = (char *)malloc(sizeof(char) * (ft_strlen(tmp) + 1));
+	while (tmp[i++])
+		env->tmp_texture[i] = tmp[i];
+		printf("apree boucle\n");
+
+	free(tmp);
+	printf("aprer boule\n");
+
+	env->tmp_texture[i] = '\n';
+	env->tmp_texture[i + 1] = '\0';
+
+	tmp = ft_strjoin(tmp3, env->tmp_texture);
+	printf("avant final\n");
+	free(env->tmp_texture);
+	printf("avant final\n");
+	env->tmp_texture = ft_strdup(tmp);
+	free(tmp);
+}
+*/
 void	add_obj22(char *line, int *x, t_env *e, char *rez)
 {
 	int y;
 	int tmp;
+//	char *tmp2 = NULL;
 
 	if (ft_strcmp(rez, "radius") == 0 && ((y = *x) || 1))
 	{
@@ -33,8 +66,16 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 		else
 			ft_error(N_NUM, "add_obj22");
 	}
-	// else if (ft_strcmp(rez, "texture") == 0)
-	// 	get_string(line, x, &(e->parse_obj->obj.texture));
+	//  else if (ft_strcmp(rez, "texture") == 0)
+	//  {
+	// 	 	printf("fuck11\n");
+	// 	 	get_string(line, x, &tmp2);
+	// 			 printf("fuck\n");
+	// 		cherche_texture(e, tmp2);
+	// 			 printf("fuck\n");
+	//  }
+
+
 }
 
 void	add_obj23(char *line, int *x, t_env *e, char *rez)

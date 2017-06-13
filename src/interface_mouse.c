@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 15:30:51 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/10 17:51:07 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ void	ft_exit(t_envg *e)
 static void		init_mlx1(t_envg *e)
 {
 	if (!(e->e->mlx->win =
-		mlx_new_window(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h, "rtv1")))
+		mlx_new_window(e->e->mlx->mlx, e->e->mlx->w / e->e->anti_a, e->e->mlx->h / e->e->anti_a, "rtv1")))
 		ft_error(MLX,
 			"static int init_mlx(t_env *e) (=>mlx_new_window())-(rtv1.c))");
-	else if (!(e->e->mlx->img = mlx_new_image(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h)))
+	else if (!(e->e->mlx->img = mlx_new_image(e->e->mlx->mlx, e->e->mlx->w / e->e->anti_a, e->e->mlx->h / e->e->anti_a)))
 		ft_error(MLX,
 			"static int init_mlx(t_env *e) (=>mlx_new_image())-(rtv1.c))");
 	else if (!(e->e->mlx->data = mlx_get_data_addr(e->e->mlx->img, &(e->e->mlx->bpp),
