@@ -43,11 +43,11 @@ void	get_camera2(char *line, int *x, t_env *e, char *name)
 	line[*x] != ':' ? ft_error(J_SON, "get_camera2") : ((*x)++);
 	free_space(line, x);
 	if (ft_strcmp(name, "pos") == 0)
-		e->cam->eye = get_t_vector(line, x);
+		e->cam->eye = get_t_vector(line, x, 0);
 	if (ft_strcmp(name, "dir") == 0)
-		e->cam->l_at = get_t_vector(line, x);
+		e->cam->l_at = get_t_vector(line, x, 1);
 	if (ft_strcmp(name, "up") == 0)
-		e->cam->up = get_t_vector(line, x);
+		e->cam->up = get_t_vector(line, x, 1);
 	if (ft_strcmp(name, "dist") == 0 && ((y = *x) || 1))
 	{
 		tmp = get_number(line, x);

@@ -63,7 +63,7 @@ void			get_light2(char *line, int *x, t_env *e, char *name)
 	if (ft_strcmp(name, "color") == 0)
 		e->parse_light->light.color = get_t_color(line, x);
 	if (ft_strcmp(name, "pos") == 0)
-		e->parse_light->light.pos = get_t_vector(line, x);
+		e->parse_light->light.pos = get_t_vector(line, x, 0);
 	if (ft_strcmp(name, "name") == 0)
 	{
 		free(e->parse_light->light.name);

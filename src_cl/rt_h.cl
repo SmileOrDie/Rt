@@ -95,8 +95,9 @@ double4			ft_angle_square(t_obj p);
 double4			ft_angle_cylinder(t_obj obj, double4 p_hit);
 double4			ft_angle_cone(t_obj obj, double4 p_hit);
 
+uchar4			get_color(__global t_mlx *texture, double4 p_hit, t_obj obj);
 t_obj			inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *tab_obj_light_id, double *tab_obj_light_t);
 uchar4			l_shine(uchar4	 , uchar4	 olor, double angle);
-uchar4			add_light(__global t_env_cl *e, uchar4	 ixel, double4 p_hit, t_obj obj);
+uchar4			add_light(__global t_env_cl *e, uchar4	 ixel, double4 p_hit, t_obj obj, __global t_mlx *texture);
 uchar4			ft_start( __global t_env_cl *e, __global t_obj *lst_obj, t_l_obj lst);
 void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double tr, int *tab_obj_light_id, double *tab_obj_light_t);

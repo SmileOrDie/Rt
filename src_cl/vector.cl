@@ -50,8 +50,10 @@ double4	vrot(double4 u, double angle, double4 point)
 	double		s;
 	double		mat[3][3];
 
-	c = cos(angle / 360 * 2 * M_PI);
-	s = sin(angle / 360 * 2 * M_PI);
+	// c = cos(angle / 360 * 2 * M_PI);
+	// s = sin(angle / 360 * 2 * M_PI);
+	c = cos(angle);
+	s = sin(angle);
 	u = vnorm(u);
 	mat[0][0] = u.x * u.x * (1 - c) + c;
 	mat[0][1] = u.x * u.y * (1 - c) + u.z * s;
@@ -64,7 +66,7 @@ double4	vrot(double4 u, double angle, double4 point)
 	mat[2][2] = u.z * u.z * (1 - c) + c;
 	r.x = mat[0][0] * point.x +  mat[0][1] * point.y + mat[0][2] * point.z;
 	r.y = mat[1][0] * point.x +  mat[1][1] * point.y + mat[1][2] * point.z;
-	r.x = mat[2][0] * point.x +  mat[2][1] * point.y + mat[2][2] * point.z;
+	r.z = mat[2][0] * point.x +  mat[2][1] * point.y + mat[2][2] * point.z;
 	return (r);
 }
 
@@ -74,7 +76,7 @@ double4	vcross(double4 a, double4 b)
 
 	c.x = a.y * b.z - a.z * b.y;
 	c.y = a.z * b.x - a.x * b.z;
-	c.x = a.x * b.y - a.y * b.x;
+	c.z = a.x * b.y - a.y * b.x;
 	return (c);
 }
 

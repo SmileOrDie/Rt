@@ -108,9 +108,9 @@ void	add_obj24(char *line, int *x, t_env *e, char *rez)
 	if (ft_strcmp(rez, "color") == 0)
 		e->parse_obj->obj.color = get_t_color(line, x);
 	else if (ft_strcmp(rez, "pos") == 0)
-		e->parse_obj->obj.pos = get_t_vector(line, x);
+		e->parse_obj->obj.pos = get_t_vector(line, x, 0);
 	else if (ft_strcmp(rez, "dir") == 0)
-		e->parse_obj->obj.dir = get_t_vector(line, x);
+		e->parse_obj->obj.dir = get_t_vector(line, x, 1);
 }
 
 void	add_obj2(char *line, int *x, t_env *e, int type)

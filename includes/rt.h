@@ -204,7 +204,6 @@ typedef struct			s_env
 	t_env_cl			*cl_e;
 	char				**path_tex;
 	t_mlx				*texture;
-	int					(*size_tex)[2];
 	int					anti_a;
 	int					nb_tex;
 }						t_env;
@@ -268,7 +267,7 @@ void				free_space(char *line, int *x);
 int					get_string(char *line, int *x, char **str);
 int					get_number(char *line, int *x);
 void				add_obj2(char *line, int *x, t_env *e, int type);
-t_vector			get_t_vector(char *line, int *x);
+t_vector			get_t_vector(char *line, int *x, int norme);
 t_color2			get_t_color(char *line, int *x);
 int					get_object(char *line, int *x, t_env *e, char *name);
 int					get_true(char *line, int *x);
