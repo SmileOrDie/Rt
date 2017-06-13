@@ -1,4 +1,5 @@
 {
+	"anti-aliasing" : 4,
 	"sphere"  :
 	{
 		"name": "sphere_1",
@@ -17,7 +18,8 @@
 			"r" : 155,
 			"g" : 0,
 			"b" : 0
-		}
+		},
+		"texture" : "xpm_file/Check_C.xpm"
 	},
 	"cylinder"  :
 	{
@@ -42,7 +44,8 @@
 			"x" : 0,
 			"y" : 1,
 			"z" : 0
-		}
+		},
+		"texture" : "xpm_file/Check_V.xpm"
 	},
 	"sphere"  :
 	{
@@ -61,7 +64,9 @@
 			"r" : 155,
 			"g" : 0,
 			"b" : 0
-		}
+		},
+		"texture" : "xpm_file/2k_earth_daymap.xpm"
+
 	},
 	"sphere"  :
 	{
@@ -460,5 +465,5 @@
 		"fov" : 60,
 		"dist" : 150
 	},
-	"image size" : [  800  , 500 ]
+	"image size" : [800, 400]
 }

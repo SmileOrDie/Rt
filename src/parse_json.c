@@ -62,5 +62,6 @@ void			ft_parse_j(char *name, t_env *e)
 	ft_parse_json(line, e);
 	e->mlx->h *= e->anti_a;
 	e->mlx->w *= e->anti_a;
+	get_camera3(e);
 	free(line);
 }

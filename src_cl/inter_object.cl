@@ -51,7 +51,6 @@ double			inter_square(t_obj p, double4 o, double4 dir)
 	double		te;
 	double4		p_hit;
 	double4		u;
-	double4		v;
 	double4		cross;
 
 	d = vpscal(p.dir, vsub(p.pos, o));
@@ -61,15 +60,17 @@ double			inter_square(t_obj p, double4 o, double4 dir)
 		return (-1);
 	if (te > 0)
 	{
-		cross = (double4){1, 1, 1, 0};
+		cross = (p.dir.x == 1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0};
 		p_hit = vadd(o, vmult_dbl(dir, te));
 		u = vsub(p_hit, p.pos);
-		cross = vnorm(cross);
-		v = vcross(cross, p.dir);
+		cross = vcross(p.dir, cross);
 		cross = vrot(p.dir, p.angle, cross);
 		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
-			return (te);
-		return (0);
+		{
+			cross = vcross(cross, p.dir);
+			if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
+				return (te);
+		}
 	}
 	return (-1.0);
 }

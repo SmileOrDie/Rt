@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/13 16:58:11 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:31:04 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../libft/includes/libft.h"
 # include "../vector/includes/vector.h"
-# include <mlx.h>
+# include "../minilibx/mlx.h"
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -61,6 +61,7 @@ typedef struct			s_mlx
 	int					w;
 	int					h;
 	int					crenelage;
+	double				vide;
 }						t_mlx;
 
 typedef struct			s_color
@@ -146,7 +147,9 @@ typedef struct			s_opencl
 	cl_command_queue	command_queue;
 	cl_program			kernel_program;
 	cl_kernel			kernel;
+	cl_mem				*data;
 	cl_mem				lst;
+	cl_mem				texture;
 	cl_mem				obj;
 	cl_mem				light;
 	cl_mem				env;
@@ -159,10 +162,10 @@ typedef struct			s_env_cl
 	t_color2			*color_lst;
 	t_light				*light;
 	t_obj				*l_obj;
+	t_mlx				*texture;
 	int					nb_obj;
 	int					nb_light;
 	t_opencl			*cl;
-	long int			vacuum;
 	double 				vacuum2;
 }						t_env_cl;
 
@@ -209,8 +212,11 @@ typedef struct			s_env
 	char				**path_texture;
 	char				*tmp_texture;
 	t_env_cl			*cl_e;
+	char				**path_tex;
+	t_mlx				*texture;
 	int					anti_a;
 	t_parse_obj_f		***f_obj; ///// parseur .obj
+	int					nb_tex;
 }						t_env;
 
 void				*ft_launch(void *env);
@@ -266,12 +272,13 @@ void				graphic_interface(t_env *scene);
 /*
 **	/parcer/parser_*.c
 */
+void				ft_get_image_texture(t_env *e);
 void				get_camera3(t_env *e);
 void				free_space(char *line, int *x);
 int					get_string(char *line, int *x, char **str);
 int					get_number(char *line, int *x);
 void				add_obj2(char *line, int *x, t_env *e, int type);
-t_vector			get_t_vector(char *line, int *x);
+t_vector			get_t_vector(char *line, int *x, int norme);
 t_color2			get_t_color(char *line, int *x);
 int					get_object(char *line, int *x, t_env *e, char *name);
 int					get_true(char *line, int *x);

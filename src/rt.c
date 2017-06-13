@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/13 17:00:00 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:29:45 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,55 +175,56 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, d
 
 void                get_image(t_env *e)
 {
-    int             i;
-    int             tmpx;
-    int             tmpy;
-    t_color2        pixel;
-    char            flag;
-    unsigned char   *img;
-    int             color[3];
+	int				i;
+	int				tx;
+	int				ty;
+	int				tmpx;
+	int				tmpy;
+	t_color2		pixel;
+	char			flag;
+	unsigned char 	*img;
+	int				color[3];
 
-    flag = 1;
-    i = 0;
-    // printf("coucou\n");
-    img = malloc(e->mlx->h * e->mlx->w * 4);
-    // printf("coucou2\n");
-    while (i < e->mlx->h * e->mlx->w)
-    {
-        pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
-        img[i * 4 + 2] = pixel.r;
-        img[i * 4 + 1] = pixel.g;
-        img[i * 4 + 0] = pixel.b;
-        // e->mlx->data[i * 4 + 2] = pixel.r;
-        // e->mlx->data[i * 4 + 1] = pixel.g;
-        // e->mlx->data[i * 4 + 0] = pixel.b;
-        i++;
-        flag = 0;
-    }
-    i = 0;
-    while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
-    {
-        tmpy = 0;
-        color[0] = 0;
-        color[1] = 0;
-        color[2] = 0;
-        while (tmpy < e->anti_a)
-        {
-            tmpx = 0;
-            while (tmpx < e->anti_a)
-            {
-                color[0] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 2 + tmpx * 4 + tmpy * e->mlx->w * 4];
-                color[1] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 1 + tmpx * 4 + tmpy * e->mlx->w * 4];
-                color[2] += img[(i * e->anti_a * 4) + ((i * e->anti_a) / e->mlx->w) * e->mlx->w * 4 + 0 + tmpx * 4 + tmpy * e->mlx->w * 4];
-                tmpx++;
-            }
-            tmpy++;
-        }
-        e->mlx->data[i * 4 + 0] = color[2] / e->anti_a / e->anti_a;
-        e->mlx->data[i * 4 + 1] = color[1] / e->anti_a / e->anti_a;
-        e->mlx->data[i * 4 + 2] = color[0] / e->anti_a / e->anti_a;
-        i++;
-    }
+	flag = 1;
+	i = 0;
+	img = malloc(e->mlx->h * e->mlx->w * 4);
+	while (i < e->mlx->h * e->mlx->w)
+	{
+		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
+		img[i * 4 + 2] = pixel.r;
+		img[i * 4 + 1] = pixel.g;
+		img[i * 4 + 0] = pixel.b;
+		i++;
+		flag = 0;
+	}
+	i = 0;
+	tx = 0;
+	ty = 0;
+	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
+	{
+		tmpy = 0;
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		while (tmpy < e->anti_a)
+		{
+			tmpx = 0;
+			while (tmpx < e->anti_a)
+			{
+				color[0] += img[tx * 4 + ty * e->mlx->w * 4 + 2 + tmpy * e->mlx->w * 4 + tmpx * 4];
+				color[1] += img[tx * 4 + ty * e->mlx->w * 4 + 1 + tmpy * e->mlx->w * 4 + tmpx * 4];
+				color[2] += img[tx * 4 + ty * e->mlx->w * 4 + 0 + tmpy * e->mlx->w * 4 + tmpx * 4];
+				tmpx++;
+			}
+			tmpy++;
+		}
+		e->mlx->data[i * 4 + 0] = color[2] / e->anti_a / e->anti_a;
+		e->mlx->data[i * 4 + 1] = color[1] / e->anti_a / e->anti_a;
+		e->mlx->data[i * 4 + 2] = color[0] / e->anti_a / e->anti_a;
+		i++;
+		tx = (tx + e->anti_a) % e->mlx->w;
+		tx == 0 ? ty += e->anti_a : 0;
+	}
 }
 
 void				*ft_launch(void *env)
@@ -365,6 +366,64 @@ void			ft_creat_lst_obj(t_env *e)
 // 	free(e->mlx);
 // }
 
+// void			ft_affiche_textures(t_env *e)
+// {
+// 	int x;
+
+// 	x = 0;
+// 	while (e->path_tex[x])
+// 	{
+// 		printf("e->path_tex: %s\n", e->path_tex[x]);
+// 		x++;
+// 	}
+// 	x = 0;
+// 	while (x < e->nb_obj)
+// 	{
+// 		printf("obj %d a pour texture %d\n", x, e->l_obj[x].id_texture);
+// 		x++;
+// 	}
+// }
+
+void			ft_get_image_texture(t_env *e)
+{
+	int			x;
+	char		*path;
+	struct stat	test;
+
+	x = 0;
+	while (e->path_tex[x])
+		x++;
+	e->nb_tex = x;
+	e->texture = malloc(sizeof(t_mlx) * x);
+	x = 0;
+	while (e->path_tex[x])
+	{
+		path = ft_strjoin("./", e->path_tex[x]);
+		if (stat(path, &test) == -1)
+			ft_error("File texture doesn't exist : ", path);
+		if (!(e->texture[x].img = mlx_xpm_file_to_image(e->mlx->mlx, path, &e->texture[x].w, &e->texture[x].h)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
+		if (!(e->texture[x].data = mlx_get_data_addr(e->texture[x].img,
+			&e->texture[x].bpp, &e->texture[x].sizeline, &e->texture[x].endian)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
+		// if (x == 2)
+		// {
+		// 	int y;
+
+		// 	y = 0;
+		// 	printf("size = %d %d\n", e->texture[x].w, e->texture[x].h);
+		// 	while (y < e->texture[x].w * e->texture[x].h)
+		// 	{
+		// 		printf("%d ", e->texture[x].data[y]);
+		// 		y++;
+		// 	}
+		// 	free(path);
+		// }
+		x++;
+	}
+}
+
+
 void			parse_file(char *name , t_env *e)
 {
 	int		len_name;
@@ -388,11 +447,14 @@ int				main(int ac, char **av)
 	t_env		e;
 	e.anti_a = 1;
 	init(&e);
-		//e.tmp_texture = NULL;
+	e.anti_a = 1;
+	e.path_tex = malloc(sizeof(char *));
+	e.path_tex[0] = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
 
 	ft_init_opencl(&e, e.cl_e->cl);
+	// ft_affiche_textures(&e);
 	graphic_interface(&e);
 	return (1);
 }

@@ -6,44 +6,46 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/10 18:56:31 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:27:38 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
-/*
-static void 	cherche_texture(t_env *env, char *tmp)
+
+void	get_texture(char *line, int *x, t_env *e)
 {
-	char *tmp3;
-	int		i;
+	char	*path;
+	char	**new;
+	int		y;
 
-	i = 0;
-	tmp3 = NULL;
-	if (env->tmp_texture)
+	y = 0;
+	get_string(line, x, &path);
+	while ((e->path_tex)[y] != NULL)
 	{
-		tmp3 = ft_strdup(env->tmp_texture);
-			printf("final\n");
-		free(env->tmp_texture);
+		if (ft_strcmp(path, (e->path_tex)[y]) == 0)
+		{
+			e->parse_obj->obj.id_texture = y + 1;
+			break ;
+		}
+		y++;
 	}
-	env->tmp_texture = (char *)malloc(sizeof(char) * (ft_strlen(tmp) + 1));
-	while (tmp[i++])
-		env->tmp_texture[i] = tmp[i];
-		printf("apree boucle\n");
-
-	free(tmp);
-	printf("aprer boule\n");
-
-	env->tmp_texture[i] = '\n';
-	env->tmp_texture[i + 1] = '\0';
-
-	tmp = ft_strjoin(tmp3, env->tmp_texture);
-	printf("avant final\n");
-	free(env->tmp_texture);
-	printf("avant final\n");
-	env->tmp_texture = ft_strdup(tmp);
-	free(tmp);
+	if ((e->path_tex)[y] == NULL)
+	{
+		new = malloc(sizeof(char*) * (y + 2));
+		y = 0;
+		while ((e->path_tex)[y] != NULL)
+		{
+			new[y] = (e->path_tex)[y];
+			y++;
+		}
+		new[y] = path;
+		new[y + 1] = NULL;
+		free(e->path_tex);
+		e->path_tex = new;
+		e->parse_obj->obj.id_texture = y + 1;
+	}
 }
-*/
+
 void	add_obj22(char *line, int *x, t_env *e, char *rez)
 {
 	int y;
@@ -66,16 +68,8 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 		else
 			ft_error(N_NUM, "add_obj22");
 	}
-	//  else if (ft_strcmp(rez, "texture") == 0)
-	//  {
-	// 	 	printf("fuck11\n");
-	// 	 	get_string(line, x, &tmp2);
-	// 			 printf("fuck\n");
-	// 		cherche_texture(e, tmp2);
-	// 			 printf("fuck\n");
-	//  }
-
-
+	else if (ft_strcmp(rez, "texture") == 0)
+		get_texture(line, x, e);
 }
 
 void	add_obj23(char *line, int *x, t_env *e, char *rez)
@@ -115,9 +109,9 @@ void	add_obj24(char *line, int *x, t_env *e, char *rez)
 	if (ft_strcmp(rez, "color") == 0)
 		e->parse_obj->obj.color = get_t_color(line, x);
 	else if (ft_strcmp(rez, "pos") == 0)
-		e->parse_obj->obj.pos = get_t_vector(line, x);
+		e->parse_obj->obj.pos = get_t_vector(line, x, 0);
 	else if (ft_strcmp(rez, "dir") == 0)
-		e->parse_obj->obj.dir = get_t_vector(line, x);
+		e->parse_obj->obj.dir = get_t_vector(line, x, 1);
 }
 
 void	add_obj2(char *line, int *x, t_env *e, int type)

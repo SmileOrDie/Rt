@@ -41,7 +41,7 @@ void		get_t_vector2(char *line, int *x, char *name, t_vector *rez)
 	free_space(line, x);
 }
 
-t_vector	get_t_vector(char *line, int *x)
+t_vector	get_t_vector(char *line, int *x, int norme)
 {
 	t_vector	rez;
 	char		*name;
@@ -65,5 +65,6 @@ t_vector	get_t_vector(char *line, int *x)
 	}
 	free_space(line, x);
 	line[*x] != '}' ? ft_error(J_SON, "get_t_vector") : (*x)++;
+	norme ? vnorm(&rez) : 0;
 	return (rez);
 }
