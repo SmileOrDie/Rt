@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 17:16:29 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:27:38 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 {
 	int y;
 	int tmp;
+//	char *tmp2 = NULL;
 
 	if (ft_strcmp(rez, "radius") == 0 && ((y = *x) || 1))
 	{

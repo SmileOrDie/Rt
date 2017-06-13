@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/11 16:19:06 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:31:04 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 
 # define OBJ_I "Invalid object : "
 # define J_SON "error format j_son : "
+# define OBJ_F "error format obj_file : "
 # define N_NUM "Not a number : "
 # define CAM "Too many cameras in: "
 
@@ -180,6 +181,13 @@ typedef struct			s_parse_obj
 	struct s_parse_obj	*next;
 }						t_parse_obj;
 
+typedef struct 		s_parse_obj_f
+{
+		double		x;
+		double		y;
+		double		z;
+}					t_parse_obj_f;
+
 typedef struct			s_env
 {
 	t_mlx				*mlx;
@@ -201,10 +209,13 @@ typedef struct			s_env
 	t_three				**tab_three;
 	int					flag;
 	void 				(*filter_t)(struct s_env * , int, int);
+	char				**path_texture;
+	char				*tmp_texture;
 	t_env_cl			*cl_e;
 	char				**path_tex;
 	t_mlx				*texture;
 	int					anti_a;
+	t_parse_obj_f		***f_obj; ///// parseur .obj
 	int					nb_tex;
 }						t_env;
 
@@ -294,5 +305,8 @@ void  filter_blue(t_env *e, int x, int y);
 void  filter_green(t_env *e, int x, int y);
 void 	filter_blur(t_env *e, int x, int y);
 void    filter_cartoon(t_env *e, int x, int y);
+
+//// parse obj
+void			ft_parse_obj_files1(char *name, t_env *e);
 
 #endif

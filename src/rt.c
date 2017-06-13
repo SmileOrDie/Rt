@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 18:33:06 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:29:45 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, d
 	return (pixel);
 }
 
-void				get_image(t_env *e)
+void                get_image(t_env *e)
 {
 	int				i;
 	int				tx;
@@ -431,10 +431,13 @@ void			parse_file(char *name , t_env *e)
 	len_name = ft_strlen(name);
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
+
 	if (!ft_strcmp(name + (len_name - 3), ".rt"))
 		ft_parse(name, e);
 	else if (!ft_strcmp(name + (len_name - 5), ".json"))
 		ft_parse_j(name, e);
+	else if (!ft_strcmp(name + (len_name - 4), ".obj"))
+		ft_parse_obj_files1(name, e);
 	ft_creat_lst_obj(e);
 	e->flag = 0;
 }
@@ -442,7 +445,7 @@ void			parse_file(char *name , t_env *e)
 int				main(int ac, char **av)
 {
 	t_env		e;
-
+	e.anti_a = 1;
 	init(&e);
 	e.anti_a = 1;
 	e.path_tex = malloc(sizeof(char *));
