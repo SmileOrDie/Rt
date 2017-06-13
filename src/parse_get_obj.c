@@ -43,6 +43,8 @@ int				get_object(char *line, int *x, t_env *e, char *name)
 		add_obj2(line, x, e, 5);
 	else if (ft_strcmp(name, "square") == 0)
 		add_obj2(line, x, e, 6);
+	else if (ft_strcmp(name, "cube") == 0)
+		add_obj2(line, x, e, 7);
 	else
 		ft_error(OBJ_I, "get_object");
 	line[*x] != '}' ? ft_error(J_SON, "get_object") : (*x)++;
