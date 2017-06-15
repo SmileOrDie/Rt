@@ -70,6 +70,28 @@ static void		put_img4(t_envg *e)
 	}
 }
 
+static void		put_img5(t_envg *e)
+{
+	char *str;
+	unsigned char i;
+
+	i = 0;
+	while (i < 3 && i < e->e->nb_tex)
+	{
+		if (e->e->l_obj[e->obj + e->page].id_texture == i + 1)
+			get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
+		else
+			get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
+		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			40, 600 + ((i % 3) * 30));
+		str = ft_strdup(e->e->path_tex[i]);
+		mlx_string_put(e->mlx->mlx, e->mlx->win,
+			70, 600 + ((i % 3) * 30), 0xFFFFFF, str);
+		free(str);
+		i++;
+	}
+}
+
 void			put_img(t_envg *e, int img)
 {
 	if (img > 0 && img < 6)
@@ -95,6 +117,8 @@ void			put_img(t_envg *e, int img)
 		put_img1(e, (img == 23) ? WI - 100 : WI - 130, 490);
 	else if (img >= 26 && img <= 28)
 		put_img1(e, e->line_pos[img + 1].w, e->line_pos[img + 1].h);
+	else if (img == 29)
+		put_img5(e);
 	else
 		put_img1(e, 0, 0);
 }

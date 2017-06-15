@@ -132,7 +132,7 @@ void		ft_raytracer(t_env *e, t_color2 pixel, t_vector p_ray, t_vector v_ray, int
 	double			dist;
 
 	dist = inter_obj(e, p_ray, v_ray, &id);
-	if (coef < 0.0039 || dist == -1 || prof == 20)
+	if (coef < 0.04 || dist < 0.00001 || prof == 20)
 	{
 		*three = NULL;
 		return ;
@@ -156,9 +156,6 @@ void		ft_raytracer(t_env *e, t_color2 pixel, t_vector p_ray, t_vector v_ray, int
 		c_origin.b = (e->l_obj[id].color.b * c_origin.b / -255.0 + c_origin.b);
 		ft_raytracer(e, pixel, p_hit, v_refrac, prof + 1, coef * e->l_obj[id].ind_transp * (1 - e->l_obj[id].ind_reflec), c_origin, &((*three)->r_refrac));
 	}
-	// color_light = add_light(e, (t_color2){0, 0, 0, 0}, p_hit, e->l_obj[id]);
-	// color_ray = mult_color2(color_light, coef * (1 - e->l_obj[id].ind_transp) * (1 - e->l_obj[id].ind_reflec));
-	// pixel = add_color(pixel, color_ray);
 	if (coef * (1 - e->l_obj[id].ind_transp) * (1 - e->l_obj[id].ind_reflec) > 0.039)
 		(*(e->nb_obj_pix))[e->start]++;
 	add_branch(three, e->l_obj[id].id, p_hit, coef, c_origin);

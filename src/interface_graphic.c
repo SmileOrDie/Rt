@@ -55,6 +55,7 @@ void			graphic_interface(t_env *scene)
 
 	init_envg(&e, scene);
 	init_mlx(&e);
+	ft_get_image_texture(scene);
 	(e.font == 0) ? run_first(&e) : 0;
 	event_touch(&e);
 	mlx_loop(e.mlx->mlx);

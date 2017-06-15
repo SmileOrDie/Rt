@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 12:27:36 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/10 18:44:36 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ void			ft_parse_j(char *name, t_env *e)
 	read(fd, line, st.st_size);
 	close(fd);
 	ft_parse_json(line, e);
+	e->mlx->h *= e->anti_a;
+	e->mlx->w *= e->anti_a;
+	get_camera3(e);
 	free(line);
 }

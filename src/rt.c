@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 14:12:11 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:29:45 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,29 @@ t_env			*ft_create_tab_env(t_env e)
 // 	// exit(0);
 // }
 
-void				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag)
+double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag)
 {
-	static int i = 0;
+	static int		i = 0;
+	static double	coef_t = 0;
 
 
-	flag ? (i = 0) : 0;
+	flag == 2 ? (i = 0) : 0;
+	flag ? (coef_t = 0) : 0;
 	if (branch && branch->r_reflec)
-	{
 		get_l_pix(branch->r_reflec, tab_light, l_obj, 0);
-	}
 	if (branch && branch->r_refrac)
-	{
 		get_l_pix(branch->r_refrac, tab_light, l_obj, 0);
-	}
-
-	if (branch && branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec) > 0.039)
+	if (branch && branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec) > 0.04)
 	{
 		// printf("test2 voila\n");
 		tab_light[i].id = branch->id;
 		tab_light[i].p_hit_x = branch->p_hit.x;
 		tab_light[i].p_hit_y = branch->p_hit.y;
 		tab_light[i].p_hit_z = branch->p_hit.z;
+		coef_t += branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec);
 		i++;
 	}
+	return (coef_t);
 
 }
 
@@ -133,16 +132,16 @@ void				get_l_tab(t_env *e)
 	char	flag;
 
 	i = 0;
-	flag = 1;
+	flag = 2;
 	while (i < e->mlx->h * e->mlx->w)
 	{
-		get_l_pix(e->tab_three[i], e->tab_light, e->l_obj, flag);
+		e->coef_t[i] = get_l_pix(e->tab_three[i], e->tab_light, e->l_obj, flag);
 		i++;
-		flag = 0;
+		flag = 1;
 	}
 }
 
-t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag)
+t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, double coef_t)
 {
 	t_color2			color_ray;
 	static int			i = 0;
@@ -152,44 +151,79 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag)
 		return ((t_color2){0, 0, 0, 0});
 	if (branch->r_reflec)
 	{
-		color_ray = get_pixel(branch->r_reflec, pixel, e, 0);
+		color_ray = get_pixel(branch->r_reflec, pixel, e, 0, coef_t);
 		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id].ind_reflec);
 		pixel = add_color(pixel, color_ray);
 	}
 	if (branch->r_refrac)
 	{
-		color_ray = get_pixel(branch->r_refrac, pixel, e, 0);
+		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
 		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id].ind_transp * (1 - e->l_obj[branch->id].ind_reflec));
 		color_ray.r = color_ray.r * (1 - branch->c_origin.r / 255.0);
 		color_ray.g = color_ray.g * (1 - branch->c_origin.g / 255.0);
 		color_ray.b = color_ray.b * (1 - branch->c_origin.b / 255.0);
 		pixel = add_color(pixel, color_ray);
 	}
-	if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) > 0.039)
+	if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) > 0.04)
 	{
-		color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec));
+		color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) / coef_t);
 		pixel = add_color(pixel, color_ray);
 		i++;
 	}
 	return (pixel);
 }
 
-void				get_image(t_env *e)
+void                get_image(t_env *e)
 {
-	int			i;
-	t_color2	pixel;
-	char		flag;
+	int				i;
+	int				tx;
+	int				ty;
+	int				tmpx;
+	int				tmpy;
+	t_color2		pixel;
+	char			flag;
+	unsigned char 	*img;
+	int				color[3];
 
 	flag = 1;
 	i = 0;
+	img = malloc(e->mlx->h * e->mlx->w * 4);
 	while (i < e->mlx->h * e->mlx->w)
 	{
-		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag);
-		e->mlx->data[i * 4 + 2] = pixel.r;
-		e->mlx->data[i * 4 + 1] = pixel.g;
-		e->mlx->data[i * 4 + 0] = pixel.b;
+		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
+		img[i * 4 + 2] = pixel.r;
+		img[i * 4 + 1] = pixel.g;
+		img[i * 4 + 0] = pixel.b;
 		i++;
 		flag = 0;
+	}
+	i = 0;
+	tx = 0;
+	ty = 0;
+	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
+	{
+		tmpy = 0;
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		while (tmpy < e->anti_a)
+		{
+			tmpx = 0;
+			while (tmpx < e->anti_a)
+			{
+				color[0] += img[tx * 4 + ty * e->mlx->w * 4 + 2 + tmpy * e->mlx->w * 4 + tmpx * 4];
+				color[1] += img[tx * 4 + ty * e->mlx->w * 4 + 1 + tmpy * e->mlx->w * 4 + tmpx * 4];
+				color[2] += img[tx * 4 + ty * e->mlx->w * 4 + 0 + tmpy * e->mlx->w * 4 + tmpx * 4];
+				tmpx++;
+			}
+			tmpy++;
+		}
+		e->mlx->data[i * 4 + 0] = color[2] / e->anti_a / e->anti_a;
+		e->mlx->data[i * 4 + 1] = color[1] / e->anti_a / e->anti_a;
+		e->mlx->data[i * 4 + 2] = color[0] / e->anti_a / e->anti_a;
+		i++;
+		tx = (tx + e->anti_a) % e->mlx->w;
+		tx == 0 ? ty += e->anti_a : 0;
 	}
 }
 
@@ -200,9 +234,12 @@ void				*ft_launch(void *env)
 	int			i;
 	long int	size[3];
 	pthread_t	tab_thread[3];
+	// double		coef[((t_env*)env)->mlx->h * ((t_env*)env)->mlx->w];
 
 	printf("Ft_lauch execution\n");
 	e = (t_env *)env;
+	// e->coef_t = coef;
+	e->coef_t = malloc(sizeof(double) * e->mlx->w * e->mlx->h);
 	e->actual_indice = 1;
 	if (!(e->tab_three = (t_three **)malloc(sizeof(t_three *) * e->mlx->w * e->mlx->h)))
 		ft_error(MALLOC, "ft_launch");
@@ -248,6 +285,9 @@ void				*ft_launch(void *env)
 		printf("apply add_light\n");
 		get_image(e);
 		printf("Get image finish\n");
+		printf("Start filter\n");
+		e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
+		printf("filter finish\n");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
 		mlx_do_sync(e->mlx->mlx);
 		printf("affiche\n");
@@ -326,6 +366,64 @@ void			ft_creat_lst_obj(t_env *e)
 // 	free(e->mlx);
 // }
 
+// void			ft_affiche_textures(t_env *e)
+// {
+// 	int x;
+
+// 	x = 0;
+// 	while (e->path_tex[x])
+// 	{
+// 		printf("e->path_tex: %s\n", e->path_tex[x]);
+// 		x++;
+// 	}
+// 	x = 0;
+// 	while (x < e->nb_obj)
+// 	{
+// 		printf("obj %d a pour texture %d\n", x, e->l_obj[x].id_texture);
+// 		x++;
+// 	}
+// }
+
+void			ft_get_image_texture(t_env *e)
+{
+	int			x;
+	char		*path;
+	struct stat	test;
+
+	x = 0;
+	while (e->path_tex[x])
+		x++;
+	e->nb_tex = x;
+	e->texture = malloc(sizeof(t_mlx) * x);
+	x = 0;
+	while (e->path_tex[x])
+	{
+		path = ft_strjoin("./", e->path_tex[x]);
+		if (stat(path, &test) == -1)
+			ft_error("File texture doesn't exist : ", path);
+		if (!(e->texture[x].img = mlx_xpm_file_to_image(e->mlx->mlx, path, &e->texture[x].w, &e->texture[x].h)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
+		if (!(e->texture[x].data = mlx_get_data_addr(e->texture[x].img,
+			&e->texture[x].bpp, &e->texture[x].sizeline, &e->texture[x].endian)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
+		// if (x == 2)
+		// {
+		// 	int y;
+
+		// 	y = 0;
+		// 	printf("size = %d %d\n", e->texture[x].w, e->texture[x].h);
+		// 	while (y < e->texture[x].w * e->texture[x].h)
+		// 	{
+		// 		printf("%d ", e->texture[x].data[y]);
+		// 		y++;
+		// 	}
+		// 	free(path);
+		// }
+		x++;
+	}
+}
+
+
 void			parse_file(char *name , t_env *e)
 {
 	int		len_name;
@@ -333,10 +431,13 @@ void			parse_file(char *name , t_env *e)
 	len_name = ft_strlen(name);
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
+
 	if (!ft_strcmp(name + (len_name - 3), ".rt"))
 		ft_parse(name, e);
 	else if (!ft_strcmp(name + (len_name - 5), ".json"))
 		ft_parse_j(name, e);
+	// else if (!ft_strcmp(name + (len_name - 4), ".obj"))
+	// 	ft_parse_obj_files1(name, e);
 	ft_creat_lst_obj(e);
 	e->flag = 0;
 }
@@ -344,13 +445,16 @@ void			parse_file(char *name , t_env *e)
 int				main(int ac, char **av)
 {
 	t_env		e;
-
+	e.anti_a = 1;
 	init(&e);
+	e.anti_a = 1;
+	e.path_tex = malloc(sizeof(char *));
+	e.path_tex[0] = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
 
 	ft_init_opencl(&e, e.cl_e->cl);
-
+	// ft_affiche_textures(&e);
 	graphic_interface(&e);
 	return (1);
 }

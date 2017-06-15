@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/05 14:09:26 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/09 16:42:28 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,11 @@ int						add_tab(t_envg *e);
 int						conf_tab(t_envg *e);
 void    				home_tab(t_envg *e);
 void					del_tab(t_envg *e);
+
+/*
+** interface_tab_2.c
+*/
+void					info_tab(t_envg *e);
 
 /*
 ** interface_creat_obj.c

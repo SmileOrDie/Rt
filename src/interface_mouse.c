@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/21 16:08:15 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/10 17:51:07 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		select_pos(t_envg *e, int x, int y)
 		return (select_conf(e, x, y));
 	else if (e->volet.other == 1)
 		return (select_info(e, x, y));
-	else if (e->volet.del == 1) 
+	else if (e->volet.del == 1)
 		return (select_del(e, x, y));
 	else if (e->volet.home == 1)
 		return (select_home(e, x, y));
@@ -62,7 +62,7 @@ static void		mousse_click_x(t_envg *e, int x)
 	e->page = 0;
 	e->i_lst = 0;
 	re_init_tab(e);
-	if (x > 25 && x < 75)
+	if (x > 25 && x <= 75)
 	{
 		e->mod = 1;
 		home_tab(e);
@@ -76,10 +76,9 @@ static void		mousse_click_x(t_envg *e, int x)
 	else if (x > 195 && x < 255)
 		del_tab(e);
 	else if (x > 255 && x < 315)
-	{
-		load_img(e, 5);
-		e->volet = (t_tab_valid){0, 0, 0, 0, 1};
-	}
+		info_tab(e);
+	else
+		e->i_lst = 0;
 	e->pos = (x > 75 && x < 135) ? add_tab(e) : e->pos;
 }
 
@@ -99,22 +98,23 @@ void	ft_exit(t_envg *e)
 static void		init_mlx1(t_envg *e)
 {
 	if (!(e->e->mlx->win =
-		mlx_new_window(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h, "rtv1")))
+		mlx_new_window(e->e->mlx->mlx, e->e->mlx->w / e->e->anti_a, e->e->mlx->h / e->e->anti_a, "rtv1")))
 		ft_error(MLX,
-			"static int init_mlx(t_env *e) (=>mlx_new_window())-(mouse.c))");
-	else if (!(e->e->mlx->img = mlx_new_image(e->e->mlx->mlx, e->e->mlx->w, e->e->mlx->h)))
+			"static int init_mlx(t_env *e) (=>mlx_new_window())-(rtv1.c))");
+	else if (!(e->e->mlx->img = mlx_new_image(e->e->mlx->mlx, e->e->mlx->w / e->e->anti_a, e->e->mlx->h / e->e->anti_a)))
 		ft_error(MLX,
-			"static int init_mlx(t_env *e) (=>mlx_new_image())-(mouse.c))");
+			"static int init_mlx(t_env *e) (=>mlx_new_image())-(rtv1.c))");
 	else if (!(e->e->mlx->data = mlx_get_data_addr(e->e->mlx->img, &(e->e->mlx->bpp),
 		&(e->e->mlx->sizeline), &(e->e->mlx->endian))))
 		ft_error(MLX,
-			"static int init_mlx(t_env *e) (=>mlx_get_data_addr())-(mouse.c))");
-	(e->filter.blue == 1) ? e->e->flag = 1 : 0;
-	(e->filter.green == 1) ?e->e->flag = 2 : 0;
-	(e->filter.red == 1) ? e->e->flag = 3 : 0;
-	(e->filter.sepia == 1) ?e->e->flag = 4 : 0;
-	(e->filter.old == 1) ?e->e->flag = 5 : 0;
-	(e->filter.cartoon == 1) ?e->e->flag = 6 : 0;
+			"static int init_mlx(t_env *e) (=>mlx_get_data_addr())-(rtv1.c))");
+			e->e->filter_t = NULL;
+			e->filter.old == 1 ? e->e->filter_t = &filter_blur : 0;
+			e->filter.sepia == 1 ? e->e->filter_t = &filter_sepia : 0;
+			e->filter.blue == 1 ? e->e->filter_t = &filter_blue : 0;
+			e->filter.green == 1 ? e->e->filter_t = &filter_green : 0;
+			e->filter.red == 1 ? e->e->filter_t = &filter_red : 0;
+			e->filter.cartoon == 1 ? e->e->filter_t = &filter_cartoon : 0;
 }
 
 static void		event_touch(t_envg *e)
@@ -159,7 +159,7 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 		else if (e->volet.conf == 1 && ((((e->pos > 0 && e->pos <= 15) || e->pos == 31) ||
 			(e->pos >= 19 && e->pos <= 26)) || e->pos == -1))
 		{
-			e->i_lst = (e->light == -1) ? 0 : e->i_lst;
+			e->i_lst = 0;
 			e->pos = conf_tab(e);
 		}
 		volet_target(e);

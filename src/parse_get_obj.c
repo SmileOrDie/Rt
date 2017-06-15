@@ -12,8 +12,8 @@
 
 #include "../includes/interface_rt.h"
 
-t_obj	g_default_object = {2, -1, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0},
-			{0, 0, 0, 0}, 0, NULL, 0, {255, 255, 255, 255}};
+t_obj	g_default_object = {0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0},
+			{0, 0, 0, 0}, 0, 0, NULL, {255, 255, 255, 255}, 0, 0, 0};
 t_light	g_default_light = {{0, 0, 0, 0}, {255, 255, 255, 255}, 0, 0, NULL};
 
 void			increase_l_obj(t_env *e)
@@ -43,6 +43,8 @@ int				get_object(char *line, int *x, t_env *e, char *name)
 		add_obj2(line, x, e, 5);
 	else if (ft_strcmp(name, "square") == 0)
 		add_obj2(line, x, e, 6);
+	else if (ft_strcmp(name, "cube") == 0)
+		add_obj2(line, x, e, 7);
 	else
 		ft_error(OBJ_I, "get_object");
 	line[*x] != '}' ? ft_error(J_SON, "get_object") : (*x)++;
@@ -63,7 +65,7 @@ void			get_light2(char *line, int *x, t_env *e, char *name)
 	if (ft_strcmp(name, "color") == 0)
 		e->parse_light->light.color = get_t_color(line, x);
 	if (ft_strcmp(name, "pos") == 0)
-		e->parse_light->light.pos = get_t_vector(line, x);
+		e->parse_light->light.pos = get_t_vector(line, x, 0);
 	if (ft_strcmp(name, "name") == 0)
 	{
 		free(e->parse_light->light.name);

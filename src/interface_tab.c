@@ -35,6 +35,7 @@ int				add_tab(t_envg *e)
 		}
 		i++;
 	}
+	load_img(e, 29);
 	e->pos = 30;
 	load_img(e, e->pos_value[e->pos]);
 	return ((save == -1) ? 0 : save);
@@ -80,9 +81,12 @@ int				conf_tab(t_envg *e)
 			}
 			i++;
 		}
+		load_img(e, 29);
 	}
 	else
+	{
 		conf_tab2(e, 18);
+	}
 	load_img(e, 20);
 	return ((save == -2) ? 0 : save);
 }

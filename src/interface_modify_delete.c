@@ -28,6 +28,7 @@ void			del_light(t_envg *e, int i)
 				b->next = f_l->next;
 				free(f_l->light.name);
 				free(f_l);
+				f_l = NULL;
 				break;
 			}
 			b = b->next;
@@ -35,7 +36,7 @@ void			del_light(t_envg *e, int i)
 	}
 	else if (i == 0)
 	{
-		if (e->e->light[i].name == b->light.name)
+		if (e->e->light[0].name == b->light.name)
 			e->e->parse_light = e->e->parse_light->next;
 		free(b->light.name);
 		free(b);
@@ -100,26 +101,27 @@ void			del_elem(t_envg *e, int i)
 	ft_creat_lst_obj(e->e);
 }
 
-static	void	ft_strcpy_nbr(char *dest, double d)
+static	void	ft_strcpy_nbr(char **dest, double d)
 {
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
 	double	neg;
 
-	neg = (d < 0) ? -1 : 1;
+
+	neg = (d < 0) ? -1.0 : 1.0;
 	tmp = ft_itoa((int)d);
 	d = (d - ((int)d * neg));
 	if (d > 0)
 	{
 		tmp2 = ft_strjoin(tmp, ".");
 		free(tmp);
-		tmp3 = ft_itoa(d * 1000);
+		tmp3 = ft_itoa(d * 10000);
 		tmp = ft_strjoin(tmp2,tmp3);
 		free(tmp3);
 		free(tmp2);
 	}
-	ft_strcpy(dest, tmp);
+	ft_strcpy(*dest, tmp);
 	free(tmp);
 }
 
@@ -130,15 +132,15 @@ void 		modif_light(t_envg *e, int light)
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};
 	ft_strcpy(e->line[1], "light");
 	ft_strcpy(e->line[2], e->e->light[light].name);
-	ft_strcpy_nbr(e->line[3], e->e->light[light].pos.x);
-	ft_strcpy_nbr(e->line[4], e->e->light[light].pos.y);
-	ft_strcpy_nbr(e->line[5], e->e->light[light].pos.z);
+	ft_strcpy_nbr(&(e->line[3]), e->e->light[light].pos.x);
+	ft_strcpy_nbr(&(e->line[4]), e->e->light[light].pos.y);
+	ft_strcpy_nbr(&(e->line[5]), e->e->light[light].pos.z);
 	ft_strcpy(e->line[6], "-\0\0");
 	ft_strcpy(e->line[7], "-\0\0");
 	ft_strcpy(e->line[8], "-\0\0");
-	ft_strcpy_nbr(e->line[9], e->e->light[light].color.r);
-	ft_strcpy_nbr(e->line[10], e->e->light[light].color.g);
-	ft_strcpy_nbr(e->line[11], e->e->light[light].color.b);
+	ft_strcpy_nbr(&(e->line[9]), e->e->light[light].color.r);
+	ft_strcpy_nbr(&(e->line[10]), e->e->light[light].color.g);
+	ft_strcpy_nbr(&(e->line[11]), e->e->light[light].color.b);
 	ft_strcpy(e->line[12], "-\0\0");
 	ft_strcpy(e->line[13], "-\0\0");
 	ft_strcpy(e->line[14], "-\0\0");
@@ -162,20 +164,21 @@ void		modif_list(t_envg *e, int obj)
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};
 	ft_strcpy(e->line[1], type_obj[(e->e->l_obj[obj].type - 1)]);
 	ft_strcpy(e->line[2], e->e->l_obj[obj].name);
-	ft_strcpy_nbr(e->line[3], e->e->l_obj[obj].pos.x);
-	ft_strcpy_nbr(e->line[4], e->e->l_obj[obj].pos.y);
-	ft_strcpy_nbr(e->line[5], e->e->l_obj[obj].pos.z);
-	ft_strcpy_nbr(e->line[6], e->e->l_obj[obj].dir.x);
-	ft_strcpy_nbr(e->line[7], e->e->l_obj[obj].dir.y);
-	ft_strcpy_nbr(e->line[8], e->e->l_obj[obj].dir.z);
-	ft_strcpy_nbr(e->line[9], e->e->l_obj[obj].color.r);
-	ft_strcpy_nbr(e->line[10], e->e->l_obj[obj].color.g);
-	ft_strcpy_nbr(e->line[11], e->e->l_obj[obj].color.b);
-	ft_strcpy_nbr(e->line[12], e->e->l_obj[obj].radius);
-	ft_strcpy_nbr(e->line[13], e->e->l_obj[obj].ind_transp);
-	ft_strcpy_nbr(e->line[14], e->e->l_obj[obj].ind_refrac);
-	ft_strcpy_nbr(e->line[15], e->e->l_obj[obj].ind_reflec);
-	ft_strcpy_nbr(e->line[31], e->e->l_obj[obj].angle);
+	ft_strcpy_nbr(&(e->line[3]), e->e->l_obj[obj].pos.x);
+	ft_strcpy_nbr(&(e->line[4]), e->e->l_obj[obj].pos.y);
+	ft_strcpy_nbr(&(e->line[5]), e->e->l_obj[obj].pos.z);
+	ft_strcpy_nbr(&(e->line[6]), e->e->l_obj[obj].dir.x);
+	ft_strcpy_nbr(&(e->line[7]), e->e->l_obj[obj].dir.y);
+	ft_strcpy_nbr(&(e->line[8]), e->e->l_obj[obj].dir.z);
+	ft_strcpy_nbr(&(e->line[9]), e->e->l_obj[obj].color.r);
+	ft_strcpy_nbr(&(e->line[10]), e->e->l_obj[obj].color.g);
+	ft_strcpy_nbr(&(e->line[11]), e->e->l_obj[obj].color.b);
+	ft_strcpy_nbr(&(e->line[12]), e->e->l_obj[obj].radius);
+	ft_strcpy_nbr(&(e->line[13]), e->e->l_obj[obj].ind_transp);
+	ft_strcpy_nbr(&(e->line[14]), e->e->l_obj[obj].ind_refrac);
+	ft_strcpy_nbr(&(e->line[15]), e->e->l_obj[obj].ind_reflec);
+	e->line[30][0] = e->e->l_obj[obj].id_texture;
+	ft_strcpy_nbr(&(e->line[31]), e->e->l_obj[obj].angle);
 	conf_tab(e);
 }
 
@@ -183,22 +186,22 @@ void		modif_default(t_envg *e)
 {
 	if (!e->e->cam)
 	{
-	 	ft_strcpy_nbr(e->line[19], 0);
-		ft_strcpy_nbr(e->line[20], 0);
-		ft_strcpy_nbr(e->line[21], 0);
-		ft_strcpy_nbr(e->line[22], 0);
-		ft_strcpy_nbr(e->line[23], 0);
-		ft_strcpy_nbr(e->line[24], 0);
-		ft_strcpy_nbr(e->line[25], 0);
-		ft_strcpy_nbr(e->line[26], 0);
+	 	ft_strcpy_nbr(&(e->line[19]), 0);
+		ft_strcpy_nbr(&(e->line[20]), 0);
+		ft_strcpy_nbr(&(e->line[21]), 0);
+		ft_strcpy_nbr(&(e->line[22]), 0);
+		ft_strcpy_nbr(&(e->line[23]), 0);
+		ft_strcpy_nbr(&(e->line[24]), 0);
+		ft_strcpy_nbr(&(e->line[25]), 0);
+		ft_strcpy_nbr(&(e->line[26]), 0);
 		return ;
 	}
-	ft_strcpy_nbr(e->line[19], e->e->cam->eye.x);
-	ft_strcpy_nbr(e->line[20], e->e->cam->eye.y);
-	ft_strcpy_nbr(e->line[21], e->e->cam->eye.z);
-	ft_strcpy_nbr(e->line[22], e->e->cam->l_at.x);
-	ft_strcpy_nbr(e->line[23], e->e->cam->l_at.y);
-	ft_strcpy_nbr(e->line[24], e->e->cam->l_at.z);
-	ft_strcpy_nbr(e->line[25], e->e->mlx->w);
-	ft_strcpy_nbr(e->line[26], e->e->mlx->h);
+	ft_strcpy_nbr(&(e->line[19]), e->e->cam->eye.x);
+	ft_strcpy_nbr(&(e->line[20]), e->e->cam->eye.y);
+	ft_strcpy_nbr(&(e->line[21]), e->e->cam->eye.z);
+	ft_strcpy_nbr(&(e->line[22]), e->e->cam->l_at.x);
+	ft_strcpy_nbr(&(e->line[23]), e->e->cam->l_at.y);
+	ft_strcpy_nbr(&(e->line[24]), e->e->cam->l_at.z);
+	ft_strcpy_nbr(&(e->line[25]), e->e->mlx->w);
+	ft_strcpy_nbr(&(e->line[26]), e->e->mlx->h);
 }

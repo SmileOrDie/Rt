@@ -40,6 +40,7 @@ static void		init_pos_value(t_envg *e)
 	e->pos_value[24] = 8;
 	e->pos_value[25] = 8;
 	e->pos_value[26] = 8;
+	// e->pos_value[29] = 29;
 	e->pos_value[30] = 13;
 	e->pos_value[31] = 8;
 }
@@ -96,6 +97,7 @@ void			init_envg(t_envg *e, t_env *env)
 	e->i_lst = 0;
 	e->shift = 1;
 	e->run = 0;
+	// e->e->anti_a = 1;
 	e->filter = (t_filter){0, 0, 0, 0, 0, 0};
 	e->error = -1;
 	if (!(e->line = (char**)malloc(sizeof(char*) * LINE_SIZE + 1)))
@@ -119,7 +121,7 @@ void				init_mlx(t_envg *e)
 		mlx_new_window(e->mlx->mlx, e->mlx->w, e->mlx->h,
 			"Graphical interface by BIM")))
 		return ;
-	else if (!( e->mlx->img = mlx_new_image(e->mlx->mlx, e->mlx->w,
+	else if (!(e->mlx->img = mlx_new_image(e->mlx->mlx, e->mlx->w,
 		e->mlx->h)))
 		return ;
 	else if (!(e->mlx->data = mlx_get_data_addr(e->mlx->img, &(e->mlx->bpp),

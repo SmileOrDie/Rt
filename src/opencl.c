@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   opencl.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/10 16:25:56 by pde-maul          #+#    #+#             */
+/*   Updated: 2017/06/10 16:25:59 by pde-maul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/rt.h"
 
 char	*ft_create_source(char *file_name)
@@ -122,6 +134,12 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->lst -> ", ft_itoa(err))) : 0;
 	cl->color_lst = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_color2) * *(e->nb_obj_pix[0]), e->cl_e->color_lst, &err);
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->color_lst -> ", ft_itoa(err))) : 0;
+	if (e->nb_tex)
+	{
+		cl->texture = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_mlx) * e->nb_tex, e->texture, &err);
+		err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->texture -> ", ft_itoa(err))) : 0;
+	}
+	(err = clSetKernelArg(cl->kernel, 5, sizeof(cl_mem), (void *)&cl->texture)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 0 -> ", ft_itoa(err))) : 0;
 	(err = clSetKernelArg(cl->kernel, 4, sizeof(cl_mem), (void *)&cl->lst)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 0 -> ", ft_itoa(err))) : 0;
 	(err = clSetKernelArg(cl->kernel, 1, sizeof(cl_mem), (void *)&cl->obj)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 1 -> ", ft_itoa(err))) : 0;
 	(err = clSetKernelArg(cl->kernel, 2, sizeof(cl_mem), (void *)&cl->light)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 2 -> ", ft_itoa(err))) : 0;
@@ -168,12 +186,12 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 	clReleaseMemObject(cl->color_lst);
 	// clReleaseContext(cl->context);
 // 	// exit(0);;
-			
-// }	
+
+// }
 	// printf("end\n");
 
-	// printf("%ld\n", sizeof(t_env_cl));	
-	// printf("finished\n");	
+	// printf("%ld\n", sizeof(t_env_cl));
+	// printf("finished\n");
 	// err = clEnqueueReadBuffer(cl->command_queue, cl->data, CL_TRUE, 0, sizeof(char) * e->mlx->w * e->mlx->h, e->mlx->data + 0 * e->mlx->w * e->mlx->h, 0, NULL, NULL);
 	// i = 1;
 	// err = clEnqueueReadBuffer(cl->command_queue, cl->data, CL_TRUE, 0, sizeof(char) * e->mlx->w * e->mlx->h, e->mlx->data + 1 * e->mlx->w * e->mlx->h, 0, NULL, NULL);
