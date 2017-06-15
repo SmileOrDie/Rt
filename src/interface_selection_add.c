@@ -14,7 +14,6 @@
 
 static int	select_obj(t_envg *e, int y)
 {
-	// printf("%d\n", y);
 	if (y >= 220 && y < 245)
 		ft_strcpy(e->line[e->pos], "sphere");
 	else if (y >= 245 && y < 268)
@@ -60,7 +59,19 @@ static int	select_add_1(t_envg *e, int x, int y, int i)
 	if (x > e->line_pos[31].w && x < e->line_pos[31].w + 40 &&
 			y > e->line_pos[31].h && y < e->line_pos[31].h + 30)
 			return (31);
-	return (i);
+	i = 0;
+	while (i < e->e->nb_tex)
+	{
+		if ( x > 40 && x < 60 && y > 600 + (i * 30) && y < 620 + (i * 30))
+		{
+			e->e->l_obj[e->obj + e->page].id_texture = (unsigned char)i + 1;
+			e->line[30][0] = i + 1;
+			e->volet.add == 0 ? conf_tab(e) : add_tab(e);
+			break ;
+		}	
+		i++;
+	}
+	return (16);
 }
 
 int			select_add(t_envg *e, int x, int y)

@@ -40,6 +40,7 @@ static void		init_pos_value(t_envg *e)
 	e->pos_value[24] = 8;
 	e->pos_value[25] = 8;
 	e->pos_value[26] = 8;
+	// e->pos_value[29] = 29;
 	e->pos_value[30] = 13;
 	e->pos_value[31] = 8;
 }

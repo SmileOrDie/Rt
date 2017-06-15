@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/14 15:36:12 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/13 19:31:04 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,7 +330,5 @@ int       		 ft_parse_obj_vn(char *line, t_env *e, int i);
 int     	   ft_parse_obj_f(char *line, t_env *e, int i);
 double         	ft_check_pow(char *str, int s, int y);
 int          	ft_len_nb(char *line, int s);
-
-
 
 #endif

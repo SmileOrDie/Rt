@@ -62,6 +62,7 @@ t_obj				new_obj(t_envg *e)
 	obj.color = (t_color2){ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
 	obj.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]), ft_atof(e->line[5]));
 	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]), ft_atof(e->line[8]));
+	obj.id_texture = e->line[30][0];
 	e->e->nb_obj++;
 	return(obj);	
 }

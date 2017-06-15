@@ -222,7 +222,11 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		else if (obj.type == 4)
 			v_norm = ft_angle_cone(obj, p_hit);
 		angles[i] = vpscal(v_norm, vmult(v_light, -1));
-		angles[i] < 0 ? (angles[i] *= -1) : 0;
+		if (angles[i] < 0 && (obj.type == 2 || obj.type == 5 || obj.type == 6))
+			angles[i] *= -1;
+		else if (angles[i] < 0)
+			angles[i] = 0;
+
 		calc = angles[i] * transp / 255.0;
 		pixel.r + colorobj.r * l_color.r * calc < 255 ? (pixel.r += colorobj.r * l_color.r * calc) : (pixel.r = 255);
 		pixel.g + colorobj.g * l_color.g * calc < 255 ? (pixel.g += colorobj.g * l_color.g * calc) : (pixel.g = 255);

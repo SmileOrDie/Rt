@@ -62,7 +62,7 @@ static void		mousse_click_x(t_envg *e, int x)
 	e->page = 0;
 	e->i_lst = 0;
 	re_init_tab(e);
-	if (x > 25 && x < 75)
+	if (x > 25 && x <= 75)
 	{
 		e->mod = 1;
 		home_tab(e);
@@ -76,10 +76,9 @@ static void		mousse_click_x(t_envg *e, int x)
 	else if (x > 195 && x < 255)
 		del_tab(e);
 	else if (x > 255 && x < 315)
-	{
-		load_img(e, 5);
-		e->volet = (t_tab_valid){0, 0, 0, 0, 1};
-	}
+		info_tab(e);
+	else
+		e->i_lst = 0;
 	e->pos = (x > 75 && x < 135) ? add_tab(e) : e->pos;
 }
 
@@ -160,7 +159,7 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 		else if (e->volet.conf == 1 && ((((e->pos > 0 && e->pos <= 15) || e->pos == 31) ||
 			(e->pos >= 19 && e->pos <= 26)) || e->pos == -1))
 		{
-			e->i_lst = (e->light == -1) ? 0 : e->i_lst;
+			e->i_lst = 0;
 			e->pos = conf_tab(e);
 		}
 		volet_target(e);

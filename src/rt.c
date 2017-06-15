@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/14 17:57:45 by magouin          ###   ########.fr       */
+/*   Updated: 2017/06/15 16:21:07 by magouin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,8 +436,8 @@ void			parse_file(char *name , t_env *e)
 		ft_parse(name, e);
 	else if (!ft_strcmp(name + (len_name - 5), ".json"))
 		ft_parse_j(name, e);
-	//else if (!ft_strcmp(name + (len_name - 4), ".obj"))
-	//	ft_parse_obj_files1(name, e);
+	// else if (!ft_strcmp(name + (len_name - 4), ".obj"))
+	// 	ft_parse_obj_files1(name, e);
 	ft_creat_lst_obj(e);
 	e->flag = 0;
 }

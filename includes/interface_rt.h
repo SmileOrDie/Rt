@@ -239,6 +239,11 @@ void    				home_tab(t_envg *e);
 void					del_tab(t_envg *e);
 
 /*
+** interface_tab_2.c
+*/
+void					info_tab(t_envg *e);
+
+/*
 ** interface_creat_obj.c
 */
 void					creat_elem(t_envg *e);
