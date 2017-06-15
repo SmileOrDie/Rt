@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
 	"anti-aliasing" : 4,
+=======
+	"anti-aliasing" : 3,
+>>>>>>> master
 	"sphere"  :
 	{
 		"name": "sphere_1",
@@ -19,6 +23,10 @@
 			"g" : 0,
 			"b" : 0
 		},
+<<<<<<< HEAD
+=======
+		"texture" : "xpm_file/Check_C.xpm"
+>>>>>>> master
 	},
 	"cylinder"  :
 	{
@@ -44,6 +52,10 @@
 			"y" : 1,
 			"z" : 0
 		},
+<<<<<<< HEAD
+=======
+		"texture" : "xpm_file/Check_V.xpm"
+>>>>>>> master
 	},
 	"sphere"  :
 	{
@@ -63,6 +75,10 @@
 			"g" : 0,
 			"b" : 0
 		},
+<<<<<<< HEAD
+=======
+		"texture" : "xpm_file/2k_earth_daymap.xpm"
+>>>>>>> master
 
 	},
 	"sphere"  :

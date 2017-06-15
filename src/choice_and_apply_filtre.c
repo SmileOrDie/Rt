@@ -20,19 +20,20 @@ int  *lecture_img_for_blur(t_env *e, int x, int y, int i)
 
   s = x;
   compt = 0;
-    if (!(tab = (int *)malloc(sizeof(int) * 100)))
+  if (!(tab = (int *)malloc(sizeof(int) * 101)))
       ft_error(MALLOC, "lecture_img_to_blur");
   while (i < 100 && y < e->mlx->h)
   {
-      tab[i++] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
+      tab[i] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
         ((e->mlx->bpp / 8) * x) + 2];
-      tab[i++] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
+      tab[i + 1] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
         ((e->mlx->bpp / 8) * x) + 1];
-      tab[i++] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
+      tab[i + 2] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
         ((e->mlx->bpp / 8) * x)];
-      tab[i++] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
+      tab[i + 3] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
         ((e->mlx->bpp / 8) * x++) + 3];
-      if (x > e->mlx->w || compt++ == 5)
+        i += 4;
+      if (x > e->mlx->w / e->anti_a || compt++ == 5)
       {
         y++;
         x = s;

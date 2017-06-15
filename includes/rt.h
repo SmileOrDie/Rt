@@ -181,11 +181,27 @@ typedef struct			s_parse_obj
 	struct s_parse_obj	*next;
 }						t_parse_obj;
 
+typedef struct 		s_tab_f
+{
+		double		vx;
+		double		vy;
+		double		vz;
+
+		double		vtx;
+		double		vty;
+
+		double		vnx;
+		double		vny;
+		double		vnz;
+}					t_tab_f;
+
 typedef struct 		s_parse_obj_f
 {
-		double		x;
-		double		y;
-		double		z;
+		int		start;
+		int		v;
+		int		vt;
+		int		vn;
+		t_tab_f	tab;
 }					t_parse_obj_f;
 
 typedef struct			s_env
@@ -308,5 +324,11 @@ void    filter_cartoon(t_env *e, int x, int y);
 
 //// parse obj
 void			ft_parse_obj_files1(char *name, t_env *e);
+int				ft_parse_obj_v(char *line, t_env *e);
+int         	ft_parse_obj_vt(char *line, t_env *e, int i);
+int       		 ft_parse_obj_vn(char *line, t_env *e, int i);
+int     	   ft_parse_obj_f(char *line, t_env *e, int i);
+double         	ft_check_pow(char *str, int s, int y);
+int          	ft_len_nb(char *line, int s);
 
 #endif
