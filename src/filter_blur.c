@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 15:55:01 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/14 13:34:17 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/15 12:44:01 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void    filter_blur(t_env *e, int x, int y)////a passe en matrice 5/5 https://en
     int     *tab = NULL;
     int     rgb[5];
 
-    y = 2;
-    x = 2;
-    while (y <= e->mlx->h - 1)
+    y = 0;
+    x = 0;
+    while (y <= e->mlx->h / e->anti_a)
     {
         if (!(tab = lecture_img_for_blur(e, x, y, 0)))
             ft_error("error filter", "filter blur");
@@ -81,11 +81,10 @@ void    filter_blur(t_env *e, int x, int y)////a passe en matrice 5/5 https://en
         apply_blur_to_b(rgb, 52, tab);
         apply_blur_to_t(rgb, 53, tab);
         free(tab);
-    //    printf("apply\n");
         if (apply_color_pix_for_blur(e, rgb, x, y) == -1)
           break ;
         x++;
-        if (x >= e->mlx->w && ((y++) || 1))
+        if (x > e->mlx->w / e->anti_a && ((y++) || 1))
             x = 0;
     }
 }

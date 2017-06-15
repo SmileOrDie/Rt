@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 11:25:53 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/14 14:38:04 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/15 12:45:25 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int  *lecture_img_for_blur(t_env *e, int x, int y, int i)
       tab[i + 3] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
         ((e->mlx->bpp / 8) * x++) + 3];
         i += 4;
-      if (x > e->mlx->w || compt++ == 5)
+      if (x > e->mlx->w / e->anti_a || compt++ == 5)
       {
         y++;
         x = s;
@@ -72,7 +72,7 @@ int  apply_color_pix_for_blur(t_env *e, int rgb[5], int x, int y)
 
 void  lecture_img(t_env *e, int (rgb)[5], int x, int y)
 {
-    printf("lecture img : rgb[0] = %d\n", rgb[0]);
+
       rgb[0] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
       ((e->mlx->bpp / 8) * x) + 2];
       rgb[1] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
