@@ -137,7 +137,7 @@ typedef struct			s_tab_valid
 	int					add;
 	int					conf;
 	int					del;
-	int					other;
+	int					info;
 }						t_tab_valid;
 
 typedef struct			s_filter

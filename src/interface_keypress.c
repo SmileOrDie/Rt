@@ -12,6 +12,37 @@
 
 #include "../includes/interface_rt.h"
 
+void    add_new_texture(t_envg *e)
+{
+    char    *path;
+    char    **new;
+    int     y;
+
+    y = 0;
+    while ((e->e->path_tex)[y] != NULL)
+    {
+        if (ft_strcmp(e->line[41], (e->e->path_tex)[y]) == 0)
+            break ;
+        y++;
+    }
+    if ((e->path_tex)[y] == NULL)
+    {
+        if (new = (char **)malloc(sizeof(char *) * (y + 2)))
+            ft_error(MALLOC, "add_new_texture => interface_keypress.c");
+        y = 0;
+        while ((e->path_tex)[y] != NULL)
+        {
+            new[y] = (e->path_tex)[y];
+            y++;
+        }
+        new[y] = ft_strdup(e->line[41]);
+        new[y + 1] = NULL;
+        free(e->path_tex);
+        e->path_tex = new;
+        e->e->nb_tex++;
+    }
+}
+
 static int     interface_keypress_1(t_envg *e)
 {
     if (e->volet.add == 1)
@@ -30,6 +61,8 @@ static int     interface_keypress_1(t_envg *e)
         e->page = 0;
         home_tab(e);
     }
+    else if (e->volet.info == 1 && e->line[41][0] != "\0")
+        add_new_texture(e);
     return (1);
 }
 
@@ -42,7 +75,7 @@ static int     interface_keypress_2(int key, t_envg *e, int *val, char *li)
     pr = ft_print_key(key, e);
     if (!(ft_strcmp(pr, "right delete")) || !(ft_strcmp(pr, "delete")))
     {
-        *val = ((e->pos > 2 && e->pos <= 15) || e->pos == 31 || (e->pos >= 19 && e->pos <= 26))
+        *val = ((e->pos < 40 && e->pos > 42) || (e->pos > 2 && e->pos <= 15) || e->pos == 31 || (e->pos >= 19 && e->pos <= 26))
         ? 3 : 30;
         del_line(e);
     }
@@ -53,7 +86,7 @@ static int     interface_keypress_2(int key, t_envg *e, int *val, char *li)
         *val = 3;
         add_line(li, pr, 1);
     }
-    else if (e->pos == 2)
+    else if (e->pos == 2 || (e->pos > 40 && e->pos <= 42))
     {
         *val = 30;
         add_line(li, pr, 0);
@@ -87,7 +120,10 @@ int             interface_keypress(int key, t_envg *e)
         pression = interface_keypress_2(key, e, &val, line);
         // (((e->pos > 2 && e->pos <= 15) || e->pos == 31 || (e->pos >= 19 && e->pos <= 26)) &&
         //     pression == 0) ? load_img(e, e->pos_value[e->pos] + 1) : 0;
+        // printf("%d\n", e->pos);
+        e->volet.info == 1 ? e->pos -= 40 : 0;
         pression == 0 ? load_img(e, e->pos_value[e->pos] + 1) : 0;
+        e->volet.info == 1 ? e->pos += 40 : 0;
         print_line(e, e->pos, val);
     }
     return (1);

@@ -406,19 +406,6 @@ void			ft_get_image_texture(t_env *e)
 		if (!(e->texture[x].data = mlx_get_data_addr(e->texture[x].img,
 			&e->texture[x].bpp, &e->texture[x].sizeline, &e->texture[x].endian)))
 			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
-		// if (x == 2)
-		// {
-		// 	int y;
-
-		// 	y = 0;
-		// 	printf("size = %d %d\n", e->texture[x].w, e->texture[x].h);
-		// 	while (y < e->texture[x].w * e->texture[x].h)
-		// 	{
-		// 		printf("%d ", e->texture[x].data[y]);
-		// 		y++;
-		// 	}
-		// 	free(path);
-		// }
 		x++;
 	}
 }
@@ -452,7 +439,6 @@ int				main(int ac, char **av)
 	e.path_tex[0] = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
-
 	ft_init_opencl(&e, e.cl_e->cl);
 	// ft_affiche_textures(&e);
 	graphic_interface(&e);

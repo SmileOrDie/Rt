@@ -43,8 +43,33 @@ int			error_gestion(t_envg *e, int x, int y)
 		e->page = 0;
 		e->error = -1;
 		home_tab(e);
-	}	
+	}
 	else
 		ft_error_graph(e, tab_error[e->error]);
 	return (1);
 }
+
+// int			error_textur(t_envg *e, int x, int y)
+// {
+	// char *tab_error[25];
+
+	// tab_error[0] = " : file not find";
+	// tab_error[1] = " : error parsing";
+	// tab_error[2] = " : Position information";
+	// tab_error[3] = " : Direction information";
+	// tab_error[4] = " : Color information";
+	// tab_error[5] = " : Radius/angle \n information";
+	// tab_error[6] = " : ";
+	// e->f_key = 0;
+	// if (x > (WI / 2 - 35) && x < (WI / 2 + 35) &&
+	// 	y > ((HE / 2 + 30) - 15) && y < ((HE / 2 + 30) + 15))
+	// {
+	// 	e->i_lst = 0;
+	// 	e->page = 0;
+	// 	e->error = -1;
+	// 	home_tab(e);
+	// }
+	// else
+	// 	ft_error_graph(e, tab_error[e->error]);
+// 	return (1);
+// }
