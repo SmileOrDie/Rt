@@ -23,7 +23,8 @@ typedef	struct			s_obj
 	double4				dir;
 	double4				point;
 	double				ind_transp; //0 -> 1
-	int					vide2;
+	unsigned short int	group;
+	unsigned short int	vide;
 	void				*name;
 	uchar4				color;
 	unsigned short int	id;

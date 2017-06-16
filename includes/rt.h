@@ -90,7 +90,8 @@ typedef	struct			s_obj
 	t_vector			dir;
 	t_vector			point; //verif utilite
 	double				ind_transp; //0 -> 1
-	int					vide2;
+	unsigned short int	group;
+	unsigned short int	vide;
 	char				*name;
 	t_color2			color;
 	unsigned short int	id;
@@ -288,6 +289,7 @@ void				graphic_interface(t_env *scene);
 /*
 **	/parcer/parser_*.c
 */
+void				increase_l_obj(t_env *e)
 void				ft_get_image_texture(t_env *e);
 void				get_camera3(t_env *e);
 void				free_space(char *line, int *x);
