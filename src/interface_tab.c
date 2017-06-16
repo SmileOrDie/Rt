@@ -84,9 +84,7 @@ int				conf_tab(t_envg *e)
 		load_img(e, 29);
 	}
 	else
-	{
 		conf_tab2(e, 18);
-	}
 	load_img(e, 20);
 	return ((save == -2) ? 0 : save);
 }

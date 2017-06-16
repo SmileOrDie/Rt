@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
 static void		init(t_env *e)
 {
@@ -311,11 +311,33 @@ void		free_l_obj(t_obj **lst, int nb)
 	free(*lst);
 }
 
+void			get_obj_lst(t_env *e, t_obj obj, int *i)
+{
+	int nb;
+
+	nb = 0;
+	if (obj.type == 7)
+	{
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].id = *i;
+		e->l_obj[*i].type = 6;		
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.radius / 2));
+		(*i)++;
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].type = 6;
+		e->l_obj[*i].group = obj.group;
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius / 2));
+		e->l_obj[*i].id = *i;
+		(*i)++;
+	}
+}
+
 void			ft_creat_lst_obj(t_env *e)
 {
 	t_parse_obj			*parse_obj_b;
 	t_parse_light		*parse_light_b;
 	int 				i;
+	// int 				cmp;
 
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
@@ -323,6 +345,12 @@ void			ft_creat_lst_obj(t_env *e)
 	i = 0;
 	while (parse_obj_b)
 	{
+		if (parse_obj_b->obj.type == 7)
+			i += 1;
+		else if (parse_obj_b->obj.type == 8)
+			i++;
+		else if (parse_obj_b->obj.type == 9)
+			i += 2;	
 		parse_obj_b = parse_obj_b->next;
 		i++;
 	}
@@ -343,10 +371,16 @@ void			ft_creat_lst_obj(t_env *e)
 	i = 0;
 	while (parse_obj_b)
 	{
-		e->l_obj[i] = parse_obj_b->obj;
-		e->l_obj[i].id = i;
-		parse_obj_b = parse_obj_b->next;
+		if (parse_obj_b->obj.type == 7 || parse_obj_b->obj.type == 8 ||
+			parse_obj_b->obj.type == 9)
+			get_obj_lst(e, parse_obj_b->obj, &i);
+		else
+		{
+			e->l_obj[i] = parse_obj_b->obj;
+			e->l_obj[i].id = i;
+		}
 		i++;
+		parse_obj_b = parse_obj_b->next;
 	}
 	i = 0;
 	while (parse_light_b)
@@ -355,6 +389,7 @@ void			ft_creat_lst_obj(t_env *e)
 		parse_light_b = parse_light_b->next;
 		i++;
 	}
+	i = 0;
 }
 
 // void			free_env(t_env *e)
@@ -439,6 +474,7 @@ void			parse_file(char *name , t_env *e)
 	// else if (!ft_strcmp(name + (len_name - 4), ".obj"))
 	// 	ft_parse_obj_files1(name, e);
 	ft_creat_lst_obj(e);
+	init_id(e);
 	e->flag = 0;
 }
 
@@ -452,7 +488,6 @@ int				main(int ac, char **av)
 	e.path_tex[0] = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
-
 	ft_init_opencl(&e, e.cl_e->cl);
 	// ft_affiche_textures(&e);
 	graphic_interface(&e);

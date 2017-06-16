@@ -12,6 +12,22 @@
 
 #include "../includes/interface_rt.h"
 
+t_parse_obj			*srch_obj(t_envg *e, int id)
+{
+	t_parse_obj *obj_lst;
+
+
+	obj_lst = e->e->parse_obj;
+	while (obj_lst)
+	{
+
+		if (obj_lst->obj.id == id)
+			return (obj_lst);
+		obj_lst = obj_lst->next;
+	}
+	return (NULL);
+}
+
 static void			reset_line(char **line)
 {
 	int i;
@@ -63,6 +79,7 @@ t_obj				new_obj(t_envg *e)
 	obj.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]), ft_atof(e->line[5]));
 	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]), ft_atof(e->line[8]));
 	obj.id_texture = e->line[30][0];
+	obj.group = (!ft_strcmp(e->line[1], "cube")) ? e->e->group_max++ : 0;
 	e->e->nb_obj++;
 	return(obj);	
 }
@@ -93,7 +110,7 @@ static void			creat_obj(t_envg *e)
 	t_parse_obj *new;
 
 	if (!(new = (t_parse_obj *)malloc(sizeof(t_parse_obj))))
-		ft_error(MALLOC, "e->l_obj -> rt.h");
+		ft_error(MALLOC, "new -> inteface_create_obj.h");
 	new->obj = new_obj(e);
 	new->next = NULL;
 	b = e->e->parse_obj;
@@ -116,6 +133,7 @@ void				creat_elem(t_envg *e)
 	else
 		creat_obj(e);
 	ft_creat_lst_obj(e->e);
+	init_id(e->e);
 	reset_line(e->line);	
 }
 

@@ -59,19 +59,22 @@ void			init_id(t_env *e)
 			b = b->next;
 		}
 	}
+	e->nb_obj = i;
 }
 
 void			del_obj(t_envg *e, int i)
 {
 	t_parse_obj *b;
 	t_parse_obj *f_obj;
+	t_parse_obj	*obj;
 
+	obj = srch_obj(e, i);
 	b = e->e->parse_obj;
 	if (i > 0)
 	{
 		while(b->next)
 		{
-			if (e->e->l_obj[i].name == b->next->obj.name)
+			if (obj->obj.id == b->next->obj.id)
 			{
 				f_obj = b->next;
 				b->next = f_obj->next;
@@ -84,7 +87,7 @@ void			del_obj(t_envg *e, int i)
 	}
 	else if (i == 0)
 	{
-		if (e->e->l_obj[i].name == b->obj.name)
+		if (obj->obj.id == b->obj.id)
 			e->e->parse_obj = e->e->parse_obj->next;
 		free(b->obj.name);
 		free(b);
@@ -151,34 +154,39 @@ void 		modif_light(t_envg *e, int light)
 
 void		modif_list(t_envg *e, int obj)
 {
-	char	*type_obj[15];
+	char			*type_obj[15];
+	t_parse_obj 	*obj_s;
 
 	type_obj[0] = "sphere";
 	type_obj[1] = "plane";
 	type_obj[2] = "cylinder";
 	type_obj[3] = "cone";
 	type_obj[4] = "circle";
+	type_obj[5] = "square";
+	type_obj[6] = "cube";
+	// type_obj[4] = "";
 
 	load_img(e, 3);
 	e->f_key = 0;
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};
-	ft_strcpy(e->line[1], type_obj[(e->e->l_obj[obj].type - 1)]);
-	ft_strcpy(e->line[2], e->e->l_obj[obj].name);
-	ft_strcpy_nbr(&(e->line[3]), e->e->l_obj[obj].pos.x);
-	ft_strcpy_nbr(&(e->line[4]), e->e->l_obj[obj].pos.y);
-	ft_strcpy_nbr(&(e->line[5]), e->e->l_obj[obj].pos.z);
-	ft_strcpy_nbr(&(e->line[6]), e->e->l_obj[obj].dir.x);
-	ft_strcpy_nbr(&(e->line[7]), e->e->l_obj[obj].dir.y);
-	ft_strcpy_nbr(&(e->line[8]), e->e->l_obj[obj].dir.z);
-	ft_strcpy_nbr(&(e->line[9]), e->e->l_obj[obj].color.r);
-	ft_strcpy_nbr(&(e->line[10]), e->e->l_obj[obj].color.g);
-	ft_strcpy_nbr(&(e->line[11]), e->e->l_obj[obj].color.b);
-	ft_strcpy_nbr(&(e->line[12]), e->e->l_obj[obj].radius);
-	ft_strcpy_nbr(&(e->line[13]), e->e->l_obj[obj].ind_transp);
-	ft_strcpy_nbr(&(e->line[14]), e->e->l_obj[obj].ind_refrac);
-	ft_strcpy_nbr(&(e->line[15]), e->e->l_obj[obj].ind_reflec);
-	e->line[30][0] = e->e->l_obj[obj].id_texture;
-	ft_strcpy_nbr(&(e->line[31]), e->e->l_obj[obj].angle);
+	obj_s = srch_obj(e, obj);
+	ft_strcpy(e->line[1], type_obj[(obj_s->obj.type - 1)]);
+	ft_strcpy(e->line[2], obj_s->obj.name);
+	ft_strcpy_nbr(&(e->line[3]), obj_s->obj.pos.x);
+	ft_strcpy_nbr(&(e->line[4]), obj_s->obj.pos.y);
+	ft_strcpy_nbr(&(e->line[5]), obj_s->obj.pos.z);
+	ft_strcpy_nbr(&(e->line[6]), obj_s->obj.dir.x);
+	ft_strcpy_nbr(&(e->line[7]), obj_s->obj.dir.y);
+	ft_strcpy_nbr(&(e->line[8]), obj_s->obj.dir.z);
+	ft_strcpy_nbr(&(e->line[9]), obj_s->obj.color.r);
+	ft_strcpy_nbr(&(e->line[10]), obj_s->obj.color.g);
+	ft_strcpy_nbr(&(e->line[11]), obj_s->obj.color.b);
+	ft_strcpy_nbr(&(e->line[12]), obj_s->obj.radius);
+	ft_strcpy_nbr(&(e->line[13]), obj_s->obj.ind_transp);
+	ft_strcpy_nbr(&(e->line[14]), obj_s->obj.ind_refrac);
+	ft_strcpy_nbr(&(e->line[15]), obj_s->obj.ind_reflec);
+	e->line[30][0] = obj_s->obj.id_texture;
+	ft_strcpy_nbr(&(e->line[31]), obj_s->obj.angle);
 	conf_tab(e);
 }
 

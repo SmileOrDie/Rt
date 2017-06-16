@@ -116,6 +116,6 @@ int			check_var_obj(char **def)
 	else if (!ft_strcmp("circle", def[1]))
 		obj = 5;
 	else
-		return (0);
+		return (-1);
 	return (obj_check[obj](def));
 }

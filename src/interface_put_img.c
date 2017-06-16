@@ -33,13 +33,23 @@ static void		put_img3(t_envg *e)
 {
 	char *str;
 	int img;
+	int nb_obj;
+	t_parse_obj *pos;
 
 	img = e->i_lst + 15;
-	while (e->i_lst < img && e->i_lst < e->e->nb_obj)
+	nb_obj = 0 ;
+	pos = e->e->parse_obj;
+	while (pos)
 	{
+		nb_obj++;
+		pos = pos->next;
+	}
+	while (e->i_lst < img && e->i_lst < nb_obj)
+	{
+		pos = srch_obj(e, e->i_lst);
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img, 40,
 			200 + ((e->i_lst % 15) * 30));
-		str = ft_strdup(e->e->l_obj[e->i_lst].name);
+		str = ft_strdup(pos->obj.name);
 		mlx_string_put(e->mlx->mlx, e->mlx->win, 70,
 			200 + ((e->i_lst % 15) * 30), 0xFFFFFF, str);
 		free(str);
@@ -72,13 +82,15 @@ static void		put_img4(t_envg *e)
 
 static void		put_img5(t_envg *e)
 {
-	char *str;
-	unsigned char i;
+	char			*str;
+	unsigned char	i;
+	t_parse_obj		*obj;
 
+	obj = srch_obj(e, e->obj + e->page);
 	i = 0;
 	while (i < 3 && i < e->e->nb_tex)
 	{
-		if (e->e->l_obj[e->obj + e->page].id_texture == i + 1)
+		if (obj->obj.id_texture == i + 1)
 			get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
 		else
 			get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");

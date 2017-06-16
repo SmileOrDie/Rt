@@ -234,6 +234,7 @@ typedef struct			s_env
 	int					anti_a;
 	t_parse_obj_f		***f_obj; ///// parseur .obj
 	int					nb_tex;
+	int					group_max;
 }						t_env;
 
 void				*ft_launch(void *env);

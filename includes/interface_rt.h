@@ -185,6 +185,7 @@ void 					modif_light(t_envg *e, int light);
 void					modif_list(t_envg *e, int obj);
 void					del_elem(t_envg *e, int i);
 void					modif_default(t_envg *e);
+void					init_id(t_env *e);
 
 /*
 ** interface_keypress.c
@@ -248,6 +249,7 @@ void					info_tab(t_envg *e);
 */
 void					creat_elem(t_envg *e);
 void					creat_cam(t_envg *e);
+t_parse_obj				*srch_obj(t_envg *e, int id);
 
 /*
 **interface_selection_add.c
