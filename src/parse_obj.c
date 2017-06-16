@@ -50,7 +50,6 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 {
 	int y;
 	int tmp;
-//	char *tmp2 = NULL;
 
 	if (ft_strcmp(rez, "radius") == 0 && ((y = *x) || 1))
 	{

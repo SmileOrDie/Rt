@@ -21,7 +21,7 @@ static int		select_pos(t_envg *e, int x, int y)
 		return (select_add(e, x, y));
 	else if (e->volet.conf == 1)
 		return (select_conf(e, x, y));
-	else if (e->volet.other == 1)
+	else if (e->volet.info == 1)
 		return (select_info(e, x, y));
 	else if (e->volet.del == 1)
 		return (select_del(e, x, y));
@@ -52,6 +52,14 @@ static void		volet_target(t_envg *e)
 			print_line(e, e->pos, 3);
 		else
 			print_line(e, e->pos, 30);
+	}
+	else if (e->volet.info == 1 && e->pos > 40 && e->pos <= 42)
+	{
+		e->f_key = 1;
+		e->pos -= 40;
+		load_img(e, e->pos_value[e->pos] + 1);
+		e->pos += 40;
+		print_line(e, e->pos, 30);
 	}
 	else
 		e->f_key = 0;
@@ -162,6 +170,12 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 			e->i_lst = 0;
 			e->pos = conf_tab(e);
 		}
+		else if (e->volet.info == 1 && e->pos > 40 && e->pos < 43)
+		{
+			// printf("in => e->pos = %d e->volet = %d\n", e->pos, e->volet.info);
+			info_tab(e);
+		}
+		// printf("out => e->pos = %d e->volet = %d\n", e->pos, e->volet.info);
 		volet_target(e);
 	}
 	return (1);
