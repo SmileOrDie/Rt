@@ -117,10 +117,13 @@ void	add_obj24(char *line, int *x, t_env *e, char *rez)
 void	add_obj2(char *line, int *x, t_env *e, int type)
 {
 	static int	id = 0;
+	static int	group = 1;
 	char		*rez;
 
 	e->parse_obj->obj.id = id;
 	e->parse_obj->obj.type = type;
+	e->parse_obj->obj.group = (type == 7) ? group : 0;
+	type == 7 ? group++ : 0;
 	free_space(line, x);
 	while (line[*x] && line[*x] != '}')
 	{

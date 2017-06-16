@@ -19,7 +19,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"cylinder"  :
 	{
@@ -45,7 +45,7 @@
 			"y" : 1,
 			"z" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"sphere"  :
 	{
@@ -65,7 +65,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 
 	},
 	"sphere"  :
@@ -87,7 +87,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"cylinder"  :
 	{
@@ -113,7 +113,7 @@
 			"y" : 1,
 			"z" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"sphere"  :
 	{
@@ -134,7 +134,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"sphere"  :
 	{
@@ -155,7 +155,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"cylinder"  :
 	{
@@ -182,7 +182,7 @@
 			"y" : 1,
 			"z" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"sphere"  :
 	{
@@ -203,7 +203,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"sphere"  :
 	{
@@ -224,7 +224,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"cylinder"  :
 	{
@@ -251,7 +251,7 @@
 			"y" : 1,
 			"z" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"sphere"  :
 	{
@@ -272,7 +272,7 @@
 			"g" : 0,
 			"b" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"plane"  :
 	{
@@ -298,7 +298,7 @@
 			"y" : 1,
 			"z" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"plane"  :
 	{
@@ -324,7 +324,7 @@
 			"y" : 0,
 			"z" : 1
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"plane"  :
 	{
@@ -350,7 +350,7 @@
 			"y" : 1,
 			"z" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"cone"  :
 	{
@@ -377,7 +377,7 @@
 			"y" : 1,
 			"z" : 0
 		},
-		"texture" : "xpm_file/2k_earth_daymap.xpm"
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"sphere"  :
 	{
@@ -405,7 +405,7 @@
 			"z" : 1
 		},
 		"angle" : 0,
-		"texture" : "xpm_file/2k_earth_daymap.xpm",
+		"texture" : "xpm_file/2ab1c37cfdff720c6de2ddb07328f145.xpm",
 	},
 	"ambient" : 0.00000001,
 	"light" :

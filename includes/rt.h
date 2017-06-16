@@ -289,7 +289,7 @@ void				graphic_interface(t_env *scene);
 /*
 **	/parcer/parser_*.c
 */
-void				increase_l_obj(t_env *e)
+void				increase_l_obj(t_env *e);
 void				ft_get_image_texture(t_env *e);
 void				get_camera3(t_env *e);
 void				free_space(char *line, int *x);
