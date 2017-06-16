@@ -44,22 +44,6 @@ t_env			*ft_create_tab_env(t_env e)
 	return (tab);
 }
 
-
-// static void		ft_exit3(t_env *e)
-// {
-// 	clReleaseKernel(e->cl->kernel);
-// 	// clReleaseProgram(e->cl->kernel_program);
-// 	clReleaseCommandQueue(e->cl->command_queue);
-// 	clReleaseMemObject(e->cl->data);
-// 	clReleaseMemObject(e->cl->obj);
-// 	clReleaseMemObject(e->cl->light);
-// 	clReleaseMemObject(e->cl->env);
-// 	clReleaseMemObject(e->cl->mlx);
-// 	clReleaseMemObject(e->cl->cam);
-// 	clReleaseContext(e->cl->context);
-// 	// exit(0);
-// }
-
 double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag)
 {
 	static int		i = 0;
@@ -74,7 +58,6 @@ double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag
 		get_l_pix(branch->r_refrac, tab_light, l_obj, 0);
 	if (branch && branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec) > 0.04)
 	{
-		// printf("test2 voila\n");
 		tab_light[i].id = branch->id;
 		tab_light[i].p_hit_x = branch->p_hit.x;
 		tab_light[i].p_hit_y = branch->p_hit.y;

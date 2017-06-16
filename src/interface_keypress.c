@@ -12,9 +12,47 @@
 
 #include "../includes/interface_rt.h"
 
+void    add_texture(t_envg *e)
+{
+    int         x;
+    char        *path;
+    struct stat test;
+
+    x = 0;
+    while (e->e->path_tex[x])
+        x++;
+    e->e->nb_tex = x;
+    e->e->texture = malloc(sizeof(t_mlx) * x);
+    x = 0;
+    while (e->e->path_tex[x])
+    {
+        path = ft_strjoin("./", e->e->path_tex[x]);
+        if (stat(path, &test) == -1)
+        {
+            e->error = 7;
+            home_tab(e);
+            return ;
+        }    // ft_error("File texture doesn't exist : ", path);
+        if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->e->mlx->mlx, path, &e->e->texture[x].w, &e->e->texture[x].h)))
+        {
+            e->error = 8;
+            home_tab(e);
+            return ;
+        }
+        if (!(e->e->texture[x].data = mlx_get_data_addr(e->e->texture[x].img,
+            &e->e->texture[x].bpp, &e->e->texture[x].sizeline, &e->e->texture[x].endian)))
+        {
+            e->error = 7;
+            home_tab(e);
+            return ;
+        }
+        x++;
+    }
+    home_tab(e);
+}
+
 void    add_new_texture(t_envg *e)
 {
-    char    *path;
     char    **new;
     int     y;
 
@@ -25,22 +63,24 @@ void    add_new_texture(t_envg *e)
             break ;
         y++;
     }
-    if ((e->path_tex)[y] == NULL)
+    if ((e->e->path_tex)[y] == NULL)
     {
-        if (new = (char **)malloc(sizeof(char *) * (y + 2)))
+        if (!(new = (char **)malloc(sizeof(char *) * (y + 1))))
             ft_error(MALLOC, "add_new_texture => interface_keypress.c");
         y = 0;
-        while ((e->path_tex)[y] != NULL)
+        while ((e->e->path_tex)[y] != NULL)
         {
-            new[y] = (e->path_tex)[y];
+            new[y] = (e->e->path_tex)[y];
             y++;
         }
         new[y] = ft_strdup(e->line[41]);
         new[y + 1] = NULL;
-        free(e->path_tex);
-        e->path_tex = new;
+        free(e->e->path_tex);
+        e->e->path_tex = new;
         e->e->nb_tex++;
     }
+    free(e->e->texture);
+    add_texture(e);
 }
 
 static int     interface_keypress_1(t_envg *e)
@@ -61,7 +101,7 @@ static int     interface_keypress_1(t_envg *e)
         e->page = 0;
         home_tab(e);
     }
-    else if (e->volet.info == 1 && e->line[41][0] != "\0")
+    else if (e->volet.info == 1 && e->line[41][0] != '\0')
         add_new_texture(e);
     return (1);
 }
