@@ -182,28 +182,26 @@ typedef struct			s_parse_obj
 	struct s_parse_obj	*next;
 }						t_parse_obj;
 
-typedef struct 		s_tab_f
+typedef struct 			s_tab_f
 {
-		double		vx;
-		double		vy;
-		double		vz;
+		double			vx;
+		double			vy;
+		double			vz;
+		double			vtx;
+		double			vty;
+		double			vnx;
+		double			vny;
+		double			vnz;
+}						t_tab_f;
 
-		double		vtx;
-		double		vty;
-
-		double		vnx;
-		double		vny;
-		double		vnz;
-}					t_tab_f;
-
-typedef struct 		s_parse_obj_f
+typedef struct 			s_parse_obj_f
 {
-		int		start;
-		int		v;
-		int		vt;
-		int		vn;
-		t_tab_f	tab;
-}					t_parse_obj_f;
+		int				start;
+		int				v;
+		int				vt;
+		int				vn;
+		t_tab_f			tab;
+}							t_parse_obj_f;
 
 typedef struct			s_env
 {
@@ -314,24 +312,24 @@ void				get_light(char *line, int *x, t_env *e);
 void				get_image_size(char *line, int *x, t_env *e);
 void				ft_parse_json(char *line, t_env *e);
 
-void 	apply_color_pix(t_env *e, int *rgb, int x, int y);
-int  *lecture_img_for_blur(t_env *e, int x, int y, int i);
-int  	apply_color_pix_for_blur(t_env *e, int *rgb, int x, int y);
-void  lecture_img(t_env *e, int rgb[5], int x, int y);
-void 	filter_sepia(t_env *e, int x, int y);
-void 	filter_red(t_env *e, int x, int y);
-void  filter_blue(t_env *e, int x, int y);
-void  filter_green(t_env *e, int x, int y);
-void 	filter_blur(t_env *e, int x, int y);
-void    filter_cartoon(t_env *e, int x, int y);
+void				apply_color_pix(t_env *e, int *rgb, int x, int y);
+int					*lecture_img_for_blur(t_env *e, int x, int y, int i);
+int 				apply_color_pix_for_blur(t_env *e, int *rgb, int x, int y);
+void				lecture_img(t_env *e, int rgb[5], int x, int y);
+void				filter_sepia(t_env *e, int x, int y);
+void				filter_red(t_env *e, int x, int y);
+void				filter_blue(t_env *e, int x, int y);
+void				filter_green(t_env *e, int x, int y);
+void				filter_blur(t_env *e, int x, int y);
+void				filter_cartoon(t_env *e, int x, int y);
 
 //// parse obj
-void			ft_parse_obj_files1(char *name, t_env *e);
-int				ft_parse_obj_v(char *line, t_env *e);
-int         	ft_parse_obj_vt(char *line, t_env *e, int i);
-int       		 ft_parse_obj_vn(char *line, t_env *e, int i);
-int     	   ft_parse_obj_f(char *line, t_env *e, int i);
-double         	ft_check_pow(char *str, int s, int y);
-int          	ft_len_nb(char *line, int s);
+void				ft_parse_obj_files1(char *name, t_env *e);
+int					ft_parse_obj_v(char *line, t_env *e);
+int					ft_parse_obj_vt(char *line, t_env *e, int i);
+int					ft_parse_obj_vn(char *line, t_env *e, int i);
+int					ft_parse_obj_f(char *line, t_env *e, int i);
+double				ft_check_pow(char *str, int s, int y);
+int					ft_len_nb(char *line, int s);
 
 #endif

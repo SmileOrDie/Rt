@@ -56,11 +56,14 @@ int			select_info(t_envg *e, int x, int y)
 {
 	int i;
 
-	(void)e;
-	(void)x;
-	(void)y;
-	i = -1;
-	return (i);
+	i = 0;
+	while (++i <= 2)
+	{
+		if (x > e->line_pos[i].w && x < e->line_pos[i].w + 317 &&
+			y > e->line_pos[i].h && y < e->line_pos[i].h + 30)
+			return (i + 40);
+	}
+	return (-1);
 }
 
 static void	select_home_1(t_envg *e, int x, int y)

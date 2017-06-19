@@ -60,6 +60,7 @@ void	print_line(t_envg *e, int line, int precision)
 		else
 			string = ft_strdup(e->line[line]);
 	}
+	e->volet.info == 1 ? line -= 40 : 0;
 	mlx_string_put(e->mlx->mlx, e->mlx->win, e->line_pos[line].w + 6,
 		e->line_pos[line].h + 4, 0xffffff, string);
 	if (string)

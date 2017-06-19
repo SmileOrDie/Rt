@@ -3,7 +3,20 @@
 
 void			info_tab(t_envg *e)
 {
+	int save;
+	int i;
+
 	load_img(e, 5);
 	e->volet = (t_tab_valid){0, 0, 0, 0, 1};
-	// load_img()
+	i = 1;
+	save = e->pos;
+	e->f_key = 0;
+	while (i <= 2)
+	{
+		e->pos = i;
+		load_img(e, e->pos_value[i]);
+		print_line(e, i + 40, 30);
+		i++;
+	}
+	e->pos = save;
 }
