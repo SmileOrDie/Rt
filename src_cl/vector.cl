@@ -45,13 +45,15 @@ double4	new_v(double x, double y, double z)
 
 double4	vrot(double4 u, double angle, double4 point)
 {
-	double4		r;
+	double4	r;
 	double		c;
 	double		s;
 	double		mat[3][3];
 
-	c = cos(angle / 360 * 2 * M_PI);
-	s = sin(angle / 360 * 2 * M_PI);
+	// c = cos(angle / 360 * 2 * M_PI);
+	// s = sin(angle / 360 * 2 * M_PI);
+	c = cos(angle);
+	s = sin(angle);
 	u = vnorm(u);
 	mat[0][0] = u.x * u.x * (1 - c) + c;
 	mat[0][1] = u.x * u.y * (1 - c) + u.z * s;

@@ -6,13 +6,23 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:05:51 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/28 15:35:58 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/19 14:43:28 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void    add_texture(t_envg *e)
+int     failed_texture(t_envg *e, int i, int x)
+{
+    free(e->e->path_tex[x]);
+    e->e->path_tex[x] = NULL;
+    e->e->nb_tex--;
+    e->error = i;
+    home_tab(e);
+    return (i);
+}
+
+int     add_texture(t_envg *e)
 {
     int         x;
     char        *path;
@@ -22,33 +32,23 @@ void    add_texture(t_envg *e)
     while (e->e->path_tex[x])
         x++;
     e->e->nb_tex = x;
-    e->e->texture = malloc(sizeof(t_mlx) * x);
+    if (!(e->e->texture = (t_mlx *)malloc(sizeof(t_mlx) * x)))
+         e->error = 6;
     x = 0;
     while (e->e->path_tex[x])
     {
         path = ft_strjoin("./", e->e->path_tex[x]);
         if (stat(path, &test) == -1)
-        {
-            e->error = 7;
-            home_tab(e);
-            return ;
-        }    // ft_error("File texture doesn't exist : ", path);
+            return (failed_texture(e, 7, x));
         if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->e->mlx->mlx, path, &e->e->texture[x].w, &e->e->texture[x].h)))
-        {
-            e->error = 8;
-            home_tab(e);
-            return ;
-        }
+            return (failed_texture(e, 8, x));
         if (!(e->e->texture[x].data = mlx_get_data_addr(e->e->texture[x].img,
             &e->e->texture[x].bpp, &e->e->texture[x].sizeline, &e->e->texture[x].endian)))
-        {
-            e->error = 7;
-            home_tab(e);
-            return ;
-        }
+            return (failed_texture(e, 9, x));
         x++;
     }
     home_tab(e);
+    return (-1);
 }
 
 void    add_new_texture(t_envg *e)
