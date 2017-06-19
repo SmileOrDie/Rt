@@ -55,6 +55,7 @@ double			inter_square(t_obj p, t_vector o, t_vector dir)
 		u = vsub(p_hit, p.pos);
 		cross = vcross(p.dir, cross);
 		cross = vrot(p.dir, p.angle, cross);
+		vnorm(&cross);
 		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
 		{
 			cross = vcross(cross, p.dir);

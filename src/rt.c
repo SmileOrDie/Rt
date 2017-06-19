@@ -285,12 +285,29 @@ void				*ft_launch(void *env)
 		printf("apply add_light\n");
 		get_image(e);
 		printf("Get image finish\n");
-		printf("Start filter\n");
+		printf("before nb_obj = %d\n", e->nb_obj);
+		printf("before window = %p\n", e->mlx->win);
+		printf("before mlx = %p\n", e->mlx);
+		printf("before Start filter\n");
 		e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
 		printf("filter finish\n");
-		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
-		mlx_do_sync(e->mlx->mlx);
-		printf("affiche\n");
+		printf("after nb_obj = %d\n", e->nb_obj);
+		printf("after window = %p\n", e->mlx->win);
+		printf("after mlx = %p\n", e->mlx);
+		printf("after Start filter\n");
+		if (e->mlx->win && e->mlx->img && e->mlx->mlx)
+		{
+			mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
+			mlx_do_sync(e->mlx->mlx);
+			printf("affiche\n");
+		}
+		else
+		{
+			printf("nb_obj = %d\n", e->nb_obj);
+			printf("window = %p\n", e->mlx->win);
+			printf("image = %s\n", e->mlx->img);
+			printf("mlx = %p\n", e->mlx);
+		}
 	}
 	i = 0;
 	while (i < e->mlx->h * e->mlx->w)
@@ -355,6 +372,7 @@ void			ft_creat_lst_obj(t_env *e)
 		i++;
 	}
 	e->nb_obj = i;
+	// printf("nb_obj = %d\n", e->nb_obj);
 	i = 0;
 	while (parse_light_b)
 	{
@@ -473,8 +491,15 @@ void			parse_file(char *name , t_env *e)
 		ft_parse_j(name, e);
 	// else if (!ft_strcmp(name + (len_name - 4), ".obj"))
 	// 	ft_parse_obj_files1(name, e);
+	int i = 0;
+
 	ft_creat_lst_obj(e);
-	init_id(e);
+	// init_id(e);
+	while (i < e->nb_obj)
+	{
+		printf("e->l_obj[i]->id %d type = %d\n",e->l_obj[i].id, e->l_obj[i].type);
+		i++;
+	}
 	e->flag = 0;
 }
 
