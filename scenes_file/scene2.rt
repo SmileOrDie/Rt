@@ -1,0 +1,32 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    scene2.rt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/01/04 13:11:01 by shamdani          #+#    #+#              #
+#    Updated: 2016/12/15 17:17:35 by shamdani         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Scene2 du rtv1
+# after the declaration of element, if you doesn't give a value to parameter its automaticly set to 0.
+
+# windows size declaration
+img_size 640 400
+
+# camera declaration
+cam -400 100 -50 0 0 0 0 -1 0 60 150
+
+# light declaration
+light 1 1 1 -150 200 200 1.0
+
+# sphere declaration
+sphere 0 0 255 -100 100 200 20
+
+# cylinder declaration
+cylinder 255 0 255 0 0 150 0 1 0 20
+
+# plane declaration
+plane 0 255 0 0 -50 200 0 1 0
