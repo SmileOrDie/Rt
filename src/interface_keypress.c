@@ -108,7 +108,6 @@ void    add_new_texture(t_envg *e)
 void            free_env_parse(t_envg *e)
 {
     free(e->e->cam);
-    // e->e->flag = 0;
     e->e->cam = NULL;
     while (e->e->parse_obj)
     {
@@ -185,7 +184,7 @@ static int     interface_keypress_2(int key, t_envg *e, int *val, char *li)
 
 static int      exeption_key(int key)
 {
-    if ((key >=123 && key <= 126) || key == 81 || key == 75)
+    if ((key >= 123 && key <= 126) || key == 81 || key == 75 || key == ESC)
         return (1);
     if (key == 260 || key == 262 || key == 269 || key == 279 || key == 115)
         return (1);

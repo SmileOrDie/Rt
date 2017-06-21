@@ -22,7 +22,6 @@ int				add_tab(t_envg *e)
 	e->volet = (t_tab_valid) {0, 1, 0, 0, 0};
 	load_img(e, 2);
 	e->f_key = 0;
-	e->page = 0;
 	while (i <= 15)
 	{
 		e->pos = i;

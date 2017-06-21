@@ -218,6 +218,7 @@ void				*ft_launch(void *env)
 	int			i;
 	long int	size[3];
 	pthread_t	tab_thread[3];
+	t_envg 		tmp;
 	// double		coef[((t_env*)env)->mlx->h * ((t_env*)env)->mlx->w];
 
 	// printf("Ft_lauch execution\n");
@@ -274,7 +275,8 @@ void				*ft_launch(void *env)
 		printf("filter finish\n");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
 		printf("do_sync\n");
-		(e->b_screen == 1) ? mlx_do_sync(e->mlx->mlx) : 0;
+		tmp.e = e;
+		(e->b_screen == 1) ? keypress('0', &tmp) : mlx_do_sync(e->mlx->mlx);
 		printf("affiche\n");
 	}
 	e->b_screen = 0;
@@ -327,7 +329,8 @@ void			ft_creat_lst_obj(t_env *e)
 
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
-	free_l_obj(&e->l_obj, e->nb_obj);
+	// printf("%d\n", e->nb_obj);
+	// free_l_obj(&e->l_obj, e->nb_obj);
 	i = 0;
 	while (parse_obj_b)
 	{
@@ -375,7 +378,6 @@ void			ft_creat_lst_obj(t_env *e)
 		parse_light_b = parse_light_b->next;
 		i++;
 	}
-	i = 0;
 }
 
 // void			free_env(t_env *e)
