@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/20 14:29:16 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 09:18:45 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ typedef struct			s_env
 	t_cam				*cam;
 	double				*coef_t;
 	double				amb;
+	int					b_screen;
 	// double				angle;
 	int					start;
 	t_l_obj				*tab_light;

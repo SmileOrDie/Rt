@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:43 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/20 15:55:30 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 11:02:08 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int     add_texture(t_envg *e)
     {
 
         path = ft_strjoin("./", e->e->path_tex[x]);
-        clean_str(&path, 0);
         if (stat(path, &test) == -1)
             return (failed_texture(e, 7, x));
         if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->e->mlx->mlx, path, &e->e->texture[x].w, &e->e->texture[x].h)))
@@ -79,6 +78,7 @@ void    add_new_texture(t_envg *e)
     int     y;
 
     y = 0;
+    clean_str(&e->line[41], 0);
     while ((e->e->path_tex)[y] != NULL)
     {
         if (ft_strcmp(e->line[41], (e->e->path_tex)[y]) == 0)

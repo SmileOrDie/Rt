@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/20 14:21:16 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 10:32:04 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ static void		put_img4(t_envg *e)
 
 static void		put_img5(t_envg *e)
 {
-	char			*str;
-	unsigned char	i;
-	t_parse_obj		*obj;
+	char					*str;
+	unsigned char			i;
+	t_parse_obj				*obj;
 
+	i = e->page;
 	obj = srch_obj(e, e->obj + e->page);
-	i = 0;
-	while (i < 3 && i < e->e->nb_tex  )
+	while (i < e->page + 3 && i < e->e->nb_tex)
 	{
 		if (obj && obj->obj.id_texture == i + 1)
 			get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
@@ -101,6 +101,18 @@ static void		put_img5(t_envg *e)
 			70, 600 + ((i % 3) * 30), 0xFFFFFF, str);
 		free(str);
 		i++;
+	}
+	if (e->page + 3 < e->e->nb_tex)
+	{
+		get_img(e->mlx, &e->img, "./xpm_file/next.xpm");
+		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			250, HE - 250);
+	}
+	if (e->page >= 3)
+	{
+		get_img(e->mlx, &e->img, "./xpm_file/previous.xpm");
+		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			50, HE - 250);
 	}
 }
 
@@ -123,7 +135,7 @@ void			put_img(t_envg *e, int img)
 	}
 	else if (img == 21)
 		put_img4(e);
-	else if (img == 16 || img == 17 || img == 18)
+	else if (img >= 16 && img <= 18)
 		put_img1(e, e->line_pos[img].w, e->line_pos[img].h);
 	else if (img == 22 || img == 23)
 		put_img1(e, (img == 23) ? WI - 100 : WI - 130, 490);

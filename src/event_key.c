@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/19 16:57:46 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 09:23:04 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		keypress(int key, t_envg *e)
 	{
 		// ft_exit3(e->e);
 		ft_exit(e);
+		e->e->b_screen = 1;
 	}
 	if (key == 123)
 	{

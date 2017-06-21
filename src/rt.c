@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/20 14:33:39 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 11:12:36 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void		init(t_env *e)
 	e->mlx->w = W;
 	e->mlx->h = H;
 	e->amb = 0.1;
+	e->b_screen = 1;
 	e->nb_obj = 0;
 	e->nb_light = 0;
 }
@@ -219,7 +220,7 @@ void				*ft_launch(void *env)
 	pthread_t	tab_thread[3];
 	// double		coef[((t_env*)env)->mlx->h * ((t_env*)env)->mlx->w];
 
-	printf("Ft_lauch execution\n");
+	// printf("Ft_lauch execution\n");
 	e = (t_env *)env;
 	// e->coef_t = coef;
 	e->coef_t = malloc(sizeof(double) * e->mlx->w * e->mlx->h);
@@ -239,26 +240,26 @@ void				*ft_launch(void *env)
 	e->nb_obj_pix[0] = &(size[0]);
 	e->nb_obj_pix[1] = &(size[1]);
 	e->nb_obj_pix[2] = &(size[2]);
-	printf("creation arbre\n");
+	// printf("creation arbre\n");
 	tab_env = ft_create_tab_env(*e);
-	printf("Appelle de la premier thread!\n");
+	// printf("Appelle de la premier thread!\n");
 	pthread_create(&tab_thread[0], NULL, boucle, (void *)(&tab_env[0]));
-	printf("Appelle de la deuxieme thread!\n");
+	// printf("Appelle de la deuxieme thread!\n");
 	pthread_create(&tab_thread[1], NULL, boucle, (void *)(&tab_env[1]));
-	printf("Appelle de la troisieme thread!\n");
+	// printf("Appelle de la troisieme thread!\n");
 	pthread_create(&tab_thread[2], NULL, boucle, (void *)(&tab_env[2]));
-	printf("Fin des thread\n");
+	// printf("Fin des thread\n");
 	i = 0;
 	while (i < 3)
 	{
-		printf("J'attends!\n");
+		// printf("J'attends!\n");
 		pthread_join(tab_thread[i], NULL);
 		i++;
 	}
 	size[0] = *(e->nb_obj_pix[0]) + *(e->nb_obj_pix[1]) + *(e->nb_obj_pix[2]);
 	if (!(e->tab_light = (t_l_obj *)malloc(sizeof(t_l_obj) * size[0])))
 		ft_error(MALLOC, "ft_launch");
-	printf("creation tab_light\n");
+	// printf("creation tab_light\n");
 	if (size[0] > 0)
 	{
 		get_l_tab(e);
@@ -272,9 +273,11 @@ void				*ft_launch(void *env)
 		e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
 		printf("filter finish\n");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
-		mlx_do_sync(e->mlx->mlx);
+		printf("do_sync\n");
+		(e->b_screen == 1) ? mlx_do_sync(e->mlx->mlx) : 0;
 		printf("affiche\n");
 	}
+	e->b_screen = 0;
 	i = 0;
 	while (i < e->mlx->h * e->mlx->w)
 	{
@@ -283,7 +286,7 @@ void				*ft_launch(void *env)
 	}
 	free(e->tab_three);
 	free(e->tab_light);
-	printf("free finish\n");
+	// printf("free finish\n");
 	pthread_exit(NULL);
 }
 

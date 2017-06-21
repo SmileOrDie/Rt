@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/21 16:06:33 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 10:20:39 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int				add_tab(t_envg *e)
 	e->volet = (t_tab_valid) {0, 1, 0, 0, 0};
 	load_img(e, 2);
 	e->f_key = 0;
+	e->page = 0;
 	while (i <= 15)
 	{
 		e->pos = i;
