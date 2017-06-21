@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 11:12:36 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:09:17 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 	{
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].id = *i;
-		e->l_obj[*i].type = 6;		
+		e->l_obj[*i].type = 6;
 		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.radius / 2));
 		(*i)++;
 		e->l_obj[*i] = obj;
@@ -339,7 +339,7 @@ void			ft_creat_lst_obj(t_env *e)
 		else if (parse_obj_b->obj.type == 8)
 			i++;
 		else if (parse_obj_b->obj.type == 9)
-			i += 2;	
+			i += 2;
 		parse_obj_b = parse_obj_b->next;
 		i++;
 	}
@@ -448,7 +448,7 @@ void			parse_file(char *name , t_env *e)
 		ft_parse_j(name, e);
 	// else if (!ft_strcmp(name + (len_name - 4), ".obj"))
 	// 	ft_parse_obj_files1(name, e);
-	ft_creat_lst_obj(e);
+	// ft_creat_lst_obj(e);
 	init_id(e);
 	// e->flag = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 10:20:39 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:57:11 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ int				add_tab(t_envg *e)
 
 static void		conf_tab2(t_envg *e, int i)
 {
+	int nb;
+	t_parse_light *b;
+
+	b = e->e->parse_light;
+	nb = 0;
+	while (b)
+	{
+		nb++;
+		b = b->next;
+	}
 	while (i < 27)
 	{
 		e->pos = i;
@@ -53,7 +63,7 @@ static void		conf_tab2(t_envg *e, int i)
 	load_img(e, 21);
 	load_img(e, 24);
 	(e->i_lst > 3) ? load_img(e, 22) : 0;
-	(e->e->nb_light > e->page + 3) ? load_img(e, 23) : 0;
+	(nb > e->page + 3) ? load_img(e, 23) : 0;
 }
 
 int				conf_tab(t_envg *e)

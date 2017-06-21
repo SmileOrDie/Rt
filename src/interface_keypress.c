@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:43 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 11:02:08 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:49:58 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void            free_env_parse(t_envg *e)
     e->e->parse_light = NULL;
     clean_str(&e->line[42], 0);
     ft_parse_j(e->line[42], e->e); // provisoire
-    ft_creat_lst_obj(e->e);
-    init_id(e->e);
+    // ft_creat_lst_obj(e->e);
+    // init_id(e->e);
     clean_str(&e->line[42], 1);
     run_first(e);
 }
@@ -191,7 +191,7 @@ static int      exeption_key(int key)
     if (key == 116 || key == 117 || key == 119 || key == 121 || key == 71)
         return (1);
     return (0);
-} 
+}
 
 int             interface_keypress(int key, t_envg *e)
 {
@@ -202,7 +202,7 @@ int             interface_keypress(int key, t_envg *e)
     line = e->line[e->pos];
     val = 0;
     if (e->f_key && exeption_key(key))
-        return (1);     
+        return (1);
     else if (e->f_key)
     {
         (key == 48 && e->volet.info == 1) ? switch_tabul(e) : 0;

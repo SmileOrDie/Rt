@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 17:51:07 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:40:14 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ static void		volet_target(t_envg *e)
 		print_line(e, e->pos, 30);
 	}
 	else
+	{
 		e->f_key = 0;
+		e->pos = 0;
+		e->page = 0;
+	}
 }
 
 static void		mousse_click_x(t_envg *e, int x)
@@ -150,6 +154,8 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 		}
 		else if (y > 830 && y < 900 && e->volet.home == 1 && (e->e->nb_obj > 0 && e->e->cam != NULL))
 		{
+			ft_creat_lst_obj(e->e);
+			init_id(e->e);
 			if (e->run == 1)
 			{
 				pthread_join(e->thread, NULL);
@@ -171,10 +177,7 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 			e->pos = conf_tab(e);
 		}
 		else if (e->volet.info == 1 && e->pos > 40 && e->pos < 43)
-		{
-			// printf("in => e->pos = %d e->volet = %d\n", e->pos, e->volet.info);
 			info_tab(e);
-		}
 		// printf("out => e->pos = %d e->volet = %d\n", e->pos, e->volet.info);
 		volet_target(e);
 	}

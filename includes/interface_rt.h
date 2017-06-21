@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/20 14:11:08 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:20:03 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ void					switch_tabul(t_envg *e);
 void					creat_elem(t_envg *e);
 void					creat_cam(t_envg *e);
 t_parse_obj				*srch_obj(t_envg *e, int id);
-
+t_parse_light			*srch_light(t_envg *e, int id);
 /*
 **interface_selection_add.c
 */

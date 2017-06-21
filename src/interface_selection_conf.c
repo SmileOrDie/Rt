@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/28 15:36:56 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:59:25 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,24 @@ static int	select_conf2_2(t_envg *e, int x, int y, int i)
 static int	select_conf2(t_envg *e, int x, int y)
 {
 	int i;
+	int nb;
+	t_parse_light *b;
 
+	b = e->e->parse_light;
+	nb = 0;
+	while (b)
+	{
+		nb++;
+		b = b->next;
+	}
 	i = -1;
-	while (++i < 3 && i < e->e->nb_light)
-	{	
+	while (++i < 3 && i < nb)
+	{
 		if (select_conf2_1(e, x, y, i))
 			return (0);
 	}
-	if (x > 307 && x < 327 && y > 500 && y < 520 && e->e->nb_light > e->page + 3)
-	{	
+	if (x > 307 && x < 327 && y > 500 && y < 520 && nb > e->page + 3)
+	{
 		e->light = 1;
 		e->i_lst = 0;
 		e->page += 3;
