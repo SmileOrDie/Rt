@@ -191,13 +191,17 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 	double		tab_obj_light_t[e->nb_obj + 1];
 
 	i = 0;
+	// printf("1%d\n", e->nb_obj);
 	tab_obj_light_t[0] = -1;
 	colorobj = get_color(texture, p_hit, obj);
+	// printf("2%d\n", e->nb_obj);
 	while (i < e->nb_light)
 	{
 		tab_obj_light_t[0] = -1;
+		// printf("3%d\n", e->nb_obj);
 		v_light = vsub(p_hit, e->light[i].pos);
 		v_light = vnorm(v_light);
+		// printf("4%d\n", e->nb_obj);
  		inter_obj_light(e, e->light[i].pos, v_light, tab_obj_light_id, tab_obj_light_t);
 		l_color.r = e->light[i].color.r;
 		l_color.g = e->light[i].color.g;
