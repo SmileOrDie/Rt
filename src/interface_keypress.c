@@ -147,9 +147,9 @@ static int     interface_keypress_1(t_envg *e)
         e->page = 0;
         home_tab(e);
     }
-    else if (e->volet.info == 1 && e->line[41][0] != '\0')
+    else if (e->volet.info == 1 && e->pos == 41 && e->line[e->pos][0] != '\0')
         add_new_texture(e);
-    else if (e->volet.info == 1 && e->line[42][0] != '\0')
+    else if (e->volet.info == 1 && e->pos == 42 && e->line[e->pos][0] != '\0')
         free_env_parse(e);
     return (1);
 }

@@ -84,6 +84,11 @@ static void		put_img4(t_envg *e)
 	}
 }
 
+// int check_textur(t_envg *e)
+// {
+	// if (!)
+// }
+
 static void		put_img5(t_envg *e)
 {
 	char					*str;
@@ -92,7 +97,7 @@ static void		put_img5(t_envg *e)
 
 	i = e->page;
 	obj = srch_obj(e, e->obj + e->page);
-	while (i < e->page + 3 && i < e->e->nb_tex)
+	while (obj && i < e->page + 3 && i < e->e->nb_tex)
 	{
 		if (obj && obj->obj.id_texture == i + 1)
 			get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
