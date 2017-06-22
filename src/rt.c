@@ -288,7 +288,7 @@ void				*ft_launch(void *env)
 	}
 	free(e->tab_three);
 	free(e->tab_light);
-	// printf("free finish\n");
+	printf("free finish\n/");
 	pthread_exit(NULL);
 }
 

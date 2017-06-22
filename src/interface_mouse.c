@@ -154,7 +154,6 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 		}
 		else if (y > 830 && y < 900 && e->volet.home == 1 && (e->e->nb_obj > 0 && e->e->cam != NULL))
 		{
-			ft_creat_lst_obj(e->e);
 			init_id(e->e);
 			if (e->run == 1)
 			{
@@ -165,6 +164,8 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 			e->run = 1;
 			init_mlx1(e);
 			event_touch(e);
+			ft_creat_lst_obj(e->e);
+			ft_get_image_texture(e->e);
 			pthread_create(&e->thread, NULL, ft_launch, e->e);
 		}
 		e->pos = select_pos(e, x, y);
