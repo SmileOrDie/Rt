@@ -115,7 +115,11 @@ int			check_var_obj(char **def)
 		obj = 4;
 	else if (!ft_strcmp("circle", def[1]))
 		obj = 5;
+	else if (!ft_strcmp("square", def[1]))
+		obj = 1;
+	else if (!ft_strcmp("cube", def[1]))
+		obj = 1;
 	else
-		return (-1);
+		return (0);
 	return (obj_check[obj](def));
 }

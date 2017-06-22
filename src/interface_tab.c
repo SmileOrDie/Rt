@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/21 16:06:33 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 17:09:21 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ int				add_tab(t_envg *e)
 
 static void		conf_tab2(t_envg *e, int i)
 {
+	int nb;
+	t_parse_light *b;
+
+	b = e->e->parse_light;
+	nb = 0;
+	while (b)
+	{
+		nb++;
+		b = b->next;
+	}
 	while (i < 27)
 	{
 		e->pos = i;
@@ -53,7 +63,7 @@ static void		conf_tab2(t_envg *e, int i)
 	load_img(e, 21);
 	load_img(e, 24);
 	(e->i_lst > 3) ? load_img(e, 22) : 0;
-	(e->e->nb_light > e->page + 3) ? load_img(e, 23) : 0;
+	(nb > e->page + 3) ? load_img(e, 23) : 0;
 }
 
 int				conf_tab(t_envg *e)
@@ -91,6 +101,16 @@ int				conf_tab(t_envg *e)
 
 void			home_tab(t_envg *e)
 {
+	t_parse_obj *b;
+
+	b = e->e->parse_obj;
+	e->e->nb_obj = 0;
+	if (b)
+		while (b)
+		{
+			e->e->nb_obj++;
+			b = b->next;
+		}
 	e->volet = (t_tab_valid) {1, 0, 0, 0, 0};
 	e->f_key = 0;
 	load_img(e, 1);

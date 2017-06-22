@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/10 18:44:36 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/20 14:32:09 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			ft_parse_j(char *name, t_env *e)
 	struct stat	st;
 	char		*line;
 
-	e->flag = 0;
+	// e->flag = 0;
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
 	if (stat(name, &st) != 0)

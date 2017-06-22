@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/13 19:31:04 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/21 09:18:45 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <dirent.h>
 # include <OpenCL/opencl.h>
 # include <sys/stat.h>
 # include <string.h>
@@ -213,7 +214,8 @@ typedef struct			s_env
 	t_cam				*cam;
 	double				*coef_t;
 	double				amb;
-	double				angle;
+	int					b_screen;
+	// double				angle;
 	int					start;
 	t_l_obj				*tab_light;
 	int					nb_obj;
@@ -222,7 +224,7 @@ typedef struct			s_env
 	double				actual_indice;
 	long int			*nb_obj_pix[3];
 	t_three				**tab_three;
-	int					flag;
+	// int					flag;
 	void 				(*filter_t)(struct s_env * , int, int);
 	char				**path_texture;
 	char				*tmp_texture;

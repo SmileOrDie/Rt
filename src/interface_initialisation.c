@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 11:34:10 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/21 16:09:51 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/20 14:58:09 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void			init_envg(t_envg *e, t_env *env)
 	e->page = 0;
 	e->i_lst = 0;
 	e->shift = 1;
+	e->pos = 0;
 	e->run = 0;
 	// e->e->anti_a = 1;
 	e->filter = (t_filter){0, 0, 0, 0, 0, 0};

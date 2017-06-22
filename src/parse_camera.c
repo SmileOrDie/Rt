@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:05:13 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/10 18:44:42 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/20 14:36:02 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,12 @@ void	get_camera2(char *line, int *x, t_env *e, char *name)
 void	get_camera(char *line, int *x, t_env *e)
 {
 	char		*name;
-	static int	i = 0;
 
-	e->cam ? 0 : (e->cam = (t_cam *)malloc(sizeof(t_cam)));
+	e->cam ? ft_error(CAM, "get_camera") : (e->cam = (t_cam *)malloc(sizeof(t_cam)));
 	e->cam ? 0 : ft_error(MALLOC, "get_camera -> parse_camera.c");
 	*(e->cam) = g_default_camera;
 	line[*x] != '{' ? ft_error(J_SON, "get_camera") : (*x)++;
 	free_space(line, x);
-	if (i != 0)
-		ft_error(CAM, "get_camera");
-	i = 1;
 	while (line[*x] && line[*x] != '}')
 	{
 		get_string(line, x, &name);

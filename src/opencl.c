@@ -97,10 +97,6 @@ void	ft_init_opencl(t_env *e, t_opencl *cl)
 	}
 }
 
-typedef struct	s_u
-{
-}				t_u;
-
 void	ft_launch_calc(t_env *e, t_opencl *cl)
 {
 	size_t	global[1];
@@ -116,40 +112,62 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 	// e->cl_e->vacuum = *(e->nb_obj_pix[0]);
 	// }
 	// err = clSetKernelArg(cl->kernel, 0, sizeof(cl_mem), (void *)&cl->data);
+	// printf("1\n");
 	init_cl_e(e, e->cl_e);
+	// printf("2\n");
 	cl->kernel = clCreateKernel(cl->kernel_program, "ft_start_calc", &err);
+	// printf("3\n");
 	err ? ft_error(KERNEL, ft_strjoin("clCreateKernel -> cl->kernel -> ", ft_itoa(err))) : 0;
+	// printf("4\n");
 	// printf("e->l_obj[3].color.b = %d\n", e->l_obj[3].color.b);
 	// printf("%lu\n", sizeof(t_obj));
 	cl->obj = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_obj) * e->nb_obj, e->l_obj, &err);
+	// printf("5\n");
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->l_obj -> ", ft_itoa(err))) : 0;
-	if (e->nb_light != 0)
+	// printf("6\n");
+	cl->light = NULL;
+	if (e->nb_light > 0)
 	{
 		cl->light = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_light) * e->nb_light, e->light, &err);
 		err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->light -> ", ft_itoa(err))) : 0;
-	}
+	}	
+	// printf("7\n");
 	cl->env = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_env_cl), e->cl_e, &err);
+	// printf("8\n");
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e -> ", ft_itoa(err))) : 0;
+	// printf("9\n");
 	cl->lst = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_l_obj) * *(e->nb_obj_pix[0]), e->cl_e->lst, &err);
+	// printf("10\n");
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->lst -> ", ft_itoa(err))) : 0;
+	// printf("11\n");
 	cl->color_lst = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_color2) * *(e->nb_obj_pix[0]), e->cl_e->color_lst, &err);
+	// printf("12\n");
 	err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->color_lst -> ", ft_itoa(err))) : 0;
-	if (e->nb_tex)
+	// printf("13\n");
+	cl->texture = NULL;
+	if (e->nb_tex > 0)
 	{
 		cl->texture = clCreateBuffer(cl->context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(t_mlx) * e->nb_tex, e->texture, &err);
 		err ? ft_error(KERNEL, ft_strjoin("clCreateBuffer -> e->cl_e->texture -> ", ft_itoa(err))) : 0;
 	}
+	// printf("14\n");
 	(err = clSetKernelArg(cl->kernel, 5, sizeof(cl_mem), (void *)&cl->texture)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 0 -> ", ft_itoa(err))) : 0;
+	// printf("15\n");
 	(err = clSetKernelArg(cl->kernel, 4, sizeof(cl_mem), (void *)&cl->lst)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 0 -> ", ft_itoa(err))) : 0;
+	// printf("16\n");
 	(err = clSetKernelArg(cl->kernel, 1, sizeof(cl_mem), (void *)&cl->obj)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 1 -> ", ft_itoa(err))) : 0;
+	// printf("17\n");
 	(err = clSetKernelArg(cl->kernel, 2, sizeof(cl_mem), (void *)&cl->light)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 2 -> ", ft_itoa(err))) : 0;
+	// printf("18\n");
 	(err = clSetKernelArg(cl->kernel, 3, sizeof(cl_mem), (void *)&cl->env)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 3 -> ", ft_itoa(err))) : 0;
+	// printf("19\n");
 	(err = clSetKernelArg(cl->kernel, 0, sizeof(cl_mem), (void *)&cl->color_lst)) ? ft_error(KERNEL, ft_strjoin("clSetKernelArg 4 -> ", ft_itoa(err))) : 0;
 	// err = clSetKernelArg(cl->kernel, 4, sizeof(cl_mem), (void *)&cl->mlx);
 	// err = clSetKernelArg(cl->kernel, 5, sizeof(cl_mem), (void *)&cl->cam);
 	// err = clSetKernelArg(cl->kernel, 6, sizeof(cl_int), (void *)&i);
 	// global[1] = e->mlx->h / 2;
 	// printf("%d\n", err);
+	// printf("20\n");
 	global[0] = *(e->nb_obj_pix[0]);
 	// global[1] = 3;
 	// global[1] = e->mlx->w;
@@ -159,7 +177,9 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 	// printf("light.r = %d\n", (e->light)[1].color.r);
 	// printf("light.g = %d\n", (e->light)[1].color.g);
 	// printf("light.b = %d\n", (e->light)[1].color.b);
+	// printf("21\n");
 	(err = clEnqueueNDRangeKernel(cl->command_queue, cl->kernel, 1, 0, global, 0, 0, 0, 0)) ? ft_error(KERNEL, ft_strjoin("clEnqueueNDRangeKernel", ft_itoa(err))) : 0;
+	// printf("22\n");
 	// printf(" t_obj_size%ld\n", sizeof(t_obj));
 	// printf("sizeof(s_u) = %ld\n", sizeof(t_u));
 

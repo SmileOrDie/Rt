@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/15 16:21:07 by magouin          ###   ########.fr       */
+/*   Updated: 2017/06/21 16:09:17 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void		init(t_env *e)
 	e->mlx->w = W;
 	e->mlx->h = H;
 	e->amb = 0.1;
+	e->b_screen = 1;
 	e->nb_obj = 0;
 	e->nb_light = 0;
 }
@@ -217,9 +218,10 @@ void				*ft_launch(void *env)
 	int			i;
 	long int	size[3];
 	pthread_t	tab_thread[3];
+	t_envg 		tmp;
 	// double		coef[((t_env*)env)->mlx->h * ((t_env*)env)->mlx->w];
 
-	printf("Ft_lauch execution\n");
+	// printf("Ft_lauch execution\n");
 	e = (t_env *)env;
 	// e->coef_t = coef;
 	e->coef_t = malloc(sizeof(double) * e->mlx->w * e->mlx->h);
@@ -239,26 +241,26 @@ void				*ft_launch(void *env)
 	e->nb_obj_pix[0] = &(size[0]);
 	e->nb_obj_pix[1] = &(size[1]);
 	e->nb_obj_pix[2] = &(size[2]);
-	printf("creation arbre\n");
+	// printf("creation arbre\n");
 	tab_env = ft_create_tab_env(*e);
-	printf("Appelle de la premier thread!\n");
+	// printf("Appelle de la premier thread!\n");
 	pthread_create(&tab_thread[0], NULL, boucle, (void *)(&tab_env[0]));
-	printf("Appelle de la deuxieme thread!\n");
+	// printf("Appelle de la deuxieme thread!\n");
 	pthread_create(&tab_thread[1], NULL, boucle, (void *)(&tab_env[1]));
-	printf("Appelle de la troisieme thread!\n");
+	// printf("Appelle de la troisieme thread!\n");
 	pthread_create(&tab_thread[2], NULL, boucle, (void *)(&tab_env[2]));
-	printf("Fin des thread\n");
+	// printf("Fin des thread\n");
 	i = 0;
 	while (i < 3)
 	{
-		printf("J'attends!\n");
+		// printf("J'attends!\n");
 		pthread_join(tab_thread[i], NULL);
 		i++;
 	}
 	size[0] = *(e->nb_obj_pix[0]) + *(e->nb_obj_pix[1]) + *(e->nb_obj_pix[2]);
 	if (!(e->tab_light = (t_l_obj *)malloc(sizeof(t_l_obj) * size[0])))
 		ft_error(MALLOC, "ft_launch");
-	printf("creation tab_light\n");
+	// printf("creation tab_light\n");
 	if (size[0] > 0)
 	{
 		get_l_tab(e);
@@ -272,9 +274,12 @@ void				*ft_launch(void *env)
 		e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
 		printf("filter finish\n");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
-		mlx_do_sync(e->mlx->mlx);
+		printf("do_sync\n");
+		tmp.e = e;
+		(e->b_screen == 1) ? keypress('0', &tmp) : mlx_do_sync(e->mlx->mlx);
 		printf("affiche\n");
 	}
+	e->b_screen = 0;
 	i = 0;
 	while (i < e->mlx->h * e->mlx->w)
 	{
@@ -283,16 +288,21 @@ void				*ft_launch(void *env)
 	}
 	free(e->tab_three);
 	free(e->tab_light);
+	free(e->l_obj);
+	free(e->light);
+	e->l_obj = NULL;
+	e->light = NULL;
+	init_id(e);
 	printf("free finish\n");
 	pthread_exit(NULL);
 }
 
-void		free_l_obj(t_obj **lst, int nb)
-{
-	if (nb < 1)
-		return ;
-	free(*lst);
-}
+// void		free_l_obj(t_obj **lst, int nb)
+// {
+// 	if (nb < 1)
+// 		return ;
+// 	free(*lst);
+// }
 
 void			get_obj_lst(t_env *e, t_obj obj, int *i)
 {
@@ -303,7 +313,7 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 	{
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].id = *i;
-		e->l_obj[*i].type = 6;		
+		e->l_obj[*i].type = 6;
 		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.radius / 2));
 		(*i)++;
 		e->l_obj[*i] = obj;
@@ -311,7 +321,6 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 		e->l_obj[*i].group = obj.group;
 		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius / 2));
 		e->l_obj[*i].id = *i;
-		(*i)++;
 	}
 }
 
@@ -324,7 +333,8 @@ void			ft_creat_lst_obj(t_env *e)
 
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
-	free_l_obj(&e->l_obj, e->nb_obj);
+	// printf("%d\n", e->nb_obj);
+	// free_l_obj(&e->l_obj, e->nb_obj);
 	i = 0;
 	while (parse_obj_b)
 	{
@@ -333,7 +343,7 @@ void			ft_creat_lst_obj(t_env *e)
 		else if (parse_obj_b->obj.type == 8)
 			i++;
 		else if (parse_obj_b->obj.type == 9)
-			i += 2;	
+			i += 2;
 		parse_obj_b = parse_obj_b->next;
 		i++;
 	}
@@ -372,7 +382,6 @@ void			ft_creat_lst_obj(t_env *e)
 		parse_light_b = parse_light_b->next;
 		i++;
 	}
-	i = 0;
 }
 
 // void			free_env(t_env *e)
@@ -437,21 +446,20 @@ void			parse_file(char *name , t_env *e)
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
 
-	if (!ft_strcmp(name + (len_name - 3), ".rt"))
-		ft_parse(name, e);
-	else if (!ft_strcmp(name + (len_name - 5), ".json"))
+	// if (!ft_strcmp(name + (len_name - 3), ".rt"))
+	// 	ft_parse(name, e);
+	if (!ft_strcmp(name + (len_name - 5), ".json"))
 		ft_parse_j(name, e);
 	// else if (!ft_strcmp(name + (len_name - 4), ".obj"))
 	// 	ft_parse_obj_files1(name, e);
-	ft_creat_lst_obj(e);
+	// ft_creat_lst_obj(e);
 	init_id(e);
-	e->flag = 0;
+	// e->flag = 0;
 }
 
 int				main(int ac, char **av)
 {
 	t_env		e;
-	e.anti_a = 1;
 	init(&e);
 	e.anti_a = 1;
 	e.path_tex = malloc(sizeof(char *));

@@ -5,12 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/04 15:05:51 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/19 14:43:28 by shamdani         ###   ########.fr       */
+/*   Created: 2017/06/19 14:01:43 by shamdani          #+#    #+#             */
+/*   Updated: 2017/06/21 11:02:08 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
+
+void        clean_str(char **clean, int f)
+{
+    int i;
+
+    i = ft_strlen(*clean) - 1;
+    if (f == 0)
+    {
+        while ((*clean)[i] == ' ' || (*clean)[i] == '\n' || (*clean)[i] == '\t')
+            i--;
+        (*clean)[i + 1] = '\0';
+    }
+    else
+    {
+        while (i)
+            (*clean)[i--] = '\0';
+        (*clean)[i] = '\0';
+    }
+}
 
 int     failed_texture(t_envg *e, int i, int x)
 {
@@ -37,6 +56,7 @@ int     add_texture(t_envg *e)
     x = 0;
     while (e->e->path_tex[x])
     {
+
         path = ft_strjoin("./", e->e->path_tex[x]);
         if (stat(path, &test) == -1)
             return (failed_texture(e, 7, x));
@@ -47,6 +67,7 @@ int     add_texture(t_envg *e)
             return (failed_texture(e, 9, x));
         x++;
     }
+    clean_str(&e->line[e->pos], 1);
     home_tab(e);
     return (-1);
 }
@@ -57,6 +78,7 @@ void    add_new_texture(t_envg *e)
     int     y;
 
     y = 0;
+    clean_str(&e->line[41], 0);
     while ((e->e->path_tex)[y] != NULL)
     {
         if (ft_strcmp(e->line[41], (e->e->path_tex)[y]) == 0)
@@ -80,7 +102,31 @@ void    add_new_texture(t_envg *e)
         e->e->nb_tex++;
     }
     free(e->e->texture);
-    add_texture(e);
+    e->error = add_texture(e);
+}
+
+void            free_env_parse(t_envg *e)
+{
+    free(e->e->cam);
+    e->e->cam = NULL;
+    while (e->e->parse_obj)
+    {
+        free(e->e->parse_obj);
+        e->e->parse_obj = e->e->parse_obj->next;
+    }
+    while (e->e->parse_light)
+    {
+        free(e->e->parse_light);
+        e->e->parse_light = e->e->parse_light->next;
+    }
+    e->e->parse_obj = NULL;
+    e->e->parse_light = NULL;
+    clean_str(&e->line[42], 0);
+    ft_parse_j(e->line[42], e->e); // provisoire
+    // ft_creat_lst_obj(e->e);
+    init_id(e->e);
+    clean_str(&e->line[42], 1);
+    run_first(e);
 }
 
 static int     interface_keypress_1(t_envg *e)
@@ -101,8 +147,10 @@ static int     interface_keypress_1(t_envg *e)
         e->page = 0;
         home_tab(e);
     }
-    else if (e->volet.info == 1 && e->line[41][0] != '\0')
+    else if (e->volet.info == 1 && e->pos == 41 && e->line[e->pos][0] != '\0')
         add_new_texture(e);
+    else if (e->volet.info == 1 && e->pos == 42 && e->line[e->pos][0] != '\0')
+        free_env_parse(e);
     return (1);
 }
 
@@ -136,7 +184,7 @@ static int     interface_keypress_2(int key, t_envg *e, int *val, char *li)
 
 static int      exeption_key(int key)
 {
-    if ((key >=123 && key <= 126) || key == 81 || key == 75)
+    if ((key >= 123 && key <= 126) || key == 81 || key == 75 || key == ESC)
         return (1);
     if (key == 260 || key == 262 || key == 269 || key == 279 || key == 115)
         return (1);
@@ -153,14 +201,12 @@ int             interface_keypress(int key, t_envg *e)
 
     line = e->line[e->pos];
     val = 0;
-    if (exeption_key(key))
-        return (1);
+    if (e->f_key && exeption_key(key))
+        return (1);     
     else if (e->f_key)
     {
+        (key == 48 && e->volet.info == 1) ? switch_tabul(e) : 0;
         pression = interface_keypress_2(key, e, &val, line);
-        // (((e->pos > 2 && e->pos <= 15) || e->pos == 31 || (e->pos >= 19 && e->pos <= 26)) &&
-        //     pression == 0) ? load_img(e, e->pos_value[e->pos] + 1) : 0;
-        // printf("%d\n", e->pos);
         e->volet.info == 1 ? e->pos -= 40 : 0;
         pression == 0 ? load_img(e, e->pos_value[e->pos] + 1) : 0;
         e->volet.info == 1 ? e->pos += 40 : 0;

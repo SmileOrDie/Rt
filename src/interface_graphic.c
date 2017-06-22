@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:52:30 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/21 12:27:11 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 11:13:43 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void re_init_tab(t_envg *e)
 		load_img(e, i--);
 }
 
-static void		run_first(t_envg *e)
+void			run_first(t_envg *e)
 {
 	load_img(e, 0);
 	re_init_tab(e);
@@ -55,7 +55,6 @@ void			graphic_interface(t_env *scene)
 
 	init_envg(&e, scene);
 	init_mlx(&e);
-	ft_get_image_texture(scene);
 	(e.font == 0) ? run_first(&e) : 0;
 	event_touch(&e);
 	mlx_loop(e.mlx->mlx);

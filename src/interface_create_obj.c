@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/28 15:36:18 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:51:31 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_parse_obj			*srch_obj(t_envg *e, int id)
 {
 	t_parse_obj *obj_lst;
 
-
 	obj_lst = e->e->parse_obj;
 	while (obj_lst)
 	{
@@ -24,6 +23,23 @@ t_parse_obj			*srch_obj(t_envg *e, int id)
 		if (obj_lst->obj.id == id)
 			return (obj_lst);
 		obj_lst = obj_lst->next;
+	}
+	return (NULL);
+}
+
+t_parse_light		*srch_light(t_envg *e, int id)
+{
+	t_parse_light *light_lst;
+	int index;
+
+	index = 0;
+	light_lst = e->e->parse_light;
+	while (light_lst)
+	{
+		if (index == id)
+			return (light_lst);
+		light_lst = light_lst->next;
+		index++;
 	}
 	return (NULL);
 }
@@ -52,7 +68,7 @@ t_light				new_light(t_envg *e)
 	l.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]), ft_atof(e->line[5]));
 	l.color = (t_color2){ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
 	l.name = ft_strdup(e->line[2]);
-	return(l);	
+	return(l);
 }
 
 t_obj				new_obj(t_envg *e)
@@ -80,19 +96,20 @@ t_obj				new_obj(t_envg *e)
 	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]), ft_atof(e->line[8]));
 	obj.id_texture = e->line[30][0];
 	obj.group = (!ft_strcmp(e->line[1], "cube")) ? e->e->group_max++ : 0;
+	printf("group == %d\n", obj.group);
 	e->e->nb_obj++;
-	return(obj);	
+	return(obj);
 }
 
 static void			creat_light(t_envg *e)
-{	
+{
 	t_parse_light *b;
 	t_parse_light *new;
 
 	if (!(new = (t_parse_light *)malloc(sizeof(t_parse_light))))
 		ft_error(MALLOC, "new_l -> inteface_create_obj.h");
 	new->light = new_light(e);
-	new->next = NULL; 
+	new->next = NULL;
 	b = e->e->parse_light;
 	if (b)
 	{
@@ -100,7 +117,7 @@ static void			creat_light(t_envg *e)
 			b = b->next;
 		b->next = new;
 	}
-	else 
+	else
 		e->e->parse_light = new;
 }
 
@@ -117,11 +134,18 @@ static void			creat_obj(t_envg *e)
 	if (b)
 	{
 		while (b->next)
+		{
+			printf("%s\n", b->obj.name);
 			b = b->next;
+		}
+		printf("b->next == %s\n", b->obj.name);
 		b->next = new;
 	}
 	else
+	{
+		printf("else %s\n", b->obj.name);
 		e->e->parse_obj = new;
+	}
 }
 
 void				creat_elem(t_envg *e)
@@ -132,9 +156,9 @@ void				creat_elem(t_envg *e)
 		creat_light(e);
 	else
 		creat_obj(e);
-	ft_creat_lst_obj(e->e);
-	init_id(e->e);
-	reset_line(e->line);	
+	// ft_creat_lst_obj(e->e);
+	// init_id(e->e);
+	reset_line(e->line);
 }
 
 t_vector		creat_cam_2(t_envg *e, int i)

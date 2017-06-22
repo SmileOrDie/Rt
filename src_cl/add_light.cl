@@ -117,7 +117,6 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 		tmp = vcross(tmp, obj.dir);
 		y = ((int)vpscal(tmp, dir)) % texture[obj.id_texture - 1].h;
 		y < 0 ? y += texture[obj.id_texture - 1].h : 0;
-		// printf("x = %d et y = %d\n", x, y);
 		pix = (int)y * 4 * texture[obj.id_texture - 1].w + (int)x * 4;
 		color.b = ((uchar *)(texture[obj.id_texture -1].data))[pix + 0];
 		color.g = ((uchar *)(texture[obj.id_texture -1].data))[pix + 1];

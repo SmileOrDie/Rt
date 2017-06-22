@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:29:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/28 15:24:53 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:22:43 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static int	select_obj(t_envg *e, int y)
 	else if (y >= 363 && y < 387)
 		ft_strcpy(e->line[e->pos], "square");
 	else if (y >= 387 && y < 412)
-		ft_strcpy(e->line[e->pos], "cube");	
+		ft_strcpy(e->line[e->pos], "cube");
 	else if (y >= 412 && y < 436)
 		ft_strcpy(e->line[e->pos], "cone_l");
 	else if (y >= 436 && y < 465)
 		ft_strcpy(e->line[e->pos], "cylinder_l");
 	(e->volet.add == 1) ? add_tab(e) : conf_tab(e);
-	return (e->pos);  
+	return (e->pos);
 }
 
 static int	select_add_1(t_envg *e, int x, int y, int i)
@@ -69,17 +69,23 @@ static int	select_add_1(t_envg *e, int x, int y, int i)
 			break;
 		b = b->next;
 	}
-	while (i < e->e->nb_tex)
+	while (i < 3)
 	{
 		if ( x > 40 && x < 60 && y > 600 + (i * 30) && y < 620 + (i * 30))
 		{
-			b->obj.id_texture = (b->obj.id_texture == (unsigned char)i + 1) ? 0 : (unsigned char)i + 1;
+			b->obj.id_texture = (b->obj.id_texture == (unsigned char)i + 1) ? 0 : (unsigned char)i + 1 + e->page;
 			e->line[30][0] = b->obj.id_texture;
 			e->volet.add == 0 ? conf_tab(e) : add_tab(e);
-			break ;
-		}	
+			return (16);
+		}
 		i++;
 	}
+
+	if ( e->page > 2 && x > 50 && x < 100 && y > 715 && y < 736)
+		e->page -= 3;
+	else if (e->page + 3  < e->e->nb_tex && x > 258 && x < 356 && y > 715 && y < 736)
+		e->page += 3;
+	e->volet.add == 0 ? conf_tab(e) : add_tab(e);
 	return (16);
 }
 

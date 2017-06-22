@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 12:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/20 13:44:46 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:39:37 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ void			del_light(t_envg *e, int i)
 	t_parse_light *f_l;
 
 	b = e->e->parse_light;
+	f_l = srch_light(e, i);
 	if (i > 0)
 	{
 		while(b->next)
 		{
-			if (e->e->light[i].name == b->next->light.name)
+			if (b->next == f_l)
 			{
 				f_l = b->next;
 				b->next = f_l->next;
@@ -36,7 +37,7 @@ void			del_light(t_envg *e, int i)
 	}
 	else if (i == 0)
 	{
-		if (e->e->light[0].name == b->light.name)
+		if (f_l == b)
 			e->e->parse_light = e->e->parse_light->next;
 		free(b->light.name);
 		free(b);
@@ -51,7 +52,7 @@ void			init_id(t_env *e)
 	i = 0;
 	b = e->parse_obj;
 	if (b)
-	{	
+	{
 		e->parse_obj->obj.id = 0;
 		while (b)
 		{
@@ -100,8 +101,8 @@ void			del_elem(t_envg *e, int i)
 	if (e->light >= 0)
 		del_light(e, i);
 	else
-		del_obj(e, i);	
-	ft_creat_lst_obj(e->e);
+		del_obj(e, i);
+	// ft_creat_lst_obj(e->e);
 }
 
 static	void	ft_strcpy_nbr(char **dest, double d)
@@ -130,20 +131,23 @@ static	void	ft_strcpy_nbr(char **dest, double d)
 
 void 		modif_light(t_envg *e, int light)
 {
+	t_parse_light *b;
+
 	load_img(e, 3);
 	e->f_key = 0;
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};
+	b = srch_light(e, light);
 	ft_strcpy(e->line[1], "light");
-	ft_strcpy(e->line[2], e->e->light[light].name);
-	ft_strcpy_nbr(&(e->line[3]), e->e->light[light].pos.x);
-	ft_strcpy_nbr(&(e->line[4]), e->e->light[light].pos.y);
-	ft_strcpy_nbr(&(e->line[5]), e->e->light[light].pos.z);
+	ft_strcpy(e->line[2], b->light.name);
+	ft_strcpy_nbr(&(e->line[3]), b->light.pos.x);
+	ft_strcpy_nbr(&(e->line[4]), b->light.pos.y);
+	ft_strcpy_nbr(&(e->line[5]), b->light.pos.z);
 	ft_strcpy(e->line[6], "-\0\0");
 	ft_strcpy(e->line[7], "-\0\0");
 	ft_strcpy(e->line[8], "-\0\0");
-	ft_strcpy_nbr(&(e->line[9]), e->e->light[light].color.r);
-	ft_strcpy_nbr(&(e->line[10]), e->e->light[light].color.g);
-	ft_strcpy_nbr(&(e->line[11]), e->e->light[light].color.b);
+	ft_strcpy_nbr(&(e->line[9]), b->light.color.r);
+	ft_strcpy_nbr(&(e->line[10]), b->light.color.g);
+	ft_strcpy_nbr(&(e->line[11]), b->light.color.b);
 	ft_strcpy(e->line[12], "-\0\0");
 	ft_strcpy(e->line[13], "-\0\0");
 	ft_strcpy(e->line[14], "-\0\0");

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/09 16:42:28 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/21 16:20:03 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,14 @@ typedef struct			s_filter
 	int					sepia;
 	int 				old;
 	int					cartoon;
-} 						t_filter;
+}						t_filter;
+
+typedef struct			s_tabu
+{
+	char				*name_path;
+	DIR					*dirp;
+	int					index;
+} 						t_tabu;
 
 typedef struct			s_envg
 {
@@ -174,6 +181,8 @@ typedef struct			s_envg
 	int					run;
 	int					error;
 	int					id;
+	t_tabu				tab_texture;
+	t_tabu				tab_scene;
 	pthread_t			thread;
 }						t_envg;
 
@@ -204,6 +213,7 @@ void					del_line(t_envg *e);
 */
 int						interface_mouse_click(int button, int x, int y, t_envg *e);
 void					ft_exit(t_envg *e);
+
 /*
 ** interface_key_2.c
 */
@@ -245,12 +255,18 @@ void					del_tab(t_envg *e);
 void					info_tab(t_envg *e);
 
 /*
+** interface_tabul.c
+*/
+// void					tabulation(t_tabu *t);
+void					switch_tabul(t_envg *e);
+
+/*
 ** interface_creat_obj.c
 */
 void					creat_elem(t_envg *e);
 void					creat_cam(t_envg *e);
 t_parse_obj				*srch_obj(t_envg *e, int id);
-
+t_parse_light			*srch_light(t_envg *e, int id);
 /*
 **interface_selection_add.c
 */
@@ -277,6 +293,7 @@ void					put_img(t_envg *e, int img);
 ** interface_graphic.c
 */
 void					re_init_tab(t_envg *e);
+void					run_first(t_envg *e);
 
 /*
 ** interface_check_obj.c

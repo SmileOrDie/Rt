@@ -12,7 +12,7 @@
 
 NAME	= rt
 CC		= gcc
-WFLAGS	= -Wall -Wextra -Werror -g
+WFLAGS	= -Wall -Wextra -Werror -g -o3
 OPTI	= -I
 
 LS		= ls -1
