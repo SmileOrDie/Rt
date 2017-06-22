@@ -316,7 +316,6 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 		e->l_obj[*i].group = obj.group;
 		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius / 2));
 		e->l_obj[*i].id = *i;
-		(*i)++;
 	}
 }
 
