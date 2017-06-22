@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:40:14 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/22 16:49:12 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void		volet_target(t_envg *e)
 	{
 		e->f_key = 0;
 		e->pos = 0;
-		e->page = 0;
 	}
 }
 

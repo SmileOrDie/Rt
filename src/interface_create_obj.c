@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:51:31 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/22 16:53:02 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ t_obj				new_obj(t_envg *e)
 	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]), ft_atof(e->line[8]));
 	obj.id_texture = e->line[30][0];
 	obj.group = (!ft_strcmp(e->line[1], "cube")) ? e->e->group_max++ : 0;
-	printf("group == %d\n", obj.group);
 	e->e->nb_obj++;
 	return(obj);
 }
@@ -134,18 +133,11 @@ static void			creat_obj(t_envg *e)
 	if (b)
 	{
 		while (b->next)
-		{
-			printf("%s\n", b->obj.name);
 			b = b->next;
-		}
-		printf("b->next == %s\n", b->obj.name);
 		b->next = new;
 	}
 	else
-	{
-		printf("else %s\n", b->obj.name);
 		e->e->parse_obj = new;
-	}
 }
 
 void				creat_elem(t_envg *e)
@@ -156,8 +148,6 @@ void				creat_elem(t_envg *e)
 		creat_light(e);
 	else
 		creat_obj(e);
-	// ft_creat_lst_obj(e->e);
-	// init_id(e->e);
 	reset_line(e->line);
 }
 
