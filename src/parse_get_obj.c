@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:27:58 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 17:13:48 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/27 15:12:46 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			get_light(char *line, int *x, t_env *e)
 
 	increase_light(e);
 	e->parse_light->light = g_default_light;
-	e->parse_light->light.name = ft_strdup("light"); 
+	e->parse_light->light.name = ft_strdup("light");
 	line[*x] != '{' ? ft_error(J_SON, "get_light") : (*x)++;
 	free_space(line, x);
 	while (line[*x] && line[*x] != '}')
