@@ -9,13 +9,13 @@
 			"z" : 0
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 0,
+		"ind_reflec" : 0.98,
 		"ind_transp" : 0,
 		"color" :
 		{
-			"r" : 30,
-			"g" : 30,
-			"b" : 40
+			"r" : 125,
+			"g" : 125,
+			"b" : 125
 		},
 		"dir" :
 		{
@@ -35,13 +35,13 @@
 			"z" : -150
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 1,
-		"ind_transp" : 0,
+		"ind_reflec" : 0,
+		"ind_transp" : 0.2,
 		"color" :
 		{
-			"r" : 155,
-			"g" : 0,
-			"b" : 0
+			"r" : 152,
+			"g" : 103,
+			"b" : 92
 		},
 	},
 	"sphere"  :
@@ -55,13 +55,13 @@
 				"z" : -150
 			},
 			"ind_refrac" : 1.33,
-			"ind_reflec" : 1,
-			"ind_transp" : 0,
+			"ind_reflec" : 0,
+			"ind_transp" : 0.2,
 			"color" :
 			{
-				"r" : 155,
-				"g" : 0,
-				"b" : 0
+				"r" : 152,
+				"g" : 103,
+				"b" : 92
 			},
 		},
 	"sphere"  :
@@ -75,13 +75,13 @@
 				"z" : -175
 			},
 			"ind_refrac" : 1.33,
-			"ind_reflec" : 1,
+			"ind_reflec" : 0,
 			"ind_transp" : 0,
 			"color" :
 			{
-				"r" : 155,
-				"g" : 0,
-				"b" : 0
+				"r" : 152,
+				"g" : 103,
+				"b" : 92
 			},
 		},
 	"plane"  :
@@ -94,13 +94,13 @@
 			"z" : 0
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 0,
+		"ind_reflec" : 0.98,
 		"ind_transp" : 0,
 		"color" :
 		{
 			"r" : 125,
 			"g" : 125,
-			"b" : 200
+			"b" : 125
 		},
 		"dir" :
 		{
@@ -119,13 +119,13 @@
 			"z" : 0
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 0.9,
+		"ind_reflec" : 0.98,
 		"ind_transp" : 0,
 		"color" :
 		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255
+			"r" : 125,
+			"g" : 125,
+			"b" : 125
 		},
 		"dir" :
 		{
@@ -144,13 +144,13 @@
 			"z" : 0
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 0.9,
+		"ind_reflec" : 0.98,
 		"ind_transp" : 0,
 		"color" :
 		{
-			"r" : 255,
+			"r" : 125,
 			"g" : 125,
-			"b" : 30
+			"b" : 125
 		},
 		"dir" :
 		{
@@ -169,13 +169,13 @@
 			"z" : 250
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 0.9,
+		"ind_reflec" : 0.98,
 		"ind_transp" : 0,
 		"color" :
 		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255
+			"r" : 125,
+			"g" : 125,
+			"b" : 125
 		},
 		"dir" :
 		{
@@ -189,18 +189,18 @@
 		"name": "carre_derriere",
 		"pos" :
 		{
-			"x" : 50,
+			"x" : 0,
 			"y" : 0,
-			"z" : 250
+			"z" : -750
 		},
 		"ind_refrac" : 1.33,
-		"ind_reflec" : 0,
+		"ind_reflec" : 0.98,
 		"ind_transp" : 0,
 		"color" :
 		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255
+			"r" : 125,
+			"g" : 125,
+			"b" : 125
 		},
 		"dir" :
 		{

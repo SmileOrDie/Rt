@@ -1,0 +1,377 @@
+{
+	"plane"  :
+	{
+		"name": "plan_sol",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : -350,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 125,
+			"g" : 125,
+			"b" : 125
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		}
+	},
+	"plane"  :
+	{
+		"name": "plan_plafond",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 450,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 100,
+			"g" : 125,
+			"b" : 175
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+	},
+	"plane"  :
+	{
+		"name": "carre_fond",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 1200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 0,
+			"g" : 0,
+			"b" : 0
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 1
+		}
+	},
+	"sphere"  :
+	{
+		"name": "sphere_centre",
+		"radius" :  100,
+		"pos" :
+		{
+			"x" : 50,
+			"y" : 50,
+			"z" : 150
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 50,
+			"b" : 50
+		}
+	},
+	"sphere"  :
+	{
+		"name": "sphere_negative",
+		"radius" :  80,
+		"pos" :
+		{
+			"x" : 50,
+			"y" : 90,
+			"z" : 150
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"negatif" : 1,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 0,
+			"b" : 0
+		}
+	},
+	"cylinder"  :
+	{
+		"radius" :  20,
+		"pos" :
+		{
+			"x" : -200,
+			"y" : 100,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 155,
+			"g" : 0,
+			"b" : 0
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
+	},
+	"sphere"  :
+	{
+		"name": "sphere_negative_cylindre_1",
+		"radius" :  30,
+		"pos" :
+		{
+			"x" : -200,
+			"y" : 0,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"negatif" : 1,
+		"color" :
+		{
+			"r" : 255,
+			"g" :255,
+			"b" : 0
+		}
+	},
+	"sphere"  :
+	{
+		"name": "sphere_negative_cylindre_2",
+		"radius" :  30,
+		"pos" :
+		{
+			"x" : -200,
+			"y" : 80,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"negatif" : 1,
+		"color" :
+		{
+			"r" : 255,
+			"g" :255,
+			"b" : 0
+		}
+	},
+	"sphere"  :
+	{
+		"name": "sphere_negative_cylindre_3",
+		"radius" :  30,
+		"pos" :
+		{
+			"x" : -200,
+			"y" : 160,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"negatif" : 1,
+		"color" :
+		{
+			"r" : 255,
+			"g" :255,
+			"b" : 0
+		}
+	},
+	"sphere"  :
+	{
+		"name": "sphere_negative_cylindre_4",
+		"radius" :  30,
+		"pos" :
+		{
+			"x" : -200,
+			"y" : 220,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"negatif" : 1,
+		"color" :
+		{
+			"r" : 255,
+			"g" :255,
+			"b" : 0
+		}
+	},
+	"sphere"  :
+	{
+		"name": "sphere_negative_cylindre_5",
+		"radius" :  30,
+		"pos" :
+		{
+			"x" : -200,
+			"y" : -60,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"negatif" : 1,
+		"color" :
+		{
+			"r" : 255,
+			"g" :255,
+			"b" : 0
+		}
+	},
+	"cone"  :
+	{
+		"name": "cone_1",
+		"angle" :  20,
+		"pos" :
+		{
+			"x" : 300,
+			"y" : 50,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 0,
+			"g" : 0,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+		"texture" : "texture_file/ciel2.xpm"
+	},
+	"cube"  :
+	{
+		"name": "cube_negative",
+		"radius" :  700,
+		"pos" :
+		{
+			"x" : 300,
+			"y" : 0,
+			"z" : 150
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"negatif" : 1,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 125,
+			"b" : 30
+		},
+		"angle" : 0,
+		"dir" :
+		{
+			"x" : 1,
+			"y" : 0,
+			"z" : 1
+		}
+	},
+	"ambient" : 0.00000001,
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : -70,
+			"y" : 70,
+			"z" : -355
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light1"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 70,
+			"z" : -350
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light3"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : -350
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light2"
+	},
+	"camera" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 150,
+			"z" : -700
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 0
+		},
+		"up" :
+		{
+			"x" : 0,
+			"y" : -1,
+			"z" : 0
+		},
+		"fov" : 60,
+		"dist" : 150
+	},
+	"image size" : [  800  , 500 ]
+}
