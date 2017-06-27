@@ -1,7 +1,7 @@
 {
 	"square"  :
 	{
-		"name": "carre_center",
+		"name": "carre_right",
 		"radius" :  500,
 		"pos" :
 		{
@@ -23,12 +23,12 @@
 		{
 			"x" : 1,
 			"y" : 0,
-			"z" : 0.20
+			"z" : 0.2
 		}
 	},
 	"square"  :
 	{
-		"name": "carre_center",
+		"name": "carre_left",
 		"radius" :  500,
 		"pos" :
 		{

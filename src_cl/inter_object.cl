@@ -49,9 +49,9 @@ double2			inter_square(t_obj p, double4 o, double4 dir)
 	double		d;
 	double		nd;
 	double		te;
-	double4		p_hit;
-	double4		u;
-	double4		cross;
+	double4	p_hit;
+	double4	u;
+	double4	cross;
 
 	d = vpscal(p.dir, vsub(p.pos, o));
 	nd = vpscal(p.dir, dir);
@@ -69,7 +69,7 @@ double2			inter_square(t_obj p, double4 o, double4 dir)
 		{
 			cross = vcross(cross, p.dir);
 			if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
-				return (te);
+				return ((double2){te, -1.0});
 		}
 	}
 	return ((double2){-1.0, -1.0});
