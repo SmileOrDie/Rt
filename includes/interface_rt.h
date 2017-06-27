@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:20:03 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/27 18:25:41 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,7 @@
 # define DOWN 125
 # define UP 126
 
-
 # define LINE_SIZE 128
-
-// # define NUMBER_ARG "number of argument not right :"
-// # define FILES_E "No such file : "
-// # define MALLOC "failed function malloc in :"
-// # define ARG_N "argument can't be -NULL- in :"
-// # define MLX "mlx failed :"
 
 typedef struct			s_pos_i
 {
@@ -146,7 +139,7 @@ typedef struct			s_filter
 	int					green;
 	int					red;
 	int					sepia;
-	int 				old;
+	int					old;
 	int					cartoon;
 }						t_filter;
 
@@ -155,7 +148,7 @@ typedef struct			s_tabu
 	char				*name_path;
 	DIR					*dirp;
 	int					index;
-} 						t_tabu;
+}						t_tabu;
 
 typedef struct			s_envg
 {
@@ -170,7 +163,7 @@ typedef struct			s_envg
 	t_pos_i				img_pos[LINE_SIZE];
 	int					pos;
 	int					pos_value[LINE_SIZE];
-	int 				nb_c;
+	int					nb_c;
 	int					font;
 	int					f_key;
 	t_tab_valid			volet;
@@ -190,7 +183,7 @@ int						keypress(int key, t_envg *e);
 /*
 ** interface_modify_delete.c
 */
-void 					modif_light(t_envg *e, int light);
+void					modif_light(t_envg *e, int light);
 void					modif_list(t_envg *e, int obj);
 void					del_elem(t_envg *e, int i);
 void					modif_default(t_envg *e);
@@ -211,7 +204,8 @@ void					del_line(t_envg *e);
 /*
 ** interface_mouse.c
 */
-int						interface_mouse_click(int button, int x, int y, t_envg *e);
+int						interface_mouse_click(int button, int x,
+						int y, t_envg *e);
 void					ft_exit(t_envg *e);
 
 /*
@@ -227,7 +221,7 @@ char					*ft_print_key(int key, t_envg *e);
 /*
 ** interface_mouse.c
 */
-int     				mouss_click(int button, int x, int y, t_envg *e);
+int						mouss_click(int button, int x, int y, t_envg *e);
 
 /*
 ** interface_xpm_file.c
@@ -238,15 +232,15 @@ void					get_img(t_mlx *mlx, t_mlx *img, char *str);
 /*
 ** interface_initialisation.c
 */
-void     				init_envg(t_envg *e, t_env *env);
-void        		    init_mlx(t_envg *e);
+void					init_envg(t_envg *e, t_env *env);
+void					init_mlx(t_envg *e);
 
 /*
 ** interface_tab.c
 */
 int						add_tab(t_envg *e);
 int						conf_tab(t_envg *e);
-void    				home_tab(t_envg *e);
+void					home_tab(t_envg *e);
 void					del_tab(t_envg *e);
 
 /*
@@ -257,7 +251,6 @@ void					info_tab(t_envg *e);
 /*
 ** interface_tabul.c
 */
-// void					tabulation(t_tabu *t);
 void					switch_tabul(t_envg *e);
 
 /*
