@@ -122,7 +122,7 @@ double4	vnorm(double4 a)
 {
 	double		id;
 
-	if (a.x + a.y + a.z == 0)
+	if (a.x == 0 && a.y == 0 && a.z == 0)
 		id = 0;
 	else
 		id = 1 / sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z));

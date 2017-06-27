@@ -190,6 +190,7 @@ void		modif_list(t_envg *e, int obj)
 	ft_strcpy_nbr(&(e->line[14]), obj_s->obj.ind_refrac);
 	ft_strcpy_nbr(&(e->line[15]), obj_s->obj.ind_reflec);
 	e->line[30][0] = obj_s->obj.id_texture;
+	e->line[30][1] = obj_s->obj.negatif;
 	ft_strcpy_nbr(&(e->line[31]), obj_s->obj.angle);
 	conf_tab(e);
 }

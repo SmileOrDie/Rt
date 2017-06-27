@@ -111,6 +111,13 @@ static void		put_img5(t_envg *e)
 		free(str);
 		i++;
 	}
+	// a faire
+	// if (obj && obj->obj.negatif > 0)
+	// 	get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
+	// else
+	// 	get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
+	// mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+	// 		144, 600 + ((i % 3) * 30));
 	if (e->page + 3 < e->e->nb_tex)
 	{
 		get_img(e->mlx, &e->img, "./xpm_file/next.xpm");
