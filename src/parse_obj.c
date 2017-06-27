@@ -69,6 +69,12 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 	}
 	else if (ft_strcmp(rez, "texture") == 0)
 		get_texture(line, x, e);
+	else if (ft_strcmp(rez, "negatif") == 0)
+	{
+		y = *x;
+		if ((tmp = get_number(line, x)) && tmp == 1)
+			e->parse_obj->obj.negatif = ft_clamp(ft_atoi(line + y), 0, 1);
+	}
 }
 
 void	add_obj23(char *line, int *x, t_env *e, char *rez)

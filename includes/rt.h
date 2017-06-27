@@ -92,7 +92,8 @@ typedef	struct			s_obj
 	t_vector			point; //verif utilite
 	double				ind_transp; //0 -> 1
 	unsigned short int	group;
-	unsigned short int	vide;
+	unsigned char		negatif;
+	unsigned char		vide;
 	char				*name;
 	t_color2			color;
 	unsigned short int	id;
@@ -235,6 +236,7 @@ typedef struct			s_env
 	t_parse_obj_f		***f_obj; ///// parseur .obj
 	int					nb_tex;
 	int					group_max;
+	t_three				**begin_three;
 }						t_env;
 
 void				*ft_launch(void *env);
@@ -279,7 +281,7 @@ t_vector			ft_angle_cone(t_obj s, t_vector v_1);
 
 t_obj				add_obj_end(char **line, int len, int count);
 
-void				ft_raytracer(t_env *e, t_color2 pixel, t_vector p_ray, t_vector v_ray, int prof, double coef, t_color2 c_origin, t_three **three);
+void				ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double coef, t_color2 c_origin, t_three **three);
 
 /*
 ** interface_graphic.c

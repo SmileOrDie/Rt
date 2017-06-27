@@ -41,6 +41,31 @@ void			get_image_size(char *line, int *x, t_env *e)
 	ft_error(J_SON, "get_image_size") : (*x)++;
 }
 
+void			ft_check_obj_neg(t_env *e)
+{
+	t_parse_obj	*tmp;
+
+	tmp = e->parse_obj;
+	while (tmp)
+	{
+		if (tmp->obj.negatif > 0)
+		{
+			tmp->obj.color = (t_color2){255, 255, 255, 0};
+			tmp->obj.ind_transp = 1;
+			tmp->obj.ind_reflec = 0;
+			tmp->obj.ind_refrac = e->default_indice;
+			printf("--\n");
+		}
+		tmp = tmp->next;
+	}
+	tmp = e->parse_obj;
+	while (tmp)
+	{
+		printf("id = %d, name = %s, negatif = %d, tmp->obj.color = %d %d %d, tmp->obj.ind_transp = %f, tmp->obj.ind_reflec = %f, tmp->obj.ind_refrac = %f\n", tmp->obj.id, tmp->obj.name, tmp->obj.negatif, tmp->obj.color.r, tmp->obj.color.g, tmp->obj.color.b, tmp->obj.ind_transp, tmp->obj.ind_reflec, tmp->obj.ind_refrac);
+		tmp = tmp->next;
+	}
+}
+
 void			ft_parse_j(char *name, t_env *e)
 {
 	int			fd;
@@ -64,4 +89,6 @@ void			ft_parse_j(char *name, t_env *e)
 	e->mlx->w *= e->anti_a;
 	get_camera3(e);
 	free(line);
+	ft_check_obj_neg(e);
+	printf("e->parse_obj.id = %d et e->parse_obj.ind_transp = %f, e->parse_obj.name = %s\n", e->parse_obj->obj.id, e->parse_obj->obj.ind_transp, e->parse_obj->obj.name);
 }

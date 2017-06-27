@@ -46,7 +46,7 @@ INC 		= $(addprefix -I,$(DINC))
 
 all: libft minilibx $(FOBJ) $(NAME)
 
-$(NAME): $(MINILIBX) $(LIBFT) $(FOBJ)
+$(NAME): $(MINILIBX) $(LIBFT) vector/vector.a $(FOBJ)
 		$(CC) $(WFLAGS) $(INC) $(FOBJ) $(LIBFT) $(MINILIBX) vector/vector.a -o $@ -framework OpenGL -framework AppKit -framework OpenCL
 
 $(DOBJ)/%.o: $(DSRC)/%.c $(DINC)

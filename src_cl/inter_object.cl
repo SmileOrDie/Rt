@@ -1,4 +1,4 @@
-double			solve_quad(double a, double b, double c)
+double2			solve_quad(double a, double b, double c)
 {
 	double			delta;
 	double			sqrt_delta;
@@ -14,15 +14,15 @@ double			solve_quad(double a, double b, double c)
 		x0 = q / a;
 		x1 = (q + sqrt_delta) / a;
 		if (x0 > 0.00001 && (x1 < 0.00001 || x1 >= x0))
-			return (x0);
+			return ((double2){x0, x1 <= 0 ? -1.0 : x1});
 		if (x1 > 0.00001)
-			return (x1);
-		return (-1);
+			return ((double2){x1, x0 <= 0 ? -1.0 : x0});
+		return ((double2){-1.0, -1.0});
 	}
-	return (-1);
+	return ((double2){-1.0, -1.0});
 }
 
-double			inter_circle(t_obj p, double4 o, double4 dir)
+double2			inter_circle(t_obj p, double4 o, double4 dir)
 {
 	double		d;
 	double		nd;
@@ -34,17 +34,17 @@ double			inter_circle(t_obj p, double4 o, double4 dir)
 	nd = vpscal(p.dir, dir);
 	te = d / nd;
 	if (nd < 0.00001 && nd > -0.00001)
-		return (-1);
+		return ((double2){-1.0, -1.0});
 	if (te > 0)
 	{
 		if (vsize(vsub(vadd(vmult_dbl(dir, te), o), p.pos)) > p.radius)
-			return (-1);
-		return (te);
+			return ((double2){-1.0, -1.0});
+		return ((double2){te, -1.0});
 	}
-	return (-1.0);
+	return ((double2){-1.0, -1.0});
 }
 
-double			inter_square(t_obj p, double4 o, double4 dir)
+double2			inter_square(t_obj p, double4 o, double4 dir)
 {
 	double		d;
 	double		nd;
@@ -57,7 +57,7 @@ double			inter_square(t_obj p, double4 o, double4 dir)
 	nd = vpscal(p.dir, dir);
 	te = d / nd;
 	if (nd < 0.00001 && nd > -0.00001)
-		return (-1);
+		return ((double2){-1.0, -1.0});
 	if (te > 0)
 	{
 		cross = (p.dir.x == 1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0};
@@ -72,10 +72,10 @@ double			inter_square(t_obj p, double4 o, double4 dir)
 				return (te);
 		}
 	}
-	return (-1.0);
+	return ((double2){-1.0, -1.0});
 }
 
-double			inter_sphere(t_obj sp, double4 o, double4 dir)
+double2			inter_sphere(t_obj sp, double4 o, double4 dir)
 {
 	double4		dist_s;
 	double		b;
@@ -88,18 +88,18 @@ double			inter_sphere(t_obj sp, double4 o, double4 dir)
 	b = vpscal(dir, dist_s);
 	d = b * b - vpscal(dist_s, dist_s) + sp.radius * sp.radius;
 	if (d <= 0.00001)
-		return (-1);
+		return ((double2){-1.0, -1.0});
 	a = sqrt(d);
 	t0 = b - a;
 	t1 = b + a;
 	if (t0 > 0.00001 && (t1 < 0.00001 || t1 >= t0))
-		return (t0);
+		return ((double2){t0, t1 <= 0 ? -1.0 : t1});
 	else if (t1 > 0.00001)
-		return (t1);
-	return (-1.0);
+		return ((double2){t1, t0 <= 0 ? -1.0 : t0});
+	return ((double2){-1.0, -1.0});
 }
 
-double			inter_plane(t_obj p, double4 o, double4 dir)
+double2			inter_plane(t_obj p, double4 o, double4 dir)
 {
 	double		d;
 	double		nd;
@@ -111,13 +111,13 @@ double			inter_plane(t_obj p, double4 o, double4 dir)
 	nd = vpscal(p.dir, dir);
 	te = d / nd;
 	if (nd < 0.00001 && nd > -0.00001)
-		return (-1);
+		return ((double2){-1.0, -1.0});
 	if (te > 0)
-		return (te);
-	return (-1.0);
+		return ((double2){te, -1.0});
+	return ((double2){-1.0, -1.0});
 }
 
-double			inter_cylinder(t_obj cyl, double4 o, double4 dir)
+double2			inter_cylinder(t_obj cyl, double4 o, double4 dir)
 {
 	double		t0;
 	double		t1;
@@ -143,7 +143,7 @@ double			inter_cylinder(t_obj cyl, double4 o, double4 dir)
 			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius));
 }
 
-double			inter_cone(t_obj cone, double4 o, double4 dir)
+double2			inter_cone(t_obj cone, double4 o, double4 dir)
 {
 	double		alpha;
 	double4		origin;

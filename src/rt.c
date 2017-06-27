@@ -29,6 +29,7 @@ static void		init(t_env *e)
 	e->b_screen = 1;
 	e->nb_obj = 0;
 	e->nb_light = 0;
+	e->default_indice = 1;
 }
 
 t_env			*ft_create_tab_env(t_env e)
@@ -47,7 +48,7 @@ t_env			*ft_create_tab_env(t_env e)
 
 double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag)
 {
-	static int		i = 0;
+	static long int	i = 0;
 	static double	coef_t = 0;
 
 
@@ -59,6 +60,7 @@ double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag
 		get_l_pix(branch->r_refrac, tab_light, l_obj, 0);
 	if (branch && branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec) > 0.04)
 	{
+		// i > 5113820 ? printf("i = %ld\n", i) : 0;
 		tab_light[i].id = branch->id;
 		tab_light[i].p_hit_x = branch->p_hit.x;
 		tab_light[i].p_hit_y = branch->p_hit.y;
@@ -92,7 +94,8 @@ void				*boucle(void *env)
 				cam->up.z * y * (e->cam->h / e->mlx->h));
 			v_ray = vsub(p_cam, e->cam->eye);
 			vnorm(&v_ray);
-			ft_raytracer(e, (t_color2){0, 0, 0, 0}, e->cam->eye, v_ray, 0, 1, (t_color2){255, 255, 255, 0}, &(e->tab_three[x + y * e->mlx->w]));
+			e->begin_three = &(e->tab_three[x + y * e->mlx->w]);
+			ft_raytracer(e, e->cam->eye, v_ray, 0, 1, (t_color2){255, 255, 255, 0}, &(e->tab_three[x + y * e->mlx->w]));
 			x += 3;
 		}
 		y++;
@@ -142,10 +145,10 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, d
 	if (branch->r_refrac)
 	{
 		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
+		color_ray.r = color_ray.r * (branch->c_origin.r / 255.0);
+		color_ray.g = color_ray.g * (branch->c_origin.g / 255.0);
+		color_ray.b = color_ray.b * (branch->c_origin.b / 255.0);
 		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id].ind_transp * (1 - e->l_obj[branch->id].ind_reflec));
-		color_ray.r = color_ray.r * (1 - branch->c_origin.r / 255.0);
-		color_ray.g = color_ray.g * (1 - branch->c_origin.g / 255.0);
-		color_ray.b = color_ray.b * (1 - branch->c_origin.b / 255.0);
 		pixel = add_color(pixel, color_ray);
 	}
 	if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) > 0.04)
@@ -258,26 +261,27 @@ void				*ft_launch(void *env)
 		i++;
 	}
 	size[0] = *(e->nb_obj_pix[0]) + *(e->nb_obj_pix[1]) + *(e->nb_obj_pix[2]);
+	// printf("size[0] = %ld\n", size[0]);
 	if (!(e->tab_light = (t_l_obj *)malloc(sizeof(t_l_obj) * size[0])))
 		ft_error(MALLOC, "ft_launch");
 	// printf("creation tab_light\n");
 	if (size[0] > 0)
 	{
 		get_l_tab(e);
-		printf("Get l_tfinish\n");
-		printf("start_GPU\n");
+		// printf("Get l_tfinish\n");
+		// printf("start_GPU\n");
 		ft_launch_calc(e, e->cl_e->cl);
-		printf("apply add_light\n");
+		// printf("apply add_light\n");
 		get_image(e);
-		printf("Get image finish\n");
-		printf("Start filter\n");
+		// printf("Get image finish\n");
+		// printf("Start filter\n");
 		e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
-		printf("filter finish\n");
+		// printf("filter finish\n");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->mlx->img, 0, 0);
-		printf("do_sync\n");
+		// printf("do_sync\n");
 		tmp.e = e;
 		(e->b_screen == 1) ? keypress('0', &tmp) : mlx_do_sync(e->mlx->mlx);
-		printf("affiche\n");
+		// printf("affiche\n");
 	}
 	e->b_screen = 0;
 	i = 0;
@@ -288,12 +292,12 @@ void				*ft_launch(void *env)
 	}
 	free(e->tab_three);
 	free(e->tab_light);
-	free(e->l_obj);
-	free(e->light);
-	e->l_obj = NULL;
-	e->light = NULL;
+	// free(e->l_obj);
+	// free(e->light);
+	// e->l_obj = NULL;
+	// e->light = NULL;
 	init_id(e);
-	printf("free finish\n");
+	// printf("free finish\n");
 	pthread_exit(NULL);
 }
 
@@ -304,23 +308,81 @@ void				*ft_launch(void *env)
 // 	free(*lst);
 // }
 
+void	get_matrice(t_vector dir, t_vector **mat)
+{
+	t_vector mat_x;
+	t_vector mat_y;
+	t_vector mat_z;
+
+	vnorm(&dir);
+	mat_x.x = 1;
+	mat_x.y = 0;
+	mat_x.z = 0;
+	mat_y.x = 0;
+	mat_y.y = 1;
+	mat_y.z = 0;
+	mat_z.x = 0;
+	mat_z.y = 0;
+	mat_z.z = 1;
+	mat_x = vrot(vcross(dir, (t_vector){1, 0, 0, 0}), acos(vpscal(dir, (t_vector){1, 0, 0, 0})) / M_PI * 180, mat_x);
+	mat_y = vrot(vcross(dir, (t_vector){0, 1, 0, 0}), acos(vpscal(dir, (t_vector){0, 1, 0, 0})) / M_PI * 180, mat_y);
+	mat_z = vrot(vcross(dir, (t_vector){0, 0, 1, 0}), acos(vpscal(dir, (t_vector){0, 0, 1, 0})) / M_PI * 180, mat_z);
+	(*mat)[0] = mat_x;
+	(*mat)[1] = mat_y;
+	(*mat)[2] = mat_z;
+}
+
 void			get_obj_lst(t_env *e, t_obj obj, int *i)
 {
-	int nb;
+	int			nb;
+	t_vector	*mat;
 
 	nb = 0;
 	if (obj.type == 7)
 	{
+		mat = malloc(sizeof(t_vector) * 3);
+		get_matrice(obj.dir, &mat);
+		printf("mat[0] = %f %f %f et vsize = %f\n", mat[0].x, mat[0].y, mat[0].z, vsize(mat[0]));
+		printf("mat[1] = %f %f %f et vsize = %f\n", mat[1].x, mat[1].y, mat[1].z, vsize(mat[1]));
+		printf("mat[2] = %f %f %f et vsize = %f\n", mat[2].x, mat[2].y, mat[2].z, vsize(mat[2]));
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].id = *i;
 		e->l_obj[*i].type = 6;
-		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.radius / 2));
+		e->l_obj[*i].dir = mat[0];
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, obj.radius / 2));
 		(*i)++;
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].type = 6;
 		e->l_obj[*i].group = obj.group;
-		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius / 2));
+		e->l_obj[*i].dir = vmult_dbl(mat[0], -1);
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, obj.radius / 2));
 		e->l_obj[*i].id = *i;
+		(*i)++;
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].id = *i;
+		e->l_obj[*i].type = 6;
+		e->l_obj[*i].dir = mat[1];
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, obj.radius / 2));
+		// (*i)++;
+		// e->l_obj[*i] = obj;
+		// e->l_obj[*i].type = 6;
+		// e->l_obj[*i].group = obj.group;
+		// e->l_obj[*i].dir = vmult_dbl(mat[1], -1);
+		// e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, obj.radius / 2));
+		// e->l_obj[*i].id = *i;
+		// (*i)++;
+		// e->l_obj[*i] = obj;
+		// e->l_obj[*i].id = *i;
+		// e->l_obj[*i].type = 6;
+		// e->l_obj[*i].dir = mat[2];
+		// e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, obj.radius / 2));
+		// (*i)++;
+		// e->l_obj[*i] = obj;
+		// e->l_obj[*i].type = 6;
+		// e->l_obj[*i].group = obj.group;
+		// e->l_obj[*i].dir = vmult_dbl(mat[2], -1);
+		// e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, obj.radius / 2));
+		// e->l_obj[*i].id = *i;
 	}
 }
 
@@ -339,7 +401,7 @@ void			ft_creat_lst_obj(t_env *e)
 	while (parse_obj_b)
 	{
 		if (parse_obj_b->obj.type == 7)
-			i += 1;
+			i += 2;
 		else if (parse_obj_b->obj.type == 8)
 			i++;
 		else if (parse_obj_b->obj.type == 9)
@@ -371,6 +433,9 @@ void			ft_creat_lst_obj(t_env *e)
 		{
 			e->l_obj[i] = parse_obj_b->obj;
 			e->l_obj[i].id = i;
+			i == 0 || i == 1 || i == 7 ? printf("obj.ind_transp = %f\n", e->l_obj[i].ind_transp) : 0;
+			i == 0 || i == 1 || i == 7 ? printf("parse_obj_b->obj.ind_transp = %f\n", parse_obj_b->obj.ind_transp) : 0;
+			i == 0 || i == 1 || i == 7 ? printf("parse_obj_b->obj.name = %s\n\n", parse_obj_b->obj.name) : 0;
 		}
 		i++;
 		parse_obj_b = parse_obj_b->next;
