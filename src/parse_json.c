@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/20 14:32:09 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/28 19:27:19 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ void			ft_check_obj_neg(t_env *e)
 	}
 	tmp = e->parse_obj;
 	while (tmp)
-	{
-		printf("id = %d, name = %s, negatif = %d, tmp->obj.color = %d %d %d, tmp->obj.ind_transp = %f, tmp->obj.ind_reflec = %f, tmp->obj.ind_refrac = %f\n", tmp->obj.id, tmp->obj.name, tmp->obj.negatif, tmp->obj.color.r, tmp->obj.color.g, tmp->obj.color.b, tmp->obj.ind_transp, tmp->obj.ind_reflec, tmp->obj.ind_refrac);
 		tmp = tmp->next;
-	}
 }
 
 void			ft_parse_j(char *name, t_env *e)
@@ -72,7 +69,6 @@ void			ft_parse_j(char *name, t_env *e)
 	struct stat	st;
 	char		*line;
 
-	// e->flag = 0;
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
 	if (stat(name, &st) != 0)
@@ -90,5 +86,4 @@ void			ft_parse_j(char *name, t_env *e)
 	get_camera3(e);
 	free(line);
 	ft_check_obj_neg(e);
-	printf("e->parse_obj.id = %d et e->parse_obj.ind_transp = %f, e->parse_obj.name = %s\n", e->parse_obj->obj.id, e->parse_obj->obj.ind_transp, e->parse_obj->obj.name);
 }

@@ -6,24 +6,24 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:14:40 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/21 16:07:37 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/28 18:57:58 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void			get_img(t_mlx *mlx, t_mlx *img, char *str)
+void				get_img(t_mlx *mlx, t_mlx *img, char *str)
 {
-    if (img->img)
-        mlx_destroy_image(mlx->mlx, img->img);
-    if (!(img->img = mlx_xpm_file_to_image(mlx->mlx, str, &img->w, &img->h)))
-    	ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
-    if (!(img->data = mlx_get_data_addr(img->img,
-        &img->bpp, &img->sizeline, &img->endian)))
-        ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
+	if (img->img)
+		mlx_destroy_image(mlx->mlx, img->img);
+	if (!(img->img = mlx_xpm_file_to_image(mlx->mlx, str, &img->w, &img->h)))
+		ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
+	if (!(img->data = mlx_get_data_addr(img->img,
+		&img->bpp, &img->sizeline, &img->endian)))
+		ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
 }
 
-static void 		load_img1(t_envg *e, char *img_path[31], int img)
+static void			load_img1(t_envg *e, char *img_path[31], int img)
 {
 	img_path[22] = "./xpm_file/Previous_light.xpm";
 	img_path[23] = "./xpm_file/Next_light.xpm";
