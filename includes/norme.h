@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/28 15:35:11 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 16:06:00 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ void				del_obj(t_envg *e, int i);
 void				del_elem(t_envg *e, int i);
 void				del_light2(t_parse_light *b, t_parse_light *f_l);
 
+int					select_pos(t_envg *e, int x, int y);
+void				volet_target(t_envg *e);
+int					interface_mouse_click(int button, int x, int y, t_envg *e);
+void				ft_exit(t_envg *e);
+void				init_mlx1(t_envg *e);
+void				event_touch(t_envg *e);
+void				mousse_click_x(t_envg *e, int x);
 
 
 #endif
