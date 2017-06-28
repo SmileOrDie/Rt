@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:52:30 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 11:13:43 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/28 14:24:39 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static int		interface_redcross(t_envg *e)
 	return (1);
 }
 
-void re_init_tab(t_envg *e)
+void			re_init_tab(t_envg *e)
 {
 	int i;
-	
+
 	i = 5;
 	while (i)
 		load_img(e, i--);
@@ -46,8 +46,6 @@ static void		event_touch(t_envg *e)
 	mlx_hook(e->mlx->win, 17, 0, &interface_redcross, e);
 	mlx_hook(e->mlx->win, 4, 0, &interface_mouse_click, e);
 }
-
-
 
 void			graphic_interface(t_env *scene)
 {

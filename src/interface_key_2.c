@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_key_2.c                                   :+:      :+:    :+:   */
+/*   interface_key_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 12:37:13 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/14 14:57:49 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/28 14:38:30 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 static char	*ft_print_key_8(int key, t_envg *e)
 {
+	if (key == 69)
+		return ("+ (pad)");
+	if (key == 83)
+		return ("1");
+	if (key == 84)
+		return ("2");
+	if (key == 85)
+		return ("3");
 	if (key == 82)
 		return ("0");
 	if (key == 65)
@@ -34,6 +42,14 @@ static char	*ft_print_key_8(int key, t_envg *e)
 
 static char	*ft_print_key_7(int key, t_envg *e)
 {
+	if (key == 121)
+		return ("page down");
+	if (key == 71)
+		return ("clear (pad)");
+	if (key == 81)
+		return ("= (pad)");
+	if (key == 75)
+		return ("/ (pad)");
 	if (key == 67)
 		return ("* (pad)");
 	if (key == 89)
@@ -50,19 +66,19 @@ static char	*ft_print_key_7(int key, t_envg *e)
 		return ("5");
 	if (key == 88)
 		return ("6");
-	if (key == 69)
-		return ("+ (pad)");
-	if (key == 83)
-		return ("1");
-	if (key == 84)
-		return ("2");
-	if (key == 85)
-		return ("3");
 	return (ft_print_key_8(key, e));
 }
 
 char		*ft_print_key_6(int key, t_envg *e)
 {
+	if (key == 256)
+		return ("left control");
+	if (key == 261)
+		return ("left option");
+	if (key == 259)
+		return ("left command");
+	if (key == 49)
+		return ("");
 	if (key == 260)
 		return ("right command");
 	if (key == 262)
@@ -79,13 +95,5 @@ char		*ft_print_key_6(int key, t_envg *e)
 		return ("right delete");
 	if (key == 119)
 		return ("end");
-	if (key == 121)
-		return ("page down");
-	if (key == 71)
-		return ("clear (pad)");
-	if (key == 81)
-		return ("= (pad)");
-	if (key == 75)
-		return ("/ (pad)");
 	return (ft_print_key_7(key, e));
 }

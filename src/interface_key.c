@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:32 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/10 16:25:35 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 14:37:03 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 static char	*ft_print_key_5(int key, t_envg *e)
 {
+	if (key == 7)
+		return ((e->shift == 1) ? "x" : "X");
+	if (key == 8)
+		return ((e->shift == 1) ? "c" : "C");
 	if (key == 9)
 		return ((e->shift == 1) ? "v" : "V");
 	if (key == 11)
@@ -33,14 +37,6 @@ static char	*ft_print_key_5(int key, t_envg *e)
 		e->shift = (e->shift == 1) ? 0 : 1;
 		return ("\0");
 	}
-	if (key == 256)
-		return ("left control");
-	if (key == 261)
-		return ("left option");
-	if (key == 259)
-		return ("left command");
-	if (key == 49)
-		return ("");
 	return (ft_print_key_6(key, e));
 }
 
@@ -69,10 +65,6 @@ static char	*ft_print_key_4(int key, t_envg *e)
 	}
 	if (key == 6)
 		return ((e->shift == 1) ? "z" : "Z");
-	if (key == 7)
-		return ((e->shift == 1) ? "x" : "X");
-	if (key == 8)
-		return ((e->shift == 1) ? "c" : "C");
 	return (ft_print_key_5(key, e));
 }
 

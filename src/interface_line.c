@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 18:34:24 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/14 18:37:55 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/28 15:17:03 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	del_line(t_envg *e)
 
 void	print_line(t_envg *e, int line, int precision)
 {
-	char *string;
-	int len;
+	char	*string;
+	int		len;
 
 	string = NULL;
 	len = ft_strlen(e->line[line]);
