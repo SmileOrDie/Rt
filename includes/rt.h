@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/27 18:48:59 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 11:45:13 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,6 @@ void						filter_red(t_env *e, int x, int y);
 void						filter_blue(t_env *e, int x, int y);
 void						filter_green(t_env *e, int x, int y);
 void						filter_blur(t_env *e, int x, int y);
-void						filter_cartoon(t_env *e, int x, int y);
 
 /*
 ** parse obj

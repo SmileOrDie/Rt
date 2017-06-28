@@ -1,0 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   norme.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
+/*   Updated: 2017/06/28 14:12:26 by pde-maul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef NORME_H
+# define NORME_H
+
+int 				sphere_check(char **def);
+int 				circle_check(char **def);
+
+t_obj				new_obj(t_envg *e);
+t_parse_obj			*srch_obj(t_envg *e, int id);
+t_parse_light		*srch_light(t_envg *e, int id);
+void				reset_line(char **line);
+t_light				new_light(t_envg *e);
+void				creat_light(t_envg *e);
+
+#endif

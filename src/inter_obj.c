@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interface_create_obj.c                             :+:      :+:    :+:   */
+/*   inter_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/28 15:36:18 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/28 12:10:10 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ double			solve_quad(double a, double b, double c)
 
 double			inter_sphere(t_obj sp, t_vector o, t_vector dir)
 {
-	t_vector		dist_s;
+	t_vector	dist_s;
 	double		b;
 	double		d;
 	double		t0;
@@ -65,7 +65,7 @@ double			inter_plane(t_obj p, t_vector o, t_vector dir)
 	double		d;
 	double		nd;
 	double		te;
-	t_vector		qe;
+	t_vector	qe;
 
 	qe = vsub(p.pos, o);
 	d = vpscal(p.dir, qe);

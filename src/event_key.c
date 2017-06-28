@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/27 19:19:32 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 12:02:50 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void		keypress5(t_envg *e)
 	- e->e->cam->up.z * (e->e->cam->h / 2));
 }
 
-int		keypress(int key, t_envg *e)
+int			keypress(int key, t_envg *e)
 {
 	pthread_join(e->thread, NULL);
 	if (key == ESC)

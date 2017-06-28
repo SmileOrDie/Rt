@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:18 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/27 15:18:03 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 12:21:44 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,41 @@ double			inter_square(t_obj p, t_vector o, t_vector dir)
 	}
 	return (-1.0);
 }
+// 
+// double			inter_square2(t_obj p, t_vector o, t_vector dir, double te)
+// {
+// 	t_vector	cross;
+// 	t_vector	p_hit;
+// 	t_vector	u;
+//
+// 	cross = (p.dir.x == 1) ? (t_vector){0, 1, 0, 0} : (t_vector){1, 0, 0, 0};
+// 	p_hit = vadd(o, vmult_dbl(dir, te));
+// 	u = vsub(p_hit, p.pos);
+// 	cross = vcross(p.dir, cross);
+// 	cross = vrot(p.dir, p.angle, cross);
+// 	if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
+// 	{
+// 		cross = vcross(cross, p.dir);
+// 		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
+// 			return (te);
+// 	}
+// return (te);
+// }
+//
+// double			inter_square(t_obj p, t_vector o, t_vector dir)
+// {
+// 	double		d;
+// 	double		nd;
+// 	double		te;
+//
+// 	d = vpscal(p.dir, vsub(p.pos, o));
+// 	nd = vpscal(p.dir, dir);
+// 	te = d / nd;
+// 	if (nd < 0.00001 && nd > -0.00001)
+// 		return (-1);
+// 	if (te > 0)
+// 	{
+// 		inter_square2(p, o, dir, te);
+// 	}
+// 	return (-1.0);
+// }
