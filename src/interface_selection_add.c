@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:29:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:22:43 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 17:39:31 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,40 @@ static int	select_obj(t_envg *e, int y)
 	return (e->pos);
 }
 
-static int	select_add_1(t_envg *e, int x, int y, int i)
+static int	select_add_2(t_envg *e, int x, int y, t_parse_obj *b)
+{
+	int i;
+
+	while ((i = -1) && b)
+		if (((b = b->next) || 1) && b->obj.id == e->obj + e->page)
+			break ;
+	while (++i < 3)
+	{
+		if (x > 40 && x < 60 && y > 600 + (i * 30) && y < 620 + (i * 30))
+		{
+			b->obj.id_texture = (b->obj.id_texture == \
+				(unsigned char)i + 1) ? 0 : (unsigned char)i + 1 + e->page;
+			e->line[30][0] = b->obj.id_texture;
+			e->volet.add == 0 ? conf_tab(e) : add_tab(e);
+			return (16);
+		}
+	}
+	if (e->page > 2 && x > 50 && x < 100 && y > 715 && y < 736)
+		e->page -= 3;
+	else if (e->page + 3 < e->e->nb_tex && x > 258 && x < 356 && y > 715 && y \
+		< 736)
+		e->page += 3;
+	e->volet.add == 0 ? conf_tab(e) : add_tab(e);
+	return (16);
+}
+
+int			select_add_1(t_envg *e, int x, int y, int i)
 {
 	t_parse_obj *b;
 
 	if (e->pos == 1 && x > e->line_pos[e->pos].w &&
 		x < e->line_pos[e->pos].w + 317 && y > e->line_pos[e->pos].h)
-	 	return (select_obj(e, y));
+		return (select_obj(e, y));
 	while (++i <= 2)
 	{
 		if (x > e->line_pos[i].w && x < e->line_pos[i].w + 317 &&
@@ -60,32 +87,9 @@ static int	select_add_1(t_envg *e, int x, int y, int i)
 	}
 	if (x > e->line_pos[31].w && x < e->line_pos[31].w + 40 &&
 			y > e->line_pos[31].h && y < e->line_pos[31].h + 30)
-			return (31);
-	i = 0;
+		return (31);
 	b = e->e->parse_obj;
-	while (b)
-	{
-		if (b->obj.id == e->obj + e->page)
-			break;
-		b = b->next;
-	}
-	while (i < 3)
-	{
-		if ( x > 40 && x < 60 && y > 600 + (i * 30) && y < 620 + (i * 30))
-		{
-			b->obj.id_texture = (b->obj.id_texture == (unsigned char)i + 1) ? 0 : (unsigned char)i + 1 + e->page;
-			e->line[30][0] = b->obj.id_texture;
-			e->volet.add == 0 ? conf_tab(e) : add_tab(e);
-			return (16);
-		}
-		i++;
-	}
-
-	if ( e->page > 2 && x > 50 && x < 100 && y > 715 && y < 736)
-		e->page -= 3;
-	else if (e->page + 3  < e->e->nb_tex && x > 258 && x < 356 && y > 715 && y < 736)
-		e->page += 3;
-	e->volet.add == 0 ? conf_tab(e) : add_tab(e);
+	select_add_2(e, x, y, b);
 	return (16);
 }
 
@@ -103,7 +107,7 @@ int			select_add(t_envg *e, int x, int y)
 		e->pos = i;
 		if (e->volet.add == 1 && e->error == -1)
 			creat_elem(e);
-		else if(e->mod == 1 && e->volet.conf == 1 && e->error == -1)
+		else if (e->mod == 1 && e->volet.conf == 1 && e->error == -1)
 		{
 			creat_elem(e);
 			(e->light == -1) ?

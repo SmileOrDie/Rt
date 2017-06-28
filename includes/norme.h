@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/28 16:06:00 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 16:33:30 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ void				ft_exit(t_envg *e);
 void				init_mlx1(t_envg *e);
 void				event_touch(t_envg *e);
 void				mousse_click_x(t_envg *e, int x);
+
+void				put_img2(t_envg *e, int i, int pos_x, int pos_y);
+void				put_img1(t_envg *e, int x, int y);
+void				put_img3(t_envg *e);
+
+
 
 
 #endif

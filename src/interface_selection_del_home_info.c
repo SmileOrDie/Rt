@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:59:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/22 16:53:39 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/28 17:45:22 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	select_del_1(t_envg *e, int x, int y)
 		e->page += 15;
 		del_tab(e);
 	}
-	if (x > 55 && x < 155 && y > 765 && y < 790  && e->i_lst > 15 &&
+	if (x > 55 && x < 155 && y > 765 && y < 790 && e->i_lst > 15 &&
 		e->page > 0)
 	{
 		e->page -= 15;

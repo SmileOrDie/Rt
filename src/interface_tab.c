@@ -6,45 +6,16 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 17:09:21 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/28 17:49:01 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-int				add_tab(t_envg *e)
+static void			conf_tab2(t_envg *e, int i)
 {
-	int save;
-	int i;
-
-	i = 0;
-	save = e->pos;
-	e->volet = (t_tab_valid) {0, 1, 0, 0, 0};
-	load_img(e, 2);
-	e->f_key = 0;
-	while (i <= 15)
-	{
-		e->pos = i;
-		load_img(e, e->pos_value[i]);
-		print_line(e, i, (i > 2) ? 3 : 30);
-		if (i == 15)
-		{
-			e->pos = 31;
-			load_img(e, e->pos_value[e->pos]);
-			print_line(e, e->pos, 3);
-		}
-		i++;
-	}
-	load_img(e, 29);
-	e->pos = 30;
-	load_img(e, e->pos_value[e->pos]);
-	return ((save == -1) ? 0 : save);
-}
-
-static void		conf_tab2(t_envg *e, int i)
-{
-	int nb;
-	t_parse_light *b;
+	int				nb;
+	t_parse_light	*b;
 
 	b = e->e->parse_light;
 	nb = 0;
@@ -66,7 +37,14 @@ static void		conf_tab2(t_envg *e, int i)
 	(nb > e->page + 3) ? load_img(e, 23) : 0;
 }
 
-int				conf_tab(t_envg *e)
+void				conf_tab3(t_envg *e)
+{
+	e->pos = 31;
+	load_img(e, e->pos_value[e->pos]);
+	print_line(e, e->pos, 3);
+}
+
+int					conf_tab(t_envg *e)
 {
 	int		i;
 	int		save;
@@ -84,11 +62,7 @@ int				conf_tab(t_envg *e)
 			load_img(e, e->pos_value[i]);
 			print_line(e, i, (i > 2) ? 3 : 30);
 			if (i == 15)
-			{
-				e->pos = 31;
-				load_img(e, e->pos_value[e->pos]);
-				print_line(e, e->pos, 3);
-			}
+				conf_tab3(e);
 			i++;
 		}
 		load_img(e, 29);
@@ -99,7 +73,7 @@ int				conf_tab(t_envg *e)
 	return ((save == -2) ? 0 : save);
 }
 
-void			home_tab(t_envg *e)
+void				home_tab(t_envg *e)
 {
 	t_parse_obj *b;
 
@@ -121,7 +95,7 @@ void			home_tab(t_envg *e)
 	(e->error != -1) ? error_gestion(e, 0, 0) : 0;
 }
 
-void			del_tab(t_envg *e)
+void				del_tab(t_envg *e)
 {
 	e->volet = (t_tab_valid){0, 0, 0, 1, 0};
 	load_img(e, 4);
