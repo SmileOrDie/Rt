@@ -6,37 +6,49 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 11:25:53 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/28 12:02:05 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:42:13 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
+#include "../includes/norme.h"
+
+int			*lecture_img_for_blur2(t_env *e, t_norme *n, int *tab)
+{
+	tab[n->i] = (unsigned char)e->mlx->data[(n->y * e->mlx->sizeline) + \
+	((e->mlx->bpp / 8) * n->x) + 2];
+	tab[n->i + 1] = (unsigned char)e->mlx->data[(n->y * e->mlx->sizeline) + \
+		((e->mlx->bpp / 8) * n->x) + 1];
+	tab[n->i + 2] = (unsigned char)e->mlx->data[(n->y * e->mlx->sizeline) + \
+		((e->mlx->bpp / 8) * n->x)];
+	tab[n->i + 3] = (unsigned char)e->mlx->data[(n->y * e->mlx->sizeline) + \
+		((e->mlx->bpp / 8) * n->x++) + 3];
+	return (tab);
+}
 
 int			*lecture_img_for_blur(t_env *e, int x, int y, int i)
 {
 	int		*tab;
 	int		compt;
 	int		s;
+	t_norme	n;
 
 	s = x;
+	n.x = x;
+	n.y = y;
+	n.i = i;
+	n.s = s;
 	compt = 0;
 	if (!(tab = (int *)malloc(sizeof(int) * 101)))
 		ft_error(MALLOC, "lecture_img_to_blur");
-	while (i < 100 && y < e->mlx->h)
+	while (n.i < 100 && n.y < e->mlx->h)
 	{
-		tab[i] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
-		((e->mlx->bpp / 8) * x) + 2];
-		tab[i + 1] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
-			((e->mlx->bpp / 8) * x) + 1];
-		tab[i + 2] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
-			((e->mlx->bpp / 8) * x)];
-		tab[i + 3] = (unsigned char)e->mlx->data[(y * e->mlx->sizeline) + \
-			((e->mlx->bpp / 8) * x++) + 3];
-		i += 4;
-		if (x > e->mlx->w / e->anti_a || compt++ == 5)
+		lecture_img_for_blur2(e, &n, tab);
+		n.i += 4;
+		if (n.x > e->mlx->w / e->anti_a || compt++ == 5)
 		{
-			y++;
-			x = s;
+			n.y++;
+			n.x = n.s;
 			compt = 0;
 		}
 	}

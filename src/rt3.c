@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 11:57:18 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/29 12:05:30 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:21:53 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void			*ft_launch(void *env)
 	pthread_exit(NULL);
 }
 
-void	get_matrice(t_vector dir, t_vector **mat)
+void		get_matrice(t_vector dir, t_vector **mat)
 {
 	t_vector mat_x;
 	t_vector mat_y;
@@ -99,7 +99,7 @@ void	get_matrice(t_vector dir, t_vector **mat)
 	(*mat)[2] = mat_z;
 }
 
-void			get_obj_lst(t_env *e, t_obj obj, int *i)
+void		get_obj_lst(t_env *e, t_obj obj, int *i)
 {
 	int			nb;
 	t_vector	*mat;

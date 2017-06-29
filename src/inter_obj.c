@@ -6,11 +6,12 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 12:10:10 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:56:56 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
+#include "../includes/norme.h"
 
 double			solve_quad(double a, double b, double c)
 {
@@ -39,24 +40,20 @@ double			solve_quad(double a, double b, double c)
 double			inter_sphere(t_obj sp, t_vector o, t_vector dir)
 {
 	t_vector	dist_s;
-	double		b;
-	double		d;
-	double		t0;
-	double		t1;
-	double		a;
+	t_norme1	n;
 
 	dist_s = vsub(sp.pos, o);
-	b = vpscal(dir, dist_s);
-	d = b * b - vpscal(dist_s, dist_s) + sp.radius * sp.radius;
-	if (d <= 0.00001)
+	n.b = vpscal(dir, dist_s);
+	n.d = n.b * n.b - vpscal(dist_s, dist_s) + sp.radius * sp.radius;
+	if (n.d <= 0.00001)
 		return (-1);
-	a = sqrt(d);
-	t0 = b - a;
-	t1 = b + a;
-	if (t0 > 0.00001 && (t1 < 0.00001 || t1 >= t0))
-		return (t0);
-	else if (t1 > 0.00001)
-		return (t1);
+	n.a = sqrt(n.d);
+	n.t0 = n.b - n.a;
+	n.t1 = n.b + n.a;
+	if (n.t0 > 0.00001 && (n.t1 < 0.00001 || n.t1 >= n.t0))
+		return (n.t0);
+	else if (n.t1 > 0.00001)
+		return (n.t1);
 	return (-1.0);
 }
 
@@ -80,50 +77,38 @@ double			inter_plane(t_obj p, t_vector o, t_vector dir)
 
 double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 {
-	double		t0;
-	double		t1;
-	double		a;
-	double		b;
-	double		c;
-	t_vector	dp;
-	t_vector	tmp;
-	t_vector	tmp2;
+	t_norme2	n;
 
-	dp = vsub(o, cyl.pos);
-	t0 = vpscal(dir, cyl.dir);
-	a = dir.x - t0 * cyl.dir.x;
-	b = dir.y - t0 * cyl.dir.y;
-	c = dir.z - t0 * cyl.dir.z;
-	tmp = new_v(a, b, c);
-	t1 = vpscal(dp, cyl.dir);
-	a = dp.x - t1 * cyl.dir.x;
-	b = dp.y - t1 * cyl.dir.y;
-	c = dp.z - t1 * cyl.dir.z;
-	tmp2 = new_v(a, b, c);
-	return (solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
-			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius));
+	n.dp = vsub(o, cyl.pos);
+	n.t0 = vpscal(dir, cyl.dir);
+	n.a = dir.x - n.t0 * cyl.dir.x;
+	n.b = dir.y - n.t0 * cyl.dir.y;
+	n.c = dir.z - n.t0 * cyl.dir.z;
+	n.tmp = new_v(n.a, n.b, n.c);
+	n.t1 = vpscal(n.dp, cyl.dir);
+	n.a = n.dp.x - n.t1 * cyl.dir.x;
+	n.b = n.dp.y - n.t1 * cyl.dir.y;
+	n.c = n.dp.z - n.t1 * cyl.dir.z;
+	n.tmp2 = new_v(n.a, n.b, n.c);
+	return (solve_quad(vpscal(n.tmp, n.tmp), vpscal(n.tmp, n.tmp2) * 2,
+			vpscal(n.tmp2, n.tmp2) - cyl.radius * cyl.radius));
 }
 
 double			inter_cone(t_obj cone, t_vector o, t_vector dir)
 {
-	double		alpha;
-	t_vector	origin;
-	t_vector	tmp1;
-	t_vector	tmp2;
-	t_vector	dir_dir;
-	t_vector	o_dir;
+	t_norme3	n;
 
-	alpha = cone.angle / 180 * M_PI;
-	origin = vsub(o, cone.pos);
-	dir_dir = vmult_dbl(cone.dir, vpscal(dir, cone.dir));
-	o_dir = vmult_dbl(cone.dir, vpscal(origin, cone.dir));
-	tmp1 = vsub(dir, dir_dir);
-	tmp2 = vsub(origin, o_dir);
-	return (solve_quad(pow(cos(alpha), 2) * vpscal(tmp1, tmp1) -
-			pow(sin(alpha), 2) * pow(vpscal(dir, cone.dir), 2),
-			2 * (pow(cos(alpha), 2) * vpscal(tmp1, tmp2)) - 2 *
-			(pow(sin(alpha), 2) * vpscal(dir, cone.dir) *
-			vpscal(origin, cone.dir)), pow(cos(alpha), 2) *
-			vpscal(tmp2, tmp2) - pow(sin(alpha), 2) *
-			pow(vpscal(origin, cone.dir), 2)));
+	n.alpha = cone.angle / 180 * M_PI;
+	n.origin = vsub(o, cone.pos);
+	n.dir_dir = vmult_dbl(cone.dir, vpscal(dir, cone.dir));
+	n.o_dir = vmult_dbl(cone.dir, vpscal(n.origin, cone.dir));
+	n.tmp1 = vsub(dir, n.dir_dir);
+	n.tmp2 = vsub(n.origin, n.o_dir);
+	return (solve_quad(pow(cos(n.alpha), 2) * vpscal(n.tmp1, n.tmp1) -
+			pow(sin(n.alpha), 2) * pow(vpscal(dir, cone.dir), 2),
+			2 * (pow(cos(n.alpha), 2) * vpscal(n.tmp1, n.tmp2)) - 2 *
+			(pow(sin(n.alpha), 2) * vpscal(dir, cone.dir) *
+			vpscal(n.origin, cone.dir)), pow(cos(n.alpha), 2) *
+			vpscal(n.tmp2, n.tmp2) - pow(sin(n.alpha), 2) *
+			pow(vpscal(n.origin, cone.dir), 2)));
 }

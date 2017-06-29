@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/29 12:03:01 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 13:03:59 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,54 @@
 # include <pthread.h>
 #include "../includes/interface_rt.h"
 
+typedef struct				s_norme
+{
+	int						x;
+	int						y;
+	int						i;
+	int						s;
+}							t_norme;
 
+typedef struct				s_norme1
+{
+	double					b;
+	double					d;
+	double					t0;
+	double					t1;
+	double					a;
+}							t_norme1;
+
+typedef struct				s_norme2
+{
+	double					t0;
+	double					t1;
+	double					a;
+	double					b;
+	double					c;
+	t_vector				dp;
+	t_vector				tmp;
+	t_vector				tmp2;
+}							t_norme2;
+
+typedef struct				s_norme3
+{
+	double					alpha;
+	t_vector				origin;
+	t_vector				tmp1;
+	t_vector				tmp2;
+	t_vector				dir_dir;
+	t_vector				o_dir;
+}							t_norme3;
+
+typedef struct				s_norme5
+{
+	double					d;
+	double					nd;
+	double					te;
+	t_vector				p_hit;
+	t_vector				u;
+	t_vector				cross;
+}							t_norme5;
 
 int 				sphere_check(char **def);
 int 				circle_check(char **def);
