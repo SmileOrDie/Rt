@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/29 13:03:59 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 18:06:11 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct				s_norme
 	int						y;
 	int						i;
 	int						s;
+	t_parse_obj				 *b;
 }							t_norme;
 
 typedef struct				s_norme1
@@ -76,6 +77,42 @@ typedef struct				s_norme5
 	t_vector				u;
 	t_vector				cross;
 }							t_norme5;
+
+typedef struct				s_norme6
+{
+	int						err;
+	char					*source[5];
+	char					*namefile[5];
+	int						i;
+	size_t					len;
+	char					buffer[100000];
+}							t_norme6;
+
+typedef struct				s_norme7
+{
+	size_t					global[1];
+	int						err;
+}							t_norme7;
+
+typedef struct				s_norme9
+{
+	char					*path;
+	char					**new;
+	int						y;
+}							t_norme9;
+
+typedef struct				s_norme8
+{
+	int						y;
+	int						tmp;
+}							t_norme8;
+
+typedef struct				s_norme4
+{
+	int						id;
+	int						group;
+	char					*rez;
+}							t_norme4;
 
 int 				sphere_check(char **def);
 int 				circle_check(char **def);
@@ -131,6 +168,31 @@ void				get_image(t_env *e);
 void				*ft_launch(void *env);
 void				get_matrice(t_vector dir, t_vector **mat);
 void				get_obj_lst(t_env *e, t_obj obj, int *i);
+
+void				add_new_texture2(t_envg *e, char **new, int y);
+void				add_new_texture(t_envg *e);
+
+void				ft_launch_calc(t_env *e, t_opencl *cl);
+void				ft_launch_calc2(t_env *e, t_opencl *cl, t_norme7 n);
+void				ft_launch_calc3(t_env *e, t_opencl *cl, t_norme7 n);
+void				ft_init_opencl(t_env *e, t_opencl *cl);
+int					ft_init_opencl2(t_opencl *cl, char *namefile[5]);
+void				init_cl_e(t_env *e, t_env_cl *cl);
+char				*ft_create_source(char *file_name);
+
+void				add_obj23_1(t_env *e, char *line, int *x);
+void				add_obj23(char *line, int *x, t_env *e, char *rez);
+void				add_obj24(char *line, int *x, t_env *e, char *rez);
+void				add_obj2_1(char *line, int *x, t_env *e, t_norme4 n);
+void				add_obj2(char *line, int *x, t_env *e, int type);
+void				get_texture2(t_norme9 n, t_env *e);
+void				get_texture(char *line, int *x, t_env *e);
+void				add_obj22_1(t_norme8 n, t_env *e, char *line, int *x);
+void				add_obj22(char *line, int *x, t_env *e, char *rez);
+
+
+
+
 
 
 

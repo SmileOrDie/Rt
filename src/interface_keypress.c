@@ -6,45 +6,12 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:43 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 11:40:15 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 14:48:59 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 #include "../includes/norme.h"
-
-void			add_new_texture(t_envg *e)
-{
-	char	**new;
-	int		y;
-
-	y = 0;
-	clean_str(&e->line[41], 0);
-	while ((e->e->path_tex)[y] != NULL)
-	{
-		if (ft_strcmp(e->line[41], (e->e->path_tex)[y]) == 0)
-			break ;
-		y++;
-	}
-	if ((e->e->path_tex)[y] == NULL)
-	{
-		if (!(new = (char **)malloc(sizeof(char *) * (y + 1))))
-			ft_error(MALLOC, "add_new_texture => interface_keypress.c");
-		y = 0;
-		while ((e->e->path_tex)[y] != NULL)
-		{
-			new[y] = (e->e->path_tex)[y];
-			y++;
-		}
-		new[y] = ft_strdup(e->line[41]);
-		new[y + 1] = NULL;
-		free(e->e->path_tex);
-		e->e->path_tex = new;
-		e->e->nb_tex++;
-	}
-	free(e->e->texture);
-	e->error = add_texture(e);
-}
 
 void			free_env_parse(t_envg *e)
 {
@@ -104,8 +71,7 @@ static int		interface_keypress_2(int key, t_envg *e, int *val, char *li)
 	if (!(ft_strcmp(pr, "right delete")) || !(ft_strcmp(pr, "delete")))
 	{
 		*val = ((e->pos < 40 && e->pos > 42) || (e->pos > 2 && e->pos <= 15) \
-		|| e->pos == 31 || (e->pos >= 19 && e->pos <= 26))
-		? 3 : 30;
+		|| e->pos == 31 || (e->pos >= 19 && e->pos <= 26)) ? 3 : 30;
 		del_line(e);
 	}
 	else if (!(ft_strcmp(pr, "return")) || !(ft_strcmp(pr, "enter")))
