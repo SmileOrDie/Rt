@@ -6,13 +6,13 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 17:44:07 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:40:38 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-static int	select_conf2_1(t_envg *e, int x, int y, int i)
+static int		select_conf2_1(t_envg *e, int x, int y, int i)
 {
 	if (x > 40 && x < 60 && y > 400 + (i * 30) && y < 400 + (i * 30) + 20)
 	{
@@ -33,7 +33,7 @@ static int	select_conf2_1(t_envg *e, int x, int y, int i)
 	return (0);
 }
 
-static int	select_conf2_2(t_envg *e, int x, int y, int i)
+static int		select_conf2_2(t_envg *e, int x, int y, int i)
 {
 	while (++i <= 26)
 	{
@@ -80,7 +80,7 @@ void			select_conf3(t_envg *e, int x, int y, int nb)
 		creat_cam(e);
 }
 
-static int	select_conf2(t_envg *e, int x, int y)
+static int		select_conf2(t_envg *e, int x, int y)
 {
 	int				i;
 	int				nb;
@@ -101,7 +101,7 @@ static int	select_conf2(t_envg *e, int x, int y)
 	return (select_conf2_2(e, x, y, 18));
 }
 
-int			select_conf(t_envg *e, int x, int y)
+int				select_conf(t_envg *e, int x, int y)
 {
 	if (e->mod == 1)
 		return (select_add(e, x, y));

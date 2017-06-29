@@ -95,7 +95,6 @@ int	mlx_int_get_text_rgb(char *name, char *end)
     return (strtol(name+1,0,16));
   if (end)
     {
-      snprintf(buff, 64, "%s %s", name, end);
       name = buff;
     }
   i = 0;
@@ -191,7 +190,7 @@ void	*mlx_int_parse_xpm(mlx_ptr_t *xvar,void *info,int info_size,char *(*f)())
 	RETURN;
 
       rgb_col = mlx_int_get_text_rgb(tab[j], tab[j+1]);
-      /*      
+      /*
       if ((rgb_col = mlx_int_get_text_rgb(tab[j], tab[j+1]))==-1)
 	{
 	  if (!(clip_data = malloc(4*width*height)) ||   // ok, nice size ..

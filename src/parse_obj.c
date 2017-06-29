@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/27 15:13:51 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:43:23 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 	static int	id = 0;
 	static int	group = 1;
 	char		*rez;
-
 
 	e->parse_obj->obj.id = id;
 	e->parse_obj->obj.type = type;

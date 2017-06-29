@@ -6,13 +6,12 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:43 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 14:51:57 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:40:15 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 #include "../includes/norme.h"
-
 
 void			add_new_texture(t_envg *e)
 {

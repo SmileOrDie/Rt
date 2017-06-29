@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 19:27:19 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:05:13 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void			ft_check_obj_neg(t_env *e)
 			tmp->obj.ind_transp = 1;
 			tmp->obj.ind_reflec = 0;
 			tmp->obj.ind_refrac = e->default_indice;
-			printf("--\n");
 		}
 		tmp = tmp->next;
 	}

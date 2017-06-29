@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/28 19:47:06 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 12:03:01 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ t_color2			mult_color(t_color2 c, double coef);
 void				add_branch(t_three *n_branch, t_vector p_hit, double coef, t_color2 c_origin);
 t_vector			return_v_norm(int type, t_obj obj, t_vector p_hit);
 int					search_obj(t_parse_obj **list_obj, t_obj obj);
+
+t_env				*ft_create_tab_env(t_env e);
+double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag);
+void				*boucle(void *env);
+void				free_branch(t_three *branch);
+void				get_l_tab(t_env *e);
+
+t_color2			get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, double coef_t);
+void				get_image(t_env *e);
+
+void				*ft_launch(void *env);
+void				get_matrice(t_vector dir, t_vector **mat);
+void				get_obj_lst(t_env *e, t_obj obj, int *i);
+
 
 
 

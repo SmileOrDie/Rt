@@ -75,14 +75,8 @@ t_obj		inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *
 			dist = inter_circle(e->l_obj[i], p_ray, v_ray);
 		else if (e->l_obj[i].type == 6)
 			dist = inter_square(e->l_obj[i], p_ray, v_ray);
-		// else
- 			// printf("nouvel obj = %d i = %d\n", e->l_obj[i].type, i);
 		if (dist[0] != -1)
 			ft_create_tab_obj_light(e, i, dist, tab_obj_light_id, tab_obj_light_t);
-		// else
-		// {
-			// printf("id = %d, px = %f et vf = %f\n", e->l_obj[i].id, p_ray.x, v_ray.x);
-		// }
 		i++;
 	}
 }
@@ -132,7 +126,7 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 	else if (obj.type == 2 && obj.id_texture != 0)
 	{
 		dir = vsub(p_hit, obj.pos);
-		test = (obj.dir.x == 1 || obj.dir.x == -1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0}; 
+		test = (obj.dir.x == 1 || obj.dir.x == -1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0};
 		tmp = vcross(obj.dir, test);
 		tmp = vnorm(tmp);
 		x = ((int)vpscal(tmp, dir)) % texture[obj.id_texture - 1].w;
@@ -188,7 +182,6 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 		tmp = vcross(tmp, obj.dir);
 		y = ((int)vpscal(tmp, dir)) % texture[obj.id_texture - 1].h;
 		y < 0 ? y += texture[obj.id_texture - 1].h : 0;
-		// printf("x = %d et y = %d\n", x, y);
 		pix = (int)y * 4 * texture[obj.id_texture - 1].w + (int)x * 4;
 		color.b = ((uchar *)(texture[obj.id_texture -1].data))[pix + 0];
 		color.g = ((uchar *)(texture[obj.id_texture -1].data))[pix + 1];
@@ -274,11 +267,6 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		i++;
 	}
 	i = 0;
-	// while (i < e->nb_light)
-	// {
-	// 	pixel = l_shine(pixel, e->light[i].color, angles[i]);
-	// 	i++;
-	// }
 	return (pixel);
 }
 
@@ -290,19 +278,6 @@ __kernel void	ft_start_calc(__global uchar4 *color_lst, __global t_obj *lst_obj,
 	int y;
 
 	index = get_global_id(0);
-	// if (index == 0)
-	// {
-	// 	y = 0;
-	// 	printf("size = %d %d\n", texture[2].w, texture[2].h);
-	// 	while (y < texture[2].w * texture[2].h)
-	// 	{
-	// 		printf("%d ", ((char *)(texture[2].data))[y]);
-	// 		y++;
-	// 	}
-	// }
-	// index == 0 ? printf(" t_obj %ld\n", sizeof(t_obj)) : 0;
-	// index == 0 ? printf(" t_l_obj %ld\n", sizeof(t_l_obj)) : 0;
-	// index == 0 ? printf(" t_light %ld\n", sizeof(t_light)) : 0;
 	e->light = light;
 	e->l_obj = lst_obj;
 	color_lst[index] = add_light(e, (uchar4){0, 0, 0, 0}, (double4){lst[index].p_hit_x, lst[index].p_hit_y, lst[index].p_hit_z, 0}, lst_obj[lst[index].id], texture, index);
