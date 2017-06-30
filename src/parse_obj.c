@@ -130,7 +130,6 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 	e->parse_obj->obj.type = type;
 	e->parse_obj->obj.group = (type == 7) ? group : 0;
 	type == 7 ? group++ : 0;
-	e->group_max = group;
 	free_space(line, x);
 	while (line[*x] && line[*x] != '}')
 	{
@@ -148,5 +147,12 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 		free_space(line, x);
 	}
 	free_space(line, x);
+	if (e->parse_obj->obj.type == 4 && e->parse_obj->obj.radius != 0)
+	{
+		e->parse_obj->obj.type = 8;
+		e->parse_obj->obj.group = group;
+		group++;
+	}
+	e->group_max = group;
 	id++;
 }

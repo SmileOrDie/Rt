@@ -32,7 +32,7 @@ double		inter_obj(t_env *e, t_vector p_ray, t_vector v_ray, int *id)
 		dist = return_dist(e->l_obj[i], p_ray, v_ray);
 		if (dist >= 0.01 && (short_dist > dist || short_dist == -1))
 		{
-			*id = e->l_obj[i].id;
+			*id = i;
 			short_dist = dist;
 		}
 		i++;
@@ -124,23 +124,14 @@ t_vector	return_v_norm(int type, t_obj obj, t_vector p_hit)
 int			search_obj(t_parse_obj **list_obj, t_obj obj)
 {
 	t_parse_obj *begin;
-	// t_parse_obj *begin_tmp;
 	t_parse_obj *tmp;
 
 	tmp = NULL;
 	begin = *list_obj;
-	// begin_tmp = *list_obj;
-	// if (begin)
-	// 	printf("tu es un amour <3\n");
 	while (begin)
 	{
-		if (obj.id == (*list_obj)->obj.id || (obj.group != 0 && obj.group == (*list_obj)->obj.group))
+		if (obj.id == begin->obj.id || (obj.group != 0 && obj.group == begin->obj.group))
 		{
-			// while (begin_tmp)
-			// {
-			// 	printf("id = %d, name = %s, negatif = %d, obj.color = %d %d %d, obj.ind_transp = %f, obj.ind_reflec = %f, obj.ind_refrac = %f\n", tmp->obj.id, tmp->obj.name, tmp->obj.negatif, tmp->obj.color.r, tmp->obj.color.g, tmp->obj.color.b, tmp->obj.ind_transp, tmp->obj.ind_reflec, tmp->obj.ind_refrac);
-			// 	begin_tmp = begin_tmp->next;
-			// }
 			if (tmp)
 				tmp->next = begin->next;
 			else
@@ -151,6 +142,7 @@ int			search_obj(t_parse_obj **list_obj, t_obj obj)
 			free(begin);
 			return (0);
 		}
+		tmp = begin;
 		begin = begin->next;
 	}
 	return (1);
@@ -190,13 +182,19 @@ t_parse_obj	*get_obj_list(t_env *e, t_three *current, t_three *branch)
 	while (branch != current)
 	{
 		// current->id == 0 || current->id == 1 || current->id == 7 ? printf("current->id = %d, i = %d\n", current->id, i) : 0;
-		obj = e->l_obj[current->id];
+		if (current->id < 0)
+			obj = e->l_obj[-current->id - 1];
+		else
+			obj = e->l_obj[current->id - 1];
 		search = search_obj(&rez, obj);
 		if (search == 1 && obj.type != 2 && obj.type != 6 && obj.type != 5)
 		{
 			// i == 2 ? printf("je malloc et il y a une suite\n") : 0;
 			tmp = malloc(sizeof(t_parse_obj));
-			tmp->obj = e->l_obj[current->id];
+			if (current->id < 0)
+				tmp->obj = e->l_obj[-current->id - 1];
+			else
+				tmp->obj = e->l_obj[current->id - 1];
 			tmp->next = rez;
 			rez = tmp;
 		}
@@ -217,26 +215,30 @@ int		ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj, t_three **three, int *id, 
 
 	t_parse_obj *tmp;
 	tmp = list_obj;
-	// obj.negatif == 1 ? printf("obj.negatif = %d\n", obj.negatif) : 0;
 	if (obj.negatif == 0)
 	{
 		while (list_obj)
 		{
 			if (list_obj->obj.negatif == 1)
-				return (1);
+				return (-1);
 			list_obj = list_obj->next;
 		}
 	}
-	if (obj.negatif == 1)
-	{
-		while (list_obj)
-		{
-			if (list_obj->obj.negatif == 0)
-				return (1);
-			list_obj = list_obj->next;
-		}
-	}
-	return (0);
+	// else if (obj.negatif == 1)
+	// {
+	// 	while (list_obj)
+	// 	{
+	// 		if (list_obj->obj.id == 0)
+	// 			printf("Il y a un probleme\n");
+	// 		if (list_obj->obj.negatif == 0)
+	// 		{
+	// 			*id = list_obj->obj.id;
+	// 			return (*id);
+	// 		}
+	// 		list_obj = list_obj->next;
+	// 	}
+	// }
+	return (obj.id - 1);
 }
 
 
@@ -247,11 +249,12 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 	t_vector		v_reflec;
 	t_vector		v_norm;
 	int				id;
+	int				ret;
 	double			dist;
 	t_parse_obj		*obj_list;
 
 	dist = inter_obj(e, p_ray, v_ray, &id);
-	if (coef < 0.04 || dist < 0.00001 || prof == 20)
+	if (coef < 0.039 || dist < 0.00001 || prof == 20)
 	{
 		*three = NULL;
 		return ;
@@ -262,13 +265,17 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 		ft_error(MALLOC, "add_branch");
 	(*three)->r_refrac = NULL;
 	(*three)->r_reflec = NULL;
-	(*three)->id = id;
+	(*three)->id = id + 1;
 	// printf("id = %d\n", id);
 	obj_list = get_obj_list(e, *(e->begin_three), *three);
-	if (ft_get_obj_neg(e->l_obj[id], obj_list, three, &id, e))
+	ret = ft_get_obj_neg(e->l_obj[id], obj_list, three, &id, e);
+	if (ret == -1)
 	{
-		free(*three);
-		ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, three);
+		// printf("id = %d\n", (*three)->id);
+		(*three)->id *= -1;
+		ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, &((*three)->r_refrac));
+		// free(*three);
+		// ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, three);
 	}
 	else
 	{
@@ -284,7 +291,7 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 			c_origin.r = e->l_obj[id].color.r * c_origin.r / 255.0;
 			c_origin.g = e->l_obj[id].color.g * c_origin.g / 255.0;
 			c_origin.b = e->l_obj[id].color.b * c_origin.b / 255.0;
-			v_refrac = (e->l_obj[id].type != 2 && e->l_obj[id].type != 6 && e->l_obj[id].type != 5) ? get_refrac(e, v_norm, v_ray, e->l_obj[id].ind_refrac) : v_ray;
+			v_refrac = (e->l_obj[ret].type != 2 && e->l_obj[ret].type != 6 && e->l_obj[ret].type != 5) ? get_refrac(e, v_norm, v_ray, e->l_obj[ret].ind_refrac) : v_ray;
 			ft_raytracer(e, p_hit, v_refrac, prof + 1, coef * e->l_obj[id].ind_transp * (1 - e->l_obj[id].ind_reflec), c_origin, &((*three)->r_refrac));
 		}
 		add_branch(*three, p_hit, coef, c_origin);

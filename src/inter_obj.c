@@ -85,6 +85,7 @@ double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 	double		a;
 	double		b;
 	double		c;
+	double		ret;
 	t_vector	dp;
 	t_vector	tmp;
 	t_vector	tmp2;
@@ -100,8 +101,17 @@ double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 	b = dp.y - t1 * cyl.dir.y;
 	c = dp.z - t1 * cyl.dir.z;
 	tmp2 = new_v(a, b, c);
-	return (solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
-			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius));
+	// return(solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
+	// 		vpscal(tmp2, tmp2) - cyl.radius * cyl.radius));
+	ret = solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
+			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius);
+	if (ret != -1 && cyl.angle != 0)
+	{
+		if (sqrt(cyl.radius * cyl.radius + cyl.angle * cyl.angle) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret)))))
+			return (ret);
+		return (-1.0);
+	}
+	return (ret);
 }
 
 double			inter_cone(t_obj cone, t_vector o, t_vector dir)
@@ -112,18 +122,26 @@ double			inter_cone(t_obj cone, t_vector o, t_vector dir)
 	t_vector	tmp2;
 	t_vector	dir_dir;
 	t_vector	o_dir;
+	double		ret;
 
-	alpha = cone.angle / 180 * M_PI;
+	alpha = cone.angle / 180 * M_PI / 2;
 	origin = vsub(o, cone.pos);
 	dir_dir = vmult_dbl(cone.dir, vpscal(dir, cone.dir));
 	o_dir = vmult_dbl(cone.dir, vpscal(origin, cone.dir));
 	tmp1 = vsub(dir, dir_dir);
 	tmp2 = vsub(origin, o_dir);
-	return (solve_quad(pow(cos(alpha), 2) * vpscal(tmp1, tmp1) -
-			pow(sin(alpha), 2) * pow(vpscal(dir, cone.dir), 2),
-			2 * (pow(cos(alpha), 2) * vpscal(tmp1, tmp2)) - 2 *
-			(pow(sin(alpha), 2) * vpscal(dir, cone.dir) *
-			vpscal(origin, cone.dir)), pow(cos(alpha), 2) *
-			vpscal(tmp2, tmp2) - pow(sin(alpha), 2) *
-			pow(vpscal(origin, cone.dir), 2)));
+	ret = solve_quad(pow(cos(alpha), 2) * vpscal(tmp1, tmp1) - pow(sin(alpha),
+2) * pow(vpscal(dir, cone.dir), 2), 2 * (pow(cos(alpha), 2) * vpscal(tmp1,
+tmp2)) - 2 * (pow(sin(alpha), 2) * vpscal(dir, cone.dir) * vpscal(origin,
+cone.dir)), pow(cos(alpha), 2) * vpscal(tmp2, tmp2) - pow(sin(alpha), 2) *
+pow(vpscal( origin, cone.dir), 2));
+	if (ret != -1 && cone.radius != 0)
+	{
+		o_dir = vsub(cone.pos, vadd(o, vmult_dbl(dir, ret)));
+		vnorm(&o_dir);
+		if (vpscal(o_dir, cone.dir) > 0 && cone.radius / cos(cone.angle / 360 * M_PI) > vsize(vsub(cone.pos, vadd(o, vmult_dbl(dir, ret)))))
+			return (ret);
+		return (-1);
+	}
+	return (ret);
 }

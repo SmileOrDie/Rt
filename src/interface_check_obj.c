@@ -20,7 +20,7 @@ int 		sphere_check(char **def)
 		return (2);
 	else if (!def[9][0] || !def[10][0] || !def[11][0])
 		return (4);
-	else if (!def[12][0])
+	else if (!def[12][0] || ft_atoi(def[12]) < 1)
 		return (5);
 	return (-1);
 }
@@ -35,10 +35,10 @@ int 		circle_check(char **def)
 		return (3);
 	else if (!def[9][0] || !def[10][0] || !def[11][0])
 		return (4);
-	else if (!def[12][0])
+	else if (!def[12][0] || ft_atoi(def[12]) < 1)
 		return (5);
-	else if (!def[13][0])
-		return (6);
+	// else if (!def[16][0] || ft_atoi(def[16]) < 1)
+	// 	return (5);
 	return (-1);
 }
 
@@ -52,8 +52,8 @@ int 		plane_check(char **def)
 		return (3);
 	else if (!def[9][0] || !def[10][0] || !def[11][0])
 		return (4);
-	else if (!def[13][0])
-		return (6);
+	// else if (!def[16][0] || ft_atoi(def[16]) < 1)
+	// 	return (5);
 	return (-1);
 }
 
@@ -67,7 +67,7 @@ int 		cyl_check(char **def)
 		return (3);
 	else if (!def[9][0] || !def[10][0] || !def[11][0])
 		return (4);
-	else if (!def[12][0])
+	else if (!def[12][0] || ft_atoi(def[12]) < 1)
 		return (5);
 	return (-1);
 }
@@ -82,8 +82,42 @@ int 		cone_check(char **def)
 		return (3);
 	else if (!def[9][0] || !def[10][0] || !def[11][0])
 		return (4);
-	else if (!def[13][0])
-		return (6);
+	// else if (!def[16][0] || ft_atoi(def[16]) < 1)
+	// 	return (5);
+	return (-1);
+}
+
+int 		cone_l_check(char **def)
+{
+	if (!def[2][0])
+		return (1);
+	else if (!def[3][0] || !def[4][0] || !def[5][0])
+		return (2);
+	else if (!def[6][0] || !def[7][0] || !def[8][0])
+		return (3);
+	else if (!def[9][0] || !def[10][0] || !def[11][0])
+		return (4);
+	else if (!def[12][0] || ft_atoi(def[12]) < 1)
+		return (5);
+	// else if (!def[16][0] || ft_atoi(def[16]) < 1)
+	// 	return (5);
+	return (-1);
+}
+
+int 		cyl_l_check(char **def)
+{
+	if (!def[2][0])
+		return (1);
+	else if (!def[3][0] || !def[4][0] || !def[5][0])
+		return (2);
+	else if (!def[6][0] || !def[7][0] || !def[8][0])
+		return (3);
+	else if (!def[9][0] || !def[10][0] || !def[11][0])
+		return (4);
+	else if (!def[12][0] || ft_atoi(def[12]) < 1)
+		return (5);
+	// else if (!def[16][0] || ft_atoi(def[16]) < 1)
+	// 	return (5);
 	return (-1);
 }
 
@@ -100,7 +134,7 @@ int 		light_check(char **def)
 
 int			check_var_obj(char **def)
 {
-	static int (*obj_check[6])(char **def) = {sphere_check, plane_check, cyl_check, cone_check, light_check, circle_check};
+	static int (*obj_check[8])(char **def) = {sphere_check, plane_check, cyl_check, cone_check, light_check, circle_check, cone_l_check, cyl_l_check};
 	int obj;
 
 	if (!ft_strcmp("sphere", def[1]))
@@ -116,9 +150,13 @@ int			check_var_obj(char **def)
 	else if (!ft_strcmp("circle", def[1]))
 		obj = 5;
 	else if (!ft_strcmp("square", def[1]))
-		obj = 1;
+		obj = 7;
 	else if (!ft_strcmp("cube", def[1]))
-		obj = 1;
+		obj = 7;
+	else if (!ft_strcmp("cone_l", def[1]))
+		obj = 6;
+	else if (!ft_strcmp("cylinder_l", def[1]))
+		obj = 7;
 	else
 		return (0);
 	return (obj_check[obj](def));

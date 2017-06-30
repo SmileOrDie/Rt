@@ -235,7 +235,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 			list_obj[t] = 0;
 			t++;
 		}
-		while (tab_obj_light_t[count] != -1 && tab_obj_light_id[count] != obj.id)
+		while (tab_obj_light_t[count] != -1 && tab_obj_light_id[count] != obj.id - 1)
 		{
 			list_obj[tab_obj_light_id[count]] = list_obj[tab_obj_light_id[count]] ? 0 : 1;
 			t = 0;
@@ -243,7 +243,10 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 			while (t < e->nb_obj)
 			{
 				if (e->l_obj[t].negatif == 1 && list_obj[t] == 1)
+				{
 					flag = 1;
+					break ;
+				}
 				t++;
 			}
 			if (list_obj[tab_obj_light_id[count]] == 1 && flag == 0)

@@ -12,7 +12,7 @@
 
 #include "../includes/interface_rt.h"
 
-t_obj	g_default_object = {0, 50, 0, 0, {0, 0, 0, 0}, {1, 0, 0, 0},
+t_obj	g_default_object = {0, 0, 0, 0, {0, 0, 0, 0}, {1, 0, 0, 0},
 			{0, 0, 0, 0}, 0, 0, 0, 0, NULL, {255, 255, 255, 255}, 0, 0, 0};
 t_light	g_default_light = {{0, 0, 0, 0}, {255, 255, 255, 255}, 0, 0, NULL};
 
