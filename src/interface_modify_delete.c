@@ -168,6 +168,8 @@ void		modif_list(t_envg *e, int obj)
 	type_obj[4] = "circle";
 	type_obj[5] = "square";
 	type_obj[6] = "cube";
+	type_obj[7] = "cone_l";
+	type_obj[8] = "cylinder_l";
 	// type_obj[4] = "";
 
 	load_img(e, 3);

@@ -54,18 +54,22 @@ double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag
 
 	flag == 2 ? (i = 0) : 0;
 	flag ? (coef_t = 0) : 0;
+	if (branch && branch->id < 0)
+	{
+		get_l_pix(branch->r_refrac, tab_light, l_obj, 0);
+		return (coef_t);
+	}
 	if (branch && branch->r_reflec)
 		get_l_pix(branch->r_reflec, tab_light, l_obj, 0);
 	if (branch && branch->r_refrac)
 		get_l_pix(branch->r_refrac, tab_light, l_obj, 0);
-	if (branch && branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec) > 0.04)
+	if (branch && branch->id > 0 && branch->p_hit.coef * (1 - l_obj[branch->id - 1].ind_transp) * (1 - l_obj[branch->id - 1].ind_reflec) > 0.039)
 	{
-		// i > 5113820 ? printf("i = %ld\n", i) : 0;
-		tab_light[i].id = branch->id;
+		tab_light[i].id = branch->id - 1;
 		tab_light[i].p_hit_x = branch->p_hit.x;
 		tab_light[i].p_hit_y = branch->p_hit.y;
 		tab_light[i].p_hit_z = branch->p_hit.z;
-		coef_t += branch->p_hit.coef * (1 - l_obj[branch->id].ind_transp) * (1 - l_obj[branch->id].ind_reflec);
+		coef_t += branch->p_hit.coef * (1 - l_obj[branch->id - 1].ind_transp) * (1 - l_obj[branch->id - 1].ind_reflec);
 		i++;
 	}
 	return (coef_t);
@@ -136,10 +140,16 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, d
 	flag ? (i = 0) : 0;
 	if (!branch)
 		return ((t_color2){0, 0, 0, 0});
+	if (branch->id < 0)
+	{
+		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
+		pixel = add_color(pixel, color_ray);
+		return (pixel);
+	}
 	if (branch->r_reflec)
 	{
 		color_ray = get_pixel(branch->r_reflec, pixel, e, 0, coef_t);
-		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id].ind_reflec);
+		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_reflec);
 		pixel = add_color(pixel, color_ray);
 	}
 	if (branch->r_refrac)
@@ -148,12 +158,13 @@ t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, d
 		color_ray.r = color_ray.r * (branch->c_origin.r / 255.0);
 		color_ray.g = color_ray.g * (branch->c_origin.g / 255.0);
 		color_ray.b = color_ray.b * (branch->c_origin.b / 255.0);
-		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id].ind_transp * (1 - e->l_obj[branch->id].ind_reflec));
+		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_transp * (1 - e->l_obj[branch->id - 1].ind_reflec));
 		pixel = add_color(pixel, color_ray);
 	}
-	if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) > 0.04)
+	if (branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) > 0.039)
 	{
-		color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * (1 - e->l_obj[branch->id].ind_reflec) / coef_t);
+		// color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) / coef_t);
+		color_ray = e->l_obj[branch->id - 1].negatif > 0 ? mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef / coef_t) : mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) / coef_t);
 		pixel = add_color(pixel, color_ray);
 		i++;
 	}
@@ -245,6 +256,13 @@ void				*ft_launch(void *env)
 	e->nb_obj_pix[1] = &(size[1]);
 	e->nb_obj_pix[2] = &(size[2]);
 	// printf("creation arbre\n");
+	// 	int index = 0;
+	// while (index < e->nb_obj)
+	// {
+	// 	(e->l_obj[index].id)++;
+	// 	printf("id = %d\n", e->l_obj[index].id);
+	// 	index++;
+	// }
 	tab_env = ft_create_tab_env(*e);
 	// printf("Appelle de la premier thread!\n");
 	pthread_create(&tab_thread[0], NULL, boucle, (void *)(&tab_env[0]));
@@ -268,10 +286,10 @@ void				*ft_launch(void *env)
 	if (size[0] > 0)
 	{
 		get_l_tab(e);
-		// printf("Get l_tfinish\n");
-		// printf("start_GPU\n");
+		printf("Get l_tfinish\n");
+		printf("start_GPU\n");
 		ft_launch_calc(e, e->cl_e->cl);
-		// printf("apply add_light\n");
+		printf("apply add_light\n");
 		get_image(e);
 		// printf("Get image finish\n");
 		// printf("Start filter\n");
@@ -281,7 +299,7 @@ void				*ft_launch(void *env)
 		// printf("do_sync\n");
 		tmp.e = e;
 		(e->b_screen == 1) ? keypress('0', &tmp) : mlx_do_sync(e->mlx->mlx);
-		// printf("affiche\n");
+		printf("affiche\n");
 	}
 	e->b_screen = 0;
 	i = 0;
@@ -384,6 +402,18 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 		// e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, obj.radius / 2));
 		// e->l_obj[*i].id = *i;
 	}
+	if (obj.type == 8)
+	{
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].id = *i + 1;
+		e->l_obj[*i].type = 4;
+		(*i)++;
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].type = 5;
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.radius));
+		e->l_obj[*i].radius = tan(obj.angle / 360.0 * M_PI) * obj.radius;
+		e->l_obj[*i].id = *i;
+	}
 }
 
 void			ft_creat_lst_obj(t_env *e)
@@ -402,8 +432,8 @@ void			ft_creat_lst_obj(t_env *e)
 	{
 		if (parse_obj_b->obj.type == 7)
 			i += 2;
-		else if (parse_obj_b->obj.type == 8)
-			i++;
+		// else if (parse_obj_b->obj.type == 8)
+		// 	i++;
 		else if (parse_obj_b->obj.type == 9)
 			i += 2;
 		parse_obj_b = parse_obj_b->next;
@@ -432,7 +462,7 @@ void			ft_creat_lst_obj(t_env *e)
 		else
 		{
 			e->l_obj[i] = parse_obj_b->obj;
-			e->l_obj[i].id = i;
+			e->l_obj[i].id = i + 1;
 			i == 0 || i == 1 || i == 7 ? printf("obj.ind_transp = %f\n", e->l_obj[i].ind_transp) : 0;
 			i == 0 || i == 1 || i == 7 ? printf("parse_obj_b->obj.ind_transp = %f\n", parse_obj_b->obj.ind_transp) : 0;
 			i == 0 || i == 1 || i == 7 ? printf("parse_obj_b->obj.name = %s\n\n", parse_obj_b->obj.name) : 0;
