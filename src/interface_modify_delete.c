@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 12:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:39:37 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/30 16:37:32 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,6 @@ void		modif_default(t_envg *e)
 	ft_strcpy_nbr(&(e->line[22]), e->e->cam->l_at.x);
 	ft_strcpy_nbr(&(e->line[23]), e->e->cam->l_at.y);
 	ft_strcpy_nbr(&(e->line[24]), e->e->cam->l_at.z);
-	ft_strcpy_nbr(&(e->line[25]), e->e->mlx->w);
-	ft_strcpy_nbr(&(e->line[26]), e->e->mlx->h);
+	ft_strcpy_nbr(&(e->line[25]), e->e->mlx->w / e->e->anti_a);
+	ft_strcpy_nbr(&(e->line[26]), e->e->mlx->h / e->e->anti_a);
 }
