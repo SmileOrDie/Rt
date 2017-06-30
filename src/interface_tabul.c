@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:16 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/20 14:19:23 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:52:35 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ char 		*tabulation(t_tabu *t, int id)
 	ret = NULL;
 	t->dirp = opendir(t->name_path);
 	if (t->dirp == NULL)
-	{
-		printf("error\n");
 		return (NULL);
-	}
 	t->index = 0;
 	while ((dp = readdir(t->dirp)) != NULL)
 	{
@@ -54,7 +51,6 @@ void		switch_tabul(t_envg *e)
 	e->tab_scene.name_path = "scenes_file/";
 	if (e->pos == 41)
 	{
-
 		string = tabulation(&(e->tab_texture), i_tex);
 		string != NULL ? ft_strcpy(e->line[e->pos], string) : 0;
 		i_tex = (i_tex < e->tab_texture.index - 1) ? i_tex + 1 : 0;

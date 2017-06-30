@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:59:25 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/30 16:54:45 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,18 @@ static int	select_conf2(t_envg *e, int x, int y)
 		e->i_lst = 0;
 	}
 	else if (x > 257 && x < 357 && y > 760 && y < 783)
-	{
 		creat_cam(e);
+	else if (x > 48 && x < 70 && y > 624 && y < 648 && e->e->anti_a > 1)
+	{
+		e->e->anti_a--;
+		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a + 1) * e->e->anti_a;
+		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a + 1) * e->e->anti_a;
+	}
+	else if (x > 91 && x < 113 && y > 624 && y < 648 && e->e->anti_a < 7)
+	{
+		e->e->anti_a++;
+		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a - 1) * e->e->anti_a;
+		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a - 1) * e->e->anti_a;
 	}
 	return (select_conf2_2(e, x, y, 18));
 }

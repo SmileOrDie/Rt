@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:49:29 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/29 11:27:20 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,14 @@ static void		put_img5(t_envg *e)
 		free(str);
 		i++;
 	}
-	// a faire
-	// if (obj && obj->obj.negatif > 0)
-	// 	get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
-	// else
-	// 	get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
-	// mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
-	// 		144, 600 + ((i % 3) * 30));
+	if ((obj && obj->obj.negatif > 0) || e->line[30][1] > 0)
+		get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
+	else
+		get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
+	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			160, 490);
+	mlx_string_put(e->mlx->mlx, e->mlx->win,
+			185, 490, 0xFFFFFF, "Neg");
 	if (e->page + 3 < e->e->nb_tex)
 	{
 		get_img(e->mlx, &e->img, "./xpm_file/next.xpm");
@@ -147,7 +148,7 @@ void			put_img(t_envg *e, int img)
 		put_img2(e, ((e->filter.red == 1) ? 1 : 0), 200, 522);
 		put_img2(e, ((e->filter.sepia == 1) ? 1 : 0), 40, 547);
 		put_img2(e, ((e->filter.old == 1) ? 1 : 0), 120, 547);
-		put_img2(e, ((e->filter.cartoon == 1) ? 1 : 0), 200, 547);
+		// put_img2(e, ((e->filter.cartoon == 1) ? 1 : 0), 200, 547);
 	}
 	else if (img == 21)
 		put_img4(e);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_obj_json.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 13:32:28 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/28 17:33:25 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/29 16:22:20 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,10 @@ static int           save_obj(t_env *e, t_parse_obj *obj, int fd)
 
 void            save_scene(t_env *e)
 {
-    int        fd;
+    static int  i = 0;
+    int         fd;
+    char        *id;
+    char        name[256];
     t_parse_obj     *obj;
     t_parse_light   *light;
 
@@ -250,13 +253,18 @@ void            save_scene(t_env *e)
     fd = -1;
     obj = NULL;
     obj = e->parse_obj;
-
-    if ((fd = open("testfile.json", O_CREAT | O_WRONLY , 0644)) <= 0)
+    id = ft_itoa(i);
+    ft_strcpy(name, "./scenes_file/scene_file_");
+    ft_strcat(name, id);
+    ft_strcat(name, ".json");
+    printf("%s\n", name);
+    if ((fd = open(name, O_CREAT | O_WRONLY , 0644)) <= 0)
         ft_error("fichier deja existant", " save_scene");
     ft_putstr_fd(fd, "{\n\t\"anti-aliasing\" : ", ft_itoa(e->anti_a), NULL);
     ft_putstr_fd(fd, ",\n\t\"ambient\" : ", ft_ftoa(e->amb), ",\n", NULL);
     save_obj(e, obj, fd);
     save_light_and_cam(e, fd, light);
     ft_putstr_fd(fd, "}", NULL);
-    printf("finit\n");
+    free(id);
+    i++;
 }

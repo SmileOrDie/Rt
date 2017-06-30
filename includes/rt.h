@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 11:04:18 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/29 15:57:02 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ int					ft_len_nb(char *line, int s);
 
 int					save_light_and_cam(t_env *e, int fd, t_parse_light *light);
 double				ft_atod(char *str);
-char        		*ft_ftoa(double nb);
-void            	save_scene(t_env *e);
+char				*ft_ftoa(double nb);
+void				save_scene(t_env *e);
+
 #endif

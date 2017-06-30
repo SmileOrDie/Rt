@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:43 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 11:02:08 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/30 16:22:09 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void        clean_str(char **clean, int f)
         while ((*clean)[i] == ' ' || (*clean)[i] == '\n' || (*clean)[i] == '\t')
             i--;
         (*clean)[i + 1] = '\0';
+        return ;
     }
-    else
+    else if (*clean && i >= 0)
     {
-        while (i)
+        while (i > 0)
             (*clean)[i--] = '\0';
         (*clean)[i] = '\0';
     }
@@ -40,6 +41,27 @@ int     failed_texture(t_envg *e, int i, int x)
     home_tab(e);
     return (i);
 }
+
+// void    convert_file(char **path)
+// {
+//     char *new_path;
+//     int len;
+//     char line[512];
+
+//     len = ft_strlen(*path);
+//     new_path = ft_strdup(*path);
+//     new_path[len - 1] = 'm';
+//     new_path[len - 2] = 'p';
+//     new_path[len - 3] = 'x';
+//     ft_strcpy(line, "convert ");
+//     ft_strcat(line, *path);
+//     ft_strcat(line, " ");
+//     ft_strcat(line, new_path);
+//     system(line);
+//     printf("line = %s\n", line);
+//     free(*path);
+//     path = &new_path;
+// }
 
 int     add_texture(t_envg *e)
 {
@@ -56,8 +78,9 @@ int     add_texture(t_envg *e)
     x = 0;
     while (e->e->path_tex[x])
     {
-
         path = ft_strjoin("./", e->e->path_tex[x]);
+        // if (!ft_strcmp(path + (ft_strlen(path) - 4), ".png"))
+        //     convert_file(&path);
         if (stat(path, &test) == -1)
             return (failed_texture(e, 7, x));
         if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->e->mlx->mlx, path, &e->e->texture[x].w, &e->e->texture[x].h)))
@@ -67,8 +90,6 @@ int     add_texture(t_envg *e)
             return (failed_texture(e, 9, x));
         x++;
     }
-    clean_str(&e->line[e->pos], 1);
-    home_tab(e);
     return (-1);
 }
 
@@ -103,6 +124,8 @@ void    add_new_texture(t_envg *e)
     }
     free(e->e->texture);
     e->error = add_texture(e);
+    clean_str(&e->line[41], 1);
+    home_tab(e);
 }
 
 void            free_env_parse(t_envg *e)
@@ -122,11 +145,10 @@ void            free_env_parse(t_envg *e)
     e->e->parse_obj = NULL;
     e->e->parse_light = NULL;
     clean_str(&e->line[42], 0);
-    ft_parse_j(e->line[42], e->e); // provisoire
-    // ft_creat_lst_obj(e->e);
+    ft_parse_j(e->line[42], e->e);
     init_id(e->e);
     clean_str(&e->line[42], 1);
-    run_first(e);
+    home_tab(e);
 }
 
 static int     interface_keypress_1(t_envg *e)
@@ -160,6 +182,7 @@ static int     interface_keypress_2(int key, t_envg *e, int *val, char *li)
     int  pression;
 
     pression = 0;
+    e->volet.info == 1 ? info_tab(e) : 0;
     pr = ft_print_key(key, e);
     if (!(ft_strcmp(pr, "right delete")) || !(ft_strcmp(pr, "delete")))
     {

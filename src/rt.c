@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 16:09:17 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/06/30 14:31:52 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void		init(t_env *e)
 	e->light = NULL;
 	e->l_obj = NULL;
 	e->cam = NULL;
+	e->mlx->img = NULL;
 	e->mlx->w = W;
 	e->mlx->h = H;
 	e->amb = 0.1;
@@ -187,6 +188,7 @@ void                get_image(t_env *e)
 	i = 0;
 	tx = 0;
 	ty = 0;
+	printf("%d\n", e->mlx->h * e->mlx->w / e->anti_a / e->anti_a);
 	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
 	{
 		tmpy = 0;
@@ -342,9 +344,9 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 	{
 		mat = malloc(sizeof(t_vector) * 3);
 		get_matrice(obj.dir, &mat);
-		printf("mat[0] = %f %f %f et vsize = %f\n", mat[0].x, mat[0].y, mat[0].z, vsize(mat[0]));
-		printf("mat[1] = %f %f %f et vsize = %f\n", mat[1].x, mat[1].y, mat[1].z, vsize(mat[1]));
-		printf("mat[2] = %f %f %f et vsize = %f\n", mat[2].x, mat[2].y, mat[2].z, vsize(mat[2]));
+		// printf("mat[0] = %f %f %f et vsize = %f\n", mat[0].x, mat[0].y, mat[0].z, vsize(mat[0]));
+		// printf("mat[1] = %f %f %f et vsize = %f\n", mat[1].x, mat[1].y, mat[1].z, vsize(mat[1]));
+		// printf("mat[2] = %f %f %f et vsize = %f\n", mat[2].x, mat[2].y, mat[2].z, vsize(mat[2]));
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].id = *i;
 		e->l_obj[*i].type = 6;

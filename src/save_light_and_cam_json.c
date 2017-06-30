@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_light_and_cam_json.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 15:39:12 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/28 17:06:13 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/06/29 16:24:03 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int		save_light_and_cam(t_env *e, int fd, t_parse_light *light)
 			light = light->next;
 		}
 		save_cam(fd, e);
-		ft_putstr_fd(fd, "\t\"image size\" : [", ft_ftoa(e->cam->h), ", ", NULL);
-		ft_putstr_fd(fd, ft_ftoa(e->cam->w), "]\n", NULL);
+		ft_putstr_fd(fd, "\t\"image size\" : [", ft_itoa(e->mlx->w / e->anti_a), ", ", NULL);
+		ft_putstr_fd(fd, ft_itoa(e->mlx->h / e->anti_a), "]\n", NULL);
 		return (1);
 	}
 	return (0);

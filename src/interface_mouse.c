@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/22 16:49:12 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/06/29 10:14:32 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 {
 	if (button == 1)
 	{
+		printf("x = %d y = %d\n", x, y);
 		if (e->error != -1)
 			return (error_gestion(e, x, y));
 		else if (y > 125 && y < 150)
