@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 14:31:52 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/01 16:30:05 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -563,6 +563,7 @@ int				main(int ac, char **av)
 	e.path_tex[0] = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
+	save_scene(&e, NULL, -1);
 	ft_init_opencl(&e, e.cl_e->cl);
 	// ft_affiche_textures(&e);
 	graphic_interface(&e);
