@@ -412,7 +412,7 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 		(*i)++;
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].type = 5;
-		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.radius));
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius));
 		e->l_obj[*i].radius = tan(obj.angle / 360.0 * M_PI) * obj.radius;
 		e->l_obj[*i].id = *i;
 	}
@@ -434,8 +434,8 @@ void			ft_creat_lst_obj(t_env *e)
 	{
 		if (parse_obj_b->obj.type == 7)
 			i += 2;
-		// else if (parse_obj_b->obj.type == 8)
-		// 	i++;
+		else if (parse_obj_b->obj.type == 8)
+			i++;
 		else if (parse_obj_b->obj.type == 9)
 			i += 2;
 		parse_obj_b = parse_obj_b->next;

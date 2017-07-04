@@ -101,13 +101,11 @@ double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 	b = dp.y - t1 * cyl.dir.y;
 	c = dp.z - t1 * cyl.dir.z;
 	tmp2 = new_v(a, b, c);
-	// return(solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
-	// 		vpscal(tmp2, tmp2) - cyl.radius * cyl.radius));
 	ret = solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
 			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius);
 	if (ret != -1 && cyl.angle != 0)
 	{
-		if (sqrt(cyl.radius * cyl.radius + cyl.angle * cyl.angle) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret)))))
+		if (sqrt(cyl.angle * cyl.angle + cyl.radius * cyl.radius) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret)))))
 			return (ret);
 		return (-1.0);
 	}

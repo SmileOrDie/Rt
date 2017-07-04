@@ -70,7 +70,7 @@ int			select_info(t_envg *e, int x, int y)
 			free_env_parse(e);modif_default(e);
 		}
 	else if (e->e->nb_obj > 0 && e->e->cam != NULL && x > 40 && x < 135 && y > 330 && y < 355)
-		save_scene(e->e);
+		save_scene(e->e, NULL, -1);
 	else if (e->e && e->e->mlx->img != NULL && x > 145 && x < 245 && y > 335 && y < 355)
 		bmp_save_img(e);
 	else
