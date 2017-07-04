@@ -1,55 +1,6 @@
 {
-	"anti-aliasing" : 4,
+	"anti-aliasing" : 2,
 	"ambient" : 0.0,
-	"sphere" :
-	{
-		"name": "sphere_center",
-		"radius" : 50.0,
-		"pos" :
-		{
-			"x" : 0.0,
-			"y" : 100.0,
-			"z" : -100.0
-		},
-		"ind_refrac" : 1.0,
-		"ind_reflec" : 0.0,
-		"ind_transp" : 1.0,
-		"negatif" : 1,
-		"color" :
-		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255
-		},		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
-	},
-	"cone" :
-	{
-		"name": "cone_1",
-		"angle" : 80.0,
-		"pos" :
-		{
-			"x" : 0.0,
-			"y" : 100.0,
-			"z" : -100.0
-		},
-		"ind_refrac" : 1.330000,
-		"ind_reflec" : 0.0,
-		"ind_transp" : 0.0,
-		"negatif" : 0,
-		"color" :
-		{
-			"r" : 0,
-			"g" : 0,
-			"b" : 255
-		},		"angle" : 80,
-		"dir" :
-		{
-			"x" : 0.0,
-			"y" : 1.0,
-			"z" : 0.0
-		},
-		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
-	},
 	"plane" :
 	{
 		"name": "plan_3",		"pos" :
@@ -73,34 +24,6 @@
 			"x" : 0.0,
 			"y" : 1.0,
 			"z" : 0.0
-		},
-		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
-	},
-	"cylinder" :
-	{
-		"name": "neg_2",
-		"radius" : 20.0,
-		"pos" :
-		{
-			"x" : 0.0,
-			"y" : 50.0,
-			"z" : 300.0
-		},
-		"ind_refrac" : 1.0,
-		"ind_reflec" : 0.0,
-		"ind_transp" : 1.0,
-		"negatif" : 1,
-		"color" :
-		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255
-		},
-		"dir" :
-		{
-			"x" : 0.0,
-			"y" : 0.0,
-			"z" : 1.0
 		},
 		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
@@ -164,7 +87,7 @@
 		{
 			"x" : -200.0,
 			"y" : 100.0,
-			"z" : 0.0
+			"z" : 200.0
 		},
 		"ind_refrac" : 1.330000,
 		"ind_reflec" : 0.0,
@@ -183,27 +106,6 @@
 			"z" : 0.0
 		},
 		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
-	},
-	"sphere" :
-	{
-		"name": "sphere_1",
-		"radius" : 30.0,
-		"pos" :
-		{
-			"x" : -200.0,
-			"y" : 0.0,
-			"z" : -10.0
-		},
-		"ind_refrac" : 1.0,
-		"ind_reflec" : 0.0,
-		"ind_transp" : 1.0,
-		"negatif" : 1,
-		"color" :
-		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255
-		},		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
 	"light" :
 	{
@@ -257,7 +159,7 @@
 	{
 		"pos" :
 		{
-			"x" : 0.0,
+			"x" : 30.0,
 			"y" : 150.0,
 			"z" : -700.0,
 		},
@@ -277,5 +179,4 @@
 		"dist" : 150.0,
 	},
 	"image size" : [800, 400]
-}400]
 }

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 14:51:35 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/04 19:37:26 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 		// printf("id = %d\n", (*three)->id);
 		(*three)->id *= -1;
 		ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, &((*three)->r_refrac));
+		add_branch(*three, p_hit, coef, c_origin);
 		// free(*three);
 		// ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, three);
 	}
