@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 11:27:20 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/05 15:27:53 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ static void		put_img5(t_envg *e)
 	t_parse_obj				*obj;
 
 	i = e->page;
-	obj = srch_obj(e, e->obj + e->page);
-	while (obj && i < e->page + 3 && i < e->e->nb_tex)
+	printf("nb tex = %d i = %d\n", e->e->nb_tex, i);
+	obj = srch_obj(e, e->obj);
+	while (i < e->page + 3 && i < e->e->nb_tex)
 	{
-		if (obj && obj->obj.id_texture == i + 1)
+		if (e->line[30][0] == i + 1)
 			get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
 		else
 			get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
@@ -111,7 +112,7 @@ static void		put_img5(t_envg *e)
 		free(str);
 		i++;
 	}
-	if ((obj && obj->obj.negatif > 0) || e->line[30][1] > 0)
+	if (e->line[30][1] == 1)
 		get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
 	else
 		get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
