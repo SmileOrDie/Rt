@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 16:54:45 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/05 16:16:50 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,11 @@ static int	select_conf2(t_envg *e, int x, int y)
 		e->i_lst = 0;
 	}
 	else if (x > 257 && x < 357 && y > 760 && y < 783)
+	{
 		creat_cam(e);
+		e->i_lst = 0;
+		home_tab(e);
+	}
 	else if (x > 48 && x < 70 && y > 624 && y < 648 && e->e->anti_a > 1)
 	{
 		e->e->anti_a--;

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/21 09:23:04 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/05 15:42:11 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ int		keypress(int key, t_envg *e)
 	if (key == 123)
 	{
 		e->e->cam->eye.x += 10;
-	// e->cam->eye = ;
-	// e->cam->l_at = new_v(ft_atof(line[4]), ft_atof(line[5]), ft_atof(line[6]));
-	// e->cam->up = new_v(ft_atof(line[7]), ft_atof(line[8]), ft_atof(line[9]));
-	// vnorm(&e->cam->up);
-	// e->cam->fov = ft_atoi(line[10]);
-	// e->cam->dist = ft_atoi(line[11]);
 		e->e->cam->n = vsub(e->e->cam->eye, e->e->cam->l_at);
 		vnorm(&e->e->cam->n);
 		e->e->cam->u = new_v(e->e->cam->up.y * e->e->cam->n.z - e->e->cam->up.z *
@@ -66,8 +60,6 @@ int		keypress(int key, t_envg *e)
 		(e->e->cam->w / 2) - e->e->cam->up.y * (e->e->cam->h / 2),
 		e->e->cam->c.z - e->e->cam->u.z * (e->e->cam->w / 2) - e->e->cam->up.z *
 		(e->e->cam->h / 2));
-		// pthread_create(&thread, NULL, ft_launch, e->e);
-		// e->e->cam->l_at.x -= 10;
 	}
 	else if (key == 125)
 	{

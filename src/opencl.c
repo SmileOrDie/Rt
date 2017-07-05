@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opencl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:56 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/10 16:25:59 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/05 16:05:08 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void	ft_launch_calc(t_env *e, t_opencl *cl)
 
 	// i = 0;
 	(err = clEnqueueReadBuffer(cl->command_queue, cl->color_lst, CL_TRUE, 0, sizeof(t_color2) * *(e->nb_obj_pix[0]), e->cl_e->color_lst, 0, NULL, NULL)) ? ft_error(KERNEL, ft_strjoin("clEnqueueReadBuffer", ft_itoa(err))) : 0;
-
+	// printf("23\n");
 	// clReleaseKernel(cl->kernel);
 	// clReleaseProgram(cl->kernel_program);
 	// clReleaseCommandQueue(cl->command_queue);

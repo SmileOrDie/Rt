@@ -115,7 +115,7 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 	double 	y;
 	int		pix;
 
-	if (obj.type == 1 && obj.id_texture != 0)
+	if (obj.type == 1 && obj.id_texture > 0)
 	{
 		dir = vsub(p_hit, obj.pos);
 		dir = vnorm(dir);
@@ -129,7 +129,7 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 		color.r = ((uchar *)(texture[obj.id_texture -1].data))[pix + 2];
 		return (color);
 	}
-	else if (obj.type == 2 || obj.type == 5 && obj.id_texture != 0)
+	else if ((obj.type == 2 || obj.type == 5) && obj.id_texture > 0)
 	{
 		dir = vsub(p_hit, obj.pos);
 		test = (obj.dir.x == 1 || obj.dir.x == -1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0}; 
@@ -140,13 +140,14 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 		tmp = vcross(tmp, obj.dir);
 		y = ((int)vpscal(tmp, dir)) % texture[obj.id_texture - 1].h;
 		y < 0 ? y += texture[obj.id_texture - 1].h : 0;
+
 		pix = (int)y * 4 * texture[obj.id_texture - 1].w + (int)x * 4;
-		color.b = ((uchar *)(texture[obj.id_texture -1].data))[pix + 0];
-		color.g = ((uchar *)(texture[obj.id_texture -1].data))[pix + 1];
-		color.r = ((uchar *)(texture[obj.id_texture -1].data))[pix + 2];
+		color.b = ((uchar *)(texture[obj.id_texture - 1].data))[pix + 0];
+		color.g = ((uchar *)(texture[obj.id_texture - 1].data))[pix + 1];
+		color.r = ((uchar *)(texture[obj.id_texture - 1].data))[pix + 2];
 		return (color);
 	}
-	else if (obj.type == 4 && obj.id_texture != 0)
+	else if (obj.type == 4 && obj.id_texture > 0)
 	{
 		dir = vsub(p_hit, obj.pos);
 		tmp = vmult_dbl(obj.dir, vpscal(dir, obj.dir));
@@ -162,7 +163,7 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 		color.r = ((uchar *)(texture[obj.id_texture -1].data))[pix + 2];
 		return (color);
 	}
-	else if (obj.type == 3 && obj.id_texture != 0)
+	else if (obj.type == 3 && obj.id_texture > 0)
 	{
 		dir = vsub(p_hit, obj.pos);
 		tmp = vmult_dbl(obj.dir, vpscal(dir, obj.dir));

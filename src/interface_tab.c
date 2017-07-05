@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 11:31:16 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/05 16:10:37 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void		conf_tab2(t_envg *e, int i)
 		i++;
 	}
 	put_img7(e);
-	// "xpm_file/Anti_a.xpm" pos =45 , 600
 	load_img(e, 21);
 	load_img(e, 24);
 	(e->i_lst > 3) ? load_img(e, 22) : 0;
