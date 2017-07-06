@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 14:31:52 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/05 16:06:12 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag
 
 }
 
-void				*boucle(void *env)
+void				*run_rt(void *env)
 {
 	int			y;
 	int			x;
@@ -199,7 +199,7 @@ void                get_image(t_env *e)
 	i = 0;
 	tx = 0;
 	ty = 0;
-	printf("%d\n", e->mlx->h * e->mlx->w / e->anti_a / e->anti_a);
+	// printf("%d\n", e->mlx->h * e->mlx->w / e->anti_a / e->anti_a);
 	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
 	{
 		tmpy = 0;
@@ -267,11 +267,11 @@ void				*ft_launch(void *env)
 	// }
 	tab_env = ft_create_tab_env(*e);
 	// printf("Appelle de la premier thread!\n");
-	pthread_create(&tab_thread[0], NULL, boucle, (void *)(&tab_env[0]));
+	pthread_create(&tab_thread[0], NULL, run_rt, (void *)(&tab_env[0]));
 	// printf("Appelle de la deuxieme thread!\n");
-	pthread_create(&tab_thread[1], NULL, boucle, (void *)(&tab_env[1]));
+	pthread_create(&tab_thread[1], NULL, run_rt, (void *)(&tab_env[1]));
 	// printf("Appelle de la troisieme thread!\n");
-	pthread_create(&tab_thread[2], NULL, boucle, (void *)(&tab_env[2]));
+	pthread_create(&tab_thread[2], NULL, run_rt, (void *)(&tab_env[2]));
 	// printf("Fin des thread\n");
 	i = 0;
 	while (i < 3)
@@ -581,6 +581,7 @@ int				main(int ac, char **av)
 	e.path_tex[0] = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
+	save_scene(&e, NULL, -1);
 	ft_init_opencl(&e, e.cl_e->cl);
 	// ft_affiche_textures(&e);
 	graphic_interface(&e);

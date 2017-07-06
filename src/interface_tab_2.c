@@ -10,7 +10,6 @@ void			info_tab(t_envg *e)
 	e->volet = (t_tab_valid){0, 0, 0, 0, 1};
 	i = 1;
 	save = e->pos;
-	// e->f_key = 0;
 	while (i <= 2)
 	{
 		e->pos = i;

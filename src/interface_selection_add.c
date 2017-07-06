@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:29:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 10:32:01 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/05 15:04:39 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ static int	select_add_1(t_envg *e, int x, int y, int i)
 	}
 	while (i < 3)
 	{
-		if ( x > 40 && x < 60 && y > 600 + (i * 30) && y < 620 + (i * 30))
+		if (x > 40 && x < 60 && y > 600 + (i * 30) && y < 620 + (i * 30))
 		{
-			b->obj.id_texture = (b->obj.id_texture == (unsigned char)i + 1) ? 0 : (unsigned char)i + 1 + e->page;
-			e->line[30][0] = b->obj.id_texture;
+			i = (unsigned char)i + 1 + e->page;
+			e->line[30][0] = (e->line[30][0] == i) ? 0 : i;
 			e->volet.add == 0 ? conf_tab(e) : add_tab(e);
 			return (16);
 		}

@@ -124,10 +124,10 @@ double2			inter_cylinder(t_obj cyl, double4 o, double4 dir)
 	double		a;
 	double		b;
 	double		c;
+	double2		ret;
 	double4		dp;
 	double4		tmp;
 	double4		tmp2;
-	double2		ret;
 
 	dp = vsub(o, cyl.pos);
 	t0 = vpscal(dir, cyl.dir);
@@ -140,13 +140,11 @@ double2			inter_cylinder(t_obj cyl, double4 o, double4 dir)
 	b = dp.y - t1 * cyl.dir.y;
 	c = dp.z - t1 * cyl.dir.z;
 	tmp2 = new_v(a, b, c);
-	// return (solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
-	//  		vpscal(tmp2, tmp2) - cyl.radius * cyl.radius));
 	ret = solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
 			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius);
 	if (ret[0] != -1 && cyl.angle != 0)
 	{
-		if (sqrt(cyl.radius * cyl.radius + cyl.angle * cyl.angle) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret[0])))))
+		if (sqrt(cyl.angle * cyl.angle + cyl.radius * cyl.radius) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret[0])))))
 			return (ret);
 		return ((double2){-1.0, -1.0});
 	}

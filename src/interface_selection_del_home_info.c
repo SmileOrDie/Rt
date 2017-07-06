@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:59:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 12:37:14 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/05 16:08:26 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ int			select_info(t_envg *e, int x, int y)
 	if (e->line[41][0] && x > 290 && x < 390 && y > 245 && y < 265)
 		add_new_texture(e);
 	else if (e->line[42][0] && x > 290 && x < 390 && y > 295 && y < 315)
-		{
-			free_env_parse(e);modif_default(e);
-		}
+		free_env_parse(e);
 	else if (e->e->nb_obj > 0 && e->e->cam != NULL && x > 40 && x < 135 && y > 330 && y < 355)
-		save_scene(e->e);
+		save_scene(e->e, NULL, -1);
 	else if (e->e && e->e->mlx->img != NULL && x > 145 && x < 245 && y > 335 && y < 355)
 		bmp_save_img(e);
 	else
@@ -103,7 +101,7 @@ int			select_home(t_envg *e, int x, int y)
 	{
 		if (x > 40 && x < 60 && y > 200 + (i * 30) && y < 200 + (i * 30) + 20)
 		{
-			e->obj = i;
+			e->obj = i + e->page;
 			e->light = -1;
 			modif_list(e, i + e->page);
 			return (0);

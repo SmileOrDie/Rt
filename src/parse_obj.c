@@ -153,6 +153,12 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 		e->parse_obj->obj.group = group;
 		group++;
 	}
+	if (e->parse_obj->obj.type == 3 && e->parse_obj->obj.angle != 0)
+	{
+		e->parse_obj->obj.type = 3;
+		e->parse_obj->obj.group = group;
+		group++;
+	}
 	e->group_max = group;
 	id++;
 }

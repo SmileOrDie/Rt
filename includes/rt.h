@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 15:57:02 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/01 16:24:50 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,7 +338,16 @@ int					ft_len_nb(char *line, int s);
 
 int					save_light_and_cam(t_env *e, int fd, t_parse_light *light);
 double				ft_atod(char *str);
-char				*ft_ftoa(double nb);
-void				save_scene(t_env *e);
 
+char        		*ft_ftoa(double nb);
+void            	save_scene(t_env *e, char *id, int fd);
+void				copy_square(t_obj obj, int fd, t_env *e);
+void				copy_cube(t_obj obj, int fd, t_env *e);
+void				copy_sphere(t_obj obj, int fd, t_env *e);
+void				copy_plan(t_obj obj, int fd, t_env *e);
+void				copy_cylindre(t_obj obj, int fd, t_env *e);
+void				copy_cone(t_obj obj, int fd, t_env *e);
+void				copy_circle(t_obj obj, int fd, t_env *e);
+void				copy_rgb(t_obj obj, int fd);
+void				copy_pos(t_obj obj, int fd);
 #endif

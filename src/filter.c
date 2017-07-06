@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 11:25:48 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/09 16:44:46 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/04 19:07:24 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void     filter_red(t_env *e, int x, int y)
   int       pos;
 
   pos = 0;
-  while (y <= e->mlx->h)
+  while (y <= e->mlx->h / e->anti_a)
   {
       pos = (y * e->mlx->sizeline) + (e->mlx->bpp / 8) * x;
+      e->mlx->data[pos + 1] = 0;
       e->mlx->data[pos] = 0;
-      e->mlx->data[pos + 2] = 0;
       x++;
     if (x >= e->mlx->w / e->anti_a && ((y++) || 1))
       x = 0;
@@ -59,8 +59,8 @@ void     filter_blue(t_env *e, int x, int y)
   while (y < e->mlx->h / e->anti_a)
   {
       pos = (y * e->mlx->sizeline) + (e->mlx->bpp / 8) * x;
+      e->mlx->data[pos +2] = 0;
       e->mlx->data[pos + 1] = 0;
-      e->mlx->data[pos + 2] = 0;
       x++;
     if (x > e->mlx->w / e->anti_a && ((y++) || 1))
           x = 0;
