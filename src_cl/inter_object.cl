@@ -176,8 +176,8 @@ cone.dir)), pow(cos(alpha), 2) * vpscal(tmp2, tmp2) - pow(sin(alpha), 2) *
 pow(vpscal( origin, cone.dir), 2));
 	if (ret[0] != -1 && cone.radius != 0)
 	{
-		o_dir = vnorm(vsub(cone.pos, vadd(o, vmult_dbl(dir, ret[0]))));
-		if (vpscal(o_dir, cone.dir) > 0 && cone.radius / cos(cone.angle / 360 * M_PI) > vsize(vsub(cone.pos, vadd(o, vmult_dbl(dir, ret[0])))))
+		o_dir = vsub(cone.pos, vadd(o, vmult_dbl(dir, ret[0])));
+		if (vpscal(vnorm(o_dir), cone.dir) > 0 && cone.radius / cos(cone.angle / 360 * M_PI) > vsize(o_dir))
 			return (ret);
 		return ((double2){-1.0, -1.0});
 	}
