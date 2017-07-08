@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:14:40 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 18:57:58 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/08 10:55:57 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void				get_img(t_mlx *mlx, t_mlx *img, char *str)
 	if (img->img)
 		mlx_destroy_image(mlx->mlx, img->img);
 	if (!(img->img = mlx_xpm_file_to_image(mlx->mlx, str, &img->w, &img->h)))
+	{
+		printf("1str= %s\n", str);
 		ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
+	}
 	if (!(img->data = mlx_get_data_addr(img->img,
 		&img->bpp, &img->sizeline, &img->endian)))
 		ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 12:01:30 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/08 11:22:56 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,63 +33,6 @@ static void		init(t_env *e)
 	e->default_indice = 1;
 }
 
-void			ft_creat_lst_obj(t_env *e)
-{
-	t_parse_obj			*parse_obj_b;
-	t_parse_light		*parse_light_b;
-	int					i;
-
-	parse_obj_b = e->parse_obj;
-	parse_light_b = e->parse_light;
-	i = 0;
-	while (parse_obj_b)
-	{
-		if (parse_obj_b->obj.type == 7)
-			i += 2;
-		else if (parse_obj_b->obj.type == 8)
-			i++;
-		else if (parse_obj_b->obj.type == 9)
-			i += 2;
-		parse_obj_b = parse_obj_b->next;
-		i++;
-	}
-	e->nb_obj = i;
-	i = 0;
-	while (parse_light_b)
-	{
-		parse_light_b = parse_light_b->next;
-		i++;
-	}
-	e->nb_light = i;
-	if (!(e->l_obj = (t_obj *)malloc(sizeof(t_obj) * e->nb_obj)))
-		ft_error(MALLOC, "e->l_obj -> rt.h");
-	if (!(e->light = (t_light *)malloc(sizeof(t_light) * e->nb_light)))
-		ft_error(MALLOC, "e->light -> rt.h");
-	parse_obj_b = e->parse_obj;
-	parse_light_b = e->parse_light;
-	i = 0;
-	while (parse_obj_b)
-	{
-		if (parse_obj_b->obj.type == 7 || parse_obj_b->obj.type == 8 ||
-			parse_obj_b->obj.type == 9)
-			get_obj_lst(e, parse_obj_b->obj, &i);
-		else
-		{
-			e->l_obj[i] = parse_obj_b->obj;
-			e->l_obj[i].id = i;
-		}
-		i++;
-		parse_obj_b = parse_obj_b->next;
-	}
-	i = 0;
-	while (parse_light_b)
-	{
-		e->light[i] = parse_light_b->light;
-		parse_light_b = parse_light_b->next;
-		i++;
-	}
-}
-
 void			ft_get_image_texture(t_env *e)
 {
 	int			x;
@@ -109,7 +52,10 @@ void			ft_get_image_texture(t_env *e)
 			ft_error("File texture doesn't exist : ", path);
 		if (!(e->texture[x].img = mlx_xpm_file_to_image(e->mlx->mlx, path, \
 			&e->texture[x].w, &e->texture[x].h)))
+		{
+			printf("2str= %s\n", path);
 			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
+		}
 		if (!(e->texture[x].data = mlx_get_data_addr(e->texture[x].img,
 			&e->texture[x].bpp, &e->texture[x].sizeline, \
 			&e->texture[x].endian)))

@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 11:53:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/29 12:22:24 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/08 12:43:11 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,60 +53,63 @@ t_color2		get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, dou
 	return (pixel);
 }
 
+int				get_image3(t_env *e, t_norme12 *n)
+{
+	n->color[0] += n->img[n->tx * 4 + n->ty * e->mlx->w * 4 + 2 + n->tmpy * \
+	e->mlx->w * 4 + n->tmpx * 4];
+	n->color[1] += n->img[n->tx * 4 + n->ty * e->mlx->w * 4 + 1 + n->tmpy * \
+	e->mlx->w * 4 + n->tmpx * 4];
+	n->color[2] += n->img[n->tx * 4 + n->ty * e->mlx->w * 4 + 0 + n->tmpy * \
+	e->mlx->w * 4 + n->tmpx * 4];
+	return (n->tmpy);
+}
+
+void			get_image2(t_env *e, t_norme12 n)
+{
+	while (n.i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
+	{
+		n.tmpy = 0;
+		n.color[0] = 0;
+		n.color[1] = 0;
+		n.color[2] = 0;
+		while (n.tmpy < e->anti_a)
+		{
+			n.tmpx = 0;
+			while (n.tmpx < e->anti_a)
+			{
+				n.tmpy = get_image3(e, &n);
+				n.tmpx++;
+			}
+			n.tmpy++;
+		}
+		e->mlx->data[n.i * 4 + 0] = n.color[2] / e->anti_a / e->anti_a;
+		e->mlx->data[n.i * 4 + 1] = n.color[1] / e->anti_a / e->anti_a;
+		e->mlx->data[n.i * 4 + 2] = n.color[0] / e->anti_a / e->anti_a;
+		n.i++;
+		n.tx = (n.tx + e->anti_a) % e->mlx->w;
+		n.tx == 0 ? n.ty += e->anti_a : 0;
+	}
+}
+
 void			get_image(t_env *e)
 {
-	int				i;
-	int				tx;
-	int				ty;
-	int				tmpx;
-	int				tmpy;
-	t_color2		pixel;
-	char			flag;
-	unsigned char	*img;
-	int				color[3];
+	t_norme12	n;
 
-	flag = 1;
-	i = 0;
-	img = malloc(e->mlx->h * e->mlx->w * 4);
-	while (i < e->mlx->h * e->mlx->w)
+	n.flag = 1;
+	n.i = 0;
+	n.img = malloc(e->mlx->h * e->mlx->w * 4);
+	while (n.i < e->mlx->h * e->mlx->w)
 	{
-		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, \
-		flag, e->coef_t[i]);
-		img[i * 4 + 2] = pixel.r;
-		img[i * 4 + 1] = pixel.g;
-		img[i * 4 + 0] = pixel.b;
-		i++;
-		flag = 0;
+		n.pixel = get_pixel(e->tab_three[n.i], (t_color2){0, 0, 0, 0}, e->cl_e,\
+		n.flag, e->coef_t[n.i]);
+		n.img[n.i * 4 + 2] = n.pixel.r;
+		n.img[n.i * 4 + 1] = n.pixel.g;
+		n.img[n.i * 4 + 0] = n.pixel.b;
+		n.i++;
+		n.flag = 0;
 	}
-	i = 0;
-	tx = 0;
-	ty = 0;
-	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
-	{
-		tmpy = 0;
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 0;
-		while (tmpy < e->anti_a)
-		{
-			tmpx = 0;
-			while (tmpx < e->anti_a)
-			{
-				color[0] += img[tx * 4 + ty * e->mlx->w * 4 + 2 + tmpy * \
-				e->mlx->w * 4 + tmpx * 4];
-				color[1] += img[tx * 4 + ty * e->mlx->w * 4 + 1 + tmpy * \
-				e->mlx->w * 4 + tmpx * 4];
-				color[2] += img[tx * 4 + ty * e->mlx->w * 4 + 0 + tmpy * \
-				e->mlx->w * 4 + tmpx * 4];
-				tmpx++;
-			}
-			tmpy++;
-		}
-		e->mlx->data[i * 4 + 0] = color[2] / e->anti_a / e->anti_a;
-		e->mlx->data[i * 4 + 1] = color[1] / e->anti_a / e->anti_a;
-		e->mlx->data[i * 4 + 2] = color[0] / e->anti_a / e->anti_a;
-		i++;
-		tx = (tx + e->anti_a) % e->mlx->w;
-		tx == 0 ? ty += e->anti_a : 0;
-	}
+	n.i = 0;
+	n.tx = 0;
+	n.ty = 0;
+	get_image2(e, n);
 }
