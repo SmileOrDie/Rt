@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/10 19:44:34 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/11 16:12:51 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,13 @@ typedef struct				s_norme16
 	int						search;
 }							t_norme16;
 
+typedef struct				s_norme17
+{
+	int						*tab;
+	int						compt;
+	int						s;
+}							t_norme17;
+
 int							sphere_check(char **def);
 int							circle_check(char **def);
 
@@ -273,5 +280,13 @@ void						ft_launch2(t_norme13 *n, void *env);
 void						ft_launch3(t_norme13 *n);
 void						get_obj_lst2(t_env *e, t_obj obj, int *i, \
 	t_vector *mat);
+void						creat_light(t_envg *e);
+t_obj						new_obj2(t_envg *e, t_obj obj);
+t_obj						new_obj(t_envg *e);
+static void					creat_light(t_envg *e);
+t_light						new_light(t_envg *e);
+static void					reset_line(char **line);
+t_parse_light				*srch_light(t_envg *e, int id);
+t_parse_obj					*srch_obj(t_envg *e, int id);
 
 #endif

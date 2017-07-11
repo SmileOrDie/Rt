@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 12:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/10 19:19:29 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/11 16:22:32 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,6 @@ void			modif_light(t_envg *e, int light)
 
 void			modif_list2(t_envg *e, t_parse_obj *obj_s)
 {
-// <<<<<<< HEAD
-// =======
-// 	char			*type_obj[15];
-// 	t_parse_obj 	*obj_s;
-//
-// 	type_obj[0] = "sphere";
-// 	type_obj[1] = "plane";
-// 	type_obj[2] = "cylinder";
-// 	type_obj[3] = "cone";
-// 	type_obj[4] = "circle";
-// 	type_obj[5] = "square";
-// 	type_obj[6] = "cube";
-// 	type_obj[7] = "cone_l";
-// 	type_obj[8] = "cylinder_l";
-// 	// type_obj[4] = "";
-//
-// 	load_img(e, 3);
-// 	e->f_key = 0;
-// 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};
-// 	obj_s = srch_obj(e, obj);
-// 	ft_strcpy(e->line[1], type_obj[(obj_s->obj.type - 1)]);
-// >>>>>>> master
 	ft_strcpy(e->line[2], obj_s->obj.name);
 	ft_strcpy_nbr(&(e->line[3]), obj_s->obj.pos.x);
 	ft_strcpy_nbr(&(e->line[4]), obj_s->obj.pos.y);

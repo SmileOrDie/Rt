@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/10 19:34:58 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/11 16:06:03 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,14 @@ t_vector			creat_cam_2(t_envg *e, int i)
 void				creat_cam(t_envg *e)
 {
 	free(e->e->cam);
-// <<<<<<< HEAD
-// 	e->e->mlx->w = ft_atof(e->line[25]);
-// 	e->e->mlx->h = ft_atof(e->line[26]);
-// 	(!(e->e->cam = (t_cam *)malloc(sizeof(t_cam)))) ? ft_error(MALLOC, \
-// 		"creat_cam") : 0;
-// 	e->e->cam->eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]), \
-// 	ft_atof(e->line[21]));
-// 	e->e->cam->l_at = new_v(ft_atof(e->line[22]), ft_atof(e->line[23]), \
-// 	ft_atof(e->line[24]));
-// =======
 	e->e->mlx->w = ft_atof(e->line[25]) * e->e->anti_a;
 	e->e->mlx->h = ft_atof(e->line[26]) * e->e->anti_a;
-	(!(e->e->cam = (t_cam *)malloc(sizeof(t_cam)))) ? ft_error(MALLOC, "creat_cam") : 0;
-	e->e->cam->eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]), ft_atof(e->line[21]));
-	e->e->cam->l_at = new_v(ft_atof(e->line[22]), ft_atof(e->line[23]), ft_atof(e->line[24]));
-// >>>>>>> master
+	(!(e->e->cam = (t_cam *)malloc(sizeof(t_cam)))) ? ft_error(MALLOC, \
+		"creat_cam") : 0;
+	e->e->cam->eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]), \
+	ft_atof(e->line[21]));
+	e->e->cam->l_at = new_v(ft_atof(e->line[22]), ft_atof(e->line[23]), \
+	ft_atof(e->line[24]));
 	e->e->cam->up = new_v(0.0, -1.0, 0.0);
 	vnorm(&e->e->cam->up);
 	e->e->cam->fov = 60.0;
