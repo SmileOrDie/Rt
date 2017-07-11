@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/10 19:44:11 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:55:03 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ double			inter_plane(t_obj p, t_vector o, t_vector dir)
 
 double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 {
-<<<<<<< HEAD
+// <<<<<<< HEAD
 	t_norme2	n;
 
 	n.dp = vsub(o, cyl.pos);
@@ -93,8 +93,8 @@ double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 	n.tmp2 = new_v(n.a, n.b, n.c);
 	// return (solve_quad(vpscal(n.tmp, n.tmp), vpscal(n.tmp, n.tmp2) * 2,
 	// 		vpscal(n.tmp2, n.tmp2) - cyl.radius * cyl.radius));
-	n.ret = solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
-			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius);
+	n.ret = solve_quad(vpscal(n.tmp, n.tmp), vpscal(n.tmp, n.tmp2) * 2,
+			vpscal(n.tmp2, n.tmp2) - cyl.radius * cyl.radius);
 	if (n.ret != -1 && cyl.angle != 0)
 	{
 		if (sqrt(cyl.angle * cyl.angle + cyl.radius * cyl.radius) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, n.ret)))))

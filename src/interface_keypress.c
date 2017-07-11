@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:43 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/10 19:34:11 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:55:33 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ static int		exeption_key(int key)
 
 int				interface_keypress(int key, t_envg *e)
 {
-<<<<<<< HEAD
+// <<<<<<< HEAD
 	char	*line;
 	int		val;
 	int		pression;

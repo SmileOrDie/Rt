@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/10 19:13:52 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:59:06 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void			put_img4(t_envg *e)
 	}
 }
 
-static void			put_img5_2(t_parse_obj *obj, t_envg *e, unsigned char i)
+static void			put_img5_2(t_envg *e, unsigned char i)
 {
 	char					*str;
 
@@ -66,7 +66,7 @@ static void			put_img5(t_envg *e)
 	while (i < e->page + 3 && i < e->e->nb_tex)
 	{
 // <<<<<<< HEAD
-		put_img5_2(obj, e, i);
+		put_img5_2(e, i);
 		i++;
 	}
 // =======
