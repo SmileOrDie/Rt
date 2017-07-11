@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/08 11:22:56 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 17:07:15 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,30 @@ static void		init(t_env *e)
 
 void			ft_get_image_texture(t_env *e)
 {
-	int			x;
-	char		*path;
-	struct stat	test;
+	t_norme14	n;
 
-	x = 0;
-	while (e->path_tex[x])
-		x++;
-	e->nb_tex = x;
-	e->texture = malloc(sizeof(t_mlx) * x);
-	x = 0;
-	while (e->path_tex[x])
+	n.x = 0;
+	while (e->path_tex[n.x])
+		n.x++;
+	e->nb_tex = n.x;
+	e->texture = malloc(sizeof(t_mlx) * n.x);
+	n.x = 0;
+	while (e->path_tex[n.x])
 	{
-		path = ft_strjoin("./", e->path_tex[x]);
-		if (stat(path, &test) == -1)
-			ft_error("File texture doesn't exist : ", path);
-		if (!(e->texture[x].img = mlx_xpm_file_to_image(e->mlx->mlx, path, \
-			&e->texture[x].w, &e->texture[x].h)))
+		n.path = ft_strjoin("./", e->path_tex[n.x]);
+		if (stat(n.path, &n.test) == -1)
+			ft_error("File texture doesn't exist : ", n.path);
+		if (!(e->texture[n.x].img = mlx_xpm_file_to_image(e->mlx->mlx, n.path,\
+			&e->texture[n.x].w, &e->texture[n.x].h)))
 		{
-			printf("2str= %s\n", path);
+			printf("2str= %s\n", n.path);
 			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
 		}
-		if (!(e->texture[x].data = mlx_get_data_addr(e->texture[x].img,
-			&e->texture[x].bpp, &e->texture[x].sizeline, \
-			&e->texture[x].endian)))
+		if (!(e->texture[n.x].data = mlx_get_data_addr(e->texture[n.x].img,
+			&e->texture[n.x].bpp, &e->texture[n.x].sizeline, \
+			&e->texture[n.x].endian)))
 			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
-		x++;
+		n.x++;
 	}
 }
 

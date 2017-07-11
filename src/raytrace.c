@@ -6,14 +6,14 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 11:43:21 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 17:35:04 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 #include "../includes/norme.h"
 
-void		ft_debug(t_parse_obj *obj_list)
+void				ft_debug(t_parse_obj *obj_list)
 {
 	t_parse_obj		*begin;
 	int				i;
@@ -28,38 +28,33 @@ void		ft_debug(t_parse_obj *obj_list)
 	obj_list = begin;
 }
 
-t_parse_obj		*get_obj_list(t_env *e, t_three *current, t_three *branch)
+t_parse_obj			*get_obj_list(t_env *e, t_three *current, t_three *branch)
 {
-	t_parse_obj	*tmp;
-	t_parse_obj	*rez;
-	t_obj		obj;
-	int			search;
-	int			i;
+	t_norme16	n;
 
-	rez = NULL;
-	i = 0;
-	search = 1;
+	n.rez = NULL;
+	n.search = 1;
 	while (branch != current && !current->r_refrac)
 		current = current->r_reflec;
 	while (branch != current)
 	{
-		obj = e->l_obj[current->id];
-		search = search_obj(&rez, obj);
-		if (search == 1 && obj.type != 2 && obj.type != 6 && obj.type != 5)
+		n.obj = e->l_obj[current->id];
+		n.search = search_obj(&n.rez, n.obj);
+		if (n.search == 1 && n.obj.type != 2 && n.obj.type != 6 && n.obj.type != 5)
 		{
-			tmp = malloc(sizeof(t_parse_obj));
-			tmp->obj = e->l_obj[current->id];
-			tmp->next = rez;
-			rez = tmp;
+			n.tmp = malloc(sizeof(t_parse_obj));
+			n.tmp->obj = e->l_obj[current->id];
+			n.tmp->next = n.rez;
+			n.rez = n.tmp;
 		}
 		current = current->r_refrac;
 		while (branch != current && !current->r_refrac)
 			current = current->r_reflec;
 	}
-	return (rez);
+	return (n.rez);
 }
 
-int			ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj)
+int					ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj)
 {
 	t_parse_obj *tmp;
 
@@ -85,7 +80,7 @@ int			ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj)
 	return (0);
 }
 
-void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof,\
+void				ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof,\
 	double coef, t_color2 c_origin, t_three **three)
 {
 	t_vector		p_hit;

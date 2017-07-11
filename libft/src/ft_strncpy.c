@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/05 17:21:56 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 17:47:19 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ char	*ft_strncpy(char *dest, const char *src, size_t n)
 		}
 	}
 	if (src[d] == '\0')
-	{
 		while ((size_t)d < n)
 		{
 			dest[f] = '\0';
 			d++;
 			f++;
 		}
-	}
 	dest[n] = '\0';
 	return (dest);
 }

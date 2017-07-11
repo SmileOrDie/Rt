@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/08 10:57:37 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/08 12:07:03 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 17:30:53 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,31 @@ void			get_l_tab(t_env *e)
 		i++;
 		flag = 1;
 	}
+}
+
+void			get_matrice(t_vector dir, t_vector **mat)
+{
+	t_vector mat_x;
+	t_vector mat_y;
+	t_vector mat_z;
+
+	vnorm(&dir);
+	mat_x.x = 1;
+	mat_x.y = 0;
+	mat_x.z = 0;
+	mat_y.x = 0;
+	mat_y.y = 1;
+	mat_y.z = 0;
+	mat_z.x = 0;
+	mat_z.y = 0;
+	mat_z.z = 1;
+	mat_x = vrot(vcross(dir, (t_vector){1, 0, 0, 0}), acos(vpscal(dir, \
+		(t_vector){1, 0, 0, 0})) / M_PI * 180, mat_x);
+	mat_y = vrot(vcross(dir, (t_vector){0, 1, 0, 0}), acos(vpscal(dir, \
+		(t_vector){0, 1, 0, 0})) / M_PI * 180, mat_y);
+	mat_z = vrot(vcross(dir, (t_vector){0, 0, 1, 0}), acos(vpscal(dir, \
+		(t_vector){0, 0, 1, 0})) / M_PI * 180, mat_z);
+	(*mat)[0] = mat_x;
+	(*mat)[1] = mat_y;
+	(*mat)[2] = mat_z;
 }

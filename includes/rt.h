@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 12:49:07 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 17:42:27 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@
 # define S_MALLOC 0
 # define STR_MALLOC "il faut securiser ce malloc! ou?"
 # define TABU "tabulation failed : "
-
 
 typedef struct				s_mlx
 {

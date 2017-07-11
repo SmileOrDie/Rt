@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:24:22 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 18:07:01 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 17:42:33 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define MALLOC "failed function malloc in : "
 # define ARG_N "argument can't be -NULL- in : "
 # define MLX "mlx failed : "
-
 
 void		ft_error(char *error, char *in);
 
