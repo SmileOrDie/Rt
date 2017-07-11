@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/27 18:25:41 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:51:42 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,23 @@ typedef struct			s_tabu
 	int					index;
 }						t_tabu;
 
+typedef struct			s_bmp
+{
+    FILE         		*f;
+    unsigned char		f_header[14];
+    unsigned char		i_header[40];
+    unsigned char		pad[3];
+    unsigned char		*img;
+    unsigned int 		f_size;
+    char         		name[256];
+}						t_bmp;
+
 typedef struct			s_envg
 {
 	t_env				*e;
 	t_mlx				*mlx;
 	t_mlx				img;
+	t_bmp				bmp;
 	char				**line;
 	int					i_lst;
 	int					obj;
@@ -193,6 +205,9 @@ void					init_id(t_env *e);
 ** interface_keypress.c
 */
 int						interface_keypress(int key, t_envg *e);
+void            		free_env_parse(t_envg *e);
+void    				add_new_texture(t_envg *e);
+void        			clean_str(char **clean, int f);
 
 /*
 ** interface_line.c
@@ -260,6 +275,7 @@ void					creat_elem(t_envg *e);
 void					creat_cam(t_envg *e);
 t_parse_obj				*srch_obj(t_envg *e, int id);
 t_parse_light			*srch_light(t_envg *e, int id);
+
 /*
 **interface_selection_add.c
 */
@@ -283,6 +299,11 @@ int						select_home(t_envg *e, int x, int y);
 void					put_img(t_envg *e, int img);
 
 /*
+** interface_put_img_2.c
+*/
+void					put_img6(t_envg *e);
+void					put_img7(t_envg *e);
+/*
 ** interface_graphic.c
 */
 void					re_init_tab(t_envg *e);
@@ -297,5 +318,10 @@ int						check_var_obj(char **def);
 ** interface_error.c
 */
 int						error_gestion(t_envg *e, int x, int y);
+
+/*
+** interface_save_img.c
+*/
+int						bmp_save_img(t_envg *e);
 
 #endif

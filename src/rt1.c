@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 11:48:30 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/08 12:07:06 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 18:16:53 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double			get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, \
 	return (coef_t);
 }
 
-void			boucle2(t_norme11 n)
+void			run_rt2(t_norme11 n)
 {
 	vnorm(&n.v_ray);
 	n.e->begin_three = &(n.e->tab_three[n.x + n.y * n.e->mlx->w]);
@@ -61,7 +61,7 @@ void			boucle2(t_norme11 n)
 		0}, &(n.e->tab_three[n.x + n.y * n.e->mlx->w]));
 }
 
-void			*boucle(void *env)
+void			*run_rt(void *env)
 {
 	t_norme11	n;
 
@@ -80,7 +80,7 @@ void			*boucle(void *env)
 				n.x * (n.e->cam->w / n.e->mlx->w) + n.e->cam->up.z * n.y * \
 				(n.e->cam->h / n.e->mlx->h));
 			n.v_ray = vsub(n.p_cam, n.e->cam->eye);
-			boucle2(n);
+			run_rt2(n);
 			n.x += 3;
 		}
 		n.y++;

@@ -50,7 +50,6 @@ void				info_tab(t_envg *e)
 	e->volet = (t_tab_valid){0, 0, 0, 0, 1};
 	i = 1;
 	save = e->pos;
-	e->f_key = 0;
 	while (i <= 2)
 	{
 		e->pos = i;
@@ -58,5 +57,6 @@ void				info_tab(t_envg *e)
 		print_line(e, i + 40, 30);
 		i++;
 	}
+	put_img6(e);
 	e->pos = save;
 }

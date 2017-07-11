@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 13:18:07 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/10 17:42:15 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:44:34 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct				s_norme2
 	t_vector				dp;
 	t_vector				tmp;
 	t_vector				tmp2;
+	double					ret;
 }							t_norme2;
 
 typedef struct				s_norme3
@@ -66,6 +67,7 @@ typedef struct				s_norme3
 	t_vector				tmp2;
 	t_vector				dir_dir;
 	t_vector				o_dir;
+	double					ret;
 }							t_norme3;
 
 typedef struct				s_norme5
@@ -223,7 +225,6 @@ int							search_obj(t_parse_obj **list_obj, t_obj obj);
 t_env						*ft_create_tab_env(t_env e);
 double						get_l_pix(t_three *branch, t_l_obj *tab_light, \
 	t_obj *l_obj, char flag);
-void						*boucle(void *env);
 void						free_branch(t_three *branch);
 void						get_l_tab(t_env *e);
 
@@ -261,8 +262,8 @@ void						ft_creat_lst_obj(t_env *e);
 void						ft_creat_lst_obj2(t_env *e, t_norme10 n);
 void						ft_creat_lst_obj3(t_env *e, t_norme10 n);
 
-void						*boucle(void *env);
-void						boucle2(t_norme11 n);
+void						*run_rt(void *env);
+void						run_rt2(t_norme11 n);
 
 int							get_image3(t_env *e, t_norme12 *n);
 void						get_image2(t_env *e, t_norme12 n);

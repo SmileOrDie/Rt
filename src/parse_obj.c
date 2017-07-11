@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/29 18:05:06 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 18:51:36 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,14 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 	n.group = 1;
 	e->parse_obj->obj.id = n.id;
 	e->parse_obj->obj.type = type;
+// <<<<<<< HEAD
+// 	e->parse_obj->obj.group = (type == 7) ? n.group : 0;
+// 	type == 7 ? n.group++ : 0;
+// 	e->group_max = n.group;
+// =======
 	e->parse_obj->obj.group = (type == 7) ? n.group : 0;
 	type == 7 ? n.group++ : 0;
-	e->group_max = n.group;
+// >>>>>>> master
 	free_space(line, x);
 	while (line[*x] && line[*x] != '}')
 	{
@@ -90,5 +95,22 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 		free_space(line, x);
 	}
 	free_space(line, x);
+// <<<<<<< HEAD
+// 	n.id++;
+// =======
+	if (e->parse_obj->obj.type == 4 && e->parse_obj->obj.radius != 0)
+	{
+		e->parse_obj->obj.type = 8;
+		e->parse_obj->obj.group = n.group;
+		n.group++;
+	}
+	if (e->parse_obj->obj.type == 3 && e->parse_obj->obj.angle != 0)
+	{
+		e->parse_obj->obj.type = 3;
+		e->parse_obj->obj.group = n.group;
+		n.group++;
+	}
+	e->group_max = n.group;
 	n.id++;
+// >>>>>>> master
 }

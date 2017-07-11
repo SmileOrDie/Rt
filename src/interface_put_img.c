@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 16:41:41 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:13:52 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void			put_img5_2(t_parse_obj *obj, t_envg *e, unsigned char i)
 {
 	char					*str;
 
-	if (obj && obj->obj.id_texture == i + 1)
+	if (e->line[30][0] == i + 1)
 		get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
 	else
 		get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
@@ -61,12 +61,36 @@ static void			put_img5(t_envg *e)
 	t_parse_obj				*obj;
 
 	i = e->page;
-	obj = srch_obj(e, e->obj + e->page);
-	while (obj && i < e->page + 3 && i < e->e->nb_tex)
+	printf("nb tex = %d i = %d\n", e->e->nb_tex, i);
+	obj = srch_obj(e, e->obj);
+	while (i < e->page + 3 && i < e->e->nb_tex)
 	{
+// <<<<<<< HEAD
 		put_img5_2(obj, e, i);
 		i++;
 	}
+// =======
+		// if (e->line[30][0] == i + 1)
+		// 	get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
+		// else
+		// 	get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
+		// mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+		// 	40, 600 + ((i % 3) * 30));
+		// str = ft_strdup(e->e->path_tex[i]);
+		// mlx_string_put(e->mlx->mlx, e->mlx->win,
+		// 	70, 600 + ((i % 3) * 30), 0xFFFFFF, str);
+		// free(str);
+	// 	i++;
+	// }
+	if (e->line[30][1] == 1)
+		get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
+	else
+		get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
+	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			160, 490);
+	mlx_string_put(e->mlx->mlx, e->mlx->win,
+			185, 490, 0xFFFFFF, "Neg");
+// >>>>>>> master
 	if (e->page + 3 < e->e->nb_tex)
 	{
 		get_img(e->mlx, &e->img, "./xpm_file/next.xpm");
@@ -88,7 +112,6 @@ void				put_img_2(t_envg *e)
 	put_img2(e, ((e->filter.red == 1) ? 1 : 0), 200, 522);
 	put_img2(e, ((e->filter.sepia == 1) ? 1 : 0), 40, 547);
 	put_img2(e, ((e->filter.old == 1) ? 1 : 0), 120, 547);
-	put_img2(e, ((e->filter.cartoon == 1) ? 1 : 0), 200, 547);
 }
 
 void				put_img(t_envg *e, int img)
@@ -100,7 +123,18 @@ void				put_img(t_envg *e, int img)
 	else if (img == 15 || img == 19)
 		put_img3(e);
 	else if (img == 24)
+// <<<<<<< HEAD
 		put_img_2(e);
+// =======
+// 	{
+// 		put_img2(e, ((e->filter.blue == 1) ? 1 : 0), 40, 522);
+// 		put_img2(e, ((e->filter.green == 1) ? 1 : 0), 120, 522);
+// 		put_img2(e, ((e->filter.red == 1) ? 1 : 0), 200, 522);
+// 		put_img2(e, ((e->filter.sepia == 1) ? 1 : 0), 40, 547);
+// 		put_img2(e, ((e->filter.old == 1) ? 1 : 0), 120, 547);
+// 		// put_img2(e, ((e->filter.cartoon == 1) ? 1 : 0), 200, 547);
+// 	}
+// >>>>>>> master
 	else if (img == 21)
 		put_img4(e);
 	else if (img >= 16 && img <= 18)

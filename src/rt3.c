@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 11:57:18 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/10 17:30:22 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 18:36:17 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void				ft_launch2(t_norme13 *n, void *env)
 	n->e->nb_obj_pix[1] = &(n->size[1]);
 	n->e->nb_obj_pix[2] = &(n->size[2]);
 	n->tab_env = ft_create_tab_env(*n->e);
-	pthread_create(&n->tab_thread[0], NULL, boucle, (void *)(&n->tab_env[0]));
-	pthread_create(&n->tab_thread[1], NULL, boucle, (void *)(&n->tab_env[1]));
-	pthread_create(&n->tab_thread[2], NULL, boucle, (void *)(&n->tab_env[2]));
+	pthread_create(&n->tab_thread[0], NULL, run_rt, (void *)(&n->tab_env[0]));
+	pthread_create(&n->tab_thread[1], NULL, run_rt, (void *)(&n->tab_env[1]));
+	pthread_create(&n->tab_thread[2], NULL, run_rt, (void *)(&n->tab_env[2]));
 	n->i = 0;
 	while (n->i < 3)
 	{
@@ -85,7 +85,8 @@ void				get_obj_lst2(t_env *e, t_obj obj, int *i, t_vector *mat)
 	mat = malloc(sizeof(t_vector) * 3);
 	get_matrice(obj.dir, &mat);
 	e->l_obj[*i] = obj;
-	e->l_obj[*i].id = *i;
+	//il n'y avait pas le +1 qui suit
+	e->l_obj[*i].id = *i + 1;
 	e->l_obj[*i].type = 6;
 	e->l_obj[*i].dir = mat[0];
 	e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, \
@@ -97,10 +98,12 @@ void				get_obj_lst2(t_env *e, t_obj obj, int *i, t_vector *mat)
 	e->l_obj[*i].dir = vmult_dbl(mat[0], -1);
 	e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, \
 		obj.radius / 2));
-	e->l_obj[*i].id = *i;
+	//il n'y avait pas le +1 qui suit
+	e->l_obj[*i].id = *i + 1;
 	(*i)++;
 	e->l_obj[*i] = obj;
-	e->l_obj[*i].id = *i;
+	//il n'y avait pas le +1 qui suit
+	e->l_obj[*i].id = *i + 1;
 	e->l_obj[*i].type = 6;
 	e->l_obj[*i].dir = mat[1];
 	e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(e->l_obj[*i].dir, \
@@ -115,5 +118,35 @@ void				get_obj_lst(t_env *e, t_obj obj, int *i)
 	if (obj.type == 7)
 	{
 		get_obj_lst2(e, obj, i, mat);
+	}
+	if (obj.type == 8)
+	{
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].id = *i + 1;
+		e->l_obj[*i].type = 4;
+		(*i)++;
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].type = 5;
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius));
+		e->l_obj[*i].radius = tan(obj.angle / 360.0 * M_PI) * obj.radius;
+		e->l_obj[*i].id = *i + 1;
+	}
+	if (obj.type == 9)
+	{
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].id = *i + 1;
+		e->l_obj[*i].type = 4;
+		(*i)++;
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].type = 5;
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.angle / 2));
+		e->l_obj[*i].radius = obj.radius;
+		e->l_obj[*i].id = *i + 1;
+		(*i)++;
+		e->l_obj[*i] = obj;
+		e->l_obj[*i].type = 5;
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.angle / 2));
+		e->l_obj[*i].radius = obj.radius;
+		e->l_obj[*i].id = *i + 1;
 	}
 }

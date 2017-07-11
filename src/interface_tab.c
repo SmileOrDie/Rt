@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 17:49:01 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 18:56:12 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void			conf_tab2(t_envg *e, int i)
 		print_line(e, i, 3);
 		i++;
 	}
+	put_img7(e);
 	load_img(e, 21);
 	load_img(e, 24);
 	(e->i_lst > 3) ? load_img(e, 22) : 0;

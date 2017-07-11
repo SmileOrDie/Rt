@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 18:34:24 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 15:17:03 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:20:56 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,23 @@ void	del_line(t_envg *e)
 
 void	print_line(t_envg *e, int line, int precision)
 {
-	char	*string;
-	int		len;
+// <<<<<<< HEAD
+// 	char	*string;
+// 	int		len;
+// =======
+	char *string;
+	int len;
+	static int f = 1;
+// >>>>>>> master
 
-	string = NULL;
 	len = ft_strlen(e->line[line]);
 	if (e->f_key == 1)
 	{
+		if (f == 1)
+		{
+			f = 0;
+			clean_str(&e->line[line], 1);
+		}
 		if (len > precision)
 			string = ft_strsub(e->line[line], len - precision, precision);
 		else
@@ -55,6 +65,7 @@ void	print_line(t_envg *e, int line, int precision)
 	}
 	else
 	{
+		f = 1;
 		if (len > precision)
 			string = ft_strsub(e->line[line], 0, precision);
 		else

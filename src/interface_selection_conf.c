@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 11:40:38 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 19:09:31 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,24 @@ void			select_conf3(t_envg *e, int x, int y, int nb)
 		e->i_lst = 0;
 	}
 	else if (x > 257 && x < 357 && y > 760 && y < 783)
+	{
 		creat_cam(e);
+		e->i_lst = 0;
+		home_tab(e);
+	}
+	else if (x > 48 && x < 70 && y > 624 && y < 648 && e->e->anti_a > 1)
+		{
+			e->e->anti_a--;
+			e->e->mlx->w = e->e->mlx->w / (e->e->anti_a + 1) * e->e->anti_a;
+			e->e->mlx->h = e->e->mlx->h / (e->e->anti_a + 1) * e->e->anti_a;
+		}
+	else if (x > 91 && x < 113 && y > 624 && y < 648 && e->e->anti_a < 7)
+	{
+		e->e->anti_a++;
+		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a - 1) * e->e->anti_a;
+		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a - 1) * e->e->anti_a;
+	}
+// <<<<<<< HEAD
 }
 
 static int		select_conf2(t_envg *e, int x, int y)
@@ -92,6 +109,22 @@ static int		select_conf2(t_envg *e, int x, int y)
 	{
 		nb++;
 		b = b->next;
+// =======
+// 		e->i_lst = 0;
+// 		home_tab(e);
+// 	}
+// 	else if (x > 48 && x < 70 && y > 624 && y < 648 && e->e->anti_a > 1)
+// 	{
+// 		e->e->anti_a--;
+// 		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a + 1) * e->e->anti_a;
+// 		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a + 1) * e->e->anti_a;
+// 	}
+// 	else if (x > 91 && x < 113 && y > 624 && y < 648 && e->e->anti_a < 7)
+// 	{
+// 		e->e->anti_a++;
+// 		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a - 1) * e->e->anti_a;
+// 		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a - 1) * e->e->anti_a;
+// >>>>>>> master
 	}
 	i = -1;
 	while (++i < 3 && i < nb)

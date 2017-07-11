@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:16 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/28 18:09:43 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 18:55:26 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ char		*tabulation(t_tabu *t, int id)
 	ret = NULL;
 	t->dirp = opendir(t->name_path);
 	if (t->dirp == NULL)
-		ft_error(TABU, "error\n");
+// <<<<<<< HEAD
+// 		ft_error(TABU, "error\n");
+// =======
+		return (NULL);
+// >>>>>>> master
 	t->index = 0;
 	while ((dp = readdir(t->dirp)) != NULL)
 	{

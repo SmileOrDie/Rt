@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 12:05:13 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 18:51:58 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void			ft_parse_j(char *name, t_env *e)
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
 	if (stat(name, &st) != 0)
-		ft_error("File doesn't exist", "ft_parse");
+		ft_error("File doesn't exist : ", name);
 	fd = open(name, O_RDONLY);
 	if (fd < 0)
-		ft_error("Can't open file", "ft_parse");
+		ft_error("Can't open file : ", name);
 	line = malloc(st.st_size + 1);
 	line[st.st_size] = '\0';
 	read(fd, line, st.st_size);

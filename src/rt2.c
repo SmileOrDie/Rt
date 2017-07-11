@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 11:53:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/08 12:43:11 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/10 18:28:08 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,60 @@ t_color2		get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, dou
 	flag ? (i = 0) : 0;
 	if (!branch)
 		return ((t_color2){0, 0, 0, 0});
+	// n'etait pas la ce qui suit
+	if (branch->id < 0)
+	{
+		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
+		pixel = add_color(pixel, color_ray);
+		return (pixel);
+	}
+	//
 	if (branch->r_reflec)
 	{
 		color_ray = get_pixel(branch->r_reflec, pixel, e, 0, coef_t);
-		color_ray = mult_color(color_ray, branch->p_hit.coef * \
-			e->l_obj[branch->id].ind_reflec);
+		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_reflec);
 		pixel = add_color(pixel, color_ray);
 	}
+	// if (branch->r_refrac)
+	// {
+	// 	color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
+	// 	color_ray.r = color_ray.r * (branch->c_origin.r / 255.0);
+	// 	color_ray.g = color_ray.g * (branch->c_origin.g / 255.0);
+	// 	color_ray.b = color_ray.b * (branch->c_origin.b / 255.0);
+	// 	color_ray = mult_color(color_ray, branch->p_hit.coef *  e->l_obj[branch->id].ind_transp * (1 - e->l_obj[branch->id].ind_reflec));
+	// 	pixel = add_color(pixel, color_ray);
+	// }
 	if (branch->r_refrac)
 	{
 		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
 		color_ray.r = color_ray.r * (branch->c_origin.r / 255.0);
 		color_ray.g = color_ray.g * (branch->c_origin.g / 255.0);
 		color_ray.b = color_ray.b * (branch->c_origin.b / 255.0);
-		color_ray = mult_color(color_ray, branch->p_hit.coef * \
-			e->l_obj[branch->id].ind_transp * \
-			(1 - e->l_obj[branch->id].ind_reflec));
+		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_transp * (1 - e->l_obj[branch->id - 1].ind_reflec));
 		pixel = add_color(pixel, color_ray);
 	}
-	if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * \
-	(1 - e->l_obj[branch->id].ind_reflec) > 0.04)
+	// if (branch->p_hit.coef * (1 - e->l_obj[branch->id].ind_transp) * \
+	// (1 - e->l_obj[branch->id].ind_reflec) > 0.04)
+	// {
+	// 	color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, \
+	// 		(unsigned char)e->color_lst[i].g, \
+	// 		(unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * \
+	// 		(1 - e->l_obj[branch->id].ind_transp) * \
+	// 		(1 - e->l_obj[branch->id].ind_reflec) / coef_t);
+	// 	pixel = add_color(pixel, color_ray);
+	// 	i++;
+	// }
+	if (branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - \
+		e->l_obj[branch->id - 1].ind_reflec) > 0.039)
 	{
-		color_ray = mult_color((t_color2){(unsigned char)e->color_lst[i].r, \
-			(unsigned char)e->color_lst[i].g, \
-			(unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * \
-			(1 - e->l_obj[branch->id].ind_transp) * \
-			(1 - e->l_obj[branch->id].ind_reflec) / coef_t);
+		color_ray = e->l_obj[branch->id - 1].negatif > 0 ? \
+		mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned \
+		char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, \
+		branch->p_hit.coef / coef_t) : mult_color((t_color2){(unsigned \
+		char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, \
+		(unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - \
+		e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - \
+		1].ind_reflec) / coef_t);
 		pixel = add_color(pixel, color_ray);
 		i++;
 	}
