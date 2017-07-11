@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 16:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/10 19:38:46 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/11 14:46:20 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,35 @@
 // <<<<<<< HEAD
 // int			plane_check(char **def)
 // =======
-int 		sphere_check(char **def)
-{
-	if (!def[2][0])
-		return (1);
-	else if (!def[3][0] || !def[4][0] || !def[5][0])
-		return (2);
-	else if (!def[9][0] || !def[10][0] || !def[11][0])
-		return (4);
-	else if (!def[12][0] || ft_atoi(def[12]) < 1)
-		return (5);
-	return (-1);
-}
+// int 		sphere_check(char **def)
+// {
+// 	if (!def[2][0])
+// 		return (1);
+// 	else if (!def[3][0] || !def[4][0] || !def[5][0])
+// 		return (2);
+// 	else if (!def[9][0] || !def[10][0] || !def[11][0])
+// 		return (4);
+// 	else if (!def[12][0] || ft_atoi(def[12]) < 1)
+// 		return (5);
+// 	return (-1);
+// }
 
-int 		circle_check(char **def)
-{
-	if (!def[2][0])
-		return (1);
-	else if (!def[3][0] || !def[4][0] || !def[5][0])
-		return (2);
-	else if (!def[6][0] || !def[7][0] || !def[8][0])
-		return (3);
-	else if (!def[9][0] || !def[10][0] || !def[11][0])
-		return (4);
-	else if (!def[12][0] || ft_atoi(def[12]) < 1)
-		return (5);
-	// else if (!def[16][0] || ft_atoi(def[16]) < 1)
-	// 	return (5);
-	return (-1);
-}
+// int 		circle_check(char **def)
+// {
+// 	if (!def[2][0])
+// 		return (1);
+// 	else if (!def[3][0] || !def[4][0] || !def[5][0])
+// 		return (2);
+// 	else if (!def[6][0] || !def[7][0] || !def[8][0])
+// 		return (3);
+// 	else if (!def[9][0] || !def[10][0] || !def[11][0])
+// 		return (4);
+// 	else if (!def[12][0] || ft_atoi(def[12]) < 1)
+// 		return (5);
+// 	// else if (!def[16][0] || ft_atoi(def[16]) < 1)
+// 	// 	return (5);
+// 	return (-1);
+// }
 //
 // int 		circle_check(char **def)
 // >>>>>>> master

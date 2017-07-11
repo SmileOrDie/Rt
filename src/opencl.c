@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:56 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/10 18:54:50 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/11 14:37:44 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		ft_launch_calc(t_env *e, t_opencl *cl)
 	// global[1] = e->mlx->h / 2;
 	// printf("%d\n", err);
 	// printf("20\n");
-	global[0] = *(e->nb_obj_pix[0]);
+	n.global[0] = *(e->nb_obj_pix[0]);
 	// global[1] = 3;
 	// global[1] = e->mlx->w;
 	// printf("%d\n", e->cl_e->lst[0].id);
@@ -121,7 +121,7 @@ void		ft_launch_calc(t_env *e, t_opencl *cl)
 	// printf("light.g = %d\n", (e->light)[1].color.g);
 	// printf("light.b = %d\n", (e->light)[1].color.b);
 	// printf("21\n");
-	(n.err = clEnqueueNDRangeKernel(cl->command_queue, cl->kernel, 1, 0, global, 0, 0, 0, 0)) ? ft_error(KERNEL, ft_strjoin("clEnqueueNDRangeKernel", ft_itoa(n.err))) : 0;
+	(n.err = clEnqueueNDRangeKernel(cl->command_queue, cl->kernel, 1, 0, n.global, 0, 0, 0, 0)) ? ft_error(KERNEL, ft_strjoin("clEnqueueNDRangeKernel", ft_itoa(n.err))) : 0;
 	// printf("22\n");
 	// printf(" t_obj_size%ld\n", sizeof(t_obj));
 	// printf("sizeof(s_u) = %ld\n", sizeof(t_u));

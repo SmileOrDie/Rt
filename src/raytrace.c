@@ -6,33 +6,28 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/10 18:49:45 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/11 14:44:40 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 #include "../includes/norme.h"
 
-void				ft_debug(t_parse_obj *obj_list)
+void 		ft_debug(t_parse_obj *obj_list)
 {
-	t_parse_obj		*begin;
-	int				i;
+	// printf("ft_debug --------- \n");
+	t_parse_obj *begin;
+	int 		i = 0;
 
-	i = 0;
-// <<<<<<< HEAD
-// =======
-	short_dist = -1;
-	while (i < e->nb_obj)
+	begin = obj_list;
+	while (obj_list != NULL && obj_list->next != NULL)
 	{
-		dist = return_dist(e->l_obj[i], p_ray, v_ray);
-		if (dist >= 0.01 && (short_dist > dist || short_dist == -1))
-		{
-			*id = i;
-			short_dist = dist;
-		}
+		// printf("ft_debug --------- id =%d\n", obj_list->obj.id);
+		// printf("ft_debug -------- i = %d\n", i);
 		i++;
+		obj_list = obj_list->next;
 	}
-	return (short_dist);
+	obj_list = begin;
 }
 
 // t_vector		get_refrac(t_env *e, t_vector v_norm, t_vector v_dir, double ind_refrac)
@@ -186,13 +181,13 @@ t_parse_obj			*get_obj_list(t_env *e, t_three *current, t_three *branch)
 		n.search = search_obj(&n.rez, n.obj);
 		if (n.search == 1 && n.obj.type != 2 && n.obj.type != 6 && n.obj.type != 5)
 		{
-			tmp = malloc(sizeof(t_parse_obj));
+			n.tmp = malloc(sizeof(t_parse_obj));
 			if (current->id < 0)
-				tmp->obj = e->l_obj[-current->id - 1];
+				n.tmp->obj = e->l_obj[-current->id - 1];
 			else
-				tmp->obj = e->l_obj[current->id - 1];
-			tmp->next = n.rez;
-			n.rez = tmp;
+				n.tmp->obj = e->l_obj[current->id - 1];
+			n.tmp->next = n.rez;
+			n.rez = n.tmp;
 // >>>>>>> master
 		}
 		current = current->r_refrac;
@@ -202,10 +197,15 @@ t_parse_obj			*get_obj_list(t_env *e, t_three *current, t_three *branch)
 	return (n.rez);
 }
 
-int					ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj)
+int		ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj, t_three **three, int *id, t_env *e)
 {
-	t_parse_obj *tmp;
+	(void)three;
+	(void)id;
+	(void)e;
+	(void)list_obj;
+	(void)obj;
 
+	t_parse_obj *tmp;
 	tmp = list_obj;
 	if (obj.negatif == 0)
 	{
