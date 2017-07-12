@@ -82,8 +82,8 @@ t_obj				new_obj(t_envg *e)
 	(!ft_strcmp(e->line[1], "circle")) ? obj.type = 5 : 0;
 	(!ft_strcmp(e->line[1], "square")) ? obj.type = 6 : 0;
 	(!ft_strcmp(e->line[1], "cube")) ? obj.type = 7 : 0;
-	(!ft_strcmp(e->line[1], "cone_l")) ? obj.type = 8 : 0;
-	(!ft_strcmp(e->line[1], "cylinder_l")) ? obj.type = 9 : 0;
+	(!ft_strcmp(e->line[1], "cone_l")) || (obj.type == 4 && ft_atof(e->line[12]) != 0) ? obj.type = 8 : 0;
+	(!ft_strcmp(e->line[1], "cylinder_l")) || (obj.type == 3 && ft_atof(e->line[31]) != 0) ? obj.type = 9 : 0;
 	obj.id = e->e->nb_obj;
 	obj.radius = ft_atof(e->line[12]);
 	obj.ind_refrac = ft_atof(e->line[14]);

@@ -105,7 +105,7 @@ double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius);
 	if (ret != -1 && cyl.angle != 0)
 	{
-		if (sqrt(cyl.angle * cyl.angle + cyl.radius * cyl.radius) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret)))))
+		if (sqrt((double)(cyl.angle * cyl.angle) + cyl.radius * cyl.radius) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret)))))
 			return (ret);
 		return (-1.0);
 	}

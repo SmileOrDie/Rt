@@ -87,7 +87,7 @@ t_obj		inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *
 	}
 }
 
-uchar4		l_shine(uchar4 c, uchar4 color, double angle)
+uchar4		l_shine(uchar4 c, uchar4 color, double angle, double t)
 {
 	double 	power;
 	int4	clamp;
@@ -95,7 +95,7 @@ uchar4		l_shine(uchar4 c, uchar4 color, double angle)
 	clamp.r = c.r;
 	clamp.g = c.g;
 	clamp.b = c.b;
-	power = pow(ft_clamp(angle, 0, 1), 150);
+	power = pow(ft_clamp(angle, 0, 1), 150) / t * 100;
 	clamp.r += power * color.r;
 	clamp.g += power * color.g;
 	clamp.b += power * color.b;
@@ -193,6 +193,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 	uchar4		l_color;
 	uchar4		colorobj;
 	double		angles[e->nb_light + 1];
+	double		dist[e->nb_light + 1];
 	int			tab_obj_light_id[e->nb_obj * 2 + 1];
 	double		tab_obj_light_t[e->nb_obj * 2 + 1];
 	char		list_obj[e->nb_obj];
@@ -252,20 +253,20 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		angles[i] = vpscal(v_norm, vmult(v_light, -1));
 		if (angles[i] < 0)
 			angles[i] *= -1;
-		else if (angles[i] < 0)
-			angles[i] = 0;
 		calc = angles[i] / 255.0;
 		pixel.r + colorobj.r * l_color.r * calc < 255 ? (pixel.r += colorobj.r * l_color.r * calc) : (pixel.r = 255);
 		pixel.g + colorobj.g * l_color.g * calc < 255 ? (pixel.g += colorobj.g * l_color.g * calc) : (pixel.g = 255);
 		pixel.b + colorobj.b * l_color.b * calc < 255 ? (pixel.b += colorobj.b * l_color.b * calc) : (pixel.b = 255);
-		i++;
+		dist[i] = tab_obj_light_t[count];
+			if (tab_obj_light_t[count] == -1)
+		printf("il y a un problem ?\n");i++;
 	}
 	i = 0;
-	// while (i < e->nb_light)
-	// {
-	// 	pixel = l_shine(pixel, e->light[i].color, angles[i]);
-	// 	i++;
-	// }
+	while (i < e->nb_light)
+	{
+		pixel = l_shine(pixel, e->light[i].color, angles[i], dist[i]);
+		i++;
+	}
 	return (pixel);
 }
 
