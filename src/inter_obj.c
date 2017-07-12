@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interface_create_obj.c                             :+:      :+:    :+:   */
+/*   inter_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/28 15:36:18 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/12 17:27:17 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
+#include "../includes/norme.h"
 
 double			solve_quad(double a, double b, double c)
 {
@@ -38,21 +39,20 @@ double			solve_quad(double a, double b, double c)
 
 double			inter_sphere(t_obj sp, t_vector o, t_vector dir)
 {
-	t_vector		dist_s;
-	double		b;
+	t_vector	dist_s;
+	double		ab[2];
 	double		d;
 	double		t0;
 	double		t1;
-	double		a;
 
 	dist_s = vsub(sp.pos, o);
-	b = vpscal(dir, dist_s);
-	d = b * b - vpscal(dist_s, dist_s) + sp.radius * sp.radius;
+	ab[1] = vpscal(dir, dist_s);
+	d = ab[1] * ab[1] - vpscal(dist_s, dist_s) + sp.radius * sp.radius;
 	if (d <= 0.00001)
 		return (-1);
-	a = sqrt(d);
-	t0 = b - a;
-	t1 = b + a;
+	ab[0] = sqrt(d);
+	t0 = ab[1] - ab[0];
+	t1 = ab[1] + ab[0];
 	if (t0 > 0.00001 && (t1 < 0.00001 || t1 >= t0))
 		return (t0);
 	else if (t1 > 0.00001)
@@ -65,7 +65,7 @@ double			inter_plane(t_obj p, t_vector o, t_vector dir)
 	double		d;
 	double		nd;
 	double		te;
-	t_vector		qe;
+	t_vector	qe;
 
 	qe = vsub(p.pos, o);
 	d = vpscal(p.dir, qe);
@@ -80,67 +80,55 @@ double			inter_plane(t_obj p, t_vector o, t_vector dir)
 
 double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 {
-	double		t0;
-	double		t1;
-	double		a;
-	double		b;
-	double		c;
-	double		ret;
+	double		t[3];
+	double		abc[3];
 	t_vector	dp;
 	t_vector	tmp;
 	t_vector	tmp2;
 
 	dp = vsub(o, cyl.pos);
-	t0 = vpscal(dir, cyl.dir);
-	a = dir.x - t0 * cyl.dir.x;
-	b = dir.y - t0 * cyl.dir.y;
-	c = dir.z - t0 * cyl.dir.z;
-	tmp = new_v(a, b, c);
-	t1 = vpscal(dp, cyl.dir);
-	a = dp.x - t1 * cyl.dir.x;
-	b = dp.y - t1 * cyl.dir.y;
-	c = dp.z - t1 * cyl.dir.z;
-	tmp2 = new_v(a, b, c);
-	ret = solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
+	t[0] = vpscal(dir, cyl.dir);
+	abc[0] = dir.x - t[0] * cyl.dir.x;
+	abc[1] = dir.y - t[0] * cyl.dir.y;
+	abc[2] = dir.z - t[0] * cyl.dir.z;
+	tmp = new_v(abc[0], abc[1], abc[2]);
+	t[1] = vpscal(dp, cyl.dir);
+	abc[0] = dp.x - t[1] * cyl.dir.x;
+	abc[1] = dp.y - t[1] * cyl.dir.y;
+	abc[2] = dp.z - t[1] * cyl.dir.z;
+	tmp2 = new_v(abc[0], abc[1], abc[2]);
+	t[2] = solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
 			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius);
-	if (ret != -1 && cyl.angle != 0)
-	{
-		if (sqrt(cyl.angle * cyl.angle + cyl.radius * cyl.radius) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret)))))
-			return (ret);
-		return (-1.0);
-	}
-	return (ret);
+	if (t[2] != -1 && cyl.angle != 0)
+		return ((sqrt(cyl.angle * cyl.angle + cyl.radius * cyl.radius) >
+			vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, t[2]))))) ? t[2] : -1.0);
+	return (t[2]);
 }
 
 double			inter_cone(t_obj cone, t_vector o, t_vector dir)
 {
-	double		alpha;
-	t_vector	origin;
-	t_vector	tmp1;
-	t_vector	tmp2;
-	t_vector	dir_dir;
-	t_vector	o_dir;
-	double		ret;
+	t_norme1	n;
 
-	alpha = cone.angle / 180 * M_PI / 2;
-	origin = vsub(o, cone.pos);
-	dir_dir = vmult_dbl(cone.dir, vpscal(dir, cone.dir));
-	o_dir = vmult_dbl(cone.dir, vpscal(origin, cone.dir));
-	tmp1 = vsub(dir, dir_dir);
-	tmp2 = vsub(origin, o_dir);
-	ret = solve_quad(pow(cos(alpha), 2) * vpscal(tmp1, tmp1) - pow(sin(alpha),
-2) * pow(vpscal(dir, cone.dir), 2), 2 * (pow(cos(alpha), 2) * vpscal(tmp1,
-tmp2)) - 2 * (pow(sin(alpha), 2) * vpscal(dir, cone.dir) * vpscal(origin,
-cone.dir)), pow(cos(alpha), 2) * vpscal(tmp2, tmp2) - pow(sin(alpha), 2) *
-pow(vpscal( origin, cone.dir), 2));
-	if (ret != -1 && cone.radius != 0)
+	n.alpha = cone.angle / 180 * M_PI / 2;
+	n.origin = vsub(o, cone.pos);
+	n.dir_dir = vmult_dbl(cone.dir, vpscal(dir, cone.dir));
+	n.o_dir = vmult_dbl(cone.dir, vpscal(n.origin, cone.dir));
+	n.tmp1 = vsub(dir, n.dir_dir);
+	n.tmp2 = vsub(n.origin, n.o_dir);
+	n.ret = solve_quad(pow(cos(n.alpha), 2) * vpscal(n.tmp1, n.tmp1) - pow(sin(\
+n.alpha), 2) * pow(vpscal(dir, cone.dir), 2), 2 * (pow(cos(n.alpha), 2) * vpscal
+(n.tmp1, n.tmp2)) - 2 * (pow(sin(n.alpha), 2) * vpscal(dir, cone.dir) * vpscal(\
+n.origin, cone.dir)), pow(cos(n.alpha), 2) * vpscal(n.tmp2, n.tmp2) - pow(sin(\
+n.alpha), 2) * pow(vpscal(n.origin, cone.dir), 2));
+	if (n.ret != -1 && cone.radius != 0)
 	{
-		o_dir = vsub(cone.pos, vadd(o, vmult_dbl(dir, ret)));
-		dir_dir = o_dir;
-		vnorm(&dir_dir);
-		if (vpscal(dir_dir, cone.dir) > 0 && cone.radius / cos(cone.angle / 360 * M_PI) > vsize(o_dir))
-			return (ret);
+		n.o_dir = vsub(cone.pos, vadd(o, vmult_dbl(dir, n.ret)));
+		n.dir_dir = n.o_dir;
+		vnorm(&n.dir_dir);
+		if (vpscal(n.dir_dir, cone.dir) > 0 && cone.radius / cos(cone.angle / \
+			360 * M_PI) > vsize(n.o_dir))
+			return (n.ret);
 		return (-1);
 	}
-	return (ret);
+	return (n.ret);
 }

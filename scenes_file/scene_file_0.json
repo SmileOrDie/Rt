@@ -1,51 +1,98 @@
 {
 	"anti-aliasing" : 1,
-	"ambient" : 0.100000,
-}yÿ,
-}	{
-		"name": "sphere_left",
-		"radius" : 100.0,
-		"pos" :
-		{
-			"x" : -100.0,
-			"y" : -175.0,
-			"z" : 50.0
-		},
-		"ind_refrac" : 1.330000,
-		"ind_reflec" : 1.0,
-		"ind_transp" : 0.0,
-		"negatif" : 0,
-		"color" :
-		{
-			"r" : 0,
-			"g" : 255,
-			"b" : 255
-		},
-	},
-	"sphere" :
+	"ambient" : 0.0,
+	"square" :
 	{
-		"name": "sphere_rigth",
-		"radius" : 100.0,
+		"name": carre_center,
+		"radius" : 500.0,
 		"pos" :
 		{
-			"x" : 100.0,
-			"y" : -175.0,
-			"z" : 50.0
+			"x" : 0.0,
+			"y" : 0.0,
+			"z" : 250.0
 		},
 		"ind_refrac" : 1.330000,
-		"ind_reflec" : 1.0,
+		"ind_reflec" : 0.0,
 		"ind_transp" : 0.0,
 		"negatif" : 0,
 		"color" :
 		{
 			"r" : 255,
-			"g" : 255,
-			"b" : 255
+			"g" : 125,
+			"b" : 30
 		},
+		"angle" : 0,
+		"dir" :
+		{
+			"x" : 0.0,
+			"y" : 0.0,
+			"z" : 1.0
+		},
+
 	},
-	"plane" :
+	"square" :
 	{
-		"name": "plan_plafond",		"pos" :
+		"name": carre_center,
+		"radius" : 500.0,
+		"pos" :
+		{
+			"x" : 250.0,
+			"y" : 0.0,
+			"z" : 0.0
+		},
+		"ind_refrac" : 1.330000,
+		"ind_reflec" : 0.0,
+		"ind_transp" : 0.0,
+		"negatif" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 125,
+			"b" : 30
+		},
+		"angle" : 0,
+		"dir" :
+		{
+			"x" : 1.0,
+			"y" : 0.0,
+			"z" : 0.0
+		},
+
+	},
+	"square" :
+	{
+		"name": carre_center,
+		"radius" : 500.0,
+		"pos" :
+		{
+			"x" : -250.0,
+			"y" : 0.0,
+			"z" : 0.0
+		},
+		"ind_refrac" : 1.330000,
+		"ind_reflec" : 0.0,
+		"ind_transp" : 0.0,
+		"negatif" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 125,
+			"b" : 30
+		},
+		"angle" : 0,
+		"dir" :
+		{
+			"x" : 1.0,
+			"y" : 0.0,
+			"z" : 0.0
+		},
+
+	},
+	"square" :
+	{
+		"name": carre_center,
+		"radius" : 500.0,
+		"pos" :
 		{
 			"x" : 0.0,
 			"y" : 250.0,
@@ -57,10 +104,11 @@
 		"negatif" : 0,
 		"color" :
 		{
-			"r" : 123,
-			"g" : 183,
-			"b" : 255
+			"r" : 255,
+			"g" : 125,
+			"b" : 30
 		},
+		"angle" : 0,
 		"dir" :
 		{
 			"x" : 0.0,
@@ -69,9 +117,11 @@
 		},
 
 	},
-	"plane" :
+	"square" :
 	{
-		"name": "plan_sol",		"pos" :
+		"name": carre_center,
+		"radius" : 500.0,
+		"pos" :
 		{
 			"x" : 0.0,
 			"y" : -250.0,
@@ -87,13 +137,14 @@
 			"g" : 125,
 			"b" : 30
 		},
+		"angle" : 0,
 		"dir" :
 		{
 			"x" : 0.0,
 			"y" : 1.0,
 			"z" : 0.0
 		},
-		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
+
 	},
 	"light" :
 	{
@@ -167,68 +218,18 @@
 		"dist" : 150.0,
 	},
 	"image size" : [800, 500]
-}			"r" : 255,
-			"g" : 255,
-			"b" : 255,
-		},
-	},
-	"light" :
-	{
-		"name": "light3",
-		"pos" :
-		{
-			"x" : 0.0,
-			"y" : 70.0,
-			"z" : -350.0,
-		},
-		"color" :
-		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255,
-		},
-	},
-	"light" :
-	{
-		"name": "light1",
-		"pos" :
-		{
-			"x" : -70.0,
-			"y" : 70.0,
-			"z" : -250.0,
-		},
-		"color" :
-		{
-			"r" : 255,
-			"g" : 255,
-			"b" : 255,
-		},
-	},
-	"camera" :
-	{
-		"pos" :
-		{
-			"x" : 0.0,
-			"y" : 150.0,
-			"z" : -700.0,
+}
+			"b" : 0
 		},
 		"dir" :
 		{
 			"x" : 0.0,
-			"y" : 0.0,
-			"z" : 0.0,
+			"y" : 1.0,
+			"z" : 0.0
 		},
-		"up" :
-		{
-			"x" : 0.0,
-			"y" : -1.0,
-			"z" : 0.0,
-		},
-		"fov" : 60.0,
-		"dist" : 150.0,
+		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
 	},
-	"image size" : [800, 500]
-}" :
+	"sphere" :
 	{
 		"name": "sphere_1",
 		"radius" : 30.0,
