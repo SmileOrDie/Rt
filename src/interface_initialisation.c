@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 11:34:10 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/12 18:57:26 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/12 19:20:37 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		init_pos_value(t_envg *e)
 	e->pos_value[2] = 6;
 	while (i <= 15)
 	{
-		e->pos_value[i] = 9;
+		e->pos_value[i] = 8;
 		i++;
 	}
 	// e->pos_value[3] = 8;
