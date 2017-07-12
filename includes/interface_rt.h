@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 16:24:28 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/12 18:54:02 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,8 @@ void					get_img(t_mlx *mlx, t_mlx *img, char *str);
 */
 void     				init_envg(t_envg *e, t_env *env);
 void        		    init_mlx(t_envg *e);
+void					init_pos_value(t_envg *e);
+void					init_line_pos(t_envg *e);
 
 /*
 ** interface_tab.c
@@ -282,6 +284,15 @@ void					creat_elem(t_envg *e);
 void					creat_cam(t_envg *e);
 t_parse_obj				*srch_obj(t_envg *e, int id);
 t_parse_light			*srch_light(t_envg *e, int id);
+
+/*
+** interface_creat_obj2.c
+*/
+t_parse_obj				*srch_obj(t_envg *e, int id);
+t_parse_light			*srch_light(t_envg *e, int id);
+void					reset_line(char **line);
+t_light					new_light(t_envg *e);
+t_obj					new_obj(t_envg *e);
 
 /*
 **interface_selection_add.c
@@ -320,6 +331,15 @@ void					run_first(t_envg *e);
 ** interface_check_obj.c
 */
 int						check_var_obj(char **def);
+
+/*
+** interface_check_obj2.c
+*/
+void					check_new_obj(t_envg *e, t_obj *obj);
+int						sphere_check(char **def);
+int						circ_check(char **def);
+int						plane_check(char **def);
+int						cyl_check(char **def);
 
 /*
 ** interface_error.c

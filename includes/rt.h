@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/01 16:24:50 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/12 18:30:22 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,6 @@ void				filter_red(t_env *e, int x, int y);
 void				filter_blue(t_env *e, int x, int y);
 void				filter_green(t_env *e, int x, int y);
 void				filter_blur(t_env *e, int x, int y);
-void				filter_cartoon(t_env *e, int x, int y);
 
 //// parse obj
 void				ft_parse_obj_files1(char *name, t_env *e);
@@ -350,4 +349,5 @@ void				copy_cone(t_obj obj, int fd, t_env *e);
 void				copy_circle(t_obj obj, int fd, t_env *e);
 void				copy_rgb(t_obj obj, int fd);
 void				copy_pos(t_obj obj, int fd);
+
 #endif

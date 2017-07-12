@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 10:14:32 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/12 16:48:52 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ static void		init_mlx1(t_envg *e)
 			e->filter.blue == 1 ? e->e->filter_t = &filter_blue : 0;
 			e->filter.green == 1 ? e->e->filter_t = &filter_green : 0;
 			e->filter.red == 1 ? e->e->filter_t = &filter_red : 0;
-			e->filter.cartoon == 1 ? e->e->filter_t = &filter_cartoon : 0;
 }
 
 static void		event_touch(t_envg *e)

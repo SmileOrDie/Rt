@@ -119,6 +119,8 @@ int				keypress(int key, t_envg *e)
 		key_126(e);
 	else
 		return (1);
+	ft_creat_lst_obj(e->e);
+	ft_get_image_texture(e->e);
 	pthread_create(&e->thread, NULL, ft_launch, e->e);
 	return (1);
 }

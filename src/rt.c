@@ -240,6 +240,13 @@ void				*ft_launch(void *env)
 	// printf("Ft_lauch execution\n");
 	e = (t_env *)env;
 	// e->coef_t = coef;
+	printf("nb_obj = %d\n", e->nb_obj);
+	i = 0;
+	while (i < e->nb_obj)
+	{
+		printf("e->l_obj[i].id = %d name = %s type = %d\n", e->l_obj[i].id, e->l_obj[i].name, e->l_obj[i].type);
+		i++;
+	}
 	e->coef_t = malloc(sizeof(double) * e->mlx->w * e->mlx->h);
 	e->actual_indice = 1;
 	if (!(e->tab_three = (t_three **)malloc(sizeof(t_three *) * e->mlx->w * e->mlx->h)))
@@ -420,18 +427,17 @@ void			get_obj_lst(t_env *e, t_obj obj, int *i)
 	{
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].id = *i + 1;
-		e->l_obj[*i].type = 4;
+		e->l_obj[*i].type = 3;
 		(*i)++;
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].type = 5;
-		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.angle / 2));
-		e->l_obj[*i].radius = obj.radius;
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.angle / 2.0));
 		e->l_obj[*i].id = *i + 1;
 		(*i)++;
 		e->l_obj[*i] = obj;
 		e->l_obj[*i].type = 5;
-		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.angle / 2));
-		e->l_obj[*i].radius = obj.radius;
+		e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.angle / 2.0));
+		e->l_obj[*i].dir = vmult_dbl(obj.dir, -1);
 		e->l_obj[*i].id = *i + 1;
 	}
 }
@@ -460,6 +466,7 @@ void			ft_creat_lst_obj(t_env *e)
 		i++;
 	}
 	e->nb_obj = i;
+	printf("e->nb_obj = %d\n", e->nb_obj);
 	i = 0;
 	while (parse_light_b)
 	{

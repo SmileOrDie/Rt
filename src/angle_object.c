@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/07 14:59:16 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/12 15:32:56 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ t_vector		ft_angle_cylinder(t_obj obj, t_vector p_hit)
 	b.y = obj.dir.y * dist + obj.pos.y;
 	b.z = obj.dir.z * dist + obj.pos.z;
 	c = vsub(p_hit, b);
-	n2 = vpscal(c, c);
-	if (n2 > n)
+	if (((n2 = vpscal(c, c)) || 1) && n2 > n)
 	{
 		b.x = -(obj.dir.x * dist) + obj.pos.x;
 		b.y = -(obj.dir.y * dist) + obj.pos.y;
@@ -59,29 +58,25 @@ t_vector		ft_angle_cylinder(t_obj obj, t_vector p_hit)
 
 t_vector		ft_angle_cone(t_obj obj, t_vector p_hit)
 {
-	double		hypo;
-	double		opp;
-	double		adj;
+	double		x[5];
 	t_vector	b;
 	t_vector	c;
-	double		alpha;
-	double		dist;
 
-	alpha = M_PI * obj.angle / 180;
+	x[3] = M_PI * obj.angle / 180;
 	c = vsub(p_hit, obj.pos);
-	hypo = sqrt(vpscal(c, c));
-	adj = hypo * cos(alpha);
-	opp = adj * tan(alpha);
-	c.x = obj.dir.x * adj + obj.pos.x;
-	c.y = obj.dir.y * adj + obj.pos.y;
-	c.z = obj.dir.z * adj + obj.pos.z;
+	x[0] = sqrt(vpscal(c, c));
+	x[2] = x[0] * cos(x[3]);
+	x[1] = x[2] * tan(x[3]);
+	c.x = obj.dir.x * x[2] + obj.pos.x;
+	c.y = obj.dir.y * x[2] + obj.pos.y;
+	c.z = obj.dir.z * x[2] + obj.pos.z;
 	b = vsub(p_hit, c);
-	dist = sqrt(vpscal(b, b));
-	if ((float)dist > (float)opp)
+	x[4] = sqrt(vpscal(b, b));
+	if ((float)x[4] > (float)x[1])
 	{
-		c.x = obj.dir.x * -adj + obj.pos.x;
-		c.y = obj.dir.y * -adj + obj.pos.y;
-		c.z = obj.dir.z * -adj + obj.pos.z;
+		c.x = obj.dir.x * -x[2] + obj.pos.x;
+		c.y = obj.dir.y * -x[2] + obj.pos.y;
+		c.z = obj.dir.z * -x[2] + obj.pos.z;
 	}
 	c = vsub(p_hit, c);
 	vnorm(&c);

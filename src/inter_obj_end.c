@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:18 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/27 15:18:03 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/12 17:36:31 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,28 @@ double			inter_circle(t_obj p, t_vector o, t_vector dir)
 
 double			inter_square(t_obj p, t_vector o, t_vector dir)
 {
-	double		d;
-	double		nd;
-	double		te;
+	double		t[3];
 	t_vector	p_hit;
 	t_vector	u;
-	t_vector	cross;
+	t_vector	cros;
 
-	d = vpscal(p.dir, vsub(p.pos, o));
-	nd = vpscal(p.dir, dir);
-	te = d / nd;
-	if (nd < 0.00001 && nd > -0.00001)
+	t[0] = vpscal(p.dir, vsub(p.pos, o));
+	t[1] = vpscal(p.dir, dir);
+	t[2] = t[0] / t[1];
+	if (t[1] < 0.00001 && t[1] > -0.00001)
 		return (-1);
-	if (te > 0)
+	if (t[2] > 0)
 	{
-		cross = (p.dir.x == 1) ? (t_vector){0, 1, 0, 0} : (t_vector){1, 0, 0, 0};
-		p_hit = vadd(o, vmult_dbl(dir, te));
+		cros = (p.dir.x == 1) ? (t_vector){0, 1, 0, 0} : (t_vector){1, 0, 0, 0};
+		p_hit = vadd(o, vmult_dbl(dir, t[2]));
 		u = vsub(p_hit, p.pos);
-		cross = vcross(p.dir, cross);
-		cross = vrot(p.dir, p.angle, cross);
-		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
+		cros = vrot(p.dir, p.angle, vcross(p.dir, cros));
+		if (vpscal(cros, u) < p.radius / 2 && vpscal(cros, u) > -p.radius / 2)
 		{
-			cross = vcross(cross, p.dir);
-			if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
-				return (te);
+			cros = vcross(cros, p.dir);
+			if (vpscal(cros, u) < p.radius / 2 && vpscal(cros, u) > -p.radius
+				/ 2)
+				return (t[2]);
 		}
 	}
 	return (-1.0);

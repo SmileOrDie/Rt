@@ -130,7 +130,7 @@ int			search_obj(t_parse_obj **list_obj, t_obj obj)
 	begin = *list_obj;
 	while (begin)
 	{
-		if (obj.id == begin->obj.id || (obj.group != 0 && obj.group == begin->obj.group))
+		if ((obj.group == 0 && obj.id == begin->obj.id) || (obj.group != 0 && obj.group == begin->obj.group))
 		{
 			if (tmp)
 				tmp->next = begin->next;
