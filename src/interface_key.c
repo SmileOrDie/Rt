@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:32 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/10 16:25:35 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/13 14:54:05 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 
 static char	*ft_print_key_5(int key, t_envg *e)
 {
-	if (key == 9)
-		return ((e->shift == 1) ? "v" : "V");
-	if (key == 11)
-		return ((e->shift == 1) ? "b" : "B");
-	if (key == 45)
-		return ((e->shift == 1) ? "n" : "N");
-	if (key == 46)
-		return ((e->shift == 1) ? "m" : "M");
+	if (key == 9 || key == 11 || key == 45 || key == 46)
+		return (ft_print_key_5_2(key, e));
 	if (key == 43)
 		return ((e->shift == 1) ? "," : "<");
 	if (key == 47)
@@ -46,16 +40,8 @@ static char	*ft_print_key_5(int key, t_envg *e)
 
 static char	*ft_print_key_4(int key, t_envg *e)
 {
-	if (key == 5)
-		return ((e->shift == 1) ? "g" : "G");
-	if (key == 4)
-		return ((e->shift == 1) ? "h" : "H");
-	if (key == 38)
-		return ((e->shift == 1) ? "j" : "J");
-	if (key == 40)
-		return ((e->shift == 1) ? "k" : "K");
-	if (key == 37)
-		return ((e->shift == 1) ? "l" : "L");
+	if (key == 5 || key == 4 || key == 38 || key == 40 || key == 37)
+		return (ft_print_key_4_2(key, e));
 	if (key == 41)
 		return ((e->shift == 1) ? ";" : ":");
 	if (key == 39)

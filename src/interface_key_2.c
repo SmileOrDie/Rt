@@ -1,16 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_key_2.c                                   :+:      :+:    :+:   */
+/*   interface_key_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 12:37:13 by shamdani          #+#    #+#             */
-/*   Updated: 2017/04/14 14:57:49 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/13 15:09:23 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
+
+char		*ft_print_key_4_2(int key, t_envg *e)
+{
+	if (key == 5)
+		return ((e->shift == 1) ? "g" : "G");
+	else if (key == 4)
+		return ((e->shift == 1) ? "h" : "H");
+	else if (key == 38)
+		return ((e->shift == 1) ? "j" : "J");
+	else if (key == 40)
+		return ((e->shift == 1) ? "k" : "K");
+	else //(key == 37)
+		return ((e->shift == 1) ? "l" : "L");
+}
+
+char		*ft_print_key_5_2(int key, t_envg *e)
+{
+	if (key == 9)
+		return ((e->shift == 1) ? "v" : "V");
+	else if (key == 11)
+		return ((e->shift == 1) ? "b" : "B");
+	else if (key == 45)
+		return ((e->shift == 1) ? "n" : "N");
+	else
+		return ((e->shift == 1) ? "m" : "M");
+}
 
 static char	*ft_print_key_8(int key, t_envg *e)
 {

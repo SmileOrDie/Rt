@@ -6,13 +6,13 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 18:34:24 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 14:34:27 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/13 17:59:40 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void	add_line(char *dest, char *src, int f)
+void			add_line(char *dest, char *src, int f)
 {
 	int d;
 
@@ -31,7 +31,7 @@ void	add_line(char *dest, char *src, int f)
 	}
 }
 
-void	del_line(t_envg *e)
+void			del_line(t_envg *e)
 {
 	int len;
 
@@ -39,11 +39,20 @@ void	del_line(t_envg *e)
 	e->line[e->pos][len - 1] = '\0';
 }
 
-void	print_line(t_envg *e, int line, int precision)
+static void		mlx_put_string(t_envg *e, int line, char *string)
 {
-	char *string;
-	int len;
-	static int f = 1;
+	e->volet.info == 1 ? line -= 40 : 0;
+	mlx_string_put(e->mlx->mlx, e->mlx->win, e->line_pos[line].w + 6,
+		e->line_pos[line].h + 4, 0xffffff, string);
+	if (string)
+		free(string);
+}
+
+void			print_line(t_envg *e, int line, int precision)
+{
+	char		*string;
+	int			len;
+	static int	f = 1;
 
 	len = ft_strlen(e->line[line]);
 	if (e->f_key == 1)
@@ -53,22 +62,14 @@ void	print_line(t_envg *e, int line, int precision)
 			f = 0;
 			clean_str(&e->line[line], 1);
 		}
-		if (len > precision)
-			string = ft_strsub(e->line[line], len - precision, precision);
-		else
-			string = ft_strdup(e->line[line]);
+		string = (len > precision) ? ft_strsub(e->line[line], len - precision,
+				precision) : ft_strdup(e->line[line]);
 	}
 	else
 	{
 		f = 1;
-		if (len > precision)
-			string = ft_strsub(e->line[line], 0, precision);
-		else
-			string = ft_strdup(e->line[line]);
+		string = (len > precision) ? ft_strsub(e->line[line], 0,
+			precision) : ft_strdup(e->line[line]);
 	}
-	e->volet.info == 1 ? line -= 40 : 0;
-	mlx_string_put(e->mlx->mlx, e->mlx->win, e->line_pos[line].w + 6,
-		e->line_pos[line].h + 4, 0xffffff, string);
-	if (string)
-		free(string);
+	mlx_put_string(e, line, string);
 }
