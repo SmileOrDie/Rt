@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/12 18:54:02 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/14 16:07:34 by sindro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,9 +199,17 @@ typedef struct			s_envg
 }						t_envg;
 
 int						keypress(int key, t_envg *e);
+
+/*
+** interface_modify_delete_2.c
+*/
+void			del_light(t_envg *e, int i);
+void			del_obj(t_envg *e, int i);
+
 /*
 ** interface_modify_delete.c
 */
+void					ft_strcpy_nbr(char **dest, double d);
 void 					modif_light(t_envg *e, int light);
 void					modif_list(t_envg *e, int obj);
 void					del_elem(t_envg *e, int i);
@@ -232,7 +240,9 @@ void					ft_exit(t_envg *e);
 /*
 ** interface_key_2.c
 */
+char					*ft_print_key_4_2(int key, t_envg *e);
 char					*ft_print_key_6(int key, t_envg *e);
+char 					*ft_print_key_5_2(int key, t_envg *e);
 
 /*
 ** interface_key.c
