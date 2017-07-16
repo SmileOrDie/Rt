@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/05 16:10:37 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/16 19:21:27 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,6 @@ int				add_tab(t_envg *e)
 	return ((save == -1) ? 0 : save);
 }
 
-static void		conf_tab2(t_envg *e, int i)
-{
-	int nb;
-	t_parse_light *b;
-
-	b = e->e->parse_light;
-	nb = 0;
-	while (b)
-	{
-		nb++;
-		b = b->next;
-	}
-	while (i < 27)
-	{
-		e->pos = i;
-		load_img(e, e->pos_value[i]);
-		print_line(e, i, 3);
-		i++;
-	}
-	put_img7(e);
-	load_img(e, 21);
-	load_img(e, 24);
-	(e->i_lst > 3) ? load_img(e, 22) : 0;
-	(nb > e->page + 3) ? load_img(e, 23) : 0;
-}
-
 int				conf_tab(t_envg *e)
 {
 	int		i;
@@ -77,25 +51,7 @@ int				conf_tab(t_envg *e)
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};
 	save = e->pos;
 	load_img(e, 3);
-	if (e->mod == 1)
-	{
-		while (i <= 15)
-		{
-			e->pos = i;
-			load_img(e, e->pos_value[i]);
-			print_line(e, i, (i > 2) ? 3 : 30);
-			if (i == 15)
-			{
-				e->pos = 31;
-				load_img(e, e->pos_value[e->pos]);
-				print_line(e, e->pos, 3);
-			}
-			i++;
-		}
-		load_img(e, 29);
-	}
-	else
-		conf_tab2(e, 18);
+	conf_tab3(e, i);
 	load_img(e, 20);
 	return ((save == -2) ? 0 : save);
 }

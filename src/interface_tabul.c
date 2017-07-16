@@ -6,18 +6,18 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:01:16 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/29 11:52:35 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/16 19:28:00 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-char 		*tabulation(t_tabu *t, int id)
+char		*tabulation(t_tabu *t, int id)
 {
 	char			*ret;
 	struct stat		sb;
 	struct dirent	*dp;
-	char 			path[300];
+	char			path[300];
 
 	ret = NULL;
 	t->dirp = opendir(t->name_path);
@@ -35,7 +35,7 @@ char 		*tabulation(t_tabu *t, int id)
 			if (t->index == id)
 				ret = ft_strdup(path);
 			t->index++;
-		}		
+		}
 	}
 	closedir(t->dirp);
 	return (ret);
@@ -43,8 +43,8 @@ char 		*tabulation(t_tabu *t, int id)
 
 void		switch_tabul(t_envg *e)
 {
-	static int i_tex = 0;
-	static int i_scene = 0;
+	static int	i_tex = 0;
+	static int	i_scene = 0;
 	char		*string;
 
 	e->tab_texture.name_path = "texture_file/";
@@ -55,7 +55,6 @@ void		switch_tabul(t_envg *e)
 		string != NULL ? ft_strcpy(e->line[e->pos], string) : 0;
 		i_tex = (i_tex < e->tab_texture.index - 1) ? i_tex + 1 : 0;
 		free(string);
-
 	}
 	else if (e->pos == 42)
 	{

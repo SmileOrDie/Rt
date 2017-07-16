@@ -6,13 +6,13 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 17:37:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/12 18:31:41 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/16 19:29:28 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void				check_new_obj(t_envg *e, t_obj *obj)
+void		check_new_obj(t_envg *e, t_obj *obj)
 {
 	(!ft_strcmp(e->line[1], "sphere")) ? obj->type = 1 : 0;
 	(!ft_strcmp(e->line[1], "plane")) ? obj->type = 2 : 0;
@@ -21,7 +21,8 @@ void				check_new_obj(t_envg *e, t_obj *obj)
 	(!ft_strcmp(e->line[1], "circle")) ? obj->type = 5 : 0;
 	(!ft_strcmp(e->line[1], "square")) ? obj->type = 6 : 0;
 	(!ft_strcmp(e->line[1], "cube")) ? obj->type = 7 : 0;
-	(!ft_strcmp(e->line[1], "cone_l")) || (obj->type == 4 && ft_atof(e->line[12])
+	(!ft_strcmp(e->line[1], "cone_l")) || (obj->type == 4 &&
+		ft_atof(e->line[12])
 		!= 0) ? obj->type = 8 : 0;
 	(!ft_strcmp(e->line[1], "cylinder_l")) || (obj->type == 3 &&
 		ft_atof(e->line[31]) != 0) ? obj->type = 9 : 0;

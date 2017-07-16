@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:29:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/05 15:04:39 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/16 18:56:58 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,27 @@ static int	select_obj(t_envg *e, int y)
 	return (e->pos);
 }
 
-static int	select_add_1(t_envg *e, int x, int y, int i)
+static int	select_add_3(t_envg *e, int x, int y, int *i)
 {
-	t_parse_obj *b;
+	while (*i <= 2)
+	{
+		if (x > e->line_pos[*i].w && x < e->line_pos[*i].w + 317 &&
+			y > e->line_pos[*i].h && y < e->line_pos[*i].h + 30)
+			return (*i);
+		*i += 1;
+	}
+	while (*i <= 15)
+	{
+		if (x > e->line_pos[*i].w && x < e->line_pos[*i].w + 40 &&
+			y > e->line_pos[*i].h && y < e->line_pos[*i].h + 30)
+			return (*i);
+		*i += 1;
+	}
+	return (0);
+}
 
-	if (e->pos == 1 && x > e->line_pos[e->pos].w &&
-		x < e->line_pos[e->pos].w + 317 && y > e->line_pos[e->pos].h)
-	 	return (select_obj(e, y));
-	while (++i <= 2)
-	{
-		if (x > e->line_pos[i].w && x < e->line_pos[i].w + 317 &&
-			y > e->line_pos[i].h && y < e->line_pos[i].h + 30)
-			return (i);
-	}
-	while (i <= 15)
-	{
-		if (x > e->line_pos[i].w && x < e->line_pos[i].w + 40 &&
-			y > e->line_pos[i].h && y < e->line_pos[i].h + 30)
-			return (i);
-		i++;
-	}
-	if (x > e->line_pos[31].w && x < e->line_pos[31].w + 40 &&
-			y > e->line_pos[31].h && y < e->line_pos[31].h + 30)
-			return (31);
-	i = 0;
-	b = e->e->parse_obj;
-	while (b)
-	{
-		if (b->obj.id == e->obj + e->page)
-			break;
-		b = b->next;
-	}
+static int	select_add_2(t_envg *e, int x, int y, int i)
+{
 	while (i < 3)
 	{
 		if (x > 40 && x < 60 && y > 600 + (i * 30) && y < 620 + (i * 30))
@@ -82,11 +72,37 @@ static int	select_add_1(t_envg *e, int x, int y, int i)
 	}
 	if (x > 160 && x < 180 && y > 490 && y < 510)
 		e->line[30][1] = (e->line[30][1] == 1) ? 0 : 1;
-	else if ( e->page > 2 && x > 50 && x < 100 && y > 715 && y < 736)
+	else if (e->page > 2 && x > 50 && x < 100 && y > 715 && y < 736)
 		e->page -= 3;
-	else if (e->page + 3  < e->e->nb_tex && x > 258 && x < 356 && y > 715 && y < 736)
+	else if (e->page + 3 < e->e->nb_tex && x > 258 && x < 356 && y > 715 &&
+		y < 736)
 		e->page += 3;
 	e->volet.add == 0 ? conf_tab(e) : add_tab(e);
+	return (0);
+}
+
+static int	select_add_1(t_envg *e, int x, int y, int i)
+{
+	t_parse_obj *b;
+
+	if (e->pos == 1 && x > e->line_pos[e->pos].w &&
+		x < e->line_pos[e->pos].w + 317 && y > e->line_pos[e->pos].h)
+		return (select_obj(e, y));
+	if (select_add_3(e, x, y, &i) != 0)
+		return (i);
+	if (x > e->line_pos[31].w && x < e->line_pos[31].w + 40 &&
+			y > e->line_pos[31].h && y < e->line_pos[31].h + 30)
+		return (31);
+	i = 0;
+	b = e->e->parse_obj;
+	while (b)
+	{
+		if (b->obj.id == e->obj + e->page)
+			break ;
+		b = b->next;
+	}
+	if (select_add_2(e, x, y, i) == 16)
+		return (16);
 	return (16);
 }
 
@@ -104,7 +120,7 @@ int			select_add(t_envg *e, int x, int y)
 		e->pos = i;
 		if (e->volet.add == 1 && e->error == -1)
 			creat_elem(e);
-		else if(e->mod == 1 && e->volet.conf == 1 && e->error == -1)
+		else if (e->mod == 1 && e->volet.conf == 1 && e->error == -1)
 		{
 			creat_elem(e);
 			(e->light == -1) ?

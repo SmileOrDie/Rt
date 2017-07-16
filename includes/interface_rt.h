@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/14 16:07:34 by sindro           ###   ########.fr       */
+/*   Updated: 2017/07/16 19:20:40 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,13 @@ char					*ft_print_key(int key, t_envg *e);
 int     				mouss_click(int button, int x, int y, t_envg *e);
 
 /*
+** interface_mouse_2
+*/
+int						select_pos(t_envg *e, int x, int y);
+void					volet_target(t_envg *e);
+void					mousse_click_x(t_envg *e, int x);
+
+/*
 ** interface_xpm_file.c
 */
 void					load_img(t_envg *e, int img);
@@ -279,6 +286,7 @@ void					del_tab(t_envg *e);
 /*
 ** interface_tab_2.c
 */
+void					conf_tab3(t_envg *e, int i);
 void					info_tab(t_envg *e);
 
 /*
@@ -328,6 +336,13 @@ void					put_img(t_envg *e, int img);
 
 /*
 ** interface_put_img_2.c
+*/
+void		put_img4(t_envg *e);
+void		put_img5_2(t_envg *e);
+void		put_img5(t_envg *e);
+
+/*
+** interface_put_img_3.c
 */
 void					put_img6(t_envg *e);
 void					put_img7(t_envg *e);

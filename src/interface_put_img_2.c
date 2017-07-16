@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   interface_put_img_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/30 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/06/30 11:37:27 by shamdani         ###   ########.fr       */
+/*   Created: 2017/07/16 17:04:57 by phmoulin          #+#    #+#             */
+/*   Updated: 2017/07/16 17:08:24 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-
-void		put_img5(t_envg *e)
+void		put_img4(t_envg *e)
 {
-	int img;
-	char *str;
-	t_parse_light *b;
+	int				img;
+	char			*str;
+	t_parse_light	*b;
 
 	img = e->page + 3;
 	e->i_lst = e->page;
@@ -32,50 +31,59 @@ void		put_img5(t_envg *e)
 		get_img(e->mlx, &e->img, "./xpm_file/Modify.xpm");
 		str = ft_strdup(b->light.name);
 		mlx_string_put(e->mlx->mlx, e->mlx->win,
-			90, 400 + ((e->i_lst % 3)* 30), 0xFFFFFF, str);
+			90, 400 + ((e->i_lst % 3) * 30), 0xFFFFFF, str);
 		free(str);
 		e->i_lst++;
 		b = b->next;
 	}
 }
 
-void		put_img6(t_envg *e)
+void		put_img5_2(t_envg *e)
 {
-	if (!e->line[41][0])
-		get_img(e->mlx, &e->img, "./xpm_file/Send.xpm");
+	if (e->line[30][1] == 1)
+		get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
 	else
-		get_img(e->mlx, &e->img, "./xpm_file/send_v.xpm");
+		get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
 	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
-		290, 240);
-	if (!e->line[42][0])
-		get_img(e->mlx, &e->img, "./xpm_file/Send.xpm");
-	else
-		get_img(e->mlx, &e->img, "./xpm_file/send_v.xpm");
-	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
-		290, 295);
-	if (e->e->nb_obj > 0 && e->e->cam != NULL)
-		get_img(e->mlx, &e->img, "./xpm_file/Save_scene_v.xpm");
-	else
-		get_img(e->mlx, &e->img, "./xpm_file/Save_scene_f.xpm");
-	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
-		40, 330);
-	if (e->e && e->e->mlx->img != NULL)
-		get_img(e->mlx, &e->img, "./xpm_file/Save_img_v.xpm");
-	else
-		get_img(e->mlx, &e->img, "./xpm_file/Save_img_f.xpm");
-	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
-		145, 330);
+			160, 490);
+	mlx_string_put(e->mlx->mlx, e->mlx->win,
+			185, 490, 0xFFFFFF, "Neg");
+	if (e->page + 3 < e->e->nb_tex)
+	{
+		get_img(e->mlx, &e->img, "./xpm_file/next.xpm");
+		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			250, HE - 250);
+	}
+	if (e->page >= 3)
+	{
+		get_img(e->mlx, &e->img, "./xpm_file/previous.xpm");
+		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			50, HE - 250);
+	}
 }
 
-void		put_img7(t_envg *e)
+void		put_img5(t_envg *e)
 {
-	char *anti_a;
+	char					*str;
+	unsigned char			i;
+	t_parse_obj				*obj;
 
-	anti_a = ft_itoa(e->e->anti_a);
-	get_img(e->mlx, &e->img, "xpm_file/Anti_a.xpm");
-	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
-			45, 600);
-	mlx_string_put(e->mlx->mlx, e->mlx->win,
-			75, 622, 0x000000, anti_a);
-	free(anti_a);
+	i = e->page;
+	printf("nb tex = %d i = %d\n", e->e->nb_tex, i);
+	obj = srch_obj(e, e->obj);
+	while (i < e->page + 3 && i < e->e->nb_tex)
+	{
+		if (e->line[30][0] == i + 1)
+			get_img(e->mlx, &e->img, "./xpm_file/Select_On.xpm");
+		else
+			get_img(e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
+		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
+			40, 600 + ((i % 3) * 30));
+		str = ft_strdup(e->e->path_tex[i]);
+		mlx_string_put(e->mlx->mlx, e->mlx->win,
+			70, 600 + ((i % 3) * 30), 0xFFFFFF, str);
+		free(str);
+		i++;
+	}
+	put_img5_2(e);
 }

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/05 16:16:50 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/16 19:00:56 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,8 @@ static int	select_conf2_2(t_envg *e, int x, int y, int i)
 	return (-1);
 }
 
-static int	select_conf2(t_envg *e, int x, int y)
+static void	select_conf3(t_envg *e, int x, int y, int nb)
 {
-	int i;
-	int nb;
-	t_parse_light *b;
-
-	b = e->e->parse_light;
-	nb = 0;
-	while (b)
-	{
-		nb++;
-		b = b->next;
-	}
-	i = -1;
-	while (++i < 3 && i < nb)
-	{
-		if (select_conf2_1(e, x, y, i))
-			return (0);
-	}
 	if (x > 307 && x < 327 && y > 500 && y < 520 && nb > e->page + 3)
 	{
 		e->light = 1;
@@ -105,7 +88,29 @@ static int	select_conf2(t_envg *e, int x, int y)
 		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a + 1) * e->e->anti_a;
 		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a + 1) * e->e->anti_a;
 	}
-	else if (x > 91 && x < 113 && y > 624 && y < 648 && e->e->anti_a < 7)
+}
+
+static int	select_conf2(t_envg *e, int x, int y)
+{
+	int				i;
+	int				nb;
+	t_parse_light	*b;
+
+	b = e->e->parse_light;
+	nb = 0;
+	while (b)
+	{
+		nb++;
+		b = b->next;
+	}
+	i = -1;
+	while (++i < 3 && i < nb)
+	{
+		if (select_conf2_1(e, x, y, i))
+			return (0);
+	}
+	select_conf3(e, x, y, nb);
+	if (x > 91 && x < 113 && y > 624 && y < 648 && e->e->anti_a < 7)
 	{
 		e->e->anti_a++;
 		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a - 1) * e->e->anti_a;

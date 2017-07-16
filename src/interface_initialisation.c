@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 11:34:10 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/12 19:20:37 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/16 19:30:39 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ void		init_pos_value(t_envg *e)
 		e->pos_value[i] = 8;
 		i++;
 	}
-	// e->pos_value[3] = 8;
-	// e->pos_value[4] = 8;
-	// e->pos_value[5] = 8;
-	// e->pos_value[6] = 8;
-	// e->pos_value[7] = 8;
-	// e->pos_value[8] = 8;
-	// e->pos_value[9] = 8;
-	// e->pos_value[10] = 8;
-	// e->pos_value[11] = 8;
-	// e->pos_value[12] = 8;
-	// e->pos_value[13] = 8;
-	// e->pos_value[14] = 8;
-	// e->pos_value[15] = 8;
 	e->pos_value[16] = 14;
 	e->pos_value[18] = 18;
 	e->pos_value[19] = 8;
