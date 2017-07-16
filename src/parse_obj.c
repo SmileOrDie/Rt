@@ -6,7 +6,7 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/27 15:13:51 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/07/16 20:36:52 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,7 @@ void	get_texture(char *line, int *x, t_env *e)
 
 	y = 0;
 	get_string(line, x, &path);
-	while ((e->path_tex)[y] != NULL)
-	{
-		if (ft_strcmp(path, (e->path_tex)[y]) == 0)
-		{
-			e->parse_obj->obj.id_texture = y + 1;
-			break ;
-		}
-		y++;
-	}
+	y = get_texture_2(e, y, path);
 	if ((e->path_tex)[y] == NULL)
 	{
 		new = malloc(sizeof(char*) * (y + 2));
@@ -51,6 +43,7 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 	int y;
 	int tmp;
 
+	y = 0;
 	if (ft_strcmp(rez, "radius") == 0 && ((y = *x) || 1))
 	{
 		if (((tmp = get_number(line, x)) || 1) && tmp != 0)
@@ -70,11 +63,7 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 	else if (ft_strcmp(rez, "texture") == 0)
 		get_texture(line, x, e);
 	else if (ft_strcmp(rez, "negatif") == 0)
-	{
-		y = *x;
-		if ((tmp = get_number(line, x)) && tmp == 1)
-			e->parse_obj->obj.negatif = ft_clamp(ft_atoi(line + y), 0, 1);
-	}
+		add_obj22_2(e, x, y, line);
 }
 
 void	add_obj23(char *line, int *x, t_env *e, char *rez)
@@ -101,12 +90,7 @@ void	add_obj23(char *line, int *x, t_env *e, char *rez)
 		else
 			ft_error(N_NUM, "add_obj23");
 	else if (ft_strcmp(rez, "angle") == 0 && ((y = *x) || 1))
-	{
-		if ((tmp = get_number(line, x)))
-			e->parse_obj->obj.angle = ft_for_atof(line, y, *x);
-		else
-			ft_error(N_NUM, "add_obj23");
-	}
+		add_obj23_2(e, x, y, line);
 }
 
 void	add_obj24(char *line, int *x, t_env *e, char *rez)
@@ -125,7 +109,6 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 	static int	group = 1;
 	char		*rez;
 
-
 	e->parse_obj->obj.id = id;
 	e->parse_obj->obj.type = type;
 	e->parse_obj->obj.group = (type == 7) ? group : 0;
@@ -136,29 +119,12 @@ void	add_obj2(char *line, int *x, t_env *e, int type)
 		get_string(line, x, &rez);
 		free_space(line, x);
 		line[*x] != ':' ? ft_error(J_SON, "add_obj2") : ((*x)++);
-		free_space(line, x);
-		add_obj23(line, x, e, rez);
-		add_obj24(line, x, e, rez);
-		free_space(line, x);
-		free(rez);
+		add_obj2_3(e, line, x, rez);
 		if (line[*x] != ',')
 			break ;
 		line[*x] == ',' ? (*x)++ : 0;
 		free_space(line, x);
 	}
-	free_space(line, x);
-	if (e->parse_obj->obj.type == 4 && e->parse_obj->obj.radius != 0)
-	{
-		e->parse_obj->obj.type = 8;
-		e->parse_obj->obj.group = group;
-		group++;
-	}
-	if (e->parse_obj->obj.type == 3 && e->parse_obj->obj.angle != 0)
-	{
-		e->parse_obj->obj.type = 3;
-		e->parse_obj->obj.group = group;
-		group++;
-	}
-	e->group_max = group;
+	group = add_obj2_2(e, group, line, x);
 	id++;
 }
