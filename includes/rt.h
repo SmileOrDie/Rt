@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/12 18:30:22 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/16 20:40:56 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,16 @@ void				free_space(char *line, int *x);
 int					get_string(char *line, int *x, char **str);
 int					get_number(char *line, int *x);
 void				add_obj2(char *line, int *x, t_env *e, int type);
+int					add_obj2_2(t_env *e, int group, char *line, int *x);
+void				add_obj2_3(t_env *e, char *line, int *x, char *rez);
+void				get_texture(char *line, int *x, t_env *e);
+int					get_texture_2(t_env *e, int y, char *path);
+void				add_obj22(char *line, int *x, t_env *e, char *rez);
+void				add_obj22_2(t_env *e, int *x, int y, char *line);
+void				add_obj23(char *line, int *x, t_env *e, char *rez);
+void				add_obj23_2(t_env *e, int *x, int y, char *line);
+void				add_obj24(char *line, int *x, t_env *e, char *rez);
+
 t_vector			get_t_vector(char *line, int *x, int norme);
 t_color2			get_t_color(char *line, int *x);
 int					get_object(char *line, int *x, t_env *e, char *name);

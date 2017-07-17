@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 13:32:28 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/01 16:29:56 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/17 13:27:32 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ static int		save_obj(t_env *e, t_parse_obj *obj, int fd)
 
 void			save_scene(t_env *e, char *id, int fd)
 {
-    static int  i = 0;
-	t_parse_obj		 *obj;
-	t_parse_light	 *light;
-    char             name[256];
+	static int		i = 0;
+	t_parse_obj		*obj;
+	t_parse_light	*light;
+	char			name[256];
 
 	light = e->parse_light;
 	fd = -1;
 	obj = NULL;
 	obj = e->parse_obj;
-    id = ft_itoa(i);
-    ft_strcpy(name, "./scenes_file/scene_file_");
-    ft_strcat(name, id);
-    ft_strcat(name, ".json");
+	id = ft_itoa(i);
+	ft_strcpy(name, "./scenes_file/scene_file_");
+	ft_strcat(name, id);
+	ft_strcat(name, ".json");
 	if ((fd = open(name, O_CREAT | O_WRONLY, 0644)) <= 0)
 		ft_error("fichier deja existant", " save_scene");
 	ft_putstr_fd(fd, "{\n\t\"anti-aliasing\" : ", ft_itoa(e->anti_a), NULL);
@@ -63,6 +63,6 @@ void			save_scene(t_env *e, char *id, int fd)
 	save_light_and_cam(e, fd, light);
 	ft_putstr_fd(fd, "}", NULL);
 	close(fd);
-    free(id);
-    i++;
+	free(id);
+	i++;
 }
