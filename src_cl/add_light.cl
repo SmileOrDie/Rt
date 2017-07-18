@@ -10,40 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double2 tr, int *tab_obj_light_id, double *tab_obj_light_t)
+void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double2 tr, int *tab_obj_light_id, double *tab_obj_light_t, int part2)
 {
 	int			x;
 	int			y;
 
+	// printf("je passe ici\n");
 	x = 0;
-	y = 0;
-	if (tr[0] != -1)
+	y = e->nb_obj * 2;
+	while (x < e->nb_obj * 2 && tab_obj_light_t[x] <= tr[0])
+		x++;
+	while (y > x)
 	{
-		while (x < e->nb_obj && tab_obj_light_t[x] != -1 && tab_obj_light_t[x] <= tr[0])
-			x++;
-		while (y < e->nb_obj && tab_obj_light_t[y] != -1)
-			y++;
-		y++;
-		while (y > x)
-		{
-			tab_obj_light_id[y] = tab_obj_light_id[y - 1];
-			tab_obj_light_t[y] = tab_obj_light_t[y - 1];
-			y--;
-		}
-		tab_obj_light_id[x] = id;
-		tab_obj_light_t[x] = tr[0];
+		tab_obj_light_id[y] = tab_obj_light_id[y - 1];
+		tab_obj_light_t[y] = tab_obj_light_t[y - 1];
+		y--;
 	}
-
-
-	if (tr[1] != -1)
+	tab_obj_light_id[x] = id;
+	tab_obj_light_t[x] = tr[0];
+	if (part2)
 	{
 		x = 0;
-		y = 0;
-		while (x < e->nb_obj && tab_obj_light_t[x] != -1 && tab_obj_light_t[x] <= tr[1])
+		y = e->nb_obj * 2;
+		while (x < e->nb_obj * 2 && tab_obj_light_t[x] <= tr[1])
 			x++;
-		while (y < e->nb_obj && tab_obj_light_t[y] != -1)
-			y++;
-		y++;
 		while (y > x)
 		{
 			tab_obj_light_id[y] = tab_obj_light_id[y - 1];
@@ -53,32 +43,35 @@ void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double2 tr, int *ta
 		tab_obj_light_id[x] = id;
 		tab_obj_light_t[x] = tr[1];
 	}
+	// printf("je repars la\n");
 }
 
 t_obj		inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int *tab_obj_light_id, double *tab_obj_light_t)
 {
 	int			i;
 	double2		dist;
+	int 		toucher;
 
 	i = 0;
 	while (i < e->nb_obj)
 	{
+		toucher = 1;
 		if (e->l_obj[i].type == 1)
-			dist = inter_sphere(e->l_obj[i], p_ray, v_ray);
+			dist = inter_sphere(e->l_obj[i], p_ray, v_ray, &toucher);
 		else if (e->l_obj[i].type == 2)
-			dist = inter_plane(e->l_obj[i], p_ray, v_ray);
+			dist = inter_plane(e->l_obj[i], p_ray, v_ray, &toucher);
 		else if (e->l_obj[i].type == 3)
-			dist = inter_cylinder(e->l_obj[i], p_ray, v_ray);
+			dist = inter_cylinder(e->l_obj[i], p_ray, v_ray, &toucher);
 		else if (e->l_obj[i].type == 4)
-			dist = inter_cone(e->l_obj[i], p_ray, v_ray);
+			dist = inter_cone(e->l_obj[i], p_ray, v_ray, &toucher);
 		else if (e->l_obj[i].type == 5)
-			dist = inter_circle(e->l_obj[i], p_ray, v_ray);
+			dist = inter_circle(e->l_obj[i], p_ray, v_ray, &toucher);
 		else if (e->l_obj[i].type == 6)
-			dist = inter_square(e->l_obj[i], p_ray, v_ray);
+			dist = inter_square(e->l_obj[i], p_ray, v_ray, &toucher);
 		// else
  			// printf("nouvel obj = %d i = %d\n", e->l_obj[i].type, i);
-		if (dist[0] != -1)
-			ft_create_tab_obj_light(e, i, dist, tab_obj_light_id, tab_obj_light_t);
+		if (toucher)
+			ft_create_tab_obj_light(e, i, dist, tab_obj_light_id, tab_obj_light_t, (e->l_obj[i].type == 2 || e->l_obj[i].type == 5 || e->l_obj[i].type == 6) ? 0 : 1);
 		// else
 		// {
 			// printf("id = %d, px = %f et vf = %f\n", e->l_obj[i].id, p_ray.x, v_ray.x);
@@ -129,7 +122,7 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 		color.r = ((uchar *)(texture[obj.id_texture -1].data))[pix + 2];
 		return (color);
 	}
-	else if ((obj.type == 2 || obj.type == 5) && obj.id_texture > 0)
+	else if ((obj.type == 2 || obj.type == 5 || obj.type == 6) && obj.id_texture > 0)
 	{
 		dir = vsub(p_hit, obj.pos);
 		test = (obj.dir.x == 1 || obj.dir.x == -1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0}; 
@@ -201,14 +194,16 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 	int			t;
 
 	i = 0;
-	tab_obj_light_t[0] = -1;
 	colorobj = get_color(texture, p_hit, obj);
 	while (i < e->nb_light)
 	{
-		tab_obj_light_t[0] = -1;
+		tab_obj_light_id[0] = -1;
 		v_light = vsub(p_hit, e->light[i].pos);
 		v_light = vnorm(v_light);
+	// printf("d inter_obj_light\n");
+		tab_obj_light_t[0] = 99999999999999999999l;
  		inter_obj_light(e, e->light[i].pos, v_light, tab_obj_light_id, tab_obj_light_t);
+	// printf("f inter_obj_light\n");
 		l_color.r = e->light[i].color.r;
 		l_color.g = e->light[i].color.g;
 		l_color.b = e->light[i].color.b;
@@ -220,28 +215,43 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 			list_obj[t] = 0;
 			t++;
 		}
-		while (tab_obj_light_t[count] != -1 && tab_obj_light_id[count] != obj.id - 1)
+		t = 0;
+		while (tab_obj_light_id[t] != -1)
 		{
-			list_obj[tab_obj_light_id[count]] = list_obj[tab_obj_light_id[count]] ? 0 : 1;
+			list_obj[tab_obj_light_id[t]] = (list_obj[tab_obj_light_id[t]] || e->l_obj[tab_obj_light_id[t]].type == 5 || e->l_obj[tab_obj_light_id[t]].type == 2 || e->l_obj[tab_obj_light_id[t]].type == 6) ? 0 : 1;
+			t++;
+		}
+		while (tab_obj_light_t[count] < vsize(vsub(p_hit, e->light[i].pos)) - 1)
+		{
+			// if (count > e->nb_obj * 2)
+			list_obj[tab_obj_light_id[count]] = (list_obj[tab_obj_light_id[count]] || e->l_obj[tab_obj_light_id[count]].type == 5 || e->l_obj[tab_obj_light_id[count]].type == 2 || e->l_obj[tab_obj_light_id[count]].type == 6) ? 0 : 1;
 			t = 0;
 			flag = 0;
 			while (t < e->nb_obj)
 			{
-				if (e->l_obj[t].negatif == 1 && list_obj[t] == 1)
-				{
+				if (e->l_obj[t].negatif && list_obj[t] == 1)
 					flag = 1;
-					break ;
-				}
 				t++;
 			}
-			if (list_obj[tab_obj_light_id[count]] == 1 && flag == 0)
+			if (tab_obj_light_t[count] >= 0 && flag == 0)
 			{
 				l_color.r = l_color.r * (double)((e->l_obj[tab_obj_light_id[count]].color.r / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
 				l_color.g = l_color.g * (double)((e->l_obj[tab_obj_light_id[count]].color.g / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
 				l_color.b = l_color.b * (double)((e->l_obj[tab_obj_light_id[count]].color.b / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
 			}
+			else if (tab_obj_light_t[count] >= 0 && list_obj[tab_obj_light_id[count]] && flag == 1 && e->l_obj[tab_obj_light_id[count]].negatif == 0 && e->l_obj[tab_obj_light_id[count]].type == 2)
+			{
+				printf("type = %d et name = %s\n", e->l_obj[tab_obj_light_id[count]].type, e->l_obj[tab_obj_light_id[count]].name);
+			}
 			count++;
 		}
+		// printf("Bienvenue ==================\n");
+		// t = 0;
+		// while (t < e->nb_obj)
+		// {
+		// 	list_obj[t] ? printf("%d", e->l_obj[t].type) : 0;
+		// 	t++;
+		// }
 		if (obj.type == 1)
 			v_norm = ft_angle_sphere(obj, p_hit);
 		else if (obj.type == 2 || obj.type == 5 || obj.type == 6)
@@ -258,7 +268,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		pixel.g + colorobj.g * l_color.g * calc < 255 ? (pixel.g += colorobj.g * l_color.g * calc) : (pixel.g = 255);
 		pixel.b + colorobj.b * l_color.b * calc < 255 ? (pixel.b += colorobj.b * l_color.b * calc) : (pixel.b = 255);
 		dist[i] = tab_obj_light_t[count];
-			if (tab_obj_light_t[count] == -1)
+			if (tab_obj_light_t[count] == 0)
 		printf("il y a un problem ?\n");i++;
 	}
 	i = 0;

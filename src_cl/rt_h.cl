@@ -82,13 +82,13 @@ double			vpscal(double4 a, double4 b);
 double4 		vcross_prod(double4 a, double4 b);
 double			vsize(double4 v);
 
-double2			solve_quad(double a, double b, double c);
-double2			inter_sphere(t_obj sp, double4 o, double4 dir);
-double2			inter_plane(t_obj p, double4 o, double4 dir);
-double2			inter_circle(t_obj p, double4 o, double4 dir);
-double2			inter_square(t_obj p, double4 o, double4 dir);
-double2			inter_cylinder(t_obj cyl, double4 o, double4 dir);
-double2			inter_cone(t_obj cone, double4 o, double4 dir);
+double2			solve_quad(double a, double b, double c, int *toucher);
+double2			inter_sphere(t_obj sp, double4 o, double4 dir, int *toucher);
+double2			inter_plane(t_obj p, double4 o, double4 dir, int *toucher);
+double2			inter_circle(t_obj p, double4 o, double4 dir, int *toucher);
+double2			inter_square(t_obj p, double4 o, double4 dir, int *toucher);
+double2			inter_cylinder(t_obj cyl, double4 o, double4 dir, int *toucher);
+double2			inter_cone(t_obj cone, double4 o, double4 dir, int *toucher);
 
 double4			ft_angle_sphere(t_obj s, double4 hit);
 double4			ft_angle_plane(t_obj p);
@@ -102,4 +102,4 @@ t_obj			inter_obj_light(__global t_env_cl *e, double4 p_ray, double4 v_ray, int 
 uchar4			l_shine(uchar4	 , uchar4	 olor, double angle, double t);
 uchar4			add_light(__global t_env_cl *e, uchar4	 ixel, double4 p_hit, t_obj obj, __global t_mlx *texture, int index);
 uchar4			ft_start( __global t_env_cl *e, __global t_obj *lst_obj, t_l_obj lst);
-void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double2 tr, int *tab_obj_light_id, double *tab_obj_light_t);
+void			ft_create_tab_obj_light(__global t_env_cl *e, int id, double2 tr, int *tab_obj_light_id, double *tab_obj_light_t, int part2);
