@@ -1,0 +1,208 @@
+{
+	"anti-aliasing" : 2,
+	"cylinder"  :
+	{
+		"radius" :  20,
+		"pos" :
+		{
+			"x" : -200,
+			"y" : 100,
+			"z" : 200
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 155,
+			"g" : 0,
+			"b" : 0
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
+	},
+	"plane"  :
+	{
+		"name": "plan_1",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : -50,
+			"z" : 300
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 100,
+			"g" : 100,
+			"b" : 100
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
+	},
+	"plane"  :
+	{
+		"name": "plan_2",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 50,
+			"z" : 300
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 100,
+			"g" : 100,
+			"b" : 100
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 1
+		},
+		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
+	},
+	"plane"  :
+	{
+		"name": "plan_3",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 250,
+			"z" : 300
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 100,
+			"g" : 100,
+			"b" : 100
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
+	},
+	"cone"  :
+	{
+		"name": "cone_1",
+		"angle" :  40,
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 100,
+			"z" : -100
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 0,
+			"g" : 0,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 1
+		},
+		"radius" : 200,
+		"texture" : "texture_file/2ab1c37cfdff720c6de2ddb07328f145.xpm"
+	},
+	"ambient" : 0.00000001,
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : -70,
+			"y" : 70,
+			"z" : -250
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light1"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 70,
+			"z" : -350
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light3"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 70,
+			"y" : 70,
+			"z" : -250
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light2"
+	},
+	"camera" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 150,
+			"z" : -700
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 0
+		},
+		"up" :
+		{
+			"x" : 0,
+			"y" : -1,
+			"z" : 0
+		},
+		"fov" : 60,
+		"dist" : 150
+	},
+	"image size" : [800, 400]
+}

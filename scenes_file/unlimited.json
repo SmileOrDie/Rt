@@ -1,0 +1,285 @@
+{
+	"plane"  :
+	{
+		"name": "plan_sol",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : -350,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 30,
+			"g" : 30,
+			"b" : 40
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		}
+	},
+	"sphere"  :
+	{
+		"name": "sphere_doite",
+		"radius" :  30,
+		"pos" :
+		{
+			"x" : 29,
+			"y" : 50,
+			"z" : -150
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 1,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 155,
+			"g" : 0,
+			"b" : 0
+		},
+	},
+	"sphere"  :
+		{
+			"name": "sphere_rouge",
+			"radius" :  30,
+			"pos" :
+			{
+				"x" : -29,
+				"y" : 50,
+				"z" : -150
+			},
+			"ind_refrac" : 1.33,
+			"ind_reflec" : 1,
+			"ind_transp" : 0,
+			"color" :
+			{
+				"r" : 155,
+				"g" : 0,
+				"b" : 0
+			},
+		},
+	"sphere"  :
+		{
+			"name": "sphere_3",
+			"radius" :  30,
+			"pos" :
+			{
+				"x" : 0,
+				"y" : 50,
+				"z" : -175
+			},
+			"ind_refrac" : 1.33,
+			"ind_reflec" : 1,
+			"ind_transp" : 0,
+			"color" :
+			{
+				"r" : 155,
+				"g" : 0,
+				"b" : 0
+			},
+		},
+	"plane"  :
+	{
+		"name": "plan_plafond",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 350,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 125,
+			"g" : 125,
+			"b" : 200
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		}
+	},
+	"plane"  :
+	{
+		"name": "carre_gauche",
+		"pos" :
+		{
+			"x" : -350,
+			"y" : 0,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0.9,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 1,
+			"y" : 0,
+			"z" : 0
+		}
+	},
+	"plane"  :
+	{
+		"name": "carre_droite",
+		"pos" :
+		{
+			"x" : 350,
+			"y" : 0,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0.9,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 125,
+			"b" : 30
+		},
+		"dir" :
+		{
+			"x" : 1,
+			"y" : 0,
+			"z" : 0
+		}
+	},
+	"plane"  :
+	{
+		"name": "carre_center",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 250
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0.9,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 1
+		}
+	},
+	"plane"  :
+	{
+		"name": "carre_derriere",
+		"pos" :
+		{
+			"x" : 50,
+			"y" : 0,
+			"z" : 250
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 1
+		}
+	},
+	"ambient" : 0.00000001,
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : -70,
+			"y" : 70,
+			"z" : -355
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light1"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 70,
+			"z" : -350
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light3"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 70,
+			"y" : 70,
+			"z" : -350
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light2"
+	},
+	"camera" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 150,
+			"z" : -700
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 0
+		},
+		"up" :
+		{
+			"x" : 0,
+			"y" : -1,
+			"z" : 0
+		},
+		"fov" : 60,
+		"dist" : 150
+	},
+	"image size" : [  800  , 500 ]
+}
