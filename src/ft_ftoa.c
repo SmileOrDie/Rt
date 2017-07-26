@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 16:45:30 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/12 16:43:49 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/26 12:39:56 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char		*ft_join(char *str, char *tmp)
 	a++;
 	while (tmp[i])
 		tmp2[a++] = tmp[i++];
-	tmp[a] = '\0';
+	tmp2[a] = '\0';
 	return (tmp2);
 }
 
