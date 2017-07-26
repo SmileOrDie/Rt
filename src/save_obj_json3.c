@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:54:56 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/06/29 18:12:51 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/26 12:23:43 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		copy_plan(t_obj obj, int fd, t_env *e)
 {
-	ft_putstr_fd(fd, "\t\"plane\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",",
+	ft_putstr_fd(fd, "\t\"plane\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",\n",
 			NULL);
 	copy_pos(obj, fd);
 	ft_putstr_fd(fd, "\t\t\"ind_refrac\" : ", ft_ftoa(obj.ind_refrac), ",\n",
