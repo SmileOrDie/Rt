@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 15:06:27 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 15:11:32 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,8 @@ void                get_image(t_env *e)
 	i = 0;
 	tx = 0;
 	ty = 0;
-<<<<<<< HEAD
-	 //printf("%d\n", e->mlx->h * e->mlx->w / e->anti_a / e->anti_a);
-	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
-=======
 	// printf("%d\n", e->mlx->h * e->mlx->w / e->anti_a / e->anti_a);
 	while (i < e->win->h * e->win->w / e->anti_a / e->anti_a)
->>>>>>> 086a91c5d52a6419ec6a2dd7d7b12a2b0dfaad7c
 	{
 		tmpy = 0;
 		color[0] = 0;

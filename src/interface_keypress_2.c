@@ -6,11 +6,11 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/27 15:05:34 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 15:10:19 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#include "../includes/interface_rt.h"
 void		clean_str(char **clean, int f)
 {
 	int		i;
