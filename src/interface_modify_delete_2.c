@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_modify_delete_2.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 18:40:27 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/26 16:06:56 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 15:28:12 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,17 @@ void			del_light(t_envg *e, int i)
 
 static void		free_f_obj(t_parse_obj *b, t_parse_obj *f_obj, t_parse_obj *obj)
 {
-	while (b->next)
+	while (obj && b->next)
 	{
-		if (obj && b->next && obj->obj.id == b->next->obj.id)
+		if (b->next && obj->obj.id == b->next->obj.id)
 		{
-			if (b->next)
-			{	f_obj = b->next;
-				b->next = f_obj->next;
-				if (f_obj->obj.name)
-					free(f_obj->obj.name);
-				if (f_obj)
-					free(f_obj);
-				break ;
-			}
+			f_obj = b->next;
+			b->next = f_obj->next;
+			// if (f_obj->obj.name)
+			free(f_obj->obj.name);
+			// if (f_obj)
+			free(f_obj);
+			break ;
 		}
 		b = b->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:29:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 13:24:07 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/27 15:34:08 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int			select_add(t_envg *e, int x, int y)
 		{
 			creat_elem(e);
 			(e->light == -1) ?
-			del_elem(e, e->obj + e->page) : del_elem(e, e->light + e->page);
+			del_elem(e, e->obj) : del_elem(e, e->light + e->page);
 		}
 		e->i_lst = 0;
 		e->page = 0;
