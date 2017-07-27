@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_keypress_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/13 17:51:16 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 14:05:19 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void		free_env_parse(t_envg *e)
 	e->e->parse_light = NULL;
 	clean_str(&e->line[42], 0);
 	ft_parse_j(e->line[42], e->e);
+	e->anti_a = e->e->anti_a; 
 	init_id(e->e);
 	clean_str(&e->line[42], 1);
 	modif_default(e);

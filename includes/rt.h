@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 20:40:56 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 14:54:24 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@
 
 # define S_MALLOC 0
 # define STR_MALLOC "il faut securiser ce malloc! ou?"
+
+typedef struct			s_pos
+{
+	int					w;
+	int					h;
+}						t_pos;
 
 typedef struct			s_mlx
 {
@@ -226,6 +232,7 @@ typedef struct			s_env
 	long int			*nb_obj_pix[3];
 	t_three				**tab_three;
 	// int					flag;
+	t_pos				*win;
 	void 				(*filter_t)(struct s_env * , int, int);
 	char				**path_texture;
 	char				*tmp_texture;
