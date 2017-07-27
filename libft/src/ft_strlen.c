@@ -6,18 +6,18 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#             */
-/*   Updated: 2016/12/15 19:54:19 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:35:21 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	unsigned int i;
+	size_t i;
 
 	i = 0;
-	if (s == NULL)
+	if (s == NULL || !*s)
 		return (0);
 	while (s[i] != '\0')
 		i++;
