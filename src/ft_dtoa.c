@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ftoa.c                                          :+:      :+:    :+:   */
+/*   ft_dtoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 16:45:30 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/26 12:39:56 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 17:59:40 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ static char		*ft_join(char *str, char *tmp)
 
 	a = 0;
 	tmp2 = NULL;
-	tmp2 = (char *)malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(tmp) + 2));
+	tmp2 = (char *)malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(tmp) + 1));
 	i = 0;
 	while (str[i])
 		tmp2[a++] = str[i++];
 	i = 0;
 	tmp2[a] = '.';
 	a++;
-	while (tmp[i])
+	while (tmp[i] && i < 6)
 		tmp2[a++] = tmp[i++];
 	tmp2[a] = '\0';
 	return (tmp2);
 }
 
-char			*ft_ftoa(double nb)
+char			*ft_dtoa(double nb)
 {
 	char		*str;
 	char		*tmp;
@@ -45,9 +45,9 @@ char			*ft_ftoa(double nb)
 	tmp = NULL;
 	v = (intmax_t)nb;
 	i = (nb - v);
-	i *= 1000000;
 	str = ft_itoa((intmax_t)v);
-	tmp = ft_itoa((intmax_t)i);
+	v = (i == 0) ? 0.0 : (i * 10000000) + 1;
+	tmp = ft_itoa((intmax_t)v);
 	tmp2 = ft_join(str, tmp);
 	free(str);
 	free(tmp);
