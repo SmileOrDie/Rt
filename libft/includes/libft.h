@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#             */
-/*   Updated: 2016/12/15 20:39:43 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:36:40 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					get_next_line(int fd, char **str);
 double				ft_atof(char *str);
 int					ft_isblank(int c);
 int					ft_tablen(char ***str, int f);
-int					ft_strlen(const char *s);
+size_t				ft_strlen(const char *s);
 int					ft_isalpha(int c);
 int					ft_isdigit(char *str);
 int					ft_isalnum(int c);

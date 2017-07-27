@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#             */
-/*   Updated: 2016/12/15 19:52:41 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:37:45 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	str = malloc(sizeof(char) * len + 1);
 	if (str == NULL)
 		return (str);
-	if ((int)start >= ft_strlen(s))
+	if ((size_t)start >= ft_strlen(s))
 	{
 		str[0] = '\0';
 		return (str);

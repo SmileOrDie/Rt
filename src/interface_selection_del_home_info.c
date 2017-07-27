@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:59:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 19:04:53 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:21:52 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,16 @@ int			select_home(t_envg *e, int x, int y)
 	int i;
 
 	i = -1;
-	while (++i < 15)
+	while (++i < 15 && i < e->e->nb_obj)
 	{
 		if (x > 40 && x < 60 && y > 200 + (i * 30) && y < 200 + (i * 30) + 20)
 		{
 			e->obj = i + e->page;
 			e->light = -1;
-			modif_list(e, i + e->page);
+			e->page = 0;
+			e->mod = 1;
+			//a faire.
+			modif_list(e, e->obj);
 			return (0);
 		}
 	}
