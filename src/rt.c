@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/26 15:20:11 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 15:06:27 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,20 @@ void				*run_rt(void *env)
 
 	e = (t_env *)env;
 	y = 0;
-	while (y < e->mlx->h)
+	while (y < e->win->h)
 	{
 		x = e->start;
-		while (x < e->mlx->w)
+		while (x < e->win->w)
 		{
-			p_cam = new_v(e->cam->l.x + e->cam->u.x * x * (e->cam->w / e->mlx->w) + e->
-				cam->up.x * y * (e->cam->h / e->mlx->h), e->cam->l.y + e->cam->u.y *
-				x * (e->cam->w / e->mlx->w) + e->cam->up.y * y * (e->cam->h / e->mlx->h)
-				, e->cam->l.z + e->cam->u.z * x * (e->cam->w / e->mlx->w) + e->
-				cam->up.z * y * (e->cam->h / e->mlx->h));
+			p_cam = new_v(e->cam->l.x + e->cam->u.x * x * (e->cam->w / e->win->w) + e->
+				cam->up.x * y * (e->cam->h / e->win->h), e->cam->l.y + e->cam->u.y *
+				x * (e->cam->w / e->win->w) + e->cam->up.y * y * (e->cam->h / e->win->h)
+				, e->cam->l.z + e->cam->u.z * x * (e->cam->w / e->win->w) + e->
+				cam->up.z * y * (e->cam->h / e->win->h));
 			v_ray = vsub(p_cam, e->cam->eye);
 			vnorm(&v_ray);
-			e->begin_three = &(e->tab_three[x + y * e->mlx->w]);
-			ft_raytracer(e, e->cam->eye, v_ray, 0, 1, (t_color2){255, 255, 255, 0}, &(e->tab_three[x + y * e->mlx->w]));
+			e->begin_three = &(e->tab_three[x + y * e->win->w]);
+			ft_raytracer(e, e->cam->eye, v_ray, 0, 1, (t_color2){255, 255, 255, 0}, &(e->tab_three[x + y * e->win->w]));
 			x += 3;
 		}
 		y++;
@@ -125,7 +125,7 @@ void				get_l_tab(t_env *e)
 
 	i = 0;
 	flag = 2;
-	while (i < e->mlx->h * e->mlx->w)
+	while (i < e->win->h * e->win->w)
 	{
 		e->coef_t[i] = get_l_pix(e->tab_three[i], e->tab_light, e->l_obj, flag);
 		i++;
@@ -186,8 +186,8 @@ void                get_image(t_env *e)
 
 	flag = 1;
 	i = 0;
-	img = malloc(e->mlx->h * e->mlx->w * 4);
-	while (i < e->mlx->h * e->mlx->w)
+	img = malloc(e->win->h * e->win->w * 4);
+	while (i < e->win->h * e->win->w)
 	{
 		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
 		img[i * 4 + 2] = pixel.r;
@@ -199,8 +199,13 @@ void                get_image(t_env *e)
 	i = 0;
 	tx = 0;
 	ty = 0;
+<<<<<<< HEAD
 	 //printf("%d\n", e->mlx->h * e->mlx->w / e->anti_a / e->anti_a);
 	while (i < e->mlx->h * e->mlx->w / e->anti_a / e->anti_a)
+=======
+	// printf("%d\n", e->mlx->h * e->mlx->w / e->anti_a / e->anti_a);
+	while (i < e->win->h * e->win->w / e->anti_a / e->anti_a)
+>>>>>>> 086a91c5d52a6419ec6a2dd7d7b12a2b0dfaad7c
 	{
 		tmpy = 0;
 		color[0] = 0;
@@ -211,9 +216,9 @@ void                get_image(t_env *e)
 			tmpx = 0;
 			while (tmpx < e->anti_a)
 			{
-				color[0] += img[tx * 4 + ty * e->mlx->w * 4 + 2 + tmpy * e->mlx->w * 4 + tmpx * 4];
-				color[1] += img[tx * 4 + ty * e->mlx->w * 4 + 1 + tmpy * e->mlx->w * 4 + tmpx * 4];
-				color[2] += img[tx * 4 + ty * e->mlx->w * 4 + 0 + tmpy * e->mlx->w * 4 + tmpx * 4];
+				color[0] += img[tx * 4 + ty * e->win->w * 4 + 2 + tmpy * e->win->w * 4 + tmpx * 4];
+				color[1] += img[tx * 4 + ty * e->win->w * 4 + 1 + tmpy * e->win->w * 4 + tmpx * 4];
+				color[2] += img[tx * 4 + ty * e->win->w * 4 + 0 + tmpy * e->win->w * 4 + tmpx * 4];
 				tmpx++;
 			}
 			tmpy++;
@@ -222,7 +227,7 @@ void                get_image(t_env *e)
 		e->mlx->data[i * 4 + 1] = color[1] / e->anti_a / e->anti_a;
 		e->mlx->data[i * 4 + 2] = color[0] / e->anti_a / e->anti_a;
 		i++;
-		tx = (tx + e->anti_a) % e->mlx->w;
+		tx = (tx + e->anti_a) % e->win->w;
 		tx == 0 ? ty += e->anti_a : 0;
 	}
 }
@@ -235,11 +240,15 @@ void				*ft_launch(void *env)
 	long int	size[3];
 	pthread_t	tab_thread[3];
 	t_envg 		tmp;
+	t_pos		win;
 	// double		coef[((t_env*)env)->mlx->h * ((t_env*)env)->mlx->w];
 
 	// printf("Ft_lauch execution\n");
 	e = (t_env *)env;
 	// e->coef_t = coef;
+	win.h = e->mlx->h;
+	win.w = e->mlx->w;
+	e->win = &win;
 	printf("nb_obj = %d\n", e->nb_obj);
 	i = 0;
 	while (i < e->nb_obj)
@@ -247,9 +256,9 @@ void				*ft_launch(void *env)
 		printf("e->l_obj[i].id = %d name = %s type = %d\n", e->l_obj[i].id, e->l_obj[i].name, e->l_obj[i].type);
 		i++;
 	}
-	e->coef_t = malloc(sizeof(double) * e->mlx->w * e->mlx->h);
+	e->coef_t = malloc(sizeof(double) * win.w * win.h);
 	e->actual_indice = 1;
-	if (!(e->tab_three = (t_three **)malloc(sizeof(t_three *) * e->mlx->w * e->mlx->h)))
+	if (!(e->tab_three = (t_three **)malloc(sizeof(t_three *) * win.w * win.h)))
 		ft_error(MALLOC, "ft_launch");
 	e->default_indice = 1;
 	size[0] = 0;
@@ -310,9 +319,8 @@ void				*ft_launch(void *env)
 		(e->b_screen == 1) ? keypress('0', &tmp) : mlx_do_sync(e->mlx->mlx);
 		printf("affiche\n");
 	}
-	e->b_screen = 0;
 	i = 0;
-	while (i < e->mlx->h * e->mlx->w)
+	while (i < win.h * win.w)
 	{
 		free_branch(e->tab_three[i]);
 		i++;
@@ -324,6 +332,7 @@ void				*ft_launch(void *env)
 	// e->l_obj = NULL;
 	// e->light = NULL;
 	init_id(e);
+	e->b_screen = 0;
 	// printf("free finish\n");
 	pthread_exit(NULL);
 }

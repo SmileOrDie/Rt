@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 19:00:56 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 14:32:58 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ static void	select_conf3(t_envg *e, int x, int y, int nb)
 		e->i_lst = 0;
 		home_tab(e);
 	}
-	else if (x > 48 && x < 70 && y > 624 && y < 648 && e->e->anti_a > 1)
+	else if (x > 48 && x < 70 && y > 624 && y < 648 && e->anti_a > 1)
 	{
-		e->e->anti_a--;
-		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a + 1) * e->e->anti_a;
-		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a + 1) * e->e->anti_a;
+		e->anti_a--;
+		// e->e->mlx->w = e->e->mlx->w / (e->anti_a + 1) * e->anti_a;
+		// e->e->mlx->h = e->e->mlx->h / (e->anti_a + 1) * e->anti_a;
 	}
 }
 
@@ -110,11 +110,11 @@ static int	select_conf2(t_envg *e, int x, int y)
 			return (0);
 	}
 	select_conf3(e, x, y, nb);
-	if (x > 91 && x < 113 && y > 624 && y < 648 && e->e->anti_a < 7)
+	if (x > 91 && x < 113 && y > 624 && y < 648 && e->anti_a < 7)
 	{
-		e->e->anti_a++;
-		e->e->mlx->h = e->e->mlx->h / (e->e->anti_a - 1) * e->e->anti_a;
-		e->e->mlx->w = e->e->mlx->w / (e->e->anti_a - 1) * e->e->anti_a;
+		e->anti_a++;
+		// e->e->mlx->h = e->e->mlx->h / (e->anti_a - 1) * e->anti_a;
+		// e->e->mlx->w = e->e->mlx->w / (e->anti_a - 1) * e->anti_a;
 	}
 	return (select_conf2_2(e, x, y, 18));
 }

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 19:20:40 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:47:44 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ typedef struct			s_envg
 	int					run;
 	int					error;
 	int					id;
+	int					anti_a;
 	t_tabu				tab_texture;
 	t_tabu				tab_scene;
 	pthread_t			thread;

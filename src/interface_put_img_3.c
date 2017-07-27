@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 19:31:29 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:53:02 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		put_img7(t_envg *e)
 {
 	char *anti_a;
 
-	anti_a = ft_itoa(e->e->anti_a);
+	anti_a = ft_itoa(e->anti_a);
 	get_img(e->mlx, &e->img, "xpm_file/Anti_a.xpm");
 	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
 			45, 600);

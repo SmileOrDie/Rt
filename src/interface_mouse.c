@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 16:37:46 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 14:15:15 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void		interface_mouse_click_3(t_envg *e)
 		ft_exit(e);
 	}
 	e->run = 1;
+	e->e->anti_a = e->anti_a;
 	init_mlx1(e);
 	event_touch(e);
 	ft_creat_lst_obj(e->e);
@@ -79,7 +80,7 @@ int				interface_mouse_click(int button, int x, int y, t_envg *e)
 {
 	if (button == 1)
 	{
-		printf("x = %d y = %d\n", x, y);
+		// printf("x = %d y = %d\n", x, y);
 		if (e->error != -1)
 			return (error_gestion(e, x, y));
 		interface_mouse_click_2(e, x, y);
