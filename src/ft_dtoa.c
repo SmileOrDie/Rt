@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dtoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 16:45:30 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/27 17:59:22 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/27 17:59:40 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char		*ft_join(char *str, char *tmp)
 	i = 0;
 	tmp2[a] = '.';
 	a++;
-	while (tmp[i + 1])
+	while (tmp[i] && i < 6)
 		tmp2[a++] = tmp[i++];
 	tmp2[a] = '\0';
 	return (tmp2);
@@ -46,7 +46,7 @@ char			*ft_dtoa(double nb)
 	v = (intmax_t)nb;
 	i = (nb - v);
 	str = ft_itoa((intmax_t)v);
-	v = (i == 0) ? 0 : (i * 10000000) + 1;
+	v = (i == 0) ? 0.0 : (i * 10000000) + 1;
 	tmp = ft_itoa((intmax_t)v);
 	tmp2 = ft_join(str, tmp);
 	free(str);

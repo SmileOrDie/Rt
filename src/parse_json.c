@@ -6,7 +6,11 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2017/07/27 17:48:53 by shamdani         ###   ########.fr       */
+=======
+/*   Updated: 2017/07/27 16:29:02 by phmoulin         ###   ########.fr       */
+>>>>>>> 6a67aaa3a5bbaec4f8a26d630530014ce5f8af09
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +73,16 @@ void			ft_check_obj_neg(t_env *e)
 void			ft_parse_j(char *name, t_env *e)
 {
 	int			fd;
+	int			i;
 	struct stat	st;
 	char		*line;
 	int i;
 
 	i = 0;
+<<<<<<< HEAD
+=======
+	// e->flag = 0;
+>>>>>>> 6a67aaa3a5bbaec4f8a26d630530014ce5f8af09
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
 	if (stat(name, &st) != 0)
@@ -91,7 +100,14 @@ void			ft_parse_j(char *name, t_env *e)
 	get_camera3(e);
 	free(line);
 	ft_check_obj_neg(e);
+<<<<<<< HEAD
 	while (e->path_tex[i])
 		i++;
 	e->nb_tex = i;
+=======
+ 	while(e->path_tex[i])
+	 	i++;
+	e->nb_tex = i;
+	printf("e->parse_obj.id = %d et e->parse_obj.ind_transp = %f, e->parse_obj.name = %s\n", e->parse_obj->obj.id, e->parse_obj->obj.ind_transp, e->parse_obj->obj.name);
+>>>>>>> 6a67aaa3a5bbaec4f8a26d630530014ce5f8af09
 }
