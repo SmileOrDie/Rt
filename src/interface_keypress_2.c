@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/13 17:51:16 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:38:06 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int			add_texture(t_envg *e)
 		//     convert_file(&path);
 		if (stat(path, &test) == -1)
 			return (failed_texture(e, 7, x));
+		printf("index path_texture x == %d\n", x);
 		if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->e->mlx->mlx,
 				path, &e->e->texture[x].w, &e->e->texture[x].h)))
 			return (failed_texture(e, 8, x));
