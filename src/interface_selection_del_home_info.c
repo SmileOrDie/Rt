@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:59:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 13:10:15 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:21:52 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ int			select_home(t_envg *e, int x, int y)
 			e->obj = i + e->page;
 			e->light = -1;
 			e->page = 0;
+			e->mod = 1;
+			//a faire.
 			modif_list(e, e->obj);
 			return (0);
 		}
