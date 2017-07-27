@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 17:04:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/16 17:08:24 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 13:43:53 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		put_img5(t_envg *e)
 	t_parse_obj				*obj;
 
 	i = e->page;
-	printf("nb tex = %d i = %d\n", e->e->nb_tex, i);
+	//printf("nb tex = %d i = %d\n", e->e->nb_tex, i);
 	obj = srch_obj(e, e->obj);
 	while (i < e->page + 3 && i < e->e->nb_tex)
 	{
