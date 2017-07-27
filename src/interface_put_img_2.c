@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_put_img_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 17:04:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/16 17:08:24 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 10:53:57 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void		put_img5_2(t_envg *e)
 			160, 490);
 	mlx_string_put(e->mlx->mlx, e->mlx->win,
 			185, 490, 0xFFFFFF, "Neg");
-	if (e->page + 3 < e->e->nb_tex)
+	if (e->e->nb_tex > 0 && e->page + 3 < e->e->nb_tex)
 	{
 		get_img(e->mlx, &e->img, "./xpm_file/next.xpm");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
 			250, HE - 250);
 	}
-	if (e->page >= 3)
+	if (e->e->nb_tex > 0 && e->page >= 3)
 	{
 		get_img(e->mlx, &e->img, "./xpm_file/previous.xpm");
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
@@ -69,7 +69,7 @@ void		put_img5(t_envg *e)
 	t_parse_obj				*obj;
 
 	i = e->page;
-	printf("nb tex = %d i = %d\n", e->e->nb_tex, i);
+	// printf("nb tex = %d i = %d\n", e->e->nb_tex, i);
 	obj = srch_obj(e, e->obj);
 	while (i < e->page + 3 && i < e->e->nb_tex)
 	{

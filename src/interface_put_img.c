@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 17:05:39 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 08:16:24 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void		put_img_2(t_envg *e)
 	put_img2(e, ((e->filter.red == 1) ? 1 : 0), 200, 522);
 	put_img2(e, ((e->filter.sepia == 1) ? 1 : 0), 40, 547);
 	put_img2(e, ((e->filter.old == 1) ? 1 : 0), 120, 547);
-//	put_img2(e, ((e->filter.cartoon == 1) ? 1 : 0), 200, 547);
 }
 
 void			put_img(t_envg *e, int img)
