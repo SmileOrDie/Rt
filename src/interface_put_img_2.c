@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_put_img_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 17:04:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/27 13:47:02 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 16:25:25 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,10 @@ void		put_img5_2(t_envg *e)
 
 void		put_img5(t_envg *e)
 {
-	char					*str;
-	unsigned char			i;
-	t_parse_obj				*obj;
+	char			*str;
+	unsigned char	i;
 
 	i = e->page;
-	obj = srch_obj(e, e->obj);
 	while (i < e->page + 3 && i < e->e->nb_tex)
 	{
 		if (e->line[30][0] == i + 1)

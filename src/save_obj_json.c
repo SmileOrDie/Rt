@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_obj_json.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 13:32:28 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/17 13:27:32 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 17:43:56 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			save_scene(t_env *e, char *id, int fd)
 	if ((fd = open(name, O_CREAT | O_WRONLY, 0644)) <= 0)
 		ft_error("fichier deja existant", " save_scene");
 	ft_putstr_fd(fd, "{\n\t\"anti-aliasing\" : ", ft_itoa(e->anti_a), NULL);
-	ft_putstr_fd(fd, ",\n\t\"ambient\" : ", ft_ftoa(e->amb), ",\n", NULL);
+	ft_putstr_fd(fd, ",\n\t\"ambient\" : ", ft_dtoa(e->amb), ",\n", NULL);
 	save_obj(e, obj, fd);
 	save_light_and_cam(e, fd, light);
 	ft_putstr_fd(fd, "}", NULL);
