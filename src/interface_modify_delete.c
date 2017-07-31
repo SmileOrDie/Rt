@@ -24,7 +24,14 @@ void			init_id(t_env *e)
 		e->parse_obj->obj.id = 0;
 		while (b)
 		{
+
 			b->obj.id = i++;
+			if (b->obj.type == 7)
+				i += 5;
+			else if (b->obj.type == 8)
+				i++;
+			else if (b->obj.type == 9)
+				i += 2;
 			b = b->next;
 		}
 	}

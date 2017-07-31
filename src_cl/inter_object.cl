@@ -177,12 +177,12 @@ double2			inter_square(t_obj p, double4 o, double4 dir, int *toucher)
 	rez[1] = 0;
 	d = vpscal(p.dir, vsub(p.pos, o));
 	nd = vpscal(p.dir, dir);
-	te = d / nd;
 	if (nd < 0.00001 && nd > -0.00001)
 	{
 		*toucher = 0;
 		return (rez);
 	}
+	te = d / nd;
 	if (te > 0)
 	{
 		cross = (p.dir.x == 1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0};
@@ -190,9 +190,13 @@ double2			inter_square(t_obj p, double4 o, double4 dir, int *toucher)
 		u = vsub(p_hit, p.pos);
 		cross = vcross(p.dir, cross);
 		cross = vrot(p.dir, p.angle, cross);
+		cross = vnorm(cross);
+		if (p.point.x != 0 || p.point.y != 0 || p.point.z != 0)
+			cross = vnorm(p.point);
 		if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
 		{
 			cross = vcross(cross, p.dir);
+			cross = vnorm(cross);
 			if (vpscal(cross, u) < p.radius / 2 && vpscal(cross, u) > -p.radius / 2)
 				return ((double2){te, 0});
 		}
