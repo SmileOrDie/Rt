@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 13:47:44 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/01 12:10:23 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ typedef struct			s_envg
 	int					pos;
 	int					pos_value[LINE_SIZE];
 	int 				nb_c;
+	int 				nb_obj;
 	int					font;
 	int					f_key;
 	t_tab_valid			volet;
@@ -329,6 +330,7 @@ int						select_conf(t_envg *e, int x, int y);
 int						select_del(t_envg *e, int x, int y);
 int						select_info(t_envg *e, int x, int y);
 int						select_home(t_envg *e, int x, int y);
+int 					srch_id(t_envg *e, int pos);
 
 /*
 ** interface_put_img.c

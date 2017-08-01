@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 12:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/13 18:47:58 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/01 12:00:23 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			init_id(t_env *e)
 	b = e->parse_obj;
 	if (b)
 	{
-		e->parse_obj->obj.id = 0;
+		e->parse_obj->obj.id = i;
 		while (b)
 		{
 

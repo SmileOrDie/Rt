@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 13:53:02 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/01 11:53:01 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		put_img6(t_envg *e)
 		get_img(e->mlx, &e->img, "./xpm_file/send_v.xpm");
 	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img,
 		290, 295);
-	if (e->e->nb_obj > 0 && e->e->cam != NULL)
+	if (e->nb_obj > 0 && e->e->cam != NULL)
 		get_img(e->mlx, &e->img, "./xpm_file/Save_scene_v.xpm");
 	else
 		get_img(e->mlx, &e->img, "./xpm_file/Save_scene_f.xpm");

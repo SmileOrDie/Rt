@@ -6,16 +6,31 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:59:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 13:21:52 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/01 12:16:56 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
+int 		srch_id(t_envg *e, int pos)
+{
+	t_parse_obj	*b;
+	int			i;
+
+	i = 0;
+	b = e->e->parse_obj;
+	while (b->next && i != pos)
+	{
+		b = b->next;
+		i++;
+	}
+	return (b->obj.id);
+}
+
 static void	select_del_1(t_envg *e, int x, int y)
 {
 	if (x > 255 && x < 355 && y > 765 && y < 790 &&
-		e->e->nb_obj + 1 > e->page + 15)
+		e->nb_obj + 1 > e->page + 15)
 	{
 		e->page += 15;
 		del_tab(e);
@@ -34,13 +49,13 @@ int			select_del(t_envg *e, int x, int y)
 	int i;
 
 	i = 0;
-	while (i < 15 && i < e->e->nb_obj)
+	while (i < 15 && i < e->nb_obj)
 	{
 		if (x > 40 && x < 60 && y > 200 + (i * 30) && y < 200 + (i * 30) + 20)
 		{
-			e->obj = i;
+			e->obj = srch_id(e, i + e->page);
 			e->light = -1;
-			del_elem(e, i + e->page);
+			del_elem(e, e->obj);
 			e->i_lst = 0;
 			e->page = 0;
 			del_tab(e);
@@ -67,7 +82,7 @@ int			select_info(t_envg *e, int x, int y)
 		add_new_texture(e);
 	else if (e->line[42][0] && x > 290 && x < 390 && y > 295 && y < 315)
 		free_env_parse(e);
-	else if (e->e->nb_obj > 0 && e->e->cam != NULL && x > 40 && x < 135 &&
+	else if (e->nb_obj > 0 && e->e->cam != NULL && x > 40 && x < 135 &&
 		y > 330 && y < 355)
 		save_scene(e->e, NULL, -1);
 	else if (e->e && e->e->mlx->img != NULL && x > 145 && x < 245 && y > 335
@@ -81,7 +96,7 @@ int			select_info(t_envg *e, int x, int y)
 static void	select_home_1(t_envg *e, int x, int y)
 {
 	if (x > 255 && x < 355 && y > 765 &&
-		y < 790 && e->e->nb_obj + 1 > e->page + 15)
+		y < 790 && e->nb_obj + 1 > e->page + 15)
 	{
 		e->page += 15;
 		home_tab(e);
@@ -99,11 +114,11 @@ int			select_home(t_envg *e, int x, int y)
 	int i;
 
 	i = -1;
-	while (++i < 15 && i < e->e->nb_obj)
+	while (++i < 15 && i < e->nb_obj)
 	{
 		if (x > 40 && x < 60 && y > 200 + (i * 30) && y < 200 + (i * 30) + 20)
 		{
-			e->obj = i + e->page;
+			e->obj = srch_id(e, i + e->page);
 			e->light = -1;
 			e->page = 0;
 			e->mod = 1;

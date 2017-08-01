@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 14:15:15 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/01 11:52:23 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void		interface_mouse_click_2(t_envg *e, int x, int y)
 			e->mod = 0;
 		}
 	}
-	else if (y > 830 && y < 900 && e->volet.home == 1 && (e->e->nb_obj > 0
+	else if (y > 830 && y < 900 && e->volet.home == 1 && (e->nb_obj > 0
 		&& e->e->cam != NULL))
 		interface_mouse_click_3(e);
 }

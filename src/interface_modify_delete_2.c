@@ -86,5 +86,6 @@ void			del_obj(t_envg *e, int i)
 		free(b);
 		b = NULL;
 	}
+	e->nb_obj--;
 	init_id(e->e);
 }

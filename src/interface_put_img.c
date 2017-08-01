@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 08:16:24 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/01 12:10:57 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,12 @@ static void		put_img3(t_envg *e)
 {
 	char		*str;
 	int			img;
-	int			nb_obj;
 	t_parse_obj	*pos;
 
 	img = e->i_lst + 15;
-	nb_obj = 0;
-	pos = e->e->parse_obj;
-	while (pos)
+	while (e->i_lst < img && e->i_lst < e->nb_obj)
 	{
-		nb_obj++;
-		pos = pos->next;
-	}
-	while (e->i_lst < img && e->i_lst < nb_obj)
-	{
-		pos = srch_obj(e, e->i_lst);
+		pos = srch_obj(e, srch_id(e, e->i_lst));
 		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img, 40,
 			200 + ((e->i_lst % 15) * 30));
 		str = ft_strdup(pos->obj.name);

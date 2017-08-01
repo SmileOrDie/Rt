@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_create_obj2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 18:24:19 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/27 15:06:09 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/01 11:54:38 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ t_obj			new_obj(t_envg *e)
 	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]),
 		ft_atof(e->line[8]));
 	obj.id_texture = e->line[30][0];
-	obj.group = (!ft_strcmp(e->line[1], "cube")) ? e->e->group_max++ : 0;
+	obj.group = (!ft_strcmp(e->line[1], "cube") ||
+		!ft_strcmp(e->line[1], "cone_l") ||
+		!ft_strcmp(e->line[1], "cylinder_l")) ? e->e->group_max++ : 0;
+	e->nb_obj++;
 	e->e->nb_obj++;
 	return (obj);
 }
