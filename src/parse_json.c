@@ -94,5 +94,5 @@ void			ft_parse_j(char *name, t_env *e)
  	while(e->path_tex[i])
 	 	i++;
 	e->nb_tex = i;
-	printf("e->parse_obj.id = %d et e->parse_obj.ind_transp = %f, e->parse_obj.name = %s\n", e->parse_obj->obj.id, e->parse_obj->obj.ind_transp, e->parse_obj->obj.name);
+	// printf("e->parse_obj.id = %d et e->parse_obj.ind_transp = %f, e->parse_obj.name = %s\n", e->parse_obj->obj.id, e->parse_obj->obj.ind_transp, e->parse_obj->obj.name);
 }
