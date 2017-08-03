@@ -1,0 +1,72 @@
+{
+	"anti-aliasing" : 2,
+	"sphere"  :
+	{
+		"name": "sphere_center",
+		"radius" :  50,
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 100,
+			"z" : -100
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 0,
+			"g" : 0,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 1,
+			"y" : 0,
+			"z" : 1
+		},
+		"angle" : 0,
+		"negatif" : 0,
+	},
+	"ambient" : 0.00000001,
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : -70,
+			"y" : 70,
+			"z" : -250
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 0,
+			"b" : 0
+		},
+		"name" : "light1"
+	},
+	"camera" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 150,
+			"z" : -700
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 0
+		},
+		"up" :
+		{
+			"x" : 0,
+			"y" : -1,
+			"z" : 0
+		},
+		"fov" : 60,
+		"dist" : 150
+	},
+	"image size" : [800, 400]
+}

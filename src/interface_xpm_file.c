@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:14:40 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/26 15:53:58 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 20:07:02 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ void				get_img(t_mlx *mlx, t_mlx *img, char *str)
 		mlx_destroy_image(mlx->mlx, img->img);
 	if (!(img->img = mlx_xpm_file_to_image(mlx->mlx, str, &img->w, &img->h)))
 		ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
-	if (!(img->data = mlx_get_data_addr(img->img,
-					&img->bpp, &img->sizeline, &img->endian)))
-		ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
 }
 
 static void			load_img1(t_envg *e, char *img_path[31], int img)
@@ -34,7 +31,7 @@ static void			load_img1(t_envg *e, char *img_path[31], int img)
 	img_path[28] = "./xpm_file/Stop.xpm";
 	img_path[29] = "./xpm_file/Select_Off.xpm";
 	img_path[30] = "./xpm_file/Select_On.xpm";
-	get_img(e->mlx, &e->img, img_path[img]);
+	get_img(&e->mlx, &e->img, img_path[img]);
 	put_img(e, (img == 20) ? 17 : img);
 }
 

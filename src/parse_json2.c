@@ -12,7 +12,7 @@
 
 #include "../includes/interface_rt.h"
 
-void			parse_json2(char *line, t_env *e, int *x, char *rez)
+void			parse_json2(char *line, t_envg *e, int *x, char *rez)
 {
 	int		y;
 
@@ -41,7 +41,7 @@ void			parse_json2(char *line, t_env *e, int *x, char *rez)
 		ft_error(OBJ_I, "parse_json");
 }
 
-void			ft_parse_json(char *line, t_env *e)
+void			ft_parse_json(char *line, t_envg *e)
 {
 	int		x;
 	char	*rez;

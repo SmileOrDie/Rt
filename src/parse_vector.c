@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:10:24 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/07 12:05:38 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/08/02 14:26:03 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ t_vector	get_t_vector(char *line, int *x, int norme)
 	free_space(line, x);
 	line[*x] != '}' ? ft_error(J_SON, "get_t_vector") : (*x)++;
 	norme ? vnorm(&rez) : 0;
+	rez.coef = 0;
 	return (rez);
 }

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 18:24:19 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/01 11:54:38 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/02 17:10:44 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_parse_obj		*srch_obj(t_envg *e, int id)
 {
 	t_parse_obj *obj_lst;
 
-	obj_lst = e->e->parse_obj;
+	obj_lst = e->parse_obj;
 	while (obj_lst)
 	{
 		if (obj_lst->obj.id == id)
@@ -32,7 +32,7 @@ t_parse_light	*srch_light(t_envg *e, int id)
 	int				index;
 
 	index = 0;
-	light_lst = e->e->parse_light;
+	light_lst = e->parse_light;
 	while (light_lst)
 	{
 		if (index == id)
@@ -77,7 +77,7 @@ t_obj			new_obj(t_envg *e)
 	t_obj			obj;
 
 	check_new_obj(e, &obj);
-	obj.id = e->e->nb_obj;
+	obj.id = e->nb_obj;
 	obj.negatif = e->line[30][1];
 	obj.radius = ft_atof(e->line[12]);
 	obj.ind_refrac = (obj.negatif != 0) ? 1 : ft_atof(e->line[14]);
@@ -94,8 +94,8 @@ t_obj			new_obj(t_envg *e)
 	obj.id_texture = e->line[30][0];
 	obj.group = (!ft_strcmp(e->line[1], "cube") ||
 		!ft_strcmp(e->line[1], "cone_l") ||
-		!ft_strcmp(e->line[1], "cylinder_l")) ? e->e->group_max++ : 0;
+		!ft_strcmp(e->line[1], "cylinder_l")) ? e->group_max++ : 0;
 	e->nb_obj++;
-	e->e->nb_obj++;
+	// e->e->nb_obj++;
 	return (obj);
 }

@@ -6,11 +6,14 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 14:36:54 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/02 18:08:40 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
+
+t_cam	g_default_camera_g = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60,
+	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 1};
 
 static void			creat_light(t_envg *e)
 {
@@ -21,7 +24,7 @@ static void			creat_light(t_envg *e)
 		ft_error(MALLOC, "new_l -> inteface_create_obj.h");
 	new->light = new_light(e);
 	new->next = NULL;
-	b = e->e->parse_light;
+	b = e->parse_light;
 	if (b)
 	{
 		while (b->next)
@@ -29,7 +32,7 @@ static void			creat_light(t_envg *e)
 		b->next = new;
 	}
 	else
-		e->e->parse_light = new;
+		e->parse_light = new;
 }
 
 static void			creat_obj(t_envg *e)
@@ -41,7 +44,7 @@ static void			creat_obj(t_envg *e)
 		ft_error(MALLOC, "new -> inteface_create_obj.h");
 	new->obj = new_obj(e);
 	new->next = NULL;
-	b = e->e->parse_obj;
+	b = e->parse_obj;
 	if (b)
 	{
 		while (b->next)
@@ -49,7 +52,7 @@ static void			creat_obj(t_envg *e)
 		b->next = new;
 	}
 	else
-		e->e->parse_obj = new;
+		e->parse_obj = new;
 }
 
 void				creat_elem(t_envg *e)
@@ -66,44 +69,40 @@ void				creat_elem(t_envg *e)
 t_vector			creat_cam_2(t_envg *e, int i)
 {
 	if (i == 1)
-		return (new_v(e->e->cam->up.y * e->e->cam->n.z - e->e->cam->up.z *
-		e->e->cam->n.y, e->e->cam->up.z * e->e->cam->n.x - e->e->cam->up.x *
-		e->e->cam->n.z, e->e->cam->up.x * e->e->cam->n.y - e->e->cam->up.y *
-		e->e->cam->n.x));
+		return (new_v(e->cam.up.y * e->cam.n.z - e->cam.up.z *
+		e->cam.n.y, e->cam.up.z * e->cam.n.x - e->cam.up.x *
+		e->cam.n.z, e->cam.up.x * e->cam.n.y - e->cam.up.y *
+		e->cam.n.x));
 	else if (i == 0)
-		return (new_v(e->e->cam->c.x - e->e->cam->u.x * (e->e->cam->w / 2) -
-		e->e->cam->up.x * (e->e->cam->h / 2), e->e->cam->c.y - e->e->cam->u.y *
-		(e->e->cam->w / 2) - e->e->cam->up.y * (e->e->cam->h / 2),
-		e->e->cam->c.z - e->e->cam->u.z * (e->e->cam->w / 2) -
-		e->e->cam->up.z * (e->e->cam->h / 2)));
+		return (new_v(e->cam.c.x - e->cam.u.x * (e->cam.w / 2) -
+		e->cam.up.x * (e->cam.h / 2), e->cam.c.y - e->cam.u.y *
+		(e->cam.w / 2) - e->cam.up.y * (e->cam.h / 2),
+		e->cam.c.z - e->cam.u.z * (e->cam.w / 2) -
+		e->cam.up.z * (e->cam.h / 2)));
 	return (new_v(0, 0, 0));
 }
 
 void				creat_cam(t_envg *e)
 {
-	free(e->e->cam);
-	// if (e->anti_a == e->e->anti_a)
-	// {
-		e->e->mlx->w = ft_atof(e->line[25]) * e->anti_a;
-		e->e->mlx->h = ft_atof(e->line[26]) * e->anti_a;
-	// }
-	(!(e->e->cam = (t_cam *)malloc(sizeof(t_cam)))) ?
-		ft_error(MALLOC, "creat_cam") : 0;
-	e->e->cam->eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]),
+	// e->cam.set = 1;
+	e->win.w = ft_atof(e->line[25]) * e->anti_a;
+	e->win.h = ft_atof(e->line[26]) * e->anti_a;
+	e->cam = g_default_camera_g;
+	e->cam.eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]),
 		ft_atof(e->line[21]));
-	e->e->cam->l_at = new_v(ft_atof(e->line[22]), ft_atof(e->line[23]),
+	e->cam.l_at = new_v(ft_atof(e->line[22]), ft_atof(e->line[23]),
 		ft_atof(e->line[24]));
-	e->e->cam->up = new_v(0.0, -1.0, 0.0);
-	vnorm(&e->e->cam->up);
-	e->e->cam->fov = 60.0;
-	e->e->cam->dist = 150.0;
-	e->e->cam->n = vsub(e->e->cam->eye, e->e->cam->l_at);
-	vnorm(&e->e->cam->n);
-	e->e->cam->u = creat_cam_2(e, 1);
-	e->e->cam->h = tan(M_PI * (e->e->cam->fov / 2) / 180) * 2 * e->e->cam->dist;
-	e->e->cam->w = e->e->cam->h * ((float)e->e->mlx->w / e->e->mlx->h);
-	e->e->cam->c = new_v(e->e->cam->eye.x - e->e->cam->n.x * e->e->cam->dist,
-		e->e->cam->eye.y - e->e->cam->n.y * e->e->cam->dist,
-		e->e->cam->eye.z - e->e->cam->n.z * e->e->cam->dist);
-	e->e->cam->l = creat_cam_2(e, 0);
+	e->cam.up = new_v(0.0, -1.0, 0.0);
+	vnorm(&e->cam.up);
+	e->cam.fov = 60.0;
+	e->cam.dist = 150.0;
+	e->cam.n = vsub(e->cam.eye, e->cam.l_at);
+	vnorm(&e->cam.n);
+	e->cam.u = creat_cam_2(e, 1);
+	e->cam.h = tan(M_PI * (e->cam.fov / 2) / 180) * 2 * e->cam.dist;
+	e->cam.w = e->cam.h * ((float)e->win.w / e->win.h);
+	e->cam.c = new_v(e->cam.eye.x - e->cam.n.x * e->cam.dist,
+		e->cam.eye.y - e->cam.n.y * e->cam.dist,
+		e->cam.eye.z - e->cam.n.z * e->cam.dist);
+	e->cam.l = creat_cam_2(e, 0);
 }

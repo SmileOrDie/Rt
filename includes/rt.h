@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 18:14:34 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 12:27:06 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ typedef	struct			s_obj
 {
 	double				angle;
 	double				radius;
-	double				ind_refrac; // 1 -> +
-	double				ind_reflec; // 0 -> 1
+	double				ind_refrac;
+	double				ind_reflec;
 	t_vector			pos;
 	t_vector			dir;
-	t_vector			point; //verif utilite
-	double				ind_transp; //0 -> 1
+	t_vector			point;
+	double				ind_transp;
 	unsigned short int	group;
 	unsigned char		negatif;
 	unsigned char		vide;
@@ -120,6 +120,7 @@ typedef struct			s_cam
 	t_vector			l;
 	t_vector			n;
 	t_vector			u;
+	int					set;
 }						t_cam;
 
 typedef struct			s_three
@@ -213,16 +214,15 @@ typedef struct 			s_parse_obj_f
 
 typedef struct			s_env
 {
-	t_mlx				*mlx;
+	t_mlx				mlx;
+	void				**wait_img;
+	t_pos				*size;
 	t_light				*light;
 	t_obj				*l_obj;
-	t_parse_obj			*parse_obj;
-	t_parse_light		*parse_light;
-	t_cam				*cam;
+	t_cam				cam;
 	double				*coef_t;
 	double				amb;
 	int					b_screen;
-	// double				angle;
 	int					start;
 	t_l_obj				*tab_light;
 	int					nb_obj;
@@ -231,16 +231,14 @@ typedef struct			s_env
 	double				actual_indice;
 	long int			*nb_obj_pix[3];
 	t_three				**tab_three;
-	// int					flag;
-	t_pos				*win;
+	int					flag;
+	int 				wait;
+	t_pos				win;
 	void 				(*filter_t)(struct s_env * , int, int);
-	char				**path_texture;
 	char				*tmp_texture;
 	t_env_cl			*cl_e;
-	char				**path_tex;
 	t_mlx				*texture;
 	int					anti_a;
-	t_parse_obj_f		***f_obj; ///// parseur .obj
 	int					nb_tex;
 	int					group_max;
 	t_three				**begin_three;
@@ -265,8 +263,6 @@ t_color2			get_color(unsigned char r, unsigned char g, unsigned char b);
 void				creat_lst(char **line, t_env *e, int count);
 
 void				ft_launch_calc(t_env *e, t_opencl *cl);
-void				ft_creat_lst_obj(t_env *e);
-void				ft_init_opencl(t_env *e, t_opencl *cl);
 
 // void				start_cl(t_env *e, t_opencl *cl, t_env *tab_env);
 
@@ -293,45 +289,6 @@ void				ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double 
 /*
 ** interface_graphic.c
 */
-void				graphic_interface(t_env *scene);
-
-
-/*
-**	/parcer/parser_*.c
-*/
-void				increase_l_obj(t_env *e);
-void				ft_get_image_texture(t_env *e);
-void				get_camera3(t_env *e);
-void				free_space(char *line, int *x);
-int					get_string(char *line, int *x, char **str);
-int					get_number(char *line, int *x);
-void				add_obj2(char *line, int *x, t_env *e, int type);
-int					add_obj2_2(t_env *e, int group, char *line, int *x);
-void				add_obj2_3(t_env *e, char *line, int *x, char *rez);
-void				get_texture(char *line, int *x, t_env *e);
-int					get_texture_2(t_env *e, int y, char *path);
-void				add_obj22(char *line, int *x, t_env *e, char *rez);
-void				add_obj22_2(t_env *e, int *x, int y, char *line);
-void				add_obj23(char *line, int *x, t_env *e, char *rez);
-void				add_obj23_2(t_env *e, int *x, int y, char *line);
-void				add_obj24(char *line, int *x, t_env *e, char *rez);
-
-t_vector			get_t_vector(char *line, int *x, int norme);
-t_color2			get_t_color(char *line, int *x);
-int					get_object(char *line, int *x, t_env *e, char *name);
-int					get_true(char *line, int *x);
-int					get_false(char *line, int *x);
-int					get_null(char *line, int *x);
-void				parse_json(char *line, t_env *e);
-int					count_object(char *line);
-void				ft_parse_j(char *name, t_env *e);
-void 				exit_error(char *str);
-void				get_camera(char *line, int *x, t_env *e);
-double				ft_for_atof(char *line, int y, int x);
-void				get_ambient(char *line, int *x, t_env *e);
-void				get_light(char *line, int *x, t_env *e);
-void				get_image_size(char *line, int *x, t_env *e);
-void				ft_parse_json(char *line, t_env *e);
 
 void				apply_color_pix(t_env *e, int *rgb, int x, int y);
 int					*lecture_img_for_blur(t_env *e, int x, int y, int i);
@@ -352,19 +309,8 @@ int					ft_parse_obj_f(char *line, t_env *e, int i);
 double				ft_check_pow(char *str, int s, int y);
 int					ft_len_nb(char *line, int s);
 
-int					save_light_and_cam(t_env *e, int fd, t_parse_light *light);
 double				ft_atod(char *str);
 
 char        		*ft_dtoa(double nb);
-void            	save_scene(t_env *e, char *id, int fd);
-void				copy_square(t_obj obj, int fd, t_env *e);
-void				copy_cube(t_obj obj, int fd, t_env *e);
-void				copy_sphere(t_obj obj, int fd, t_env *e);
-void				copy_plan(t_obj obj, int fd, t_env *e);
-void				copy_cylindre(t_obj obj, int fd, t_env *e);
-void				copy_cone(t_obj obj, int fd, t_env *e);
-void				copy_circle(t_obj obj, int fd, t_env *e);
-void				copy_rgb(t_obj obj, int fd);
-void				copy_pos(t_obj obj, int fd);
 
 #endif

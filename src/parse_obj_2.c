@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 20:06:29 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/16 20:42:55 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 18:44:30 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-int		get_texture_2(t_env *e, int y, char *path)
+int		get_texture_2(t_envg *e, int y, char *path)
 {
-	while ((e->path_tex)[y] != NULL)
+	while (e->path_tex && (e->path_tex)[y] != NULL)
 	{
 		if (ft_strcmp(path, (e->path_tex)[y]) == 0)
 		{
@@ -26,7 +26,7 @@ int		get_texture_2(t_env *e, int y, char *path)
 	return (y);
 }
 
-void	add_obj22_2(t_env *e, int *x, int y, char *line)
+void	add_obj22_2(t_envg *e, int *x, int y, char *line)
 {
 	int	tmp;
 
@@ -36,7 +36,7 @@ void	add_obj22_2(t_env *e, int *x, int y, char *line)
 		e->parse_obj->obj.negatif = ft_clamp(ft_atoi(line + y), 0, 1);
 }
 
-void	add_obj23_2(t_env *e, int *x, int y, char *line)
+void	add_obj23_2(t_envg *e, int *x, int y, char *line)
 {
 	int	tmp;
 
@@ -47,7 +47,7 @@ void	add_obj23_2(t_env *e, int *x, int y, char *line)
 		ft_error(N_NUM, "add_obj23");
 }
 
-int		add_obj2_2(t_env *e, int group, char *line, int *x)
+int		add_obj2_2(t_envg *e, int group, char *line, int *x)
 {
 	free_space(line, x);
 	if (e->parse_obj->obj.type == 4 && e->parse_obj->obj.radius != 0)
@@ -63,10 +63,11 @@ int		add_obj2_2(t_env *e, int group, char *line, int *x)
 		group++;
 	}
 	e->group_max = group;
+	e->e->group_max = group;
 	return (group);
 }
 
-void	add_obj2_3(t_env *e, char *line, int *x, char *rez)
+void	add_obj2_3(t_envg *e, char *line, int *x, char *rez)
 {
 	free_space(line, x);
 	add_obj23(line, x, e, rez);

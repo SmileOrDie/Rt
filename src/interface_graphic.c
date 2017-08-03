@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:52:30 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/12 18:43:11 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 13:23:10 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,16 @@ void			run_first(t_envg *e)
 
 static void		event_touch(t_envg *e)
 {
-	mlx_hook(e->mlx->win, 2, 0, &interface_keypress, e);
-	mlx_hook(e->mlx->win, 17, 0, &interface_redcross, e);
-	mlx_hook(e->mlx->win, 4, 0, &interface_mouse_click, e);
+	mlx_hook(e->mlx.win, 2, 0, &interface_keypress, e);
+	mlx_hook(e->mlx.win, 17, 0, &interface_redcross, e);
+	mlx_hook(e->mlx.win, 4, 0, &interface_mouse_click, e);
 }
 
-void			graphic_interface(t_env *scene)
+void			graphic_interface(t_envg *e)
 {
-	t_envg		e;
-
-	init_envg(&e, scene);
-	init_mlx(&e);
-	(e.font == 0) ? run_first(&e) : 0;
-	event_touch(&e);
-	mlx_loop(e.mlx->mlx);
+	init_envg(e, e->e);
+	init_mlx(e);
+	(e->font == 0) ? run_first(e) : 0;
+	event_touch(e);
+	mlx_loop(e->mlx.mlx);
 }

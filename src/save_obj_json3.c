@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
-void		copy_plan(t_obj obj, int fd, t_env *e)
+void		copy_plan(t_obj obj, int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"plane\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",\n",
 			NULL);
@@ -35,7 +35,7 @@ void		copy_plan(t_obj obj, int fd, t_env *e)
 	ft_putstr_fd(fd, "\n\t},\n", NULL);
 }
 
-void		copy_cylindre(t_obj obj, int fd, t_env *e)
+void		copy_cylindre(t_obj obj, int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"cylinder\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",",
 			NULL);
@@ -60,7 +60,7 @@ void		copy_cylindre(t_obj obj, int fd, t_env *e)
 	ft_putstr_fd(fd, "\n\t},\n", NULL);
 }
 
-void		copy_cone(t_obj obj, int fd, t_env *e)
+void		copy_cone(t_obj obj, int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"cone\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",",
 			NULL);
@@ -85,7 +85,7 @@ void		copy_cone(t_obj obj, int fd, t_env *e)
 	ft_putstr_fd(fd, "\n\t},\n", NULL);
 }
 
-void		copy_circle(t_obj obj, int fd, t_env *e)
+void		copy_circle(t_obj obj, int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"circle\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",",
 			NULL);

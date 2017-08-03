@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
 void		copy_pos(t_obj obj, int fd)
 {
@@ -31,7 +31,7 @@ void		copy_rgb(t_obj obj, int fd)
 			NULL);
 }
 
-void		copy_square(t_obj obj, int fd, t_env *e)
+void		copy_square(t_obj obj, int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"square\" :\n\t{\n\t\t\"name\": ", obj.name, ",",
 			NULL);
@@ -56,7 +56,7 @@ void		copy_square(t_obj obj, int fd, t_env *e)
 	ft_putstr_fd(fd, "\n\t},\n", NULL);
 }
 
-void		copy_cube(t_obj obj, int fd, t_env *e)
+void		copy_cube(t_obj obj, int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"cube\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",",
 			NULL);
@@ -81,7 +81,7 @@ void		copy_cube(t_obj obj, int fd, t_env *e)
 	ft_putstr_fd(fd, "\n\t},\n", NULL);
 }
 
-void		copy_sphere(t_obj obj, int fd, t_env *e)
+void		copy_sphere(t_obj obj, int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"sphere\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",",
 			NULL);

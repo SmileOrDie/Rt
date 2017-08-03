@@ -37,7 +37,7 @@ static void		conf_tab2(t_envg *e, int i)
 	int				nb;
 	t_parse_light	*b;
 
-	b = e->e->parse_light;
+	b = e->parse_light;
 	nb = 0;
 	while (b)
 	{

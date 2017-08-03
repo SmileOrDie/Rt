@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 13:21:14 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 15:26:20 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 static void		cam_cal(t_envg *e, t_vector l, int l_at)
 {
 	if (l_at == 0)
-		e->e->cam->eye = vadd(e->e->cam->eye, l);
+		e->e->cam.eye = vadd(e->e->cam.eye, l);
 	else
-		e->e->cam->l_at = vadd(e->e->cam->l_at, l);
-	e->e->cam->n = vsub(e->e->cam->eye, e->e->cam->l_at);
-	vnorm(&e->e->cam->n);
-	e->e->cam->u = new_v(e->e->cam->up.y * e->e->cam->n.z - e->e->cam->up.z *
-	e->e->cam->n.y, e->e->cam->up.z * e->e->cam->n.x - e->e->cam->up.x *
-	e->e->cam->n.z, e->e->cam->up.x * e->e->cam->n.y - e->e->cam->up.y *
-	e->e->cam->n.x);
-	e->e->cam->h = tan(M_PI * (e->e->cam->fov / 2) / 180) * 2 * e->e->cam->dist;
-	e->e->cam->w = e->e->cam->h * ((float)e->e->mlx->w / e->e->mlx->h);
-	e->e->cam->c = new_v(e->e->cam->eye.x - e->e->cam->n.x * e->e->cam->dist,
-	e->e->cam->eye.y - e->e->cam->n.y * e->e->cam->dist,
-	e->e->cam->eye.z - e->e->cam->n.z * e->e->cam->dist);
-	e->e->cam->l = new_v(e->e->cam->c.x - e->e->cam->u.x * (e->e->cam->w / 2) -
-	e->e->cam->up.x * (e->e->cam->h / 2), e->e->cam->c.y - e->e->cam->u.y *
-	(e->e->cam->w / 2) - e->e->cam->up.y * (e->e->cam->h / 2),
-	e->e->cam->c.z - e->e->cam->u.z * (e->e->cam->w / 2) - e->e->cam->up.z *
-	(e->e->cam->h / 2));	
+		e->e->cam.l_at = vadd(e->e->cam.l_at, l);
+	e->e->cam.n = vsub(e->e->cam.eye, e->e->cam.l_at);
+	vnorm(&e->e->cam.n);
+	e->e->cam.u = new_v(e->e->cam.up.y * e->e->cam.n.z - e->e->cam.up.z *
+	e->e->cam.n.y, e->e->cam.up.z * e->e->cam.n.x - e->e->cam.up.x *
+	e->e->cam.n.z, e->e->cam.up.x * e->e->cam.n.y - e->e->cam.up.y *
+	e->e->cam.n.x);
+	e->e->cam.h = tan(M_PI * (e->e->cam.fov / 2) / 180) * 2 * e->e->cam.dist;
+	e->e->cam.w = e->e->cam.h * ((float)e->e->win.w / e->e->win.h);
+	e->e->cam.c = new_v(e->e->cam.eye.x - e->e->cam.n.x * e->e->cam.dist,
+	e->e->cam.eye.y - e->e->cam.n.y * e->e->cam.dist,
+	e->e->cam.eye.z - e->e->cam.n.z * e->e->cam.dist);
+	e->e->cam.l = new_v(e->e->cam.c.x - e->e->cam.u.x * (e->e->cam.w / 2) -
+	e->e->cam.up.x * (e->e->cam.h / 2), e->e->cam.c.y - e->e->cam.u.y *
+	(e->e->cam.w / 2) - e->e->cam.up.y * (e->e->cam.h / 2),
+	e->e->cam.c.z - e->e->cam.u.z * (e->e->cam.w / 2) - e->e->cam.up.z *
+	(e->e->cam.h / 2));	
 }
 
 static void		keypress_2(int key, t_envg *e)
@@ -53,30 +53,36 @@ static void		keypress_2(int key, t_envg *e)
 }
 
 int				keypress(int key, t_envg *e)
-{	
-	pthread_join(e->thread, NULL);
-	if (key == ESC)
-	{
-		ft_exit(e);
-		e->e->b_screen = 1;
-	}
-	if (key == LEFT)
-		cam_cal(e, (t_vector){10, 0, 0, 0}, 0);
-	else if (key == RIGHT)
-		cam_cal(e, (t_vector){-10, 0, 0, 0}, 0);
-	else if (key == DOWN)
-		cam_cal(e, (t_vector){0, 10, 0, 0}, 0);
-	else if (key == UP)
-		cam_cal(e, (t_vector){0, -10, 0, 0}, 0);
-	else if (key == PAD_TIRET)
-		cam_cal(e, (t_vector){0, 0, -10, 0}, 0);
-	else if (key == PAD_PLUS)
-		cam_cal(e, (t_vector){0, 0, 10, 0}, 0);
-	else if (KEY_W == key || KEY_R == key || KEY_A == key || KEY_S == key ||
-		KEY_D == key || KEY_F == key)
-		keypress_2(key, e);
-	else
+{
+	if (e->e->flag == 1)
 		return (1);
-	pthread_create(&e->thread, NULL, ft_launch, e->e);
+	else
+	{
+		e->e->wait = 0;
+		if (key == ESC)
+		{
+			ft_exit(e);
+			e->e->b_screen = 1;
+		}
+		if (key == LEFT)
+			cam_cal(e, (t_vector){10, 0, 0, 0}, 0);
+		else if (key == RIGHT)
+			cam_cal(e, (t_vector){-10, 0, 0, 0}, 0);
+		else if (key == DOWN)
+			cam_cal(e, (t_vector){0, 10, 0, 0}, 0);
+		else if (key == UP)
+			cam_cal(e, (t_vector){0, -10, 0, 0}, 0);
+		else if (key == PAD_TIRET)
+			cam_cal(e, (t_vector){0, 0, -10, 0}, 0);
+		else if (key == PAD_PLUS)
+			cam_cal(e, (t_vector){0, 0, 10, 0}, 0);
+		else if (KEY_W == key || KEY_R == key || KEY_A == key || KEY_S == key ||
+			KEY_D == key || KEY_F == key)
+			keypress_2(key, e);
+		else
+			return (1);
+		pthread_create(&e->thread, NULL, ft_launch, e->e);
+		e->e->flag = 1;
+	}
 	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 12:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/01 12:00:23 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/02 18:08:41 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void			init_id(t_env *e)
+void			init_id(t_envg *e)
 {
 	int			i;
 	t_parse_obj	*b;
@@ -98,7 +98,7 @@ void			modif_light(t_envg *e, int light)
 
 void			modif_default(t_envg *e)
 {
-	if (!e->e->cam)
+	if (e->cam.set == 0)
 	{
 		ft_strcpy_nbr(&(e->line[19]), 0);
 		ft_strcpy_nbr(&(e->line[20]), 0);
@@ -110,12 +110,12 @@ void			modif_default(t_envg *e)
 		ft_strcpy_nbr(&(e->line[26]), 0);
 		return ;
 	}
-	ft_strcpy_nbr(&(e->line[19]), e->e->cam->eye.x);
-	ft_strcpy_nbr(&(e->line[20]), e->e->cam->eye.y);
-	ft_strcpy_nbr(&(e->line[21]), e->e->cam->eye.z);
-	ft_strcpy_nbr(&(e->line[22]), e->e->cam->l_at.x);
-	ft_strcpy_nbr(&(e->line[23]), e->e->cam->l_at.y);
-	ft_strcpy_nbr(&(e->line[24]), e->e->cam->l_at.z);
-	ft_strcpy_nbr(&(e->line[25]), e->e->mlx->w / e->e->anti_a);
-	ft_strcpy_nbr(&(e->line[26]), e->e->mlx->h / e->e->anti_a);
+	ft_strcpy_nbr(&(e->line[19]), e->cam.eye.x);
+	ft_strcpy_nbr(&(e->line[20]), e->cam.eye.y);
+	ft_strcpy_nbr(&(e->line[21]), e->cam.eye.z);
+	ft_strcpy_nbr(&(e->line[22]), e->cam.l_at.x);
+	ft_strcpy_nbr(&(e->line[23]), e->cam.l_at.y);
+	ft_strcpy_nbr(&(e->line[24]), e->cam.l_at.z);
+	ft_strcpy_nbr(&(e->line[25]), e->win.w / e->anti_a);
+	ft_strcpy_nbr(&(e->line[26]), e->win.h / e->anti_a);
 }

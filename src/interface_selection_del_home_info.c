@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:59:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/01 12:16:56 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 13:54:16 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int 		srch_id(t_envg *e, int pos)
 	int			i;
 
 	i = 0;
-	b = e->e->parse_obj;
+	b = e->parse_obj;
 	while (b->next && i != pos)
 	{
 		b = b->next;
@@ -82,12 +82,18 @@ int			select_info(t_envg *e, int x, int y)
 		add_new_texture(e);
 	else if (e->line[42][0] && x > 290 && x < 390 && y > 295 && y < 315)
 		free_env_parse(e);
-	else if (e->nb_obj > 0 && e->e->cam != NULL && x > 40 && x < 135 &&
+	else if (e->nb_obj > 0 && e->cam.set && x > 40 && x < 135 &&
 		y > 330 && y < 355)
-		save_scene(e->e, NULL, -1);
-	else if (e->e && e->e->mlx->img != NULL && x > 145 && x < 245 && y > 335
+	{
+		save_scene(e, NULL, -1);
+		home_tab(e);		
+	}
+	else if (e->e && e->e->mlx.img != NULL && x > 145 && x < 245 && y > 335
 		&& y < 355)
+	{
 		bmp_save_img(e);
+		home_tab(e);
+	}
 	else
 		info_tab(e);
 	return (-1);

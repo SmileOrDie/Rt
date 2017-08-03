@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 14:32:58 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/02 18:08:52 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ static void	select_conf3(t_envg *e, int x, int y, int nb)
 	else if (x > 48 && x < 70 && y > 624 && y < 648 && e->anti_a > 1)
 	{
 		e->anti_a--;
-		e->e->mlx->w = e->e->mlx->w / (e->anti_a + 1) * e->anti_a;
-		e->e->mlx->h = e->e->mlx->h / (e->anti_a + 1) * e->anti_a;
+		e->win.w = e->win.w / (e->anti_a + 1) * e->anti_a;
+		e->win.h = e->win.h / (e->anti_a + 1) * e->anti_a;
 	}
 }
 
@@ -96,7 +96,7 @@ static int	select_conf2(t_envg *e, int x, int y)
 	int				nb;
 	t_parse_light	*b;
 
-	b = e->e->parse_light;
+	b = e->parse_light;
 	nb = 0;
 	while (b)
 	{
@@ -113,8 +113,8 @@ static int	select_conf2(t_envg *e, int x, int y)
 	if (x > 91 && x < 113 && y > 624 && y < 648 && e->anti_a < 7)
 	{
 		e->anti_a++;
-		e->e->mlx->h = e->e->mlx->h / (e->anti_a - 1) * e->anti_a;
-		e->e->mlx->w = e->e->mlx->w / (e->anti_a - 1) * e->anti_a;
+		e->win.h = e->win.h / (e->anti_a - 1) * e->anti_a;
+		e->win.w = e->win.w / (e->anti_a - 1) * e->anti_a;
 	}
 	return (select_conf2_2(e, x, y, 18));
 }

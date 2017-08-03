@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
-static int		save_obj(t_env *e, t_parse_obj *obj, int fd)
+static int		save_obj(t_envg *e, t_parse_obj *obj, int fd)
 {
 	if (obj != NULL)
 	{
@@ -40,7 +40,7 @@ static int		save_obj(t_env *e, t_parse_obj *obj, int fd)
 	return (-1);
 }
 
-void			save_scene(t_env *e, char *id, int fd)
+void			save_scene(t_envg *e, char *id, int fd)
 {
 	static int		i = 0;
 	t_parse_obj		*obj;
@@ -57,8 +57,8 @@ void			save_scene(t_env *e, char *id, int fd)
 	ft_strcat(name, ".json");
 	if ((fd = open(name, O_CREAT | O_WRONLY, 0644)) <= 0)
 		ft_error("fichier deja existant", " save_scene");
-	ft_putstr_fd(fd, "{\n\t\"anti-aliasing\" : ", ft_itoa(e->anti_a), NULL);
-	ft_putstr_fd(fd, ",\n\t\"ambient\" : ", ft_dtoa(e->amb), ",\n", NULL);
+	ft_putstr_fd(fd, "{\n\t\"anti-aliasing\" : ", ft_itoa(e->e->anti_a), NULL);
+	ft_putstr_fd(fd, ",\n\t\"ambient\" : ", ft_dtoa(e->e->amb), ",\n", NULL);
 	save_obj(e, obj, fd);
 	save_light_and_cam(e, fd, light);
 	ft_putstr_fd(fd, "}", NULL);

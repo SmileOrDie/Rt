@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_mouse_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 13:44:42 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/16 16:46:22 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 19:18:14 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void			ft_exit(t_envg *e)
 {
 	pthread_cancel(e->thread);
-	if (e->e->mlx->img)
-		mlx_destroy_image(e->e->mlx->mlx, e->e->mlx->img);
-	if (e->e->mlx->win)
-		mlx_destroy_window(e->e->mlx->mlx, e->e->mlx->win);
-	e->e->mlx->img = NULL;
-	e->e->mlx->win = NULL;
+	if (e->e->mlx.img)
+		mlx_destroy_image(e->e->mlx.mlx, e->e->mlx.img);
+	if (e->e->mlx.win)
+		mlx_destroy_window(e->e->mlx.mlx, e->e->mlx.win);
+	e->e->mlx.img = NULL;
+	e->e->mlx.win = NULL;
 	e->run = 0;
 }
 

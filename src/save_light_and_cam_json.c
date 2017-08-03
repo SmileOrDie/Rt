@@ -6,11 +6,11 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 15:39:12 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/27 18:13:34 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 14:01:18 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
 static void		save_light(t_parse_light *light, int fd)
 {
@@ -33,26 +33,26 @@ static void		save_light(t_parse_light *light, int fd)
 	ft_putstr_fd(fd, "\t\t},\n\t},\n", NULL);
 }
 
-static void		save_cam(int fd, t_env *e)
+static void		save_cam(int fd, t_envg *e)
 {
 	ft_putstr_fd(fd, "\t\"camera\" :\n\t{\n\t\t", NULL);
 	ft_putstr_fd(fd, "\"pos\" :\n\t\t{\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"x\" : ", ft_dtoa(e->cam->eye.x), ",\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"y\" : ", ft_dtoa(e->cam->eye.y), ",\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(e->cam->eye.z), ",\n\t\t},\n", NULL);
+	ft_putstr_fd(fd, "\"x\" : ", ft_dtoa(e->cam.eye.x), ",\n\t\t\t", NULL);
+	ft_putstr_fd(fd, "\"y\" : ", ft_dtoa(e->cam.eye.y), ",\n\t\t\t", NULL);
+	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(e->cam.eye.z), ",\n\t\t},\n", NULL);
 	ft_putstr_fd(fd, "\t\t\"dir\" :\n\t\t{\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"x\" : ", ft_dtoa(e->cam->l_at.x), ",\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"y\" : ", ft_dtoa(e->cam->l_at.y), ",\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(e->cam->l_at.z), ",\n\t\t},\n", NULL);
+	ft_putstr_fd(fd, "\"x\" : ", ft_dtoa(e->cam.l_at.x), ",\n\t\t\t", NULL);
+	ft_putstr_fd(fd, "\"y\" : ", ft_dtoa(e->cam.l_at.y), ",\n\t\t\t", NULL);
+	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(e->cam.l_at.z), ",\n\t\t},\n", NULL);
 	ft_putstr_fd(fd, "\t\t\"up\" :\n\t\t{\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"x\" : ", ft_dtoa(e->cam->up.x), ",\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"y\" : ", ft_dtoa(e->cam->up.y), ",\n\t\t\t", NULL);
-	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(e->cam->up.z), ",\n\t\t},\n", NULL);
-	ft_putstr_fd(fd, "\t\t\"fov\" : ", ft_dtoa(e->cam->fov), ",\n\t\t", NULL);
-	ft_putstr_fd(fd, "\"dist\" : ", ft_dtoa(e->cam->dist), ",\n\t},\n", NULL);
+	ft_putstr_fd(fd, "\"x\" : ", ft_dtoa(e->cam.up.x), ",\n\t\t\t", NULL);
+	ft_putstr_fd(fd, "\"y\" : ", ft_dtoa(e->cam.up.y), ",\n\t\t\t", NULL);
+	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(e->cam.up.z), ",\n\t\t},\n", NULL);
+	ft_putstr_fd(fd, "\t\t\"fov\" : ", ft_dtoa(e->cam.fov), ",\n\t\t", NULL);
+	ft_putstr_fd(fd, "\"dist\" : ", ft_dtoa(e->cam.dist), ",\n\t},\n", NULL);
 }
 
-int				save_light_and_cam(t_env *e, int fd, t_parse_light *light)
+int				save_light_and_cam(t_envg *e, int fd, t_parse_light *light)
 {
 	if (light)
 	{
@@ -62,9 +62,9 @@ int				save_light_and_cam(t_env *e, int fd, t_parse_light *light)
 			light = light->next;
 		}
 		save_cam(fd, e);
-		ft_putstr_fd(fd, "\t\"image size\" : [", ft_itoa(e->mlx->w / e->anti_a),
+		ft_putstr_fd(fd, "\t\"image size\" : [", ft_itoa(e->win.w / e->anti_a),
 				", ", NULL);
-		ft_putstr_fd(fd, ft_itoa(e->mlx->h / e->anti_a), "]\n", NULL);
+		ft_putstr_fd(fd, ft_itoa(e->win.h / e->anti_a), "]\n", NULL);
 		return (1);
 	}
 	return (0);

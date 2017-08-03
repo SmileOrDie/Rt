@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/17 13:36:02 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/03 16:41:46 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_vector		get_refrac(t_env *e, t_vector v_norm, t_vector v_dir, double ind_refra
 		n = e->actual_indice / ind_refrac;
 	else
 		n = e->actual_indice / e->default_indice;
-	n > 1 ? n = pow(n, -1) : 0;
+	n > 1 ? (n = 1 / n) : 0;
 	c1 = vpscal(v_norm, vmult_dbl(v_dir, -1));
 	c2 = sqrt(1 - n * n * (1 - c1 * c1));
 	if (e->actual_indice != ind_refrac)
@@ -148,23 +148,23 @@ int			search_obj(t_parse_obj **list_obj, t_obj obj)
 	return (1);
 }
 
-void 		ft_debug(t_parse_obj *obj_list)
-{
-	printf("ft_debug --------- \n");
-	t_parse_obj *begin;
-	int 		i = 0;
+// void 		ft_debug(t_parse_obj *obj_list)
+// {
+// 	printf("ft_debug --------- \n");
+// 	t_parse_obj *begin;
+// 	int 		i = 0;
 
-	begin = obj_list;
-	while (obj_list != NULL && obj_list->next != NULL)
-	{
-		printf("ft_debug --------- id =%d\n", obj_list->obj.id);
-		printf("ft_debug -------- i = %d\n", i);
-		i++;
-		obj_list = obj_list->next;
-	}
-	obj_list = begin;
+// 	begin = obj_list;
+// 	while (obj_list != NULL && obj_list->next != NULL)
+// 	{
+// 		printf("ft_debug --------- id =%d\n", obj_list->obj.id);
+// 		printf("ft_debug -------- i = %d\n", i);
+// 		i++;
+// 		obj_list = obj_list->next;
+// 	}
+// 	obj_list = begin;
 
-}
+// }
 
 t_parse_obj	*get_obj_list(t_env *e, t_three *current, t_three *branch)
 {
@@ -224,20 +224,6 @@ int		ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj, t_three **three, int *id, 
 			list_obj = list_obj->next;
 		}
 	}
-	// else if (obj.negatif == 1)
-	// {
-	// 	while (list_obj)
-	// 	{
-	// 		if (list_obj->obj.id == 0)
-	// 			printf("Il y a un probleme\n");
-	// 		if (list_obj->obj.negatif == 0)
-	// 		{
-	// 			*id = list_obj->obj.id;
-	// 			return (*id);
-	// 		}
-	// 		list_obj = list_obj->next;
-	// 	}
-	// }
 	return (obj.id - 1);
 }
 
@@ -275,8 +261,6 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 		(*three)->id *= -1;
 		ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, &((*three)->r_refrac));
 		add_branch(*three, p_hit, coef, c_origin);
-		// free(*three);
-		// ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, three);
 	}
 	else
 	{
@@ -289,9 +273,6 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 		}
 		if (e->l_obj[id].ind_transp > 0)
 		{
-			c_origin.r = e->l_obj[id].color.r * c_origin.r / 255.0;
-			c_origin.g = e->l_obj[id].color.g * c_origin.g / 255.0;
-			c_origin.b = e->l_obj[id].color.b * c_origin.b / 255.0;
 			v_refrac = (e->l_obj[ret].type != 2 && e->l_obj[ret].type != 6 && e->l_obj[ret].type != 5) ? get_refrac(e, v_norm, v_ray, e->l_obj[ret].ind_refrac) : v_ray;
 			ft_raytracer(e, p_hit, v_refrac, prof + 1, coef * e->l_obj[id].ind_transp * (1 - e->l_obj[id].ind_reflec), c_origin, &((*three)->r_refrac));
 		}

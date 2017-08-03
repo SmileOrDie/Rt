@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:23:52 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/06/13 17:56:43 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 18:13:54 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ double			ft_for_atof(char *line, int y, int x)
 	return (nb);
 }
 
-void			get_ambient(char *line, int *x, t_env *e)
+void			get_ambient(char *line, int *x, t_envg *e)
 {
 	int	y;
 	int	tmp;

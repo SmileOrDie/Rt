@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/01 12:10:23 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/02 20:07:25 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,13 @@ typedef struct			s_bmp
 typedef struct			s_envg
 {
 	t_env				*e;
-	t_mlx				*mlx;
+	t_cam				cam;
+	int					group_max;
+	char				**path_tex;
+	int					nb_tex;
+	t_parse_obj			*parse_obj;
+	t_parse_light		*parse_light;
+	t_mlx				mlx;
 	t_mlx				img;
 	t_bmp				bmp;
 	char				**line;
@@ -195,10 +201,17 @@ typedef struct			s_envg
 	int					error;
 	int					id;
 	int					anti_a;
+	t_pos				win;
 	t_tabu				tab_texture;
 	t_tabu				tab_scene;
 	pthread_t			thread;
+	t_env_cl			*cl_e;
+	double				amb;
+	void				*wait_img[4];
+	t_pos				size[4];
 }						t_envg;
+
+void					ft_init_opencl(t_envg *e, t_opencl *cl);
 
 int						keypress(int key, t_envg *e);
 
@@ -216,7 +229,7 @@ void 					modif_light(t_envg *e, int light);
 void					modif_list(t_envg *e, int obj);
 void					del_elem(t_envg *e, int i);
 void					modif_default(t_envg *e);
-void					init_id(t_env *e);
+void					init_id(t_envg *e);
 
 /*
 ** interface_keypress.c
@@ -304,6 +317,7 @@ void					creat_elem(t_envg *e);
 void					creat_cam(t_envg *e);
 t_parse_obj				*srch_obj(t_envg *e, int id);
 t_parse_light			*srch_light(t_envg *e, int id);
+void					ft_creat_lst_obj(t_envg *e);
 
 /*
 ** interface_creat_obj2.c
@@ -352,6 +366,7 @@ void					put_img7(t_envg *e);
 /*
 ** interface_graphic.c
 */
+void					graphic_interface(t_envg *scene);
 void					re_init_tab(t_envg *e);
 void					run_first(t_envg *e);
 
@@ -378,5 +393,54 @@ int						error_gestion(t_envg *e, int x, int y);
 ** interface_save_img.c
 */
 int						bmp_save_img(t_envg *e);
+
+/*
+**	/parcer/parser_*.c
+*/
+
+void				get_camera3(t_envg *e);
+void				increase_l_obj(t_envg *e);
+void				ft_get_image_texture(t_envg *e);
+void				free_space(char *line, int *x);
+int					get_string(char *line, int *x, char **str);
+int					get_number(char *line, int *x);
+void				add_obj2(char *line, int *x, t_envg *e, int type);
+int					add_obj2_2(t_envg *e, int group, char *line, int *x);
+void				add_obj2_3(t_envg *e, char *line, int *x, char *rez);
+void				get_texture(char *line, int *x, t_envg *e);
+int					get_texture_2(t_envg *e, int y, char *path);
+void				add_obj22(char *line, int *x, t_envg *e, char *rez);
+void				add_obj22_2(t_envg *e, int *x, int y, char *line);
+void				add_obj23(char *line, int *x, t_envg *e, char *rez);
+void				add_obj23_2(t_envg *e, int *x, int y, char *line);
+void				add_obj24(char *line, int *x, t_envg *e, char *rez);
+t_vector			get_t_vector(char *line, int *x, int norme);
+t_color2			get_t_color(char *line, int *x);
+int					get_object(char *line, int *x, t_envg *e, char *name);
+int					get_true(char *line, int *x);
+int					get_false(char *line, int *x);
+int					get_null(char *line, int *x);
+void				parse_json(char *line, t_envg *e);
+int					count_object(char *line);
+void				ft_parse_j(char *name, t_envg *e);
+void 				exit_error(char *str);
+void				get_camera(char *line, int *x, t_envg *e);
+double				ft_for_atof(char *line, int y, int x);
+void				get_ambient(char *line, int *x, t_envg *e);
+void				get_light(char *line, int *x, t_envg *e);
+void				get_image_size(char *line, int *x, t_envg *e);
+void				ft_parse_json(char *line, t_envg *e);
+
+void            	save_scene(t_envg *e, char *id, int fd);
+int					save_light_and_cam(t_envg *e, int fd, t_parse_light *light);
+void				copy_square(t_obj obj, int fd, t_envg *e);
+void				copy_cube(t_obj obj, int fd, t_envg *e);
+void				copy_sphere(t_obj obj, int fd, t_envg *e);
+void				copy_plan(t_obj obj, int fd, t_envg *e);
+void				copy_cylindre(t_obj obj, int fd, t_envg *e);
+void				copy_cone(t_obj obj, int fd, t_envg *e);
+void				copy_circle(t_obj obj, int fd, t_envg *e);
+void				copy_rgb(t_obj obj, int fd);
+void				copy_pos(t_obj obj, int fd);
 
 #endif

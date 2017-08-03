@@ -6,13 +6,13 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 16:29:02 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 19:37:40 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt.h"
+#include "../includes/interface_rt.h"
 
-void			get_image_size(char *line, int *x, t_env *e)
+void			get_image_size(char *line, int *x, t_envg *e)
 {
 	int	y;
 	int	tmp;
@@ -23,7 +23,7 @@ void			get_image_size(char *line, int *x, t_env *e)
 	y = *x;
 	tmp = get_number(line, x);
 	if (tmp == 1)
-		e->mlx->w = ft_atoi(line + y);
+		e->win.w = ft_atoi(line + y);
 	else
 		ft_error(N_NUM, "get_image_size");
 	free_space(line, x);
@@ -33,7 +33,7 @@ void			get_image_size(char *line, int *x, t_env *e)
 	y = *x;
 	tmp = get_number(line, x);
 	if (tmp == 1)
-		e->mlx->h = ft_atoi(line + y);
+		e->win.h = ft_atoi(line + y);
 	else
 		ft_error(N_NUM, "get_image_size");
 	free_space(line, x);
@@ -41,7 +41,7 @@ void			get_image_size(char *line, int *x, t_env *e)
 	ft_error(J_SON, "get_image_size") : (*x)++;
 }
 
-void			ft_check_obj_neg(t_env *e)
+void			ft_check_obj_neg(t_envg *e)
 {
 	t_parse_obj	*tmp;
 
@@ -53,7 +53,7 @@ void			ft_check_obj_neg(t_env *e)
 			tmp->obj.color = (t_color2){255, 255, 255, 0};
 			tmp->obj.ind_transp = 1;
 			tmp->obj.ind_reflec = 0;
-			tmp->obj.ind_refrac = e->default_indice;
+			tmp->obj.ind_refrac = e->e->default_indice;
 			printf("--\n");
 		}
 		tmp = tmp->next;
@@ -66,7 +66,7 @@ void			ft_check_obj_neg(t_env *e)
 	}
 }
 
-void			ft_parse_j(char *name, t_env *e)
+void			ft_parse_j(char *name, t_envg *e)
 {
 	int			fd;
 	int			i;
@@ -86,13 +86,14 @@ void			ft_parse_j(char *name, t_env *e)
 	read(fd, line, st.st_size);
 	close(fd);
 	ft_parse_json(line, e);
-	e->mlx->h *= e->anti_a;
-	e->mlx->w *= e->anti_a;
+	e->win.h *= e->anti_a;
+	e->win.w *= e->anti_a;
 	get_camera3(e);
 	free(line);
 	ft_check_obj_neg(e);
- 	while(e->path_tex[i])
+ 	while(e->path_tex && e->path_tex[i])
 	 	i++;
+	e->e->nb_tex = i;
 	e->nb_tex = i;
 	// printf("e->parse_obj.id = %d et e->parse_obj.ind_transp = %f, e->parse_obj.name = %s\n", e->parse_obj->obj.id, e->parse_obj->obj.ind_transp, e->parse_obj->obj.name);
 }

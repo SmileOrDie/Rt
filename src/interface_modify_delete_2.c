@@ -26,7 +26,7 @@ void			del_light(t_envg *e, int i)
 	t_parse_light	*b;
 	t_parse_light	*f_l;
 
-	b = e->e->parse_light;
+	b = e->parse_light;
 	f_l = srch_light(e, i);
 	if (i > 0)
 	{
@@ -43,7 +43,7 @@ void			del_light(t_envg *e, int i)
 	else if (i == 0)
 	{
 		if (f_l == b)
-			e->e->parse_light = e->e->parse_light->next;
+			e->parse_light = e->parse_light->next;
 		free(b->light.name);
 		free(b);
 	}
@@ -75,17 +75,17 @@ void			del_obj(t_envg *e, int i)
 
 	f_obj = NULL;
 	obj = srch_obj(e, i);
-	b = e->e->parse_obj;
+	b = e->parse_obj;
 	if (i > 0)
 		free_f_obj(b, f_obj, obj);
 	else if (i == 0)
 	{
 		if (obj->obj.id == b->obj.id)
-			e->e->parse_obj = e->e->parse_obj->next;
+			e->parse_obj = e->parse_obj->next;
 		free(b->obj.name);
 		free(b);
 		b = NULL;
 	}
 	e->nb_obj--;
-	init_id(e->e);
+	init_id(e);
 }

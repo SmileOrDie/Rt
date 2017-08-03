@@ -192,6 +192,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 	char		list_obj[e->nb_obj];
 	int			flag;
 	int			t;
+	uchar4		tmp_color;
 
 	i = 0;
 	colorobj = get_color(texture, p_hit, obj);
@@ -235,9 +236,14 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 			}
 			if (tab_obj_light_t[count] >= 0 && flag == 0)
 			{
-				l_color.r = l_color.r * (double)((e->l_obj[tab_obj_light_id[count]].color.r / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
-				l_color.g = l_color.g * (double)((e->l_obj[tab_obj_light_id[count]].color.g / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
-				l_color.b = l_color.b * (double)((e->l_obj[tab_obj_light_id[count]].color.b / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
+				tmp_color = get_color(texture, vadd(e->light[i].pos, vmult_dbl(v_light, tab_obj_light_t[count])), e->l_obj[tab_obj_light_id[count]]);
+				// tmp_color = e->l_obj[tab_obj_light_id[count]].color;
+				tmp_color.r *= 1 - e->l_obj[tab_obj_light_id[count]].ind_reflec;
+				tmp_color.b *= 1 - e->l_obj[tab_obj_light_id[count]].ind_reflec;
+				tmp_color.g *= 1 - e->l_obj[tab_obj_light_id[count]].ind_reflec;
+				l_color.r = l_color.r * (double)((tmp_color.r / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
+				l_color.g = l_color.g * (double)((tmp_color.g / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
+				l_color.b = l_color.b * (double)((tmp_color.b / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
 			}
 			else if (tab_obj_light_t[count] >= 0 && list_obj[tab_obj_light_id[count]] && flag == 1 && e->l_obj[tab_obj_light_id[count]].negatif == 0 && e->l_obj[tab_obj_light_id[count]].type == 2)
 			{
