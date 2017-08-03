@@ -13,7 +13,7 @@
 #include "../includes/interface_rt.h"
 
 t_cam	g_default_camera = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60,
-	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 1};
+	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 1, 0};
 
 void	get_camera3(t_envg *e)
 {
@@ -48,6 +48,14 @@ void	get_camera2(char *line, int *x, t_envg *e, char *name)
 		e->cam.l_at = get_t_vector(line, x, 1);
 	if (ft_strcmp(name, "up") == 0)
 		e->cam.up = get_t_vector(line, x, 1);
+	else if (ft_strcmp(name, "3D") == 0 && ((y = *x) || 1))
+	{
+		if ((tmp = get_number(line, x) || 1) && tmp != 0)
+			e->cam.view = ft_clamp(
+				ft_for_atof(line, y, *x), 0, 2);
+		else
+			ft_error(N_NUM, "get_camera2");
+	}
 	if (ft_strcmp(name, "dist") == 0 && ((y = *x) || 1))
 	{
 		tmp = get_number(line, x);

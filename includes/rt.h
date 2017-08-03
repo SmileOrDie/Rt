@@ -121,6 +121,7 @@ typedef struct			s_cam
 	t_vector			n;
 	t_vector			u;
 	int					set;
+	int					view;
 }						t_cam;
 
 typedef struct			s_three

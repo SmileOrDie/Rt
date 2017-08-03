@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 18:49:39 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/03 10:16:14 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 18:37:10 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ static void		init_envg2(t_envg *e, t_env *env)
 	e->shift = 1;
 	e->pos = 0;
 	e->run = 0;
-	e->parse_obj = NULL;
-	e->parse_light = NULL;
 	e->filter = (t_filter){0, 0, 0, 0, 0, 0};
 	e->error = -1;
-	e->path_tex = NULL;
 }
 
 void			init_envg(t_envg *e, t_env *env)

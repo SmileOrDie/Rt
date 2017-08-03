@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 17:04:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/03 16:45:27 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 18:44:51 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void		put_img5_2(t_envg *e)
 
 void		put_img5(t_envg *e)
 {
-	char			*str;
 	unsigned char	i;
 
 	i = e->page;
@@ -76,10 +75,8 @@ void		put_img5(t_envg *e)
 			get_img(&e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
 			40, 600 + ((i % 3) * 30));
-		str = ft_strdup(e->path_tex[i]);
 		mlx_string_put(e->mlx.mlx, e->mlx.win,
-			70, 600 + ((i % 3) * 30), 0xFFFFFF, str);
-		free(str);
+			70, 600 + ((i % 3) * 30), 0xFFFFFF, e->path_tex[i]);
 		i++;
 	}
 	put_img5_2(e);

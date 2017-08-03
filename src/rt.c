@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 16:09:09 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 18:44:21 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,10 +328,7 @@ void			parse_file(char *name , t_envg *e)
 {
 	int		len_name;
 
-	len_name = ft_strlen(name);	
-
-	e->parse_light = NULL;
-	e->parse_obj = NULL;
+	len_name = ft_strlen(name);
 	if (!ft_strcmp(name + (len_name - 5), ".json"))
 		ft_parse_j(name, e);
 	init_id(e);
@@ -345,6 +342,9 @@ int				main(int ac, char **av)
 	e.anti_a = 1;
 	e.path_tex = NULL;
 	e.e = &env;
+	e.nb_tex = 0;
+	e.parse_light = NULL;
+	e.parse_obj = NULL;
 	if (ac == 2)
 		parse_file(av[1] , &e);
 	ft_init_opencl(&e, e.cl_e->cl);

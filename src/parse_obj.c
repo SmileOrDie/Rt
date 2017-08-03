@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/08/02 18:54:24 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 18:32:17 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_texture(char *line, int *x, t_envg *e)
 	{
 		new = malloc(sizeof(char*) * (y + 2));
 		y = 0;
-		while (e->path_tex && (e->path_tex)[y] != NULL)
+		while (e->path_tex != NULL && (e->path_tex)[y] != NULL)
 		{
 			new[y] = (e->path_tex)[y];
 			y++;
@@ -35,6 +35,7 @@ void	get_texture(char *line, int *x, t_envg *e)
 		free(e->path_tex);
 		e->path_tex = new;
 		e->parse_obj->obj.id_texture = y + 1;
+		e->nb_tex++;
 	}
 }
 

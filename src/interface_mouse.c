@@ -6,14 +6,14 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 15:28:35 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 18:22:13 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
 // t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0}, {NULL, NULL, NULL, NULL}, {{0, 0}, {0, 0}, {0, 0}, {0, 0}}, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0}, 0, 0, 0, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 0, {W, H}, NULL, NULL, NULL, NULL, 0, 0, 0, NULL};
-t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0}, NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL, NULL, NULL, NULL, 0, 0, 0, NULL};
+t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0}, NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL, NULL, NULL, NULL, 0, 0, 0, NULL};
 
 
 static void		event_touch(t_envg *e)
@@ -65,6 +65,8 @@ static void		init_mlx_raytrace(t_envg *e)
 
 static void		interface_mouse_click_3(t_envg *e)
 {
+	// t_env  dup_e[2];
+
 	init_id(e);
 	if (e->run == 1)
 	{
@@ -72,11 +74,14 @@ static void		interface_mouse_click_3(t_envg *e)
 		e->thread = NULL;
 		ft_exit(e);
 	}
-	init_variable(e);
-	init_mlx_raytrace(e);
-	ft_creat_lst_obj(e);
-	ft_get_image_texture(e);
-	pthread_create(&e->thread, NULL, ft_launch, e->e);
+	if (e->cam.view == 0)
+	{
+		init_variable(e);
+		init_mlx_raytrace(e);
+		ft_creat_lst_obj(e);
+		ft_get_image_texture(e);
+		pthread_create(&e->thread, NULL, ft_launch, e->e);
+	}	
 }
 
 static void		interface_mouse_click_2(t_envg *e, int x, int y)

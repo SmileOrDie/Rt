@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/02 19:37:40 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/03 18:44:06 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,12 @@ void			ft_check_obj_neg(t_envg *e)
 			tmp->obj.color = (t_color2){255, 255, 255, 0};
 			tmp->obj.ind_transp = 1;
 			tmp->obj.ind_reflec = 0;
-			tmp->obj.ind_refrac = e->e->default_indice;
-			printf("--\n");
+			tmp->obj.ind_refrac = 1;
+			tmp->obj.id_texture = 0;
 		}
 		tmp = tmp->next;
 	}
 	tmp = e->parse_obj;
-	while (tmp)
-	{
-		printf("id = %d, name = %s, negatif = %d, tmp->obj.color = %d %d %d, tmp->obj.ind_transp = %f, tmp->obj.ind_reflec = %f, tmp->obj.ind_refrac = %f\n", tmp->obj.id, tmp->obj.name, tmp->obj.negatif, tmp->obj.color.r, tmp->obj.color.g, tmp->obj.color.b, tmp->obj.ind_transp, tmp->obj.ind_reflec, tmp->obj.ind_refrac);
-		tmp = tmp->next;
-	}
 }
 
 void			ft_parse_j(char *name, t_envg *e)
