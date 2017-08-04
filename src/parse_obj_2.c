@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 20:06:29 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/02 18:44:30 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/04 13:31:47 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		add_obj2_2(t_envg *e, int group, char *line, int *x)
 	}
 	if (e->parse_obj->obj.type == 3 && e->parse_obj->obj.angle != 0)
 	{
-		e->parse_obj->obj.type = 3;
+		e->parse_obj->obj.type = 9;
 		e->parse_obj->obj.group = group;
 		group++;
 	}

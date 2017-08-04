@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 13:32:28 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/04 12:15:34 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/04 13:34:31 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int		save_obj(t_envg *e, t_parse_obj *obj, int fd)
 				copy_sphere(obj->obj, fd, e);
 			else if (obj->obj.type == 2)
 				copy_plan(obj->obj, fd, e);
-			else if (obj->obj.type == 3)
+			else if (obj->obj.type == 3 || obj->obj.type == 9)
 				copy_cylindre(obj->obj, fd, e);
-			else if (obj->obj.type == 4)
+			else if (obj->obj.type == 4 || obj->obj.type == 8)
 				copy_cone(obj->obj, fd, e);
 			else if (obj->obj.type == 5)
 				copy_circle(obj->obj, fd, e);

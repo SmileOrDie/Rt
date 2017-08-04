@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_obj_json2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 17:51:47 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/27 18:13:08 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/04 14:00:56 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void		copy_cube(t_obj obj, int fd, t_envg *e)
 	ft_putstr_fd(fd, "\t\"cube\" :\n\t{\n\t\t\"name\": \"", obj.name, "\",",
 			NULL);
 	ft_putstr_fd(fd, "\n\t\t\"radius\" : ", ft_dtoa(obj.radius), ",\n", NULL);
+	ft_putstr_fd(fd, "\t\t\"angle\" : ", ft_itoa(obj.angle), ",\n", NULL);
 	copy_pos(obj, fd);
 	ft_putstr_fd(fd, "\t\t\"ind_refrac\" : ", ft_dtoa(obj.ind_refrac), ",\n",
 			NULL);
@@ -70,15 +71,15 @@ void		copy_cube(t_obj obj, int fd, t_envg *e)
 			NULL);
 	ft_putstr_fd(fd, "\t\t\"negatif\" : ", ft_itoa(obj.negatif), ",\n", NULL);
 	copy_rgb(obj, fd);
-	ft_putstr_fd(fd, "\t\t\"angle\" : ", ft_itoa(obj.angle), ",\n\t\t", NULL);
-	ft_putstr_fd(fd, "\"dir\" :\n\t\t{\n\t\t\t\"x\" : ", ft_dtoa(obj.dir.x),
-			",\n", NULL);
+	ft_putstr_fd(fd, "\n\t\t\"dir\" :\n\t\t{\n\t\t\t\"x\" : ",
+		ft_dtoa(obj.dir.x), ",\n", NULL);
 	ft_putstr_fd(fd, "\t\t\t\"y\" : ", ft_dtoa(obj.dir.y), ",\n\t\t\t", NULL);
 	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(obj.dir.z), "\n\t\t},\n", NULL);
 	if (obj.id_texture > 0)
 		ft_putstr_fd(fd, "\t\t\"texture\" : \"",
 				e->path_tex[(int)obj.id_texture - 1], "\"", NULL);
 	ft_putstr_fd(fd, "\n\t},\n", NULL);
+	printf("posssss x === %f\n", obj.dir.x);
 }
 
 void		copy_sphere(t_obj obj, int fd, t_envg *e)
