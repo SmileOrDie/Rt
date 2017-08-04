@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_put_img_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 17:04:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/03 18:44:51 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/04 13:17:19 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		put_img5_2(t_envg *e)
 			160, 490);
 	mlx_string_put(e->mlx.mlx, e->mlx.win,
 			185, 490, 0xFFFFFF, "Neg");
-	if (e->nb_tex > 0 && e->page + 3 < e->e->nb_tex)
+	if (e->nb_tex > 0 && e->page + 3 < e->nb_tex)
 	{
 		get_img(&e->mlx, &e->img, "./xpm_file/next.xpm");
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
