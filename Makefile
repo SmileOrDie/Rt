@@ -6,7 +6,7 @@
 #    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#              #
-#    Updated: 2017/08/07 14:55:00 by shamdani         ###   ########.fr        #
+#    Updated: 2017/08/07 14:56:34 by shamdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,9 +48,9 @@ VECTOR		:= $(addprefix $(DVECT)/, $(VECTOR))
 LIBSDL2		:= $(addprefix $(DLIB2)/, $(LIBSDL2))
 MINILIBX	:= $(addprefix $(DLIBX)/, $(MINILIBX))
 INC 		= $(addprefix -I,$(DINC))
-# minilibx 
+
 all: libft $(FOBJ) $(NAME)
- # $(MINILIBX)
+
 $(NAME): $(LIBFT) $(FOBJ)
 		$(CC) $(WFLAGS) $(INC) $(FOBJ) $(LIBFT) $(MINILIBX) $(VECTOR) $(LIBSDL2) -o $@ -framework OpenGL -framework AppKit -framework OpenCL
 
@@ -67,7 +67,7 @@ libsdl2:
 		rm -rf SDL2-2.0.5
 
 libft:
-		if [ -f $(LIBSDL2) ] ; then echo "Nothing to be done" ; else make libsdl2 ; fi
+		@if [ -f $(LIBSDL2) ] ; then echo "Nothing to be done" ; else make libsdl2 ; fi
 		make -C $(DLIB)
 		make -C $(DLIBX)
 		make -C $(DVECT)
