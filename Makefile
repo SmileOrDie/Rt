@@ -6,7 +6,7 @@
 #    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#              #
-#    Updated: 2017/08/07 14:47:19 by shamdani         ###   ########.fr        #
+#    Updated: 2017/08/07 14:53:50 by magouin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ libsdl2:
 		rm -rf SDL2-2.0.5
 
 libft:
-		if [ -f $(LIBSDL2) ] ; then echo "Nothing to be done" ; else make libsdl2 ; fi
+		@if [ -f $(LIBSDL2) ] ; then echo "Nothing to be done" ; else make libsdl2 ; fi
 		make -C $(DLIB)
 		make -C $(DLIBX)
 		make -C $(DVECT)
