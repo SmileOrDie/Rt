@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 15:26:20 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/04 13:52:19 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,31 @@ static void		cam_cal(t_envg *e, t_vector l, int l_at)
 	(e->e->cam.h / 2));	
 }
 
-static void		keypress_2(int key, t_envg *e)
+static void		keypress_2(int key, t_envg *e, int nb_press)
 {
 	if (key == KEY_W)
-		cam_cal(e, (t_vector){0, 10, 0, 0}, 1);
+		cam_cal(e, (t_vector){0, 10 * nb_press, 0, 0}, 1);
 	else if (key == KEY_S)
-		cam_cal(e, (t_vector){0, -10, 0, 0}, 1);
+		cam_cal(e, (t_vector){0, -10 * nb_press, 0, 0}, 1);
 	else if (key == KEY_A)
-		cam_cal(e, (t_vector){10, 0, 0, 0}, 1);
+		cam_cal(e, (t_vector){10 * nb_press, 0, 0, 0}, 1);
 	else if (key == KEY_D)
-		cam_cal(e, (t_vector){-10, 0, 0, 0}, 1);
+		cam_cal(e, (t_vector){-10 * nb_press, 0, 0, 0}, 1);
 	else if (key == KEY_R)
-		cam_cal(e, (t_vector){0, 0, 10, 0}, 1);
+		cam_cal(e, (t_vector){0, 0, 10 * nb_press, 0}, 1);
 	else if (key == KEY_F)
-		cam_cal(e, (t_vector){0, 0, -10, 0}, 1);
+		cam_cal(e, (t_vector){0, 0, -10 * nb_press, 0}, 1);
 }
 
 int				keypress(int key, t_envg *e)
 {
+	static int nb_press = 1;
+
 	if (e->e->flag == 1)
+	{
+		nb_press++;
 		return (1);
+	}
 	else
 	{
 		e->e->wait = 0;
@@ -65,24 +70,29 @@ int				keypress(int key, t_envg *e)
 			e->e->b_screen = 1;
 		}
 		if (key == LEFT)
-			cam_cal(e, (t_vector){10, 0, 0, 0}, 0);
+			cam_cal(e, (t_vector){10 * nb_press, 0, 0, 0}, 0);
 		else if (key == RIGHT)
-			cam_cal(e, (t_vector){-10, 0, 0, 0}, 0);
+			cam_cal(e, (t_vector){-10 * nb_press, 0, 0, 0}, 0);
 		else if (key == DOWN)
-			cam_cal(e, (t_vector){0, 10, 0, 0}, 0);
+			cam_cal(e, (t_vector){0, 10 * nb_press, 0, 0}, 0);
 		else if (key == UP)
-			cam_cal(e, (t_vector){0, -10, 0, 0}, 0);
+		// {
+			// e->e->cam.eye = (t_vector){2210.000000, -9190.000000, -700.000000,0};
+			cam_cal(e, (t_vector){0, -10 * nb_press, 0, 0}, 0);
+		// }
 		else if (key == PAD_TIRET)
-			cam_cal(e, (t_vector){0, 0, -10, 0}, 0);
+			cam_cal(e, (t_vector){0, 0, -10 * nb_press, 0}, 0);
 		else if (key == PAD_PLUS)
-			cam_cal(e, (t_vector){0, 0, 10, 0}, 0);
+			cam_cal(e, (t_vector){0, 0, 10 * nb_press, 0}, 0);
 		else if (KEY_W == key || KEY_R == key || KEY_A == key || KEY_S == key ||
 			KEY_D == key || KEY_F == key)
-			keypress_2(key, e);
+			keypress_2(key, e, nb_press);
 		else
 			return (1);
+		printf("cam pos = %f %f %f\n", e->e->cam.eye.x,e->e->cam.eye.y,e->e->cam.eye.z);
 		pthread_create(&e->thread, NULL, ft_launch, e->e);
 		e->e->flag = 1;
+		nb_press = 1;
 	}
 	return (1);
 }
