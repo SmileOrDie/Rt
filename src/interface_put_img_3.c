@@ -32,7 +32,7 @@
 // 			60, 400 + ((e->i_lst % 3) * 30));
 // 		get_img(&e->mlx, &e->img, "./xpm_file/Modify.xpm");
 // 		str = ft_strdup(b->light.name);
-// 		mlx_string_put(e->mlx.mlx, e->mlx.win,
+// 		string_put(e->mlx.mlx, e->mlx.win,
 // 			90, 400 + ((e->i_lst % 3) * 30), 0xFFFFFF, str);
 // 		free(str);
 // 		e->i_lst++;
@@ -76,7 +76,7 @@ void		put_img7(t_envg *e)
 	get_img(&e->mlx, &e->img, "xpm_file/Anti_a.xpm");
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
 			45, 600);
-	mlx_string_put(e->mlx.mlx, e->mlx.win,
+	string_put(e->mlx.mlx, e->mlx.win,
 			75, 622, 0x000000, anti_a);
 	free(anti_a);
 }

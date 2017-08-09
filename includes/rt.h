@@ -26,6 +26,8 @@
 # include <string.h>
 # include <math.h>
 # include <pthread.h>
+# include "../SDL2/include/SDL2/SDL.h"
+# include "../SDL2/include/SDL2/SDL_image.h"
 
 # define ESC 53
 
@@ -230,7 +232,7 @@ typedef struct			s_env
 	int					nb_light;
 	double				default_indice;
 	double				actual_indice;
-	long int			*nb_obj_pix[3];
+	long int			*nb_obj_pix[8];
 	t_three				**tab_three;
 	int					flag;
 	int 				wait;

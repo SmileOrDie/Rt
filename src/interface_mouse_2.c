@@ -14,7 +14,7 @@
 
 void			ft_exit(t_envg *e)
 {
-	pthread_cancel(e->thread);
+	// pthread_cancel(e->thread);
 	if (e->e->mlx.img)
 		mlx_destroy_image(e->e->mlx.mlx, e->e->mlx.img);
 	if (e->e->mlx.win)

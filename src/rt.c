@@ -12,17 +12,16 @@
 
 #include "../includes/interface_rt.h"
 
-t_env			*ft_create_tab_env(t_env e)
+t_env			*ft_create_tab_env(t_env e, int i)
 {
 	t_env	*tab;
 
-	tab = (t_env *)malloc(sizeof(t_env) * 3);
-	tab[0] = e;
-	tab[1] = e;
-	tab[2] = e;
-	tab[0].start = 0;
-	tab[1].start = 1;
-	tab[2].start = 2;
+	tab = (t_env *)malloc(sizeof(t_env) * i);
+	while (i--)
+	{
+		tab[i] = e;
+		tab[i].start = i;
+	}
 	return (tab);
 }
 
@@ -83,7 +82,7 @@ void				*run_rt(void *env)
 			vnorm(&v_ray);
 			e->begin_three = &(e->tab_three[x + y * e->win.w]);
 			ft_raytracer(e, e->cam.eye, v_ray, 0, 1, (t_color2){255, 255, 255, 0}, &(e->tab_three[x + y * e->win.w]));
-			x += 3;
+			x += 8;
 		}
 		y++;
 	}
@@ -217,7 +216,7 @@ static void		mlx_put_load(t_env *e, int i)
 {
 	t_pos l;
 
-	l = (t_pos){e->win.w /e->anti_a , e->win.h / e->anti_a};
+	l = (t_pos){e->win.w / e->anti_a , e->win.h / e->anti_a};
 	if (e->wait == 0 || !e->mlx.mlx || !e->mlx.win || !e->wait_img[i] ||
 		!(e->size[i].w <= l.w && e->size[i].h <= l.h))
 		return ;
@@ -229,25 +228,26 @@ static long int		ft_launch_thread(t_env *e)
 {
 	t_env 			*tab_env;
 	long int		size_f;
-	pthread_t		tab_thread[3];
+	pthread_t		tab_thread[8];
+	int				i;
 
-	tab_env = ft_create_tab_env(*e);
-	pthread_create(&tab_thread[0], NULL, run_rt, (void *)(&tab_env[0]));
-	pthread_create(&tab_thread[1], NULL, run_rt, (void *)(&tab_env[1]));
-	pthread_create(&tab_thread[2], NULL, run_rt, (void *)(&tab_env[2]));
-	pthread_join(tab_thread[0], NULL);
-	pthread_join(tab_thread[1], NULL);
-	pthread_join(tab_thread[2], NULL);
-	size_f = *(e->nb_obj_pix[0]) + *(e->nb_obj_pix[1]) + *(e->nb_obj_pix[2]);
+	i = 8;
+	tab_env = ft_create_tab_env(*e, i);
+	while (i--)
+		pthread_create(&tab_thread[i], NULL, run_rt, (void *)(&tab_env[i]));
+	size_f = 0;
+	while (++i < 8)
+	{
+		pthread_join(tab_thread[i], NULL);
+		size_f += *(e->nb_obj_pix[i]);
+	}
 	if (!(e->tab_light = (t_l_obj *)malloc(sizeof(t_l_obj) * size_f)))
 		ft_error(MALLOC, "ft_launch");
 	return (size_f);
 }
 
 static void			ft_launch_after(t_env *e)
-{	
-	t_envg 			tmp;
-
+{
 	mlx_put_load(e, 1);
 	get_l_tab(e);
 	mlx_put_load(e, 2);
@@ -256,8 +256,6 @@ static void			ft_launch_after(t_env *e)
 	get_image(e);
 	e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img, 0, 0);
-	tmp.e = e;
-	(e->b_screen == 1) ? keypress('0', &tmp) : mlx_do_sync(e->mlx.mlx);
 }
 
 static void			ft_launch_free(t_env *e, unsigned int limit)
@@ -277,15 +275,16 @@ void				*ft_launch(void *env)
 {
 	t_env 			*e;
 	unsigned int	l;
-	long int		size[3];
+	long int		size[8];
+	int				i;
 
 	e = (t_env *)env;
-	size[0] = 0;
-	size[1] = 0;
-	size[2] = 0;
-	e->nb_obj_pix[0] = &(size[0]);
-	e->nb_obj_pix[1] = &(size[1]);
-	e->nb_obj_pix[2] = &(size[2]);
+	i = -1;
+	while (++i < 8)
+	{
+		size[i] = 0;
+		e->nb_obj_pix[i] = &(size[i]);
+	}
 	l = e->win.w * e->win.h;
 	if (!(e->coef_t = (double*)malloc(sizeof(double) * l)))
 		ft_error(MALLOC, "e->coef_t => ft_launch");
@@ -295,9 +294,36 @@ void				*ft_launch(void *env)
 	if ((size[0] = ft_launch_thread(e)) > 0)
 		ft_launch_after(e);
 	ft_launch_free(e, l);
-	pthread_exit(NULL);
+	return (NULL);
 }
 
+void 			all_texture(t_envg *e, char *path, int x)
+{
+	SDL_Surface *surface;
+	int len;
+
+	len = (ft_strlen(path) - 4);
+	if (ft_strcmp(path + len, ".xpm") == 0 || ft_strcmp(path + len, ".XPM") == 0)
+	{
+		if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->mlx.mlx, path, &e->e->texture[x].w, &e->e->texture[x].h)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
+		if (!(e->e->texture[x].data = mlx_get_data_addr(e->e->texture[x].img,
+			&e->e->texture[x].bpp, &e->e->texture[x].sizeline, &e->e->texture[x].endian)))
+			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
+	}
+	else 
+	{
+		surface = IMG_Load(path);
+		if (surface)
+		{
+			e->e->texture[x].data = (char *)(surface->pixels);
+			e->e->texture[x].h = surface->h;
+			e->e->texture[x].w = surface->w;
+		}
+		else 
+			ft_error("SDL2 : ", ft_strjoin("IMG_Load(...) -> failed : ", SDL_GetError()));
+	}
+}
 void			ft_get_image_texture(t_envg *e)
 {
 	int			x;
@@ -315,11 +341,7 @@ void			ft_get_image_texture(t_envg *e)
 		path = ft_strjoin("./", e->path_tex[x]);
 		if (stat(path, &test) == -1)
 			ft_error("File texture doesn't exist : ", path);
-		if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->mlx.mlx, path, &e->e->texture[x].w, &e->e->texture[x].h)))
-			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->img");
-		if (!(e->e->texture[x].data = mlx_get_data_addr(e->e->texture[x].img,
-			&e->e->texture[x].bpp, &e->e->texture[x].sizeline, &e->e->texture[x].endian)))
-			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
+		all_texture(e, e->path_tex[x], x);
 		x++;
 	}
 }

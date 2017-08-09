@@ -12,6 +12,22 @@
 
 #include "../includes/interface_rt.h"
 
+void		string_put(void *mlx,void *win, int x, int y, int color, char *str)
+{
+	char *s;
+	int len;
+
+	len = ft_strlen(str) - 1;
+	s = NULL;
+	if (len > 30)
+	{
+		s = ft_strjoin("...", str + ft_strlen(str) - 28);
+		mlx_string_put(mlx, win, x, y, color, s);
+		free(s);
+	}
+	else
+		mlx_string_put(mlx, win, x, y, color, str);
+}
 void			add_line(char *dest, char *src, int f)
 {
 	int d;

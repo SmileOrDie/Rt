@@ -30,7 +30,7 @@ void		put_img4(t_envg *e)
 			60, 400 + ((e->i_lst % 3) * 30));
 		get_img(&e->mlx, &e->img, "./xpm_file/Modify.xpm");
 		str = ft_strdup(b->light.name);
-		mlx_string_put(e->mlx.mlx, e->mlx.win,
+		string_put(e->mlx.mlx, e->mlx.win,
 			90, 400 + ((e->i_lst % 3) * 30), 0xFFFFFF, str);
 		free(str);
 		e->i_lst++;
@@ -46,7 +46,7 @@ void		put_img5_2(t_envg *e)
 		get_img(&e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
 			160, 490);
-	mlx_string_put(e->mlx.mlx, e->mlx.win,
+	string_put(e->mlx.mlx, e->mlx.win,
 			185, 490, 0xFFFFFF, "Neg");
 	if (e->nb_tex > 0 && e->page + 3 < e->nb_tex)
 	{
@@ -75,7 +75,7 @@ void		put_img5(t_envg *e)
 			get_img(&e->mlx, &e->img, "./xpm_file/Select_Off.xpm");
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
 			40, 600 + ((i % 3) * 30));
-		mlx_string_put(e->mlx.mlx, e->mlx.win,
+		string_put(e->mlx.mlx, e->mlx.win,
 			70, 600 + ((i % 3) * 30), 0xFFFFFF, e->path_tex[i]);
 		i++;
 	}
