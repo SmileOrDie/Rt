@@ -6,7 +6,7 @@
 #    By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#              #
-#    Updated: 2017/08/08 14:41:14 by shamdani         ###   ########.fr        #
+#    Updated: 2017/08/09 17:09:39 by magouin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,6 @@ libft:
 		make -C $(DVECT)
 
 clean:
-		make -C $(DLIBX) clean
 		make -C $(DLIB) clean
 		make -C $(DVECT) clean
 			$(RM) $(DOBJ)
@@ -95,9 +94,15 @@ fclean: clean
 		make -C $(DVECT) fclean
 			$(RM) $(NAME)
 
+fcleanlib:
+		rm -rf SDL2 SDL2-2.0.5 SDL2_image-2.0.1
+		make -C $(DLIBX) clean
+
+ffclean: fclean fcleanlib
+
 re: fclean all
 
-relib: re
-	rm -rf SDL2 SDL2-2.0.5 SDL2_image-2.0.1
+relib: fclean fcleanlib
+		make
 
 .PHONY: all libft clean fclean re

@@ -187,7 +187,7 @@ t_parse_obj	*get_obj_list(t_env *e, t_three *current, t_three *branch)
 		else
 			obj = e->l_obj[current->id - 1];
 		search = search_obj(&rez, obj);
-		if (search == 1 && obj.type != 2 && obj.type != 6 && obj.type != 5)
+		if (search == 1 && ((obj.type != 2 && obj.type != 6 && obj.type != 5) || obj.group))
 		{
 			// i == 2 ? printf("je malloc et il y a une suite\n") : 0;
 			tmp = malloc(sizeof(t_parse_obj));
@@ -273,7 +273,7 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 		}
 		if (e->l_obj[id].ind_transp > 0)
 		{
-			v_refrac = (e->l_obj[ret].type != 2 && e->l_obj[ret].type != 6 && e->l_obj[ret].type != 5) ? get_refrac(e, v_norm, v_ray, e->l_obj[ret].ind_refrac) : v_ray;
+			v_refrac = (e->l_obj[ret].group || (e->l_obj[ret].type != 2 && e->l_obj[ret].type != 6 && e->l_obj[ret].type != 5)) ? get_refrac(e, v_norm, v_ray, e->l_obj[ret].ind_refrac) : v_ray;
 			ft_raytracer(e, p_hit, v_refrac, prof + 1, coef * e->l_obj[id].ind_transp * (1 - e->l_obj[id].ind_reflec), c_origin, &((*three)->r_refrac));
 		}
 		add_branch(*three, p_hit, coef, c_origin);
