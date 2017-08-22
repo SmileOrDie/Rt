@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/02 13:22:56 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/22 18:50:39 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,21 @@ void		put_img7(t_envg *e)
 	string_put(e->mlx.mlx, e->mlx.win,
 			75, 622, 0x000000, anti_a);
 	free(anti_a);
+}
+
+void		put_img8(t_envg *e)
+{
+	char *amb;
+	// char *str;
+
+	amb = ft_dtoa(e->amb);
+	amb[4] = '\0';
+	// amb = strncpy(amb, amb, 4);
+	get_img(&e->mlx, &e->img, "xpm_file/Ambient.xpm");
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
+			160, 600);
+	string_put(e->mlx.mlx, e->mlx.win,
+			190, 622, 0x000000, amb);
+	free(amb);
+	// free(str);
 }

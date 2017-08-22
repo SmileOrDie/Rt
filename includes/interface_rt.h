@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/02 20:07:25 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/22 17:47:19 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,15 +355,16 @@ void					put_img(t_envg *e, int img);
 /*
 ** interface_put_img_2.c
 */
-void		put_img4(t_envg *e);
-void		put_img5_2(t_envg *e);
-void		put_img5(t_envg *e);
+void					put_img4(t_envg *e);
+void					put_img5_2(t_envg *e);
+void					put_img5(t_envg *e);
 
 /*
 ** interface_put_img_3.c
 */
 void					put_img6(t_envg *e);
 void					put_img7(t_envg *e);
+void					put_img8(t_envg *e);
 /*
 ** interface_graphic.c
 */

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 18:24:19 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/02 17:10:44 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/22 19:42:00 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_obj			new_obj(t_envg *e)
 		ft_atof(e->line[5]));
 	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]),
 		ft_atof(e->line[8]));
-	obj.id_texture = e->line[30][0];
+	obj.id_texture = (obj.negatif > 0) ? 0 : e->line[30][0];
 	obj.group = (!ft_strcmp(e->line[1], "cube") ||
 		!ft_strcmp(e->line[1], "cone_l") ||
 		!ft_strcmp(e->line[1], "cylinder_l")) ? e->group_max++ : 0;

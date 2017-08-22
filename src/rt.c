@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 18:44:21 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/22 19:32:19 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ void				*ft_launch(void *env)
 	int				i;
 
 	e = (t_env *)env;
+	printf("%f\n", e->amb);
 	i = -1;
 	while (++i < 8)
 	{
@@ -367,6 +368,7 @@ int				main(int ac, char **av)
 	e.nb_tex = 0;
 	e.parse_light = NULL;
 	e.parse_obj = NULL;
+	// printf("%f -> %s\n", ft_atod(av[2]), ft_dtoa(ft_atof(av[2])));
 	if (ac == 2)
 		parse_file(av[1] , &e);
 	ft_init_opencl(&e, e.cl_e->cl);

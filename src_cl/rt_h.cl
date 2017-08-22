@@ -60,7 +60,7 @@ typedef struct			s_env_cl
 	int					nb_obj;
 	int					nb_light;
 	void				*cl;
-	double 				vacuum2;
+	double 				amb;
 }						t_env_cl;
 
 # define T 2000000

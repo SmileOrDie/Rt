@@ -274,9 +274,13 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		pixel.g + colorobj.g * l_color.g * calc < 255 ? (pixel.g += colorobj.g * l_color.g * calc) : (pixel.g = 255);
 		pixel.b + colorobj.b * l_color.b * calc < 255 ? (pixel.b += colorobj.b * l_color.b * calc) : (pixel.b = 255);
 		dist[i] = tab_obj_light_t[count];
-			if (tab_obj_light_t[count] == 0)
-		printf("il y a un problem ?\n");i++;
+		// 	if (tab_obj_light_t[count] == 0)
+		// printf("il y a un problem ?\n");
+		i++;
 	}
+	pixel.r = pixel.r * (1 - e->amb) + colorobj.r * e->amb; 
+	pixel.g = pixel.g * (1 - e->amb) + colorobj.g * e->amb; 
+	pixel.b = pixel.b * (1 - e->amb) + colorobj.b * e->amb; 
 	i = 0;
 	while (i < e->nb_light)
 	{

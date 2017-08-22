@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 12:27:06 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/22 19:36:41 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ typedef struct			s_env_cl
 	int					nb_obj;
 	int					nb_light;
 	t_opencl			*cl;
-	double 				vacuum2;
+	double 				amb;
 }						t_env_cl;
 
 typedef struct				s_parse_light

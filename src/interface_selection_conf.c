@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/02 18:08:52 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/22 19:04:35 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ static void	select_conf3(t_envg *e, int x, int y, int nb)
 		e->win.w = e->win.w / (e->anti_a + 1) * e->anti_a;
 		e->win.h = e->win.h / (e->anti_a + 1) * e->anti_a;
 	}
+	else if (x > 160 && x < 177 && y > 624 && y < 648 && e->amb > 0.0)
+		e->amb -= 0.01;
+	else if (x > 243 && x < 260 && y > 624 && y < 648 && e->amb < 1.0)
+		e->amb += 0.01;
 }
 
 static int	select_conf2(t_envg *e, int x, int y)
@@ -116,6 +120,7 @@ static int	select_conf2(t_envg *e, int x, int y)
 		e->win.h = e->win.h / (e->anti_a - 1) * e->anti_a;
 		e->win.w = e->win.w / (e->anti_a - 1) * e->anti_a;
 	}
+
 	return (select_conf2_2(e, x, y, 18));
 }
 
