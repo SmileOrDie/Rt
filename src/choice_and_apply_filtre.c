@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   choice_and_apply_filtre.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 11:25:53 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/02 13:23:18 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/22 15:29:36 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			*lecture_img_for_blur(t_env *e, int x, int y, int i)
 	norm[0] = 0;
 	if (!(tab = (int *)malloc(sizeof(int) * 101)))
 		ft_error(MALLOC, "lecture_img_to_blur");
-	while (i < 100 && y < e->mlx.h)
+	while (i < 100 && y < e->win.h)
 	{
 		norm[2] = (y * e->mlx.sizeline) + ((e->mlx.bpp / 8) * x);
 		tab[i] = (unsigned char)e->mlx.data[norm[2] + 2];
@@ -31,7 +31,7 @@ int			*lecture_img_for_blur(t_env *e, int x, int y, int i)
 		tab[i + 3] = (unsigned char)e->mlx.data[norm[2] + 3];
 		x++;
 		i += 4;
-		if (x > e->mlx.w / e->anti_a || norm[0]++ == 5)
+		if (x > e->win.w / e->anti_a || norm[0]++ == 5)
 		{
 			y++;
 			x = norm[1];
@@ -43,7 +43,7 @@ int			*lecture_img_for_blur(t_env *e, int x, int y, int i)
 
 int			apply_color_pix_for_blur(t_env *e, int rgb[5], int x, int y)
 {
-	if (y >= e->mlx.h || x >= e->mlx.w)
+	if (y >= e->win.h || x >= e->win.w)
 		return (0);
 	rgb[0] = rgb[0] / 256;
 	rgb[1] = rgb[1] / 256;

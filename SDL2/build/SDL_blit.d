@@ -1,0 +1,32 @@
+build/SDL_blit.lo: \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_blit.c \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/../SDL_internal.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/../dynapi/SDL_dynapi.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/../dynapi/SDL_dynapi_overrides.h \
+  include/SDL_config.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_platform.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/begin_code.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/close_code.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_video.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_stdinc.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_config.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_pixels.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_endian.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_rect.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_error.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_rwops.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_surface.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_blendmode.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_sysvideo.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_messagebox.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_shape.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_thread.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_atomic.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_mutex.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_blit.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/include/SDL_cpuinfo.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_blit_auto.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_blit_copy.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_blit_slow.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_RLEaccel_c.h \
+  /Users/phmoulin/project/current/rt/SDL2-2.0.5/src/video/SDL_pixels_c.h
