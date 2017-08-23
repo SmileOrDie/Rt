@@ -85,8 +85,8 @@ t_vector			creat_cam_2(t_envg *e, int i)
 void				creat_cam(t_envg *e)
 {
 	// e->cam.set = 1;
-	e->win.w = ft_atof(e->line[25]) * e->anti_a;
-	e->win.h = ft_atof(e->line[26]) * e->anti_a;
+	e->win.w = ft_atoi(e->line[25]) * e->anti_a;
+	e->win.h = ft_atoi(e->line[26]) * e->anti_a;
 	e->cam = g_default_camera_g;
 	e->cam.eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]),
 		ft_atof(e->line[21]));

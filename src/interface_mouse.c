@@ -39,7 +39,8 @@ static void		init_variable(t_envg *e)
 	e->filter.red == 1 ? e->e->filter_t = &filter_red : 0;
 	e->e->group_max = e->group_max;
 	e->e->cl_e = e->cl_e;
-	e->e->cl_e->amb = e->amb;
+	e->e->cl_e->amb = e->amb * 100;
+	e->e->cl_e->group_max = e->group_max;
 }
 
 static void		init_mlx_raytrace(t_envg *e)

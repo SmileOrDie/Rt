@@ -179,7 +179,8 @@ typedef struct			s_env_cl
 	int					nb_obj;
 	int					nb_light;
 	t_opencl			*cl;
-	double 				amb;
+	int					group_max;
+	int 				amb;
 }						t_env_cl;
 
 typedef struct				s_parse_light
