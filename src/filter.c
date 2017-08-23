@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 11:25:48 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/22 15:29:03 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/23 15:27:08 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,47 +35,38 @@ void	filter_sepia(t_env *e, int x, int y)
 
 void	filter_red(t_env *e, int x, int y)
 {
-	int		pos;
-
-	pos = 0;
-	while (y <= e->win.h / e->anti_a)
-	{
-		pos = (y * e->mlx.sizeline) + (e->mlx.bpp / 8) * x;
-		e->mlx.data[pos + 1] = 0;
-		e->mlx.data[pos] = 0;
-		x++;
-		if (x >= e->win.w / e->anti_a && ((y++) || 1))
-			x = 0;
-	}
+	filter_rgb(e, x, y, 0);
 }
 
 void	filter_blue(t_env *e, int x, int y)
+{
+	filter_rgb(e, x, y, 0);
+}
+
+void	rgb(unsigned char *data, int pos, int rgb)
+{
+	data[pos] = rgb == 0 || rgb == 1 ? 0 : data[pos];
+	data[pos + 1] = rgb == 1 || rgb == 2 ? 0 : data[pos + 1];
+	data[pos + 2] = rgb == 0 || rgb == 2 ? 0 : data[pos + 2];
+}
+
+void	filter_rgb(t_env *e, int x, int y, int rgb)
 {
 	int		pos;
 
 	pos = 0;
 	while (y < e->win.h / e->anti_a)
 	{
-		pos = (y * e->mlx.sizeline) + (e->mlx.bpp / 8) * x;
-		e->mlx.data[pos + 2] = 0;
-		e->mlx.data[pos + 1] = 0;
-		x++;
-		if (x > e->win.w / e->anti_a && ((y++) || 1))
-			x = 0;
-	}
-}
-
-void	filter_green(t_env *e, int x, int y)
-{
-	int		pos;
-
-	while (y <= e->win.h / e->anti_a)
-	{
-		pos = (y * e->mlx.sizeline) + (e->mlx.bpp / 8) * x;
+		pos = (y * e->win.w / e->anti_a * 4) + 4 * x;
+		rgb(unsigned char *data, int pos, int rgb)
 		e->mlx.data[pos] = 0;
 		e->mlx.data[pos + 2] = 0;
 		x++;
 		if (x >= e->win.w / e->anti_a && ((y++) || 1))
 			x = 0;
 	}
+}
+void	filter_green(t_env *e, int x, int y)
+{
+	filter_rgb(e, x, y, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/22 19:37:49 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/23 14:26:30 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void		interface_mouse_click_3(t_envg *e)
 		ft_creat_lst_obj(e);
 		ft_get_image_texture(e);
 		pthread_create(&e->thread, NULL, ft_launch, e->e);
-	}	
+	}
 }
 
 static void		interface_mouse_click_2(t_envg *e, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 15:55:01 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/22 15:29:19 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/23 14:28:26 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void    filter_blur(t_env *e, int x, int y)
 
     y = 0;
     x = 0;
-    while (y <= e->win.h / e->anti_a)
+    while (y < e->win.h / e->anti_a)
     {
         if (!(tab = lecture_img_for_blur(e, x, y, 0)))
            ft_error("error filter", "filter blur");
@@ -88,7 +88,7 @@ void    filter_blur(t_env *e, int x, int y)
         if (apply_color_pix_for_blur(e, rgb, x, y) == -1)
           break ;
         x++;
-        if (x > e->win.w / e->anti_a && ((y++) || 1))
+        if (x >= e->win.w / e->anti_a && ((y++) || 1))
            x = 0;
     }
 }
