@@ -95,7 +95,8 @@ t_obj			new_obj(t_envg *e)
 	obj.group = (!ft_strcmp(e->line[1], "cube") ||
 		!ft_strcmp(e->line[1], "cone_l") ||
 		!ft_strcmp(e->line[1], "cylinder_l")) ? e->group_max++ : 0;
+	printf("%f et %s\n", ft_atof(e->line[8]), e->line[8]);
+	vnorm(&obj.dir);
 	e->nb_obj++;
-	// e->e->nb_obj++;
 	return (obj);
 }

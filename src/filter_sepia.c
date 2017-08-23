@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filter.c                                           :+:      :+:    :+:   */
+/*   filter_sepia.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -31,42 +31,4 @@ void	filter_sepia(t_env *e, int x, int y)
 		if (x >= e->win.w / e->anti_a && ((y++) || 1))
 			x = 0;
 	}
-}
-
-void	filter_red(t_env *e, int x, int y)
-{
-	filter_rgb(e, x, y, 0);
-}
-
-void	filter_blue(t_env *e, int x, int y)
-{
-	filter_rgb(e, x, y, 0);
-}
-
-void	rgb(unsigned char *data, int pos, int rgb)
-{
-	data[pos] = rgb == 0 || rgb == 1 ? 0 : data[pos];
-	data[pos + 1] = rgb == 1 || rgb == 2 ? 0 : data[pos + 1];
-	data[pos + 2] = rgb == 0 || rgb == 2 ? 0 : data[pos + 2];
-}
-
-void	filter_rgb(t_env *e, int x, int y, int rgb)
-{
-	int		pos;
-
-	pos = 0;
-	while (y < e->win.h / e->anti_a)
-	{
-		pos = (y * e->win.w / e->anti_a * 4) + 4 * x;
-		rgb(unsigned char *data, int pos, int rgb)
-		e->mlx.data[pos] = 0;
-		e->mlx.data[pos + 2] = 0;
-		x++;
-		if (x >= e->win.w / e->anti_a && ((y++) || 1))
-			x = 0;
-	}
-}
-void	filter_green(t_env *e, int x, int y)
-{
-	filter_rgb(e, x, y, 0);
 }

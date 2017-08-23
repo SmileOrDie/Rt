@@ -14,28 +14,31 @@
 
 void			init_id(t_envg *e)
 {
-	int			i;
+	int			id;
+	int 		nb;
 	t_parse_obj	*b;
 
-	i = 0;
+	id = 0;
+	nb = 0;
 	b = e->parse_obj;
 	if (b)
 	{
-		e->parse_obj->obj.id = i;
+		e->parse_obj->obj.id = id;
 		while (b)
 		{
 
-			b->obj.id = i++;
+			b->obj.id = id++;
 			if (b->obj.type == 7)
-				i += 5;
+				id += 5;
 			else if (b->obj.type == 8)
-				i++;
+				id++;
 			else if (b->obj.type == 9)
-				i += 2;
+				id += 2;
 			b = b->next;
+			nb++;
 		}
 	}
-	e->nb_obj = i;
+	e->nb_obj = nb;
 }
 
 void			del_elem(t_envg *e, int i)
@@ -44,27 +47,13 @@ void			del_elem(t_envg *e, int i)
 		del_light(e, i);
 	else
 		del_obj(e, i);
-}//	ft_creat_lst_obj(e->e);
+}
 
 void			ft_strcpy_nbr(char **dest, double d)
 {
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-	double	neg;
+	char *tmp;
 
-	neg = (d < 0) ? -1.0 : 1.0;
-	tmp = ft_itoa((int)d);
-	d = (d - ((int)d * neg));
-	if (d > 0)
-	{
-		tmp2 = ft_strjoin(tmp, ".");
-		free(tmp);
-		tmp3 = ft_itoa(d * 10000);
-		tmp = ft_strjoin(tmp2, tmp3);
-		free(tmp3);
-		free(tmp2);
-	}
+	tmp = ft_dtoa(d);
 	ft_strcpy(*dest, tmp);
 	free(tmp);
 }
