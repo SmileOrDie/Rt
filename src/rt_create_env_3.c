@@ -12,7 +12,7 @@
 
 #include "../includes/interface_rt.h"
 
-void	get_matrice(t_vector dir, t_vector **mat)
+static void		get_matrice(t_vector dir, t_vector **mat)
 {
 	t_vector mat_x;
 	t_vector mat_y;
@@ -69,7 +69,7 @@ static void		get_obj_lst_1(t_envg *e, t_obj obj, int *i)
 		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius));
 		e->e->l_obj[*i].radius = tan(obj.angle / 360.0 * M_PI) * obj.radius;
 		e->e->l_obj[*i].id = *i + 1;
-	}	
+	}
 }
 
 void			get_obj_lst(t_envg *e, t_obj obj, int *i)
@@ -82,12 +82,14 @@ void			get_obj_lst(t_envg *e, t_obj obj, int *i)
 		(*i)++;
 		e->e->l_obj[*i] = obj;
 		e->e->l_obj[*i].type = 5;
-		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.angle / 2.0));
+		e->e->l_obj[*i].pos = vadd(obj.pos,
+			vmult_dbl(obj.dir, -obj.angle / 2.0));
 		e->e->l_obj[*i].id = *i + 1;
 		(*i)++;
 		e->e->l_obj[*i] = obj;
 		e->e->l_obj[*i].type = 5;
-		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.angle / 2.0));
+		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir,
+			obj.angle / 2.0));
 		e->e->l_obj[*i].dir = vmult_dbl(obj.dir, -1);
 		e->e->l_obj[*i].id = *i + 1;
 	}

@@ -25,7 +25,7 @@ static t_vector	matricemult(double m2[3][3], t_vector p)
 	return (p);
 }
 
-static void	init_z(double (*m2)[3][3], char axe, double theta)
+static void		init_z(double (*m2)[3][3], char axe, double theta)
 {
 	if (axe == 'z')
 	{
@@ -41,7 +41,7 @@ static void	init_z(double (*m2)[3][3], char axe, double theta)
 	}
 }
 
-static void	init_y(double (*m2)[3][3], char axe, double theta)
+static void		init_y(double (*m2)[3][3], char axe, double theta)
 {
 	if (axe == 'y')
 	{
@@ -57,7 +57,7 @@ static void	init_y(double (*m2)[3][3], char axe, double theta)
 	}
 }
 
-static void	init_x(double (*m2)[3][3], char axe, double theta)
+static void		init_x(double (*m2)[3][3], char axe, double theta)
 {
 	if (axe == 'x')
 	{
@@ -73,7 +73,7 @@ static void	init_x(double (*m2)[3][3], char axe, double theta)
 	}
 }
 
-t_vector	mult_mat(char axe, double theta, t_vector point)
+t_vector		mult_mat(char axe, double theta, t_vector point)
 {
 	int		p;
 	double	m2[3][3];

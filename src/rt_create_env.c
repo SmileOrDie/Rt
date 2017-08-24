@@ -12,59 +12,66 @@
 
 #include "../includes/interface_rt.h"
 
-void			ft_creat_lst_obj(t_envg *e)
+static void				ft_nb_obj_light(t_envg *e, int o, int l)
 {
 	t_parse_obj			*parse_obj_b;
 	t_parse_light		*parse_light_b;
-	int 				i;
 
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
-	i = 0;
 	while (parse_obj_b)
 	{
 		if (parse_obj_b->obj.type == 7)
-			i += 5;
+			o += 5;
 		else if (parse_obj_b->obj.type == 8)
-			i++;
+			o++;
 		else if (parse_obj_b->obj.type == 9)
-			i += 2;
+			o += 2;
 		parse_obj_b = parse_obj_b->next;
-		i++;
+		o++;
 	}
-	e->e->nb_obj = i;
-	i = 0;
+	e->e->nb_obj = o;
 	while (parse_light_b)
 	{
 		parse_light_b = parse_light_b->next;
-		i++;
+		l++;
 	}
-	e->e->nb_light = i;
-	if (!(e->e->l_obj = (t_obj *)malloc(sizeof(t_obj) * e->e->nb_obj)))
-		ft_error(MALLOC, "e->e->l_obj -> rt.h");
-	if (!(e->e->light = (t_light *)malloc(sizeof(t_light) * e->e->nb_light)))
-		ft_error(MALLOC, "e->e->light -> rt.h");
+	e->e->nb_light = l;
+}
+
+static void				ft_create_obj_light(t_envg *e, int o, int l)
+{
+	t_parse_obj			*parse_obj_b;
+	t_parse_light		*parse_light_b;
+
 	parse_obj_b = e->parse_obj;
 	parse_light_b = e->parse_light;
-	i = 0;
 	while (parse_obj_b)
 	{
 		if (parse_obj_b->obj.type == 7 || parse_obj_b->obj.type == 8 ||
 			parse_obj_b->obj.type == 9)
-			get_obj_lst(e, parse_obj_b->obj, &i);
+			get_obj_lst(e, parse_obj_b->obj, &o);
 		else
 		{
-			e->e->l_obj[i] = parse_obj_b->obj;
-			e->e->l_obj[i].id = i + 1;
+			e->e->l_obj[o] = parse_obj_b->obj;
+			e->e->l_obj[o].id = o + 1;
 		}
-		i++;
+		o++;
 		parse_obj_b = parse_obj_b->next;
 	}
-	i = 0;
 	while (parse_light_b)
 	{
-		e->e->light[i] = parse_light_b->light;
+		e->e->light[l++] = parse_light_b->light;
 		parse_light_b = parse_light_b->next;
-		i++;
 	}
+}
+
+void					ft_creat_lst_obj(t_envg *e)
+{
+	ft_nb_obj_light(e, 0, 0);
+	if (!(e->e->l_obj = (t_obj *)malloc(sizeof(t_obj) * e->e->nb_obj)))
+		ft_error(MALLOC, "e->e->l_obj -> rt.h");
+	if (!(e->e->light = (t_light *)malloc(sizeof(t_light) * e->e->nb_light)))
+		ft_error(MALLOC, "e->e->light -> rt.h");
+	ft_create_obj_light(e, 0, 0);
 }
