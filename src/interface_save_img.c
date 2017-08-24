@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 12:21:21 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/02 18:08:53 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/24 13:13:47 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,20 @@ static void		bmp_save_img_2(t_envg *e, int i, int j, char *pos)
 		e->bmp.f_header[i++] = 0;
 }
 
+static int		check_path_valid(t_envg *e, char *id, int s_i)
+{
+	while (!(access(e->bmp.name, W_OK)))
+	{
+		s_i++;
+		free(id);
+		id = ft_itoa(s_i);
+		ft_strcpy(e->bmp.name, "image_file/image_");
+		ft_strcat(e->bmp.name, id);
+		ft_strcat(e->bmp.name, ".bmp");
+	}
+	return (s_i);
+}
+
 static void		bmp_save_img_3(t_envg *e, int i, char *id, int s_i)
 {
 	while (i < 40)
@@ -76,9 +90,10 @@ static void		bmp_save_img_3(t_envg *e, int i, char *id, int s_i)
 	init_header(&e->bmp, e->win.w / e->e->anti_a, e->win.h /
 		e->e->anti_a);
 	id = ft_itoa(s_i);
-	ft_strcat(e->bmp.name, "image_file/image_");
+	ft_strcpy(e->bmp.name, "image_file/image_");
 	ft_strcat(e->bmp.name, id);
 	ft_strcat(e->bmp.name, ".bmp");
+	s_i = check_path_valid(e, id, s_i);
 	e->bmp.f = fopen(e->bmp.name, "wb");
 	fwrite(e->bmp.f_header, 1, 14, e->bmp.f);
 	fwrite(e->bmp.i_header, 1, 40, e->bmp.f);

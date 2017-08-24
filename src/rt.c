@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/22 19:32:19 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/24 13:49:23 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,9 @@ void				*ft_launch(void *env)
 		ft_error(MALLOC, "e->tab_three => ft_launch");
 	mlx_put_load(e, 0);
 	if ((size[0] = ft_launch_thread(e)) > 0)
-		ft_launch_after(e);
+			ft_launch_after(e);
+	else
+		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img, 0, 0);
 	ft_launch_free(e, l);
 	return (NULL);
 }
@@ -311,7 +313,7 @@ void 				all_texture(t_envg *e, char *path, int x)
 			&e->e->texture[x].bpp, &e->e->texture[x].sizeline, &e->e->texture[x].endian)))
 			ft_error(MALLOC, "xpm_file.c => void get_img(...) img->data");
 	}
-	else 
+	else
 	{
 		surface = IMG_Load(path);
 		if (surface)
@@ -320,7 +322,7 @@ void 				all_texture(t_envg *e, char *path, int x)
 			e->e->texture[x].h = surface->h;
 			e->e->texture[x].w = surface->w;
 		}
-		else 
+		else
 			ft_error("SDL2 : ", ft_strjoin("IMG_Load(...) -> failed : ", SDL_GetError()));
 	}
 }
