@@ -99,14 +99,14 @@ static void		bmp_save_img_3(t_envg *e, int i, char *id, int s_i)
 
 int				bmp_save_img(t_envg *e)
 {
-	static unsigned int s_i = 0;
-	char				*pos;
-	char				*id;
-	unsigned char		img[54 + 3 * e->win.h * e->win.w / e->e->anti_a
-	/ e->e->anti_a];
+	static int	s_i = 0;
+	char		*pos;
+	char		img[54 + 3 * e->win.h * e->win.w / (int)pow(e->e->anti_a, 2)];
+	char		*id;
+
 	id = NULL;
 	pos = NULL;
-	e->bmp.img = img;
+	e->bmp.img = (unsigned char *)img;
 	e->bmp.f_size = 54 + 3 * e->win.h * e->win.w / e->e->anti_a /
 		e->e->anti_a;
 	bmp_save_img_2(e, 0, 0, pos);

@@ -42,8 +42,8 @@ static void		put_img3(t_envg *e)
 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img, 40,
 			200 + ((e->i_lst % 15) * 30));
 		str = ft_strdup(pos->obj.name);
-		string_put(e->mlx.mlx, e->mlx.win, 70,
-			200 + ((e->i_lst % 15) * 30), 0xFFFFFF, str);
+		string_put(e, (int[2]){70,
+			200 + ((e->i_lst % 15) * 30)}, 0xFFFFFF, str);
 		free(str);
 		e->i_lst++;
 	}

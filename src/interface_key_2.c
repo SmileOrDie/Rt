@@ -22,7 +22,7 @@ char		*ft_print_key_4_2(int key, t_envg *e)
 		return ((e->shift == 1) ? "j" : "J");
 	else if (key == 40)
 		return ((e->shift == 1) ? "k" : "K");
-	else //(key == 37)
+	else
 		return ((e->shift == 1) ? "l" : "L");
 }
 

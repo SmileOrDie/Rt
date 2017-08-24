@@ -12,15 +12,11 @@
 
 #include "../includes/interface_rt.h"
 
-// t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0}, {NULL, NULL, NULL, NULL}, {{0, 0}, {0, 0}, {0, 0}, {0, 0}}, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0}, 0, 0, 0, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 0, {W, H}, NULL, NULL, NULL, NULL, 0, 0, 0, NULL};
-t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0}, NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL, NULL, NULL, NULL, 0, 0, 0, NULL};
-
-
-static void		event_touch(t_envg *e)
-{
-	mlx_hook(e->e->mlx.win, 2, 0, &keypress, e);
-	mlx_hook(e->e->mlx.win, 17, 0, &redcross, e->e);
-}
+t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0},
+	NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0},
+		0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0
+	}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL, NULL,
+	NULL, NULL, 0, 0, 0, NULL};
 
 static void		init_variable(t_envg *e)
 {
@@ -61,12 +57,12 @@ static void		init_mlx_raytrace(t_envg *e)
 			&(e->e->mlx.bpp), &(e->e->mlx.sizeline), &(e->e->mlx.endian))))
 		ft_error(MLX,
 			"static int init_mlx(t_env *e) (=>mlx_get_data_addr())-(rt.c))");
-	event_touch(e);
+	mlx_hook(e->e->mlx.win, 2, 0, &keypress, e);
+	mlx_hook(e->e->mlx.win, 17, 0, &redcross, e->e);
 }
 
 static void		interface_mouse_click_3(t_envg *e)
 {
-	// t_env  dup_e[2];
 	init_id(e);
 	if (e->run == 1)
 	{

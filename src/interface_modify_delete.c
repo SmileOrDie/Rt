@@ -15,7 +15,7 @@
 void			init_id(t_envg *e)
 {
 	int			id;
-	int 		nb;
+	int			nb;
 	t_parse_obj	*b;
 
 	id = 0;
@@ -26,7 +26,6 @@ void			init_id(t_envg *e)
 		e->parse_obj->obj.id = id;
 		while (b)
 		{
-
 			b->obj.id = id++;
 			if (b->obj.type == 7)
 				id += 5;

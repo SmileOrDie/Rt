@@ -61,8 +61,12 @@ void			init_mlx(t_envg *e)
 	else if (!(e->mlx.data = mlx_get_data_addr(e->mlx.img, &(e->mlx.bpp),
 		&(e->mlx.sizeline), &(e->mlx.endian))))
 		return ;
-	e->wait_img[0] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_10.xpm", &e->size[0].w, &e->size[0].h);
-	e->wait_img[1] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_30.xpm", &e->size[1].w, &e->size[1].h);
-	e->wait_img[2] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_50.xpm", &e->size[2].w, &e->size[2].h);
-	e->wait_img[3] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_80.xpm", &e->size[3].w, &e->size[3].h);
+	e->wait_img[0] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_10.xpm",
+		&e->size[0].w, &e->size[0].h);
+	e->wait_img[1] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_30.xpm",
+		&e->size[1].w, &e->size[1].h);
+	e->wait_img[2] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_50.xpm",
+		&e->size[2].w, &e->size[2].h);
+	e->wait_img[3] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_80.xpm",
+		&e->size[3].w, &e->size[3].h);
 }

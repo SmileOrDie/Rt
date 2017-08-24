@@ -245,7 +245,7 @@ void        			clean_str(char **clean, int f);
 void					print_line(t_envg *e, int line, int precision);
 void					add_line(char *dest, char *src, int f);
 void					del_line(t_envg *e);
-void					string_put(void *mlx,void *win, int x, int y, int color, char *str);
+void					string_put(t_envg *e, int size[2], int color, char *str);
 
 /*
 ** interface_mouse.c

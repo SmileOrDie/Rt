@@ -85,7 +85,7 @@ t_obj			new_obj(t_envg *e)
 	obj.angle = ft_atof(e->line[31]);
 	obj.name = ft_strdup(e->line[2]);
 	obj.ind_transp = (obj.negatif != 0) ? 1 : ft_atof(e->line[13]);
-	obj.color = (obj.negatif == 1) ? (t_color2){255, 255, 255, 0} :(t_color2)
+	obj.color = (obj.negatif == 1) ? (t_color2){255, 255, 255, 0} : (t_color2)
 		{ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
 	obj.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]),
 		ft_atof(e->line[5]));
