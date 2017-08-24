@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interface_selection_del_home_info.c                :+:      :+:    :+:   */
+/*   interface_selection_del_home.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../includes/interface_rt.h"
 
-int 		srch_id(t_envg *e, int pos)
+int			srch_id(t_envg *e, int pos)
 {
 	t_parse_obj	*b;
 	int			i;
@@ -67,38 +67,6 @@ int			select_del(t_envg *e, int x, int y)
 	return (i);
 }
 
-int			select_info(t_envg *e, int x, int y)
-{
-	int i;
-
-	i = 0;
-	while (++i <= 2)
-	{
-		if (x > e->line_pos[i].w && x < e->line_pos[i].w + 317 &&
-			y > e->line_pos[i].h && y < e->line_pos[i].h + 30)
-			return (i + 40);
-	}
-	if (e->line[41][0] && x > 290 && x < 390 && y > 245 && y < 265)
-		add_new_texture(e);
-	else if (e->line[42][0] && x > 290 && x < 390 && y > 295 && y < 315)
-		free_env_parse(e);
-	else if (e->nb_obj > 0 && e->cam.set && x > 40 && x < 135 &&
-		y > 330 && y < 355)
-	{
-		save_scene(e, NULL, -1);
-		home_tab(e);		
-	}
-	else if (e->e && e->e->mlx.img != NULL && x > 145 && x < 245 && y > 335
-		&& y < 355)
-	{
-		bmp_save_img(e);
-		home_tab(e);
-	}
-	else
-		info_tab(e);
-	return (-1);
-}
-
 static void	select_home_1(t_envg *e, int x, int y)
 {
 	if (x > 255 && x < 355 && y > 765 &&
@@ -128,7 +96,6 @@ int			select_home(t_envg *e, int x, int y)
 			e->light = -1;
 			e->page = 0;
 			e->mod = 1;
-			//a faire.
 			modif_list(e, e->obj);
 			return (0);
 		}

@@ -212,14 +212,25 @@ typedef struct			s_envg
 }						t_envg;
 
 void					ft_init_opencl(t_envg *e, t_opencl *cl);
-
+void					init_cl_e(t_env *e, t_env_cl *cl);
+void					ft_l_err(int err, int id);
 int						keypress(int key, t_envg *e);
+
+/*
+** rt_create_env_3.c
+*/
+void					get_obj_lst(t_envg *e, t_obj obj, int *i);
+
+/*
+** rt_create_env_2.c
+*/
+t_vector				mult_mat(char axe, double theta, t_vector point);
 
 /*
 ** interface_modify_delete_2.c
 */
-void			del_light(t_envg *e, int i);
-void			del_obj(t_envg *e, int i);
+void					del_light(t_envg *e, int i);
+void					del_obj(t_envg *e, int i);
 
 /*
 ** interface_modify_delete.c
@@ -336,6 +347,11 @@ int						select_add(t_envg *e, int x, int y);
 
 /*
 ** interface_selection_conf.c
+*/
+int						select_conf2(t_envg *e, int x, int y);
+
+/*
+** interface_selection_conf_2.c
 */
 int						select_conf(t_envg *e, int x, int y);
 

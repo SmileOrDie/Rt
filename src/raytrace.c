@@ -12,9 +12,10 @@
 
 #include "../includes/rt.h"
 
-double	return_dist(t_obj obj, t_vector p_ray, t_vector v_ray)
+double		return_dist(t_obj obj, t_vector p_ray, t_vector v_ray)
 {
-	static double (*inter[6])(t_obj, t_vector, t_vector) = {inter_sphere, inter_plane, inter_cylinder, inter_cone, inter_circle, inter_square};
+	static double (*inter[6])(t_obj, t_vector, t_vector) = {inter_sphere,
+		inter_plane, inter_cylinder, inter_cone, inter_circle, inter_square};
 
 	return (inter[obj.type - 1](obj, p_ray, v_ray));
 }
@@ -40,7 +41,8 @@ double		inter_obj(t_env *e, t_vector p_ray, t_vector v_ray, int *id)
 	return (short_dist);
 }
 
-t_vector		get_refrac(t_env *e, t_vector v_norm, t_vector v_dir, double ind_refrac)
+t_vector	get_refrac(t_env *e, t_vector v_norm, t_vector v_dir,
+	double ind_refrac)
 {
 	double		c1;
 	double		c2;
@@ -65,7 +67,7 @@ t_vector		get_refrac(t_env *e, t_vector v_norm, t_vector v_dir, double ind_refra
 	return (ret);
 }
 
-t_vector		get_reflec(t_vector v_norm, t_vector v_dir)
+t_vector	get_reflec(t_vector v_norm, t_vector v_dir)
 {
 	double c1;
 
@@ -73,7 +75,7 @@ t_vector		get_reflec(t_vector v_norm, t_vector v_dir)
 	return (vadd(v_dir, vmult_dbl(v_norm, 2 * c1)));
 }
 
-t_color2		add_color(t_color2 c1, t_color2 c2)
+t_color2	add_color(t_color2 c1, t_color2 c2)
 {
 	t_color2	rez;
 
@@ -83,7 +85,7 @@ t_color2		add_color(t_color2 c1, t_color2 c2)
 	return (rez);
 }
 
-t_color2		l_shine(t_color2 c, t_color2 color, double angle)
+t_color2	l_shine(t_color2 c, t_color2 color, double angle)
 {
 	double power;
 
@@ -97,8 +99,7 @@ t_color2		l_shine(t_color2 c, t_color2 color, double angle)
 	return (c);
 }
 
-
-t_color2		mult_color(t_color2 c, double coef)
+t_color2	mult_color(t_color2 c, double coef)
 {
 	c.r = c.r * coef;
 	c.g = c.g * coef;
@@ -106,9 +107,9 @@ t_color2		mult_color(t_color2 c, double coef)
 	return (c);
 }
 
-void		add_branch(t_three *n_branch, t_vector p_hit, double coef, t_color2 c_origin)
+void		add_branch(t_three *n_branch, t_vector p_hit, double coef,
+	t_color2 c_origin)
 {
-
 	n_branch->p_hit = p_hit;
 	n_branch->p_hit.coef = coef;
 	n_branch->c_origin = c_origin;
@@ -116,7 +117,9 @@ void		add_branch(t_three *n_branch, t_vector p_hit, double coef, t_color2 c_orig
 
 t_vector	return_v_norm(int type, t_obj obj, t_vector p_hit)
 {
-	static t_vector (*angle[6])(t_obj, t_vector) = {ft_angle_sphere, ft_angle_plane, ft_angle_cylinder, ft_angle_cone, ft_angle_circle, ft_angle_square};
+	static t_vector (*angle[6])(t_obj, t_vector) = {ft_angle_sphere,
+		ft_angle_plane, ft_angle_cylinder, ft_angle_cone, ft_angle_circle,
+		ft_angle_square};
 
 	return (angle[type - 1](obj, p_hit));
 }
@@ -130,7 +133,8 @@ int			search_obj(t_parse_obj **list_obj, t_obj obj)
 	begin = *list_obj;
 	while (begin)
 	{
-		if ((obj.group == 0 && obj.id == begin->obj.id) || (obj.group != 0 && obj.group == begin->obj.group))
+		if ((obj.group == 0 && obj.id == begin->obj.id) ||
+			(obj.group != 0 && obj.group == begin->obj.group))
 		{
 			if (tmp)
 				tmp->next = begin->next;
@@ -148,24 +152,6 @@ int			search_obj(t_parse_obj **list_obj, t_obj obj)
 	return (1);
 }
 
-// void 		ft_debug(t_parse_obj *obj_list)
-// {
-// 	printf("ft_debug --------- \n");
-// 	t_parse_obj *begin;
-// 	int 		i = 0;
-
-// 	begin = obj_list;
-// 	while (obj_list != NULL && obj_list->next != NULL)
-// 	{
-// 		printf("ft_debug --------- id =%d\n", obj_list->obj.id);
-// 		printf("ft_debug -------- i = %d\n", i);
-// 		i++;
-// 		obj_list = obj_list->next;
-// 	}
-// 	obj_list = begin;
-
-// }
-
 t_parse_obj	*get_obj_list(t_env *e, t_three *current, t_three *branch)
 {
 	t_parse_obj	*tmp;
@@ -181,16 +167,15 @@ t_parse_obj	*get_obj_list(t_env *e, t_three *current, t_three *branch)
 		current = current->r_reflec;
 	while (branch != current)
 	{
-		// current->id == 0 || current->id == 1 || current->id == 7 ? printf("current->id = %d, i = %d\n", current->id, i) : 0;
 		if (current->id < 0)
 			obj = e->l_obj[-current->id - 1];
 		else
 			obj = e->l_obj[current->id - 1];
-		search = search_obj(&rez, obj);
-		if (search == 1 && ((obj.type != 2 && obj.type != 6 && obj.type != 5) || obj.group))
+		if ((search = search_obj(&rez, obj)) == 1 && ((obj.type != 2 &&
+			obj.type != 6 && obj.type != 5) || obj.group))
 		{
-			// i == 2 ? printf("je malloc et il y a une suite\n") : 0;
-			tmp = malloc(sizeof(t_parse_obj));
+			(tmp = (t_parse_obj*)malloc(sizeof(t_parse_obj))) ? 0 :
+			ft_error(MALLOC, "t_parse_obj");
 			if (current->id < 0)
 				tmp->obj = e->l_obj[-current->id - 1];
 			else
@@ -205,15 +190,10 @@ t_parse_obj	*get_obj_list(t_env *e, t_three *current, t_three *branch)
 	return (rez);
 }
 
-int		ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj, t_three **three, int *id, t_env *e)
+int			ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj)
 {
-	(void)three;
-	(void)id;
-	(void)e;
-	(void)list_obj;
-	(void)obj;
-
 	t_parse_obj *tmp;
+
 	tmp = list_obj;
 	if (obj.negatif == 0)
 	{
@@ -227,10 +207,10 @@ int		ft_get_obj_neg(t_obj obj, t_parse_obj *list_obj, t_three **three, int *id, 
 	return (obj.id - 1);
 }
 
-
-void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double coef, t_color2 c_origin, t_three **three)
+void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof,
+	double coef, t_color2 c_origin, t_three **three)
 {
-	t_vector 		p_hit;
+	t_vector		p_hit;
 	t_vector		v_refrac;
 	t_vector		v_reflec;
 	t_vector		v_norm;
@@ -252,12 +232,10 @@ void		ft_raytracer(t_env *e, t_vector p_ray, t_vector v_ray, int prof, double co
 	(*three)->r_refrac = NULL;
 	(*three)->r_reflec = NULL;
 	(*three)->id = id + 1;
-	// printf("id = %d\n", id);
 	obj_list = get_obj_list(e, *(e->begin_three), *three);
-	ret = ft_get_obj_neg(e->l_obj[id], obj_list, three, &id, e);
+	ret = ft_get_obj_neg(e->l_obj[id], obj_list);
 	if (ret == -1)
 	{
-		// printf("id = %d\n", (*three)->id);
 		(*three)->id *= -1;
 		ft_raytracer(e, p_hit, v_ray, prof, coef, c_origin, &((*three)->r_refrac));
 		add_branch(*three, p_hit, coef, c_origin);

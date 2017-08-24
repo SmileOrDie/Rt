@@ -12,7 +12,7 @@
 
 #include "../includes/interface_rt.h"
 
-t_env			*ft_create_tab_env(t_env e, int i)
+t_env				*ft_create_tab_env(t_env e, int i)
 {
 	t_env	*tab;
 
@@ -25,11 +25,11 @@ t_env			*ft_create_tab_env(t_env e, int i)
 	return (tab);
 }
 
-double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag)
+double				get_l_pix(t_three *branch, t_l_obj *tab_light,
+	t_obj *l_obj, char flag)
 {
 	static long int	i = 0;
 	static double	coef_t = 0;
-
 
 	flag == 2 ? (i = 0) : 0;
 	flag ? (coef_t = 0) : 0;
@@ -54,7 +54,6 @@ double				get_l_pix(t_three *branch, t_l_obj *tab_light, t_obj *l_obj, char flag
 	return (coef_t);
 }
 
-
 void				*run_rt(void *env)
 {
 	int			y;
@@ -77,7 +76,7 @@ void				*run_rt(void *env)
 		x = e->start;
 		while (x < e->win.w)
 		{
-			p_cam = new_v(e->cam.l.x + opti[0] * (double)x + opti[1] * (double)y , e->cam.l.y + opti[2] * (double)x + opti[3] * (double)y, e->cam.l.z + opti[4] * (double)x + opti[5] * (double)y);
+			p_cam = new_v(e->cam.l.x + opti[0] * (double)x + opti[1] * (double)y, e->cam.l.y + opti[2] * (double)x + opti[3] * (double)y, e->cam.l.z + opti[4] * (double)x + opti[5] * (double)y);
 			v_ray = vsub(p_cam, e->cam.eye);
 			vnorm(&v_ray);
 			e->begin_three = &(e->tab_three[x + y * e->win.w]);
@@ -114,10 +113,10 @@ void				get_l_tab(t_env *e)
 	}
 }
 
-t_color2				get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, double coef_t)
+t_color2			get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, double coef_t)
 {
-	t_color2			color_ray;
-	static int			i = 0;
+	t_color2		color_ray;
+	static int		i = 0;
 
 	flag ? (i = 0) : 0;
 	if (!branch)
@@ -212,7 +211,7 @@ void                get_image(t_env *e)
 	free(img);
 }
 
-static void		mlx_put_load(t_env *e, int i)
+static void			mlx_put_load(t_env *e, int i)
 {
 	t_pos l;
 
@@ -298,7 +297,7 @@ void				*ft_launch(void *env)
 	return (NULL);
 }
 
-void 			all_texture(t_envg *e, char *path, int x)
+void 				all_texture(t_envg *e, char *path, int x)
 {
 	SDL_Surface *surface;
 	int len;
@@ -325,7 +324,8 @@ void 			all_texture(t_envg *e, char *path, int x)
 			ft_error("SDL2 : ", ft_strjoin("IMG_Load(...) -> failed : ", SDL_GetError()));
 	}
 }
-void			ft_get_image_texture(t_envg *e)
+
+void				ft_get_image_texture(t_envg *e)
 {
 	int			x;
 	char		*path;
@@ -347,7 +347,7 @@ void			ft_get_image_texture(t_envg *e)
 	}
 }
 
-void			parse_file(char *name , t_envg *e)
+void				parse_file(char *name , t_envg *e)
 {
 	int		len_name;
 
@@ -357,7 +357,7 @@ void			parse_file(char *name , t_envg *e)
 	init_id(e);
 }
 
-int				main(int ac, char **av)
+int					main(int ac, char **av)
 {
 	t_envg		e;
 	t_env 		env;
@@ -368,7 +368,6 @@ int				main(int ac, char **av)
 	e.nb_tex = 0;
 	e.parse_light = NULL;
 	e.parse_obj = NULL;
-	// printf("%f -> %s\n", ft_atod(av[2]), ft_dtoa(ft_atof(av[2])));
 	if (ac == 2)
 		parse_file(av[1] , &e);
 	ft_init_opencl(&e, e.cl_e->cl);

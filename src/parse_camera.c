@@ -13,9 +13,10 @@
 #include "../includes/interface_rt.h"
 
 t_cam	g_default_camera = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60,
-	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 1, 0};
+	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0},
+	{1, 0, 0, 0}, 1, 0};
 
-void	get_camera3(t_envg *e)
+void		get_camera3(t_envg *e)
 {
 	e->cam.n = vsub(e->cam.eye, e->cam.l_at);
 	vnorm(&e->cam.n);
@@ -35,24 +36,15 @@ void	get_camera3(t_envg *e)
 		(e->cam.h / 2));
 }
 
-void	get_camera2(char *line, int *x, t_envg *e, char *name)
+static void	get_camera2(char *line, int *x, t_envg *e, char *name)
 {
 	int			y;
 	int			tmp;
 
-	line[*x] != ':' ? ft_error(J_SON, "get_camera2") : ((*x)++);
-	free_space(line, x);
-	if (ft_strcmp(name, "pos") == 0)
-		e->cam.eye = get_t_vector(line, x, 0);
-	if (ft_strcmp(name, "dir") == 0)
-		e->cam.l_at = get_t_vector(line, x, 1);
-	if (ft_strcmp(name, "up") == 0)
-		e->cam.up = get_t_vector(line, x, 1);
-	else if (ft_strcmp(name, "3D") == 0 && ((y = *x) || 1))
+	if (ft_strcmp(name, "3D") == 0 && ((y = *x) || 1))
 	{
 		if ((tmp = get_number(line, x) || 1) && tmp != 0)
-			e->cam.view = ft_clamp(
-				ft_for_atof(line, y, *x), 0, 2);
+			e->cam.view = ft_clamp(ft_for_atof(line, y, *x), 0, 2);
 		else
 			ft_error(N_NUM, "get_camera2");
 	}
@@ -71,7 +63,18 @@ void	get_camera2(char *line, int *x, t_envg *e, char *name)
 	}
 }
 
-void	get_camera(char *line, int *x, t_envg *e)
+static void	get_camera1(char *line, int *x, t_envg *e, char *name)
+{
+	free_space(line, x);
+	e->cam.eye = ft_strcmp(name, "pos") == 0 ?
+	get_t_vector(line, x, 0) : e->cam.eye;
+	e->cam.l_at = ft_strcmp(name, "dir") == 0 ?
+	get_t_vector(line, x, 1) : e->cam.l_at;
+	e->cam.up = ft_strcmp(name, "up") == 0 ?
+	get_t_vector(line, x, 1) : e->cam.up;
+}
+
+void		get_camera(char *line, int *x, t_envg *e)
 {
 	char		*name;
 
@@ -82,6 +85,8 @@ void	get_camera(char *line, int *x, t_envg *e)
 	{
 		get_string(line, x, &name);
 		free_space(line, x);
+		line[*x] != ':' ? ft_error(J_SON, "get_camera2") : ((*x)++);
+		get_camera1(line, x, e, name);
 		get_camera2(line, x, e, name);
 		free_space(line, x);
 		free(name);
