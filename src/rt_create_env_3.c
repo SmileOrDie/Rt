@@ -6,13 +6,13 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 11:41:31 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/24 18:26:59 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/24 18:30:36 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void	get_matrice(t_vector dir, t_vector **mat)
+static void		get_matrice(t_vector dir, t_vector **mat)
 {
 	t_vector mat_x;
 	t_vector mat_y;

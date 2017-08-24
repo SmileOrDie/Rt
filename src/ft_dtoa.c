@@ -14,11 +14,11 @@
 
 char			*ft_dtoa(double nb)
 {
-	int	ent;
-	char			*part_ent;
-	char			part_dec[7];
-	char			*rez;
-	int				x;
+	int			ent;
+	char		*part_ent;
+	char		part_dec[7];
+	char		*rez;
+	int			x;
 
 	x = -1;
 	ent = nb;

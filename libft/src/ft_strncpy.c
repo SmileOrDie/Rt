@@ -30,15 +30,9 @@ char	*ft_strncpy(char *dest, const char *src, size_t n)
 			f++;
 		}
 	}
-	if (src[d] == '\0')
-	{
-		while ((size_t)d < n)
-		{
-			dest[f] = '\0';
-			d++;
-			f++;
-		}
-	}
+	if (src[d--] == '\0')
+		while ((size_t)++d < n)
+			dest[f++] = '\0';
 	dest[n] = '\0';
 	return (dest);
 }
