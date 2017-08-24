@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interface_create_obj2.c                            :+:      :+:    :+:   */
+/*   interface_create_obj_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 18:24:19 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/22 19:42:00 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/24 19:05:40 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,10 @@ t_light			new_light(t_envg *e)
 {
 	t_light			l;
 
-	l.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]),
-		ft_atof(e->line[5]));
+	l.pos = new_v(ft_atod(e->line[3]), ft_atod(e->line[4]),
+		ft_atod(e->line[5]));
 	l.color = (t_color2){ft_atoi(e->line[9]), ft_atoi(e->line[10]),
 		ft_atoi(e->line[11]), 0};
 	l.name = ft_strdup(e->line[2]);
 	return (l);
-}
-
-t_obj			new_obj(t_envg *e)
-{
-	t_obj			obj;
-
-	check_new_obj(e, &obj);
-	obj.id = e->nb_obj;
-	obj.negatif = e->line[30][1];
-	obj.radius = ft_atof(e->line[12]);
-	obj.ind_refrac = (obj.negatif != 0) ? 1 : ft_atof(e->line[14]);
-	obj.ind_reflec = (obj.negatif != 0) ? 0 : ft_atof(e->line[15]);
-	obj.angle = ft_atof(e->line[31]);
-	obj.name = ft_strdup(e->line[2]);
-	obj.ind_transp = (obj.negatif != 0) ? 1 : ft_atof(e->line[13]);
-	obj.color = (obj.negatif == 1) ? (t_color2){255, 255, 255, 0} : (t_color2)
-		{ft_atoi(e->line[9]), ft_atoi(e->line[10]), ft_atoi(e->line[11]), 0};
-	obj.pos = new_v(ft_atof(e->line[3]), ft_atof(e->line[4]),
-		ft_atof(e->line[5]));
-	obj.dir = new_v(ft_atof(e->line[6]), ft_atof(e->line[7]),
-		ft_atof(e->line[8]));
-	obj.id_texture = (obj.negatif > 0) ? 0 : e->line[30][0];
-	obj.group = (!ft_strcmp(e->line[1], "cube") ||
-		!ft_strcmp(e->line[1], "cone_l") ||
-		!ft_strcmp(e->line[1], "cylinder_l")) ? e->group_max++ : 0;
-	printf("%f et %s\n", ft_atof(e->line[8]), e->line[8]);
-	vnorm(&obj.dir);
-	e->nb_obj++;
-	return (obj);
 }
