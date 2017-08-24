@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/27 13:32:28 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/04 13:34:31 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/24 11:53:01 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,32 @@ static int		save_obj(t_envg *e, t_parse_obj *obj, int fd)
 	return (-1);
 }
 
-void			save_scene(t_envg *e, char *id, int fd)
+static void		create_path(char **id)
 {
 	static int		i = 0;
+	char			name[256];
+
+	if (i == 256)
+		ft_error("Too much existing backup", "save_obj_json");
+	*id = ft_itoa(i);
+	ft_strcpy(name, "./scenes_file/scene_file_");
+	ft_strcat(name, *id);
+	ft_strcat(name, ".json");
+	i++;
+	while (!access(name, W_OK))
+	{
+		if (i == 256)
+			ft_error("Too much existing backup", "save_obj_json");
+		*id = ft_itoa(i);
+		ft_strcpy(name, "./scenes_file/scene_file_");
+		ft_strcat(name, *id);
+		ft_strcat(name, ".json");
+		i++;
+	}
+}
+
+void			save_scene(t_envg *e, char *id, int fd)
+{
 	t_parse_obj		*obj;
 	t_parse_light	*light;
 	char			name[256];
@@ -51,7 +74,8 @@ void			save_scene(t_envg *e, char *id, int fd)
 	fd = -1;
 	obj = NULL;
 	obj = e->parse_obj;
-	id = ft_itoa(i);
+	create_path(&id);
+	ft_strcpy(name, "./scenes_file/scene_file_");
 	ft_strcpy(name, "./scenes_file/scene_file_");
 	ft_strcat(name, id);
 	ft_strcat(name, ".json");
@@ -64,5 +88,4 @@ void			save_scene(t_envg *e, char *id, int fd)
 	ft_putstr_fd(fd, "}", NULL);
 	close(fd);
 	free(id);
-	i++;
 }
