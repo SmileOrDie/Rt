@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_create_env.c                                    :+:      :+:    :+:   */
+/*   rt_create_env_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 11:41:31 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 12:07:03 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/24 18:26:59 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void		get_obj_lst_1(t_envg *e, t_obj obj, int *i)
 		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.radius));
 		e->e->l_obj[*i].radius = tan(obj.angle / 360.0 * M_PI) * obj.radius;
 		e->e->l_obj[*i].id = *i + 1;
-	}	
+	}
 }
 
 void			get_obj_lst(t_envg *e, t_obj obj, int *i)
@@ -82,13 +82,12 @@ void			get_obj_lst(t_envg *e, t_obj obj, int *i)
 		(*i)++;
 		e->e->l_obj[*i] = obj;
 		e->e->l_obj[*i].type = 5;
-		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.angle / 2.0));
+		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, -obj.angle));
 		e->e->l_obj[*i].id = *i + 1;
 		(*i)++;
 		e->e->l_obj[*i] = obj;
 		e->e->l_obj[*i].type = 5;
-		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.angle / 2.0));
-		e->e->l_obj[*i].dir = vmult_dbl(obj.dir, -1);
+		e->e->l_obj[*i].pos = vadd(obj.pos, vmult_dbl(obj.dir, obj.angle));
 		e->e->l_obj[*i].id = *i + 1;
 	}
 	else

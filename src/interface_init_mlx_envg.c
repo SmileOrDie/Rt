@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_init_mlx_envg.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 18:49:39 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/03 18:37:10 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/24 18:25:40 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,26 @@ void			init_envg(t_envg *e, t_env *env)
 	init_pos_value(e);
 }
 
+static void		init_mlx_2(t_envg *e)
+{
+	e->wait_img[0] = NULL;
+	e->wait_img[1] = NULL;
+	e->wait_img[2] = NULL;
+	e->wait_img[3] = NULL;
+	if(!(e->wait_img[0] = mlx_xpm_file_to_image(e->mlx.mlx,
+		"./xpm_file/load_10.xpm", &e->size[0].w, &e->size[0].h)))
+		ft_error("wait_img[0] :","load failed");
+	if(!(e->wait_img[1] = mlx_xpm_file_to_image(e->mlx.mlx,
+		"./xpm_file/load_30.xpm", &e->size[1].w, &e->size[1].h)))
+		ft_error("wait_img[1] :","load failed");
+	if(!(e->wait_img[2] = mlx_xpm_file_to_image(e->mlx.mlx,
+		"./xpm_file/load_50.xpm", &e->size[2].w, &e->size[2].h)))
+		ft_error("wait_img[2] :","load failed");
+	if(!(e->wait_img[3] = mlx_xpm_file_to_image(e->mlx.mlx,
+		"./xpm_file/load_80.xpm", &e->size[3].w, &e->size[3].h)))
+		ft_error("wait_img[3] :","load failed");
+}
+
 void			init_mlx(t_envg *e)
 {
 	e->img.img = NULL;
@@ -61,12 +81,5 @@ void			init_mlx(t_envg *e)
 	else if (!(e->mlx.data = mlx_get_data_addr(e->mlx.img, &(e->mlx.bpp),
 		&(e->mlx.sizeline), &(e->mlx.endian))))
 		return ;
-	e->wait_img[0] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_10.xpm",
-		&e->size[0].w, &e->size[0].h);
-	e->wait_img[1] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_30.xpm",
-		&e->size[1].w, &e->size[1].h);
-	e->wait_img[2] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_50.xpm",
-		&e->size[2].w, &e->size[2].h);
-	e->wait_img[3] = mlx_xpm_file_to_image(e->mlx.mlx, "./xpm_file/load_80.xpm",
-		&e->size[3].w, &e->size[3].h);
+	init_mlx_2(e);
 }
