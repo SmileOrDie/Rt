@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/28 15:04:08 by magouin          ###   ########.fr       */
+/*   Updated: 2017/08/28 18:20:52 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,15 @@ double				get_l_pix(t_three *branch, t_l_obj *tab_light,
 		get_l_pix(branch->r_reflec, tab_light, l_obj, 0);
 	if (branch && branch->r_refrac)
 		get_l_pix(branch->r_refrac, tab_light, l_obj, 0);
-	if (branch && branch->id > 0 && branch->p_hit.coef * (1 - l_obj[branch->id - 1].ind_transp) * (1 - l_obj[branch->id - 1].ind_reflec) > 0.039)
+	if (branch && branch->id > 0 && branch->p_hit.coef * (1 - l_obj[branch->id -
+1].ind_transp) * (1 - l_obj[branch->id - 1].ind_reflec) > 0.039 && (++i || 1))
 	{
-		tab_light[i].id = branch->id - 1;
-		tab_light[i].p_hit_x = branch->p_hit.x;
-		tab_light[i].p_hit_y = branch->p_hit.y;
-		tab_light[i].p_hit_z = branch->p_hit.z;
-		coef_t += branch->p_hit.coef * (1 - l_obj[branch->id - 1].ind_transp) * (1 - l_obj[branch->id - 1].ind_reflec);
-		i++;
+		tab_light[i - 1].id = branch->id - 1;
+		tab_light[i - 1].p_hit_x = branch->p_hit.x;
+		tab_light[i - 1].p_hit_y = branch->p_hit.y;
+		tab_light[i - 1].p_hit_z = branch->p_hit.z;
+		coef_t += branch->p_hit.coef * (1 - l_obj[branch->id - 1].ind_transp) *
+		(1 - l_obj[branch->id - 1].ind_reflec);
 	}
 	return (coef_t);
 }
@@ -113,103 +114,242 @@ void				get_l_tab(t_env *e)
 	}
 }
 
-t_color2			get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, double coef_t)
+// t_color2			get_pixel(t_three *branch, t_color2 pixel, t_env_cl *e, char flag, double coef_t)
+// {
+// 	t_color2		color_ray;
+// 	static int		i = 0;
+//
+// 	flag ? (i = 0) : 0;
+// 	if (!branch)
+// 		return ((t_color2){0, 0, 0, 0});
+// 	if (branch->id < 0)
+// 	{
+// 		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
+// 		pixel = add_color(pixel, color_ray);
+// 		return (pixel);
+// 	}
+// 	if (branch->r_reflec)
+// 	{
+// 		color_ray = get_pixel(branch->r_reflec, pixel, e, 0, coef_t);
+// 		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_reflec);
+// 		pixel = add_color(pixel, color_ray);
+// 	}
+// 	if (branch->r_refrac)
+// 	{
+// 		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
+// 		color_ray.r = color_ray.r * (branch->c_origin.r / 255.0);
+// 		color_ray.g = color_ray.g * (branch->c_origin.g / 255.0);
+// 		color_ray.b = color_ray.b * (branch->c_origin.b / 255.0);
+// 		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_transp * (1 - e->l_obj[branch->id - 1].ind_reflec));
+// 		pixel = add_color(pixel, color_ray);
+// 	}
+// 	if (branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) > 0.039)
+// 	{
+// 		color_ray = e->l_obj[branch->id - 1].negatif > 0 ? mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef / coef_t) : mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) / coef_t);
+// 		pixel = add_color(pixel, color_ray);
+// 		i++;
+// 	}
+// 	return (pixel);
+// }
+typedef struct		s_g_pix
+{
+	char			flag;
+	double			coef;
+	int				i;
+}					t_g_pix;
+
+static void			get_pix_refrac(t_env_cl *e, t_color2 *color_ray,
+	t_three *branch, t_color2 *pixel)
+{
+	color_ray->r = color_ray->r * (branch->c_origin.r / 255.0);
+	color_ray->g = color_ray->g * (branch->c_origin.g / 255.0);
+	color_ray->b = color_ray->b * (branch->c_origin.b / 255.0);
+	*color_ray = mult_color(*color_ray, branch->p_hit.coef * e->l_obj[branch->id
+		- 1].ind_transp * (1 - e->l_obj[branch->id - 1].ind_reflec));
+	*pixel = add_color(*pixel, *color_ray);
+}
+
+static void			get_pix_reflec(t_env_cl *e, t_color2 *color_ray,
+	t_three *branch, t_color2 *pixel)
+{
+	*color_ray = mult_color(*color_ray, branch->p_hit.coef *
+		e->l_obj[branch->id - 1].ind_reflec);
+	*pixel = add_color(*pixel, *color_ray);
+}
+
+static int			get_pixel_neg_color(t_color2 *pix, t_env_cl *e,
+	t_three *branch, t_g_pix n)
+{
+	t_color2		color_ray;
+
+	color_ray = e->l_obj[branch->id - 1].negatif > 0 ?
+	mult_color((t_color2){(unsigned char)e->color_lst[n.i].r,
+	(unsigned char)e->color_lst[n.i].g, (unsigned char)e->color_lst[n.i].b, 0},
+	branch->p_hit.coef / n.coef) : mult_color((t_color2){(unsigned char)
+	e->color_lst[n.i].r, (unsigned char)e->color_lst[n.i].g, (unsigned char)
+	e->color_lst[n.i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id -
+	1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) / n.coef);
+	*pix = add_color(*pix, color_ray);
+	return (1);
+}
+
+t_color2			get_pixel(t_three *bra, t_color2 pix, t_env_cl *e, t_g_pix n)
 {
 	t_color2		color_ray;
 	static int		i = 0;
 
-	flag ? (i = 0) : 0;
-	if (!branch)
+	n.flag ? (i = 0) : 0;
+	if (!bra)
 		return ((t_color2){0, 0, 0, 0});
-	if (branch->id < 0)
+	if (bra->id < 0)
 	{
-		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
-		pixel = add_color(pixel, color_ray);
-		return (pixel);
+		color_ray = get_pixel(bra->r_refrac, pix, e, (t_g_pix){0, n.coef, i});
+		return (pix = add_color(pix, color_ray)); // return (pixel)
 	}
-	if (branch->r_reflec)
+	if (bra->r_reflec)
 	{
-		color_ray = get_pixel(branch->r_reflec, pixel, e, 0, coef_t);
-		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_reflec);
-		pixel = add_color(pixel, color_ray);
+		color_ray = get_pixel(bra->r_reflec, pix, e, (t_g_pix){0, n.coef, i});
+		get_pix_reflec(e, &color_ray, bra, &pix);
 	}
-	if (branch->r_refrac)
+	if (bra->r_refrac)
 	{
-		color_ray = get_pixel(branch->r_refrac, pixel, e, 0, coef_t);
-		color_ray.r = color_ray.r * (branch->c_origin.r / 255.0);
-		color_ray.g = color_ray.g * (branch->c_origin.g / 255.0);
-		color_ray.b = color_ray.b * (branch->c_origin.b / 255.0);
-		color_ray = mult_color(color_ray, branch->p_hit.coef * e->l_obj[branch->id - 1].ind_transp * (1 - e->l_obj[branch->id - 1].ind_reflec));
-		pixel = add_color(pixel, color_ray);
+		color_ray = get_pixel(bra->r_refrac, pix, e, (t_g_pix){0, n.coef, i});
+		get_pix_refrac(e, &color_ray, bra, &pix);
 	}
-	if (branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) > 0.039)
-	{
-		color_ray = e->l_obj[branch->id - 1].negatif > 0 ? mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef / coef_t) : mult_color((t_color2){(unsigned char)e->color_lst[i].r, (unsigned char)e->color_lst[i].g, (unsigned char)e->color_lst[i].b, 0}, branch->p_hit.coef * (1 - e->l_obj[branch->id - 1].ind_transp) * (1 - e->l_obj[branch->id - 1].ind_reflec) / coef_t);
-		pixel = add_color(pixel, color_ray);
-		i++;
-	}
-	return (pixel);
+	if (bra->p_hit.coef * (1 - e->l_obj[bra->id - 1].ind_transp) *
+		(1 - e->l_obj[bra->id - 1].ind_reflec) > 0.039)
+		i += get_pixel_neg_color(&pix, e, bra, (t_g_pix){0, n.coef, i});// ne pas oublier i++;
+	return (pix);
 }
-
-void                get_image(t_env *e)
+typedef struct 		s_n_g_img
 {
-	int				i;
-	int				tx;
-	int				ty;
 	int				tmpx;
 	int				tmpy;
+	int				tx;
+	int				ty;
+	int				i;
+	int				color[3];
+	int				opti[4];
+}					t_n_g_img;
+
+static void get_img_2(t_env *e, unsigned char *img, t_n_g_img *n)
+{
+	n->color[0] = 0;
+	n->color[1] = 0;
+	n->color[2] = 0;
+	n->tmpy = 0;
+	while (n->tmpy < e->anti_a)
+	{
+		n->tmpx = 0;
+		while (n->tmpx < e->anti_a)
+		{
+			n->opti[3] = n->tx * 4 + n->ty * e->win.w * 4 + n->tmpy * e->win.w * 4 + n->tmpx * 4;
+			n->color[0] += img[n->opti[3] + 2];
+			n->color[1] += img[n->opti[3] + 1];
+			n->color[2] += img[n->opti[3] + 0];
+			(n->tmpx)++;
+		}
+		(n->tmpy)++;
+	}
+	e->mlx.data[n->i * 4 + 0] = n->color[2] / n->opti[1];
+	e->mlx.data[n->i * 4 + 1] = n->color[1] / n->opti[1];
+	e->mlx.data[n->i * 4 + 2] = n->color[0] / n->opti[1];
+	n->tx = (n->tx + e->anti_a) % e->win.w;
+	n->tx == 0 ? n->ty += e->anti_a : 0;
+	(n->i)++;
+}
+
+
+void				get_image(t_env *e)
+{
+	t_n_g_img		n;
 	t_color2		pixel;
 	char			flag;
 	unsigned char 	*img;
-	int				color[3];
-	int				opti[4];
 
 	flag = 1;
-	i = 0;
-	opti[0] = e->win.h * e->win.w;
-	opti[1] = e->anti_a * e->anti_a;
-	opti[2] = opti[0] / opti[1];
-	img = malloc(opti[0] * 4);
-	while (i < opti[0])
+	n.i = 0;
+	n.opti[0] = e->win.h * e->win.w;
+	n.opti[1] = e->anti_a * e->anti_a;
+	n.opti[2] = n.opti[0] / n.opti[1];
+	img = malloc(n.opti[0] * 4);
+	while (n.i < n.opti[0])
 	{
-		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
-		img[i * 4 + 2] = pixel.r;
-		img[i * 4 + 1] = pixel.g;
-		img[i * 4 + 0] = pixel.b;
-		i++;
+		pixel = get_pixel(e->tab_three[n.i], (t_color2){0, 0, 0, 0}, e->cl_e, (t_g_pix){flag, e->coef_t[n.i], 0});
+		img[n.i * 4 + 2] = pixel.r;
+		img[n.i * 4 + 1] = pixel.g;
+		img[n.i * 4 + 0] = pixel.b;
+		(n.i)++;
 		flag = 0;
 	}
-	i = 0;
-	tx = 0;
-	ty = 0;
-	while (i < opti[2])
-	{
-		tmpy = 0;
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 0;
-		while (tmpy < e->anti_a)
-		{
-			tmpx = 0;
-			while (tmpx < e->anti_a)
-			{
-				opti[3] = tx * 4 + ty * e->win.w * 4 + tmpy * e->win.w * 4 + tmpx * 4;
-				color[0] += img[opti[3] + 2];
-				color[1] += img[opti[3] + 1];
-				color[2] += img[opti[3] + 0];
-				tmpx++;
-			}
-			tmpy++;
-		}
-		e->mlx.data[i * 4 + 0] = color[2] / opti[1];
-		e->mlx.data[i * 4 + 1] = color[1] / opti[1];
-		e->mlx.data[i * 4 + 2] = color[0] / opti[1];
-		i++;
-		tx = (tx + e->anti_a) % e->win.w;
-		tx == 0 ? ty += e->anti_a : 0;
-	}
+	n.i = 0;
+	n.tx = 0;
+	n.ty = 0;
+	while (n.i < n.opti[2])
+		get_img_2(e, img, &n);
 	free(img);
 }
+
+//
+// void                get_image(t_env *e)
+// {
+// 	int				i;
+// 	int				tx;
+// 	int				ty;
+// 	int				tmpx;
+// 	int				tmpy;
+// 	t_color2		pixel;
+// 	char			flag;
+// 	unsigned char 	*img;
+// 	int				color[3];
+// 	int				opti[4];
+//
+// 	flag = 1;
+// 	i = 0;
+// 	opti[0] = e->win.h * e->win.w;
+// 	opti[1] = e->anti_a * e->anti_a;
+// 	opti[2] = opti[0] / opti[1];
+// 	img = malloc(opti[0] * 4);
+// 	while (i < opti[0])
+// 	{
+// 		pixel = get_pixel(e->tab_three[i], (t_color2){0, 0, 0, 0}, e->cl_e, flag, e->coef_t[i]);
+// 		img[i * 4 + 2] = pixel.r;
+// 		img[i * 4 + 1] = pixel.g;
+// 		img[i * 4 + 0] = pixel.b;
+// 		i++;
+// 		flag = 0;
+// 	}
+// 	i = 0;
+// 	tx = 0;
+// 	ty = 0;
+// 	while (i < opti[2])
+// 	{
+// 		tmpy = 0;
+// 		color[0] = 0;
+// 		color[1] = 0;
+// 		color[2] = 0;
+// 		while (tmpy < e->anti_a)
+// 		{
+// 			tmpx = 0;
+// 			while (tmpx < e->anti_a)
+// 			{
+// 				opti[3] = tx * 4 + ty * e->win.w * 4 + tmpy * e->win.w * 4 + tmpx * 4;
+// 				color[0] += img[opti[3] + 2];
+// 				color[1] += img[opti[3] + 1];
+// 				color[2] += img[opti[3] + 0];
+// 				tmpx++;
+// 			}
+// 			tmpy++;
+// 		}
+// 		e->mlx.data[i * 4 + 0] = color[2] / opti[1];
+// 		e->mlx.data[i * 4 + 1] = color[1] / opti[1];
+// 		e->mlx.data[i * 4 + 2] = color[0] / opti[1];
+// 		i++;
+// 		tx = (tx + e->anti_a) % e->win.w;
+// 		tx == 0 ? ty += e->anti_a : 0;
+// 	}
+// 	free(img);
+// }
 
 static void			mlx_put_load(t_env *e, int i)
 {
