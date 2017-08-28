@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/22 17:47:19 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/28 19:04:01 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,7 @@
 # define RIGHT 124
 # define DOWN 125
 # define UP 126
-
-
 # define LINE_SIZE 128
-
-// # define NUMBER_ARG "number of argument not right :"
-// # define FILES_E "No such file : "
-// # define MALLOC "failed function malloc in :"
-// # define ARG_N "argument can't be -NULL- in :"
-// # define MLX "mlx failed :"
 
 typedef struct			s_pos_i
 {
@@ -146,7 +138,7 @@ typedef struct			s_filter
 	int					green;
 	int					red;
 	int					sepia;
-	int 				old;
+	int					old;
 	int					cartoon;
 }						t_filter;
 
@@ -155,17 +147,17 @@ typedef struct			s_tabu
 	char				*name_path;
 	DIR					*dirp;
 	int					index;
-} 						t_tabu;
+}						t_tabu;
 
 typedef struct			s_bmp
 {
-    FILE         		*f;
-    unsigned char		f_header[14];
-    unsigned char		i_header[40];
-    unsigned char		pad[3];
-    unsigned char		*img;
-    unsigned int 		f_size;
-    char         		name[256];
+	FILE				*f;
+	unsigned char		f_header[14];
+	unsigned char		i_header[40];
+	unsigned char		pad[3];
+	unsigned char		*img;
+	unsigned int		f_size;
+	char				name[256];
 }						t_bmp;
 
 typedef struct			s_envg
@@ -188,8 +180,8 @@ typedef struct			s_envg
 	t_pos_i				img_pos[LINE_SIZE];
 	int					pos;
 	int					pos_value[LINE_SIZE];
-	int 				nb_c;
-	int 				nb_obj;
+	int					nb_c;
+	int					nb_obj;
 	int					font;
 	int					f_key;
 	t_tab_valid			volet;
@@ -210,6 +202,24 @@ typedef struct			s_envg
 	void				*wait_img[4];
 	t_pos				size[4];
 }						t_envg;
+
+typedef struct			s_g_pix
+{
+	char				flag;
+	double				coef;
+	int					i;
+}						t_g_pix;
+
+typedef struct			s_n_g_img
+{
+	int					tmpx;
+	int					tmpy;
+	int					tx;
+	int					ty;
+	int					i;
+	int					color[3];
+	int					opti[4];
+}						t_n_g_img;
 
 void					ft_init_opencl(t_envg *e, t_opencl *cl);
 void					init_cl_e(t_env *e, t_env_cl *cl);
@@ -236,7 +246,7 @@ void					del_obj(t_envg *e, int i);
 ** interface_modify_delete.c
 */
 void					ft_strcpy_nbr(char **dest, double d);
-void 					modif_light(t_envg *e, int light);
+void					modif_light(t_envg *e, int light);
 void					modif_list(t_envg *e, int obj);
 void					del_elem(t_envg *e, int i);
 void					modif_default(t_envg *e);
@@ -246,9 +256,9 @@ void					init_id(t_envg *e);
 ** interface_keypress.c
 */
 int						interface_keypress(int key, t_envg *e);
-void            		free_env_parse(t_envg *e);
-void    				add_new_texture(t_envg *e);
-void        			clean_str(char **clean, int f);
+void					free_env_parse(t_envg *e);
+void					add_new_texture(t_envg *e);
+void					clean_str(char **clean, int f);
 
 /*
 ** interface_line.c
@@ -256,12 +266,14 @@ void        			clean_str(char **clean, int f);
 void					print_line(t_envg *e, int line, int precision);
 void					add_line(char *dest, char *src, int f);
 void					del_line(t_envg *e);
-void					string_put(t_envg *e, int size[2], int color, char *str);
+void					string_put(t_envg *e, int size[2], int color,
+	char *str);
 
 /*
 ** interface_mouse.c
 */
-int						interface_mouse_click(int button, int x, int y, t_envg *e);
+int						interface_mouse_click(int button, int x, int y,
+	t_envg *e);
 void					ft_exit(t_envg *e);
 
 /*
@@ -269,7 +281,7 @@ void					ft_exit(t_envg *e);
 */
 char					*ft_print_key_4_2(int key, t_envg *e);
 char					*ft_print_key_6(int key, t_envg *e);
-char 					*ft_print_key_5_2(int key, t_envg *e);
+char					*ft_print_key_5_2(int key, t_envg *e);
 
 /*
 ** interface_key.c
@@ -279,7 +291,7 @@ char					*ft_print_key(int key, t_envg *e);
 /*
 ** interface_mouse.c
 */
-int     				mouss_click(int button, int x, int y, t_envg *e);
+int						mouss_click(int button, int x, int y, t_envg *e);
 
 /*
 ** interface_mouse_2
@@ -297,8 +309,8 @@ void					get_img(t_mlx *mlx, t_mlx *img, char *str);
 /*
 ** interface_initialisation.c
 */
-void     				init_envg(t_envg *e, t_env *env);
-void        		    init_mlx(t_envg *e);
+void					init_envg(t_envg *e, t_env *env);
+void					init_mlx(t_envg *e);
 void					init_pos_value(t_envg *e);
 void					init_line_pos(t_envg *e);
 
@@ -307,7 +319,7 @@ void					init_line_pos(t_envg *e);
 */
 int						add_tab(t_envg *e);
 int						conf_tab(t_envg *e);
-void    				home_tab(t_envg *e);
+void					home_tab(t_envg *e);
 void					del_tab(t_envg *e);
 
 /*
@@ -319,7 +331,6 @@ void					info_tab(t_envg *e);
 /*
 ** interface_tabul.c
 */
-// void					tabulation(t_tabu *t);
 void					switch_tabul(t_envg *e);
 
 /*
@@ -361,7 +372,7 @@ int						select_conf(t_envg *e, int x, int y);
 int						select_del(t_envg *e, int x, int y);
 int						select_info(t_envg *e, int x, int y);
 int						select_home(t_envg *e, int x, int y);
-int 					srch_id(t_envg *e, int pos);
+int						srch_id(t_envg *e, int pos);
 
 /*
 ** interface_put_img.c
@@ -416,49 +427,59 @@ int						bmp_save_img(t_envg *e);
 **	/parcer/parser_*.c
 */
 
-void				get_camera3(t_envg *e);
-void				increase_l_obj(t_envg *e);
-void				ft_get_image_texture(t_envg *e);
-void				free_space(char *line, int *x);
-int					get_string(char *line, int *x, char **str);
-int					get_number(char *line, int *x);
-void				add_obj2(char *line, int *x, t_envg *e, int type);
-int					add_obj2_2(t_envg *e, int group, char *line, int *x);
-void				add_obj2_3(t_envg *e, char *line, int *x, char *rez);
-void				get_texture(char *line, int *x, t_envg *e);
-int					get_texture_2(t_envg *e, int y, char *path);
-void				add_obj22(char *line, int *x, t_envg *e, char *rez);
-void				add_obj22_2(t_envg *e, int *x, int y, char *line);
-void				add_obj23(char *line, int *x, t_envg *e, char *rez);
-void				add_obj23_2(t_envg *e, int *x, int y, char *line);
-void				add_obj24(char *line, int *x, t_envg *e, char *rez);
-t_vector			get_t_vector(char *line, int *x, int norme);
-t_color2			get_t_color(char *line, int *x);
-int					get_object(char *line, int *x, t_envg *e, char *name);
-int					get_true(char *line, int *x);
-int					get_false(char *line, int *x);
-int					get_null(char *line, int *x);
-void				parse_json(char *line, t_envg *e);
-int					count_object(char *line);
-void				ft_parse_j(char *name, t_envg *e);
-void 				exit_error(char *str);
-void				get_camera(char *line, int *x, t_envg *e);
-double				ft_for_atof(char *line, int y, int x);
-void				get_ambient(char *line, int *x, t_envg *e);
-void				get_light(char *line, int *x, t_envg *e);
-void				get_image_size(char *line, int *x, t_envg *e);
-void				ft_parse_json(char *line, t_envg *e);
+void					get_camera3(t_envg *e);
+void					increase_l_obj(t_envg *e);
+void					ft_get_image_texture(t_envg *e);
+void					free_space(char *line, int *x);
+int						get_string(char *line, int *x, char **str);
+int						get_number(char *line, int *x);
+void					add_obj2(char *line, int *x, t_envg *e, int type);
+int						add_obj2_2(t_envg *e, int group, char *line, int *x);
+void					add_obj2_3(t_envg *e, char *line, int *x, char *rez);
+void					get_texture(char *line, int *x, t_envg *e);
+int						get_texture_2(t_envg *e, int y, char *path);
+void					add_obj22(char *line, int *x, t_envg *e, char *rez);
+void					add_obj22_2(t_envg *e, int *x, int y, char *line);
+void					add_obj23(char *line, int *x, t_envg *e, char *rez);
+void					add_obj23_2(t_envg *e, int *x, int y, char *line);
+void					add_obj24(char *line, int *x, t_envg *e, char *rez);
+t_vector				get_t_vector(char *line, int *x, int norme);
+t_color2				get_t_color(char *line, int *x);
+int						get_object(char *line, int *x, t_envg *e, char *name);
+int						get_true(char *line, int *x);
+int						get_false(char *line, int *x);
+int						get_null(char *line, int *x);
+void					parse_json(char *line, t_envg *e);
+int						count_object(char *line);
+void					ft_parse_j(char *name, t_envg *e);
+void					exit_error(char *str);
+void					get_camera(char *line, int *x, t_envg *e);
+double					ft_for_atof(char *line, int y, int x);
+void					get_ambient(char *line, int *x, t_envg *e);
+void					get_light(char *line, int *x, t_envg *e);
+void					get_image_size(char *line, int *x, t_envg *e);
+void					ft_parse_json(char *line, t_envg *e);
 
-void            	save_scene(t_envg *e, char *id, int fd);
-int					save_light_and_cam(t_envg *e, int fd, t_parse_light *light);
-void				copy_square(t_obj obj, int fd, t_envg *e);
-void				copy_cube(t_obj obj, int fd, t_envg *e);
-void				copy_sphere(t_obj obj, int fd, t_envg *e);
-void				copy_plan(t_obj obj, int fd, t_envg *e);
-void				copy_cylindre(t_obj obj, int fd, t_envg *e);
-void				copy_cone(t_obj obj, int fd, t_envg *e);
-void				copy_circle(t_obj obj, int fd, t_envg *e);
-void				copy_rgb(t_obj obj, int fd);
-void				copy_pos(t_obj obj, int fd);
+void					save_scene(t_envg *e, char *id, int fd);
+int						save_light_and_cam(t_envg *e, int fd,
+	t_parse_light *light);
+void					copy_square(t_obj obj, int fd, t_envg *e);
+void					copy_cube(t_obj obj, int fd, t_envg *e);
+void					copy_sphere(t_obj obj, int fd, t_envg *e);
+void					copy_plan(t_obj obj, int fd, t_envg *e);
+void					copy_cylindre(t_obj obj, int fd, t_envg *e);
+void					copy_cone(t_obj obj, int fd, t_envg *e);
+void					copy_circle(t_obj obj, int fd, t_envg *e);
+void					copy_rgb(t_obj obj, int fd);
+void					copy_pos(t_obj obj, int fd);
 
+t_color2				get_pixel(t_three *bra, t_color2 pix, t_env_cl *e,
+	t_g_pix n);
+double					get_l_pix(t_three *branch, t_l_obj *tab_light,
+	t_obj *l_obj, char flag);
+void					free_branch(t_three *branch);
+void					*run_rt(void *env);
+void					get_image(t_env *e);
+void					get_l_tab(t_env *e);
+t_env					*ft_create_tab_env(t_env e, int i);
 #endif
