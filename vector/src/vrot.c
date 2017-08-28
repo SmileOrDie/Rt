@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/vector.h"
 
 t_vector	vrot(t_vector u, double angle, t_vector point)
@@ -32,8 +31,8 @@ t_vector	vrot(t_vector u, double angle, t_vector point)
 	mat[2][0] = u.z * u.x * (1 - c) + u.y * s;
 	mat[2][1] = u.z * u.y * (1 - c) - u.x * s;
 	mat[2][2] = u.z * u.z * (1 - c) + c;
-	r.x = mat[0][0] * point.x +  mat[1][0] * point.y + mat[2][0] * point.z;
-	r.y = mat[0][1] * point.x +  mat[1][1] * point.y + mat[2][1] * point.z;
-	r.z = mat[0][2] * point.x +  mat[1][2] * point.y + mat[2][2] * point.z;
+	r.x = mat[0][0] * point.x + mat[1][0] * point.y + mat[2][0] * point.z;
+	r.y = mat[0][1] * point.x + mat[1][1] * point.y + mat[2][1] * point.z;
+	r.z = mat[0][2] * point.x + mat[1][2] * point.y + mat[2][2] * point.z;
 	return (r);
 }

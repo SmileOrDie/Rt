@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/28 15:04:08 by magouin          ###   ########.fr       */
+/*   Updated: 2017/08/28 15:38:10 by magouin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void				*run_rt(void *env)
 			v_ray = vsub(p_cam, e->cam.eye);
 			vnorm(&v_ray);
 			e->begin_three = &(e->tab_three[x + y * e->win.w]);
-			ft_raytracer(e, e->cam.eye, v_ray, 0, 1, (t_color2){255, 255, 255, 0}, &(e->tab_three[x + y * e->win.w]));
+			ft_raytracer(e, (t_ray){e->cam.eye, v_ray, 0, 1, (t_color2){255, 255, 255, 0}}, &(e->tab_three[x + y * e->win.w]));
 			x += 8;
 		}
 		y++;
