@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/24 13:49:23 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/28 15:04:08 by magouin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,6 +370,8 @@ int					main(int ac, char **av)
 	e.nb_tex = 0;
 	e.parse_light = NULL;
 	e.parse_obj = NULL;
+	e.cl_e = malloc(sizeof(t_env_cl));
+	e.cl_e->cl = malloc(sizeof(t_opencl));
 	if (ac == 2)
 		parse_file(av[1] , &e);
 	ft_init_opencl(&e, e.cl_e->cl);
