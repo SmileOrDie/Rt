@@ -12,6 +12,15 @@
 
 #include "../includes/interface_rt.h"
 
+void			re_init_tab(t_envg *e)
+{
+	int i;
+
+	i = 5;
+	while (i)
+		load_img(e, i--);
+}
+
 static void		init_envg2(t_envg *e, t_env *env)
 {
 	e->mlx.w = WI;

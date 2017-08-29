@@ -17,11 +17,10 @@ static void			mlx_put_load(t_env *e, int i)
 	t_pos l;
 
 	l = (t_pos){e->win.w / e->anti_a, e->win.h / e->anti_a};
-	if (e->wait == 0 || !e->mlx.mlx || !e->mlx.win || !e->wait_img[i] ||
+	if (!e->mlx.mlx || !e->mlx.win || !e->wait_img[i] ||
 		!(e->size[i].w <= l.w && e->size[i].h <= l.h))
 		return ;
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->wait_img[i],
-		(l.w / 2) - (e->size[i].w / 2), (l.h / 2) - (e->size[i].h / 2));
+	e->wait = i + 1;
 }
 
 static long int		ft_launch_thread(t_env *e)
@@ -55,7 +54,7 @@ static void			ft_launch_after(t_env *e)
 	mlx_put_load(e, 3);
 	get_image(e);
 	e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
-	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img, 0, 0);
+	e->wait = 5;
 }
 
 static void			ft_launch_free(t_env *e, unsigned int limit)
