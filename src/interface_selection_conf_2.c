@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   interface_selection_conf_2.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/27 13:35:21 by shamdani         ###   ########.fr       */
+/*   Created: 2017/04/14 16:25:09 by shamdani          #+#    #+#             */
+/*   Updated: 2017/08/22 19:04:35 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/interface_rt.h"
 
-size_t	ft_strlen(const char *s)
+int			select_conf(t_envg *e, int x, int y)
 {
-	size_t i;
-
-	i = 0;
-	if (s == NULL || !*s)
-		return (0);
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	if (e->mod == 1)
+		return (select_add(e, x, y));
+	else
+		return (select_conf2(e, x, y));
+	return (-1);
 }

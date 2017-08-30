@@ -6,21 +6,17 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/22 19:37:49 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/23 14:26:30 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-// t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0}, {NULL, NULL, NULL, NULL}, {{0, 0}, {0, 0}, {0, 0}, {0, 0}}, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0}, 0, 0, 0, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 0, {W, H}, NULL, NULL, NULL, NULL, 0, 0, 0, NULL};
-t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0}, NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL, NULL, NULL, NULL, 0, 0, 0, NULL};
-
-
-static void		event_touch(t_envg *e)
-{
-	mlx_hook(e->e->mlx.win, 2, 0, &keypress, e);
-	mlx_hook(e->e->mlx.win, 17, 0, &redcross, e->e);
-}
+t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0},
+	NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0},
+		0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0
+	}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL, NULL,
+	NULL, NULL, 0, 0, 0, NULL};
 
 static void		init_variable(t_envg *e)
 {
@@ -39,7 +35,8 @@ static void		init_variable(t_envg *e)
 	e->filter.red == 1 ? e->e->filter_t = &filter_red : 0;
 	e->e->group_max = e->group_max;
 	e->e->cl_e = e->cl_e;
-	e->e->cl_e->amb = e->amb;
+	e->e->cl_e->amb = e->amb * 100;
+	e->e->cl_e->group_max = e->group_max;
 }
 
 static void		init_mlx_raytrace(t_envg *e)
@@ -60,12 +57,12 @@ static void		init_mlx_raytrace(t_envg *e)
 			&(e->e->mlx.bpp), &(e->e->mlx.sizeline), &(e->e->mlx.endian))))
 		ft_error(MLX,
 			"static int init_mlx(t_env *e) (=>mlx_get_data_addr())-(rt.c))");
-	event_touch(e);
+	mlx_hook(e->e->mlx.win, 2, 0, &keypress, e);
+	mlx_hook(e->e->mlx.win, 17, 0, &redcross, e->e);
 }
 
 static void		interface_mouse_click_3(t_envg *e)
 {
-	// t_env  dup_e[2];
 	init_id(e);
 	if (e->run == 1)
 	{
@@ -80,7 +77,7 @@ static void		interface_mouse_click_3(t_envg *e)
 		ft_creat_lst_obj(e);
 		ft_get_image_texture(e);
 		pthread_create(&e->thread, NULL, ft_launch, e->e);
-	}	
+	}
 }
 
 static void		interface_mouse_click_2(t_envg *e, int x, int y)

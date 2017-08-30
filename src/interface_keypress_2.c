@@ -61,7 +61,7 @@ void		free_env_parse(t_envg *e)
 static int	check_path_tex(t_envg *e, int *y)
 {
 	struct stat	test;
-	int len;
+	int			len;
 
 	*y = -1;
 	while (e->path_tex != NULL && (e->path_tex)[++(*y)] != NULL)
@@ -70,16 +70,16 @@ static int	check_path_tex(t_envg *e, int *y)
 			return (-9);
 	}
 	len = ft_strlen(e->line[41]) - 4;
-	if ((ft_strcmp(((e->line[41]) + len), ".xpm")) &&
-		(ft_strcmp(((e->line[41]) + len), ".XPM")) &&
-		(ft_strcmp(((e->line[41]) + len), ".jpg")) &&
-		(ft_strcmp(((e->line[41]) + len), ".png")) &&
-		(ft_strcmp(((e->line[41]) + len), ".jpeg"))&&
-		(ft_strcmp(((e->line[41]) + len), ".JPG")) &&
-		(ft_strcmp(((e->line[41]) + len), ".PNG")) &&
-		(ft_strcmp(((e->line[41]) + len), ".JPEG"))	&&
-		(ft_strcmp(((e->line[41]) + len), ".gif")) &&
-		(ft_strcmp(((e->line[41]) + len), ".GIF")))
+	if ((ft_strcmp(((e->line[41]) + len), ".xpm")) && (
+		ft_strcmp(((e->line[41]) + len), ".XPM")) && (
+	ft_strcmp(((e->line[41]) + len), ".jpg")) && (
+	ft_strcmp(((e->line[41]) + len), ".png")) && (
+	ft_strcmp(((e->line[41]) + len), ".jpeg")) && (
+	ft_strcmp(((e->line[41]) + len), ".JPG")) && (
+	ft_strcmp(((e->line[41]) + len), ".PNG")) && (
+	ft_strcmp(((e->line[41]) + len), ".JPEG")) && (
+	ft_strcmp(((e->line[41]) + len), ".gif")) && (
+	ft_strcmp(((e->line[41]) + len), ".GIF")))
 		return (-8);
 	else if (stat(e->line[41], &test) == -1)
 		return (-7);

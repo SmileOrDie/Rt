@@ -12,81 +12,31 @@
 
 #include "../includes/libft.h"
 
-int		ft_calc(int n, int *len)
+char	*ft_itoa(int nb)
 {
-	int k;
+	int		len;
+	char	*rez;
+	int		tmp;
 
-	k = n;
-	if (n < 0)
+	len = nb < 0 ? 1 : 0;
+	tmp = nb ? nb : 1;
+	while (tmp)
 	{
-		len[1] = 1;
-		n *= -1;
+		tmp /= 10;
+		len++;
 	}
-	while (k)
-	{
-		k /= 10;
-		len[0]++;
-	}
-	return (n);
-}
-
-void	fln(char *str, int *len)
-{
-	if (len[1])
-		str[0] = '-';
-	str[len[0] + len[1]] = '\0';
-}
-
-char	*jedoismlloc(int n)
-{
-	char *st;
-
-	st = malloc(sizeof(char) * 12);
-	if (n == 0)
-	{
-		st = malloc(2);
-		st[1] = '\0';
-		st[0] = '0';
-	}
-	else if (n == -2147483648)
-	{
-		st[0] = '-';
-		st[1] = '2';
-		st[2] = '1';
-		st[3] = '4';
-		st[4] = '7';
-		st[5] = '4';
-		st[6] = '8';
-		st[7] = '3';
-		st[8] = '6';
-		st[9] = '4';
-		st[10] = '8';
-		st[11] = '\0';
-	}
-	return (st);
-}
-
-char	*ft_itoa(int n)
-{
-	int		len[2];
-	char	*str;
-
-	len[0] = 0;
-	len[1] = 0;
-	if (n == 0 || n == -2147483648)
-	{
-		str = jedoismlloc(n);
-		return (str);
-	}
-	n = ft_calc(n, len);
-	if (!(str = malloc(len[0] * sizeof(char) + 1 + len[1])))
+	if (nb == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (!(rez = (char *)malloc(sizeof(char) * len + 1)))
 		return (NULL);
-	fln(str, len);
-	while (n)
+	rez[len] = '\0';
+	nb < 0 ? rez[0] = '-' : 0;
+	nb = nb < 0 ? -nb : nb;
+	nb ? 0 : (rez[0] = '0');
+	while (nb && ((len--) || 1))
 	{
-		str[len[0] - 1 + len[1]] = n % 10 + '0';
-		n /= 10;
-		len[0]--;
+		rez[len] = '0' + nb % 10;
+		nb /= 10;
 	}
-	return (str);
+	return (rez);
 }

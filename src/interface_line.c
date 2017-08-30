@@ -12,22 +12,23 @@
 
 #include "../includes/interface_rt.h"
 
-void		string_put(void *mlx,void *win, int x, int y, int color, char *str)
+void			string_put(t_envg *e, int size[2], int color, char *str)
 {
-	char *s;
-	int len;
+	char	*s;
+	int		len;
 
 	len = ft_strlen(str) - 1;
 	s = NULL;
 	if (len > 30)
 	{
 		s = ft_strjoin("...", str + ft_strlen(str) - 28);
-		mlx_string_put(mlx, win, x, y, color, s);
+		mlx_string_put(e->mlx.mlx, e->mlx.win, size[0], size[1], color, s);
 		free(s);
 	}
 	else
-		mlx_string_put(mlx, win, x, y, color, str);
+		mlx_string_put(e->mlx.mlx, e->mlx.win, size[0], size[1], color, str);
 }
+
 void			add_line(char *dest, char *src, int f)
 {
 	int d;

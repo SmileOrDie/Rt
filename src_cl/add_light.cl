@@ -190,6 +190,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 	int			tab_obj_light_id[e->nb_obj * 2 + 1];
 	double		tab_obj_light_t[e->nb_obj * 2 + 1];
 	char		list_obj[e->nb_obj];
+	char		list_group[e->group_max];
 	int			flag;
 	int			t;
 	uchar4		tmp_color;
@@ -214,24 +215,41 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		while (t < e->nb_obj)
 		{
 			list_obj[t] = 0;
+			t < e->group_max ? list_group[t] = 0 : 0;
 			t++;
 		}
 		t = 0;
 		while (tab_obj_light_id[t] != -1)
 		{
-			list_obj[tab_obj_light_id[t]] = (list_obj[tab_obj_light_id[t]] || e->l_obj[tab_obj_light_id[t]].type == 5 || e->l_obj[tab_obj_light_id[t]].type == 2 || e->l_obj[tab_obj_light_id[t]].type == 6) ? 0 : 1;
+			if (e->l_obj[tab_obj_light_id[t]].group == 0)
+				list_obj[tab_obj_light_id[t]] = (list_obj[tab_obj_light_id[t]] || e->l_obj[tab_obj_light_id[t]].type == 5 || e->l_obj[tab_obj_light_id[t]].type == 2 || e->l_obj[tab_obj_light_id[t]].type == 6) ? 0 : 1;
+			else
+				list_group[e->l_obj[tab_obj_light_id[t]].group] = list_group[e->l_obj[tab_obj_light_id[t]].group] ? 0 : 1;
 			t++;
 		}
 		while (tab_obj_light_t[count] < vsize(vsub(p_hit, e->light[i].pos)) - 1)
 		{
-			// if (count > e->nb_obj * 2)
-			list_obj[tab_obj_light_id[count]] = (list_obj[tab_obj_light_id[count]] || e->l_obj[tab_obj_light_id[count]].type == 5 || e->l_obj[tab_obj_light_id[count]].type == 2 || e->l_obj[tab_obj_light_id[count]].type == 6) ? 0 : 1;
+			if (e->l_obj[tab_obj_light_id[count]].group == 0)
+				list_obj[tab_obj_light_id[count]] = (list_obj[tab_obj_light_id[count]] || e->l_obj[tab_obj_light_id[count]].type == 5 || e->l_obj[tab_obj_light_id[count]].type == 2 || e->l_obj[tab_obj_light_id[count]].type == 6) ? 0 : 1;
+			else
+				list_group[e->l_obj[tab_obj_light_id[count]].group] = list_group[e->l_obj[tab_obj_light_id[count]].group] ? 0 : 1;
+			flag = 0;				
 			t = 0;
-			flag = 0;
 			while (t < e->nb_obj)
 			{
-				if (e->l_obj[t].negatif && list_obj[t] == 1)
-					flag = 1;
+				if (e->l_obj[t].negatif)
+				{
+					if (e->l_obj[t].group != 0)
+					{
+						if (list_group[e->l_obj[t].group])
+							flag = 1;
+					}
+					else
+					{
+						if (list_obj[t])
+							flag = 1;
+					}
+				}
 				t++;
 			}
 			if (tab_obj_light_t[count] >= 0 && flag == 0)
@@ -278,9 +296,9 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		// printf("il y a un problem ?\n");
 		i++;
 	}
-	pixel.r = pixel.r * (1 - e->amb) + colorobj.r * e->amb; 
-	pixel.g = pixel.g * (1 - e->amb) + colorobj.g * e->amb; 
-	pixel.b = pixel.b * (1 - e->amb) + colorobj.b * e->amb; 
+	pixel.r = pixel.r * (1 - (double)(e->amb) / 100.0) + colorobj.r * e->amb / 100.0; 
+	pixel.g = pixel.g * (1 - (double)(e->amb) / 100.0) + colorobj.g * e->amb / 100.0; 
+	pixel.b = pixel.b * (1 - (double)(e->amb) / 100.0) + colorobj.b * e->amb / 100.0; 
 	i = 0;
 	while (i < e->nb_light)
 	{

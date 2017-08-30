@@ -71,12 +71,10 @@ void			ft_parse_j(char *name, t_envg *e)
 	i = 0;
 	e->parse_light = NULL;
 	e->parse_obj = NULL;
-	if (stat(name, &st) != 0)
-		ft_error("File doesn't exist : ", name);
-	fd = open(name, O_RDONLY);
-	if (fd < 0)
-		ft_error("Can't open file : ", name);
-	line = malloc(st.st_size + 1);
+	stat(name, &st) != 0 ? ft_error("File doesn't exist : ", name) : 0;
+	(fd = open(name, O_RDONLY)) < 0 ? ft_error("Can't open file : ", name) : 0;
+	(line = (char*)malloc(sizeof(char) * (st.st_size + 1))) ? 0 :
+	ft_error(MALLOC, name);
 	line[st.st_size] = '\0';
 	read(fd, line, st.st_size);
 	close(fd);
@@ -86,9 +84,8 @@ void			ft_parse_j(char *name, t_envg *e)
 	get_camera3(e);
 	free(line);
 	ft_check_obj_neg(e);
- 	while(e->path_tex && e->path_tex[i])
-	 	i++;
+	while (e->path_tex && e->path_tex[i])
+		i++;
 	e->e->nb_tex = i;
 	e->nb_tex = i;
-	// printf("e->parse_obj.id = %d et e->parse_obj.ind_transp = %f, e->parse_obj.name = %s\n", e->parse_obj->obj.id, e->parse_obj->obj.ind_transp, e->parse_obj->obj.name);
 }

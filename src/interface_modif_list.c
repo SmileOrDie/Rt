@@ -20,6 +20,7 @@ static void		modif_list_2(t_envg *e, t_parse_obj *obj_s)
 	ft_strcpy_nbr(&(e->line[6]), obj_s->obj.dir.x);
 	ft_strcpy_nbr(&(e->line[7]), obj_s->obj.dir.y);
 	ft_strcpy_nbr(&(e->line[8]), obj_s->obj.dir.z);
+	printf("%f un nombre et %s\n", obj_s->obj.dir.z, e->line[8]);
 	ft_strcpy_nbr(&(e->line[9]), obj_s->obj.color.r);
 	ft_strcpy_nbr(&(e->line[10]), obj_s->obj.color.g);
 	ft_strcpy_nbr(&(e->line[11]), obj_s->obj.color.b);
@@ -43,7 +44,6 @@ void			modif_list(t_envg *e, int obj)
 	type_obj[6] = "cube";
 	type_obj[7] = "cone_l";
 	type_obj[8] = "cylinder_l";
-	// type_obj[4] = "";
 	load_img(e, 3);
 	e->f_key = 0;
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};

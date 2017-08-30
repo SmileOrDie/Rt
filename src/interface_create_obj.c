@@ -12,8 +12,8 @@
 
 #include "../includes/interface_rt.h"
 
-t_cam	g_default_camera_g = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60,
-	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 1, 0};
+t_cam	g_default_camera_g = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60, 150,
+	480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 1, 0};
 
 static void			creat_light(t_envg *e)
 {
@@ -79,14 +79,13 @@ t_vector			creat_cam_2(t_envg *e, int i)
 		(e->cam.w / 2) - e->cam.up.y * (e->cam.h / 2),
 		e->cam.c.z - e->cam.u.z * (e->cam.w / 2) -
 		e->cam.up.z * (e->cam.h / 2)));
-	return (new_v(0, 0, 0));
+		return (new_v(0, 0, 0));
 }
 
 void				creat_cam(t_envg *e)
 {
-	// e->cam.set = 1;
-	e->win.w = ft_atof(e->line[25]) * e->anti_a;
-	e->win.h = ft_atof(e->line[26]) * e->anti_a;
+	e->win.w = ft_atoi(e->line[25]) * e->anti_a;
+	e->win.h = ft_atoi(e->line[26]) * e->anti_a;
 	e->cam = g_default_camera_g;
 	e->cam.eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]),
 		ft_atof(e->line[21]));

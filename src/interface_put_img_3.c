@@ -12,34 +12,6 @@
 
 #include "../includes/interface_rt.h"
 
-
-///////////////////////sa sert a quoi ???????????????????
-// void		put_img5(t_envg *e)
-// {
-// 	int				img;
-// 	char			*str;
-// 	t_parse_light	*b;
-//
-// 	img = e->page + 3;
-// 	e->i_lst = e->page;
-// 	b = srch_light(e, e->i_lst);
-// 	while (e->i_lst < img && b)
-// 	{
-// 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
-// 			40, 400 + ((e->i_lst % 3) * 30));
-// 		get_img(&e->mlx, &e->img, "./xpm_file/deleted.xpm");
-// 		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
-// 			60, 400 + ((e->i_lst % 3) * 30));
-// 		get_img(&e->mlx, &e->img, "./xpm_file/Modify.xpm");
-// 		str = ft_strdup(b->light.name);
-// 		string_put(e->mlx.mlx, e->mlx.win,
-// 			90, 400 + ((e->i_lst % 3) * 30), 0xFFFFFF, str);
-// 		free(str);
-// 		e->i_lst++;
-// 		b = b->next;
-// 	}
-// }
-
 void		put_img6(t_envg *e)
 {
 	if (!e->line[41][0])
@@ -76,24 +48,21 @@ void		put_img7(t_envg *e)
 	get_img(&e->mlx, &e->img, "xpm_file/Anti_a.xpm");
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
 			45, 600);
-	string_put(e->mlx.mlx, e->mlx.win,
-			75, 622, 0x000000, anti_a);
+	string_put(e,
+			(int[2]){75, 622}, 0x000000, anti_a);
 	free(anti_a);
 }
 
 void		put_img8(t_envg *e)
 {
 	char *amb;
-	// char *str;
 
 	amb = ft_dtoa(e->amb);
 	amb[4] = '\0';
-	// amb = strncpy(amb, amb, 4);
 	get_img(&e->mlx, &e->img, "xpm_file/Ambient.xpm");
 	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img,
 			160, 600);
-	string_put(e->mlx.mlx, e->mlx.win,
-			190, 622, 0x000000, amb);
+	string_put(e,
+			(int[2]){190, 622}, 0x000000, amb);
 	free(amb);
-	// free(str);
 }

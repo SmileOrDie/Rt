@@ -35,12 +35,11 @@ void		init_pos_value(t_envg *e)
 	e->pos_value[24] = 8;
 	e->pos_value[25] = 8;
 	e->pos_value[26] = 8;
-	// e->pos_value[29] = 29;
 	e->pos_value[30] = 13;
 	e->pos_value[31] = 8;
 }
 
-static void init_line_pos2(t_envg *e)
+static void	init_line_pos2(t_envg *e)
 {
 	e->line_pos[17] = (t_pos_i){250, HE - 200};
 	e->line_pos[18] = (t_pos_i){40, 200};
