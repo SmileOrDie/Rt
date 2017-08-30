@@ -94,7 +94,7 @@ void				*ft_launch(void *env)
 	if ((size[0] = ft_launch_thread(e)) > 0)
 		ft_launch_after(e);
 	else
-		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->mlx.img, 0, 0);
+		e->wait = 5;
 	ft_launch_free(e, l);
 	return (NULL);
 }
