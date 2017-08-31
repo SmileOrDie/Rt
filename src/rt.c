@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:31:39 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/28 19:00:18 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 13:33:36 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ void				get_image(t_env *e)
 	unsigned char	*img;
 
 	flag = 1;
-	n.i = 0;
+	n.i = -1;
 	n.opti[0] = e->win.h * e->win.w;
 	n.opti[1] = e->anti_a * e->anti_a;
 	n.opti[2] = n.opti[0] / n.opti[1];
-	img = malloc(n.opti[0] * 4);
-	while (n.i < n.opti[0])
+	if (!(img = malloc(n.opti[0] * 4)))
+		ft_error(MALLOC, "get_image");
+	while (++(n.i) < n.opti[0])
 	{
 		pixel = get_pixel(e->tab_three[n.i], (t_color2){0, 0, 0, 0}, e->cl_e,
 		(t_g_pix){flag, e->coef_t[n.i], 0});
 		img[n.i * 4 + 2] = pixel.r;
 		img[n.i * 4 + 1] = pixel.g;
 		img[n.i * 4 + 0] = pixel.b;
-		(n.i)++;
 		flag = 0;
 	}
 	n.i = 0;
@@ -91,8 +91,10 @@ int					main(int ac, char **av)
 	e.nb_tex = 0;
 	e.parse_light = NULL;
 	e.parse_obj = NULL;
-	e.cl_e = malloc(sizeof(t_env_cl));
-	e.cl_e->cl = malloc(sizeof(t_opencl));
+	if (!(e.cl_e = (t_env_cl *)malloc(sizeof(t_env_cl))))
+		ft_error(MALLOC, "opencl.c => void ft_init_opencl(...)");
+	if (!(e.cl_e->cl = (t_opencl *)malloc(sizeof(t_opencl))))
+		ft_error(MALLOC, "opencl.c => void ft_init_opencl(...)");
 	if (ac == 2)
 		parse_file(av[1], &e);
 	ft_init_opencl(&e, e.cl_e->cl);

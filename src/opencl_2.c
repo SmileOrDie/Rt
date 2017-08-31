@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:56 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/08/03 11:58:15 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/30 14:46:04 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void		ft_launch_releasemem(t_opencl *cl)
 	clReleaseMemObject(cl->light);
 	clReleaseMemObject(cl->env);
 	clReleaseMemObject(cl->color_lst);
+	clReleaseMemObject(cl->lst);
+	clReleaseMemObject(cl->texture);
 }
 
 static void		ft_l_clsetkernelarg(t_opencl *cl, int err)
@@ -78,9 +80,8 @@ void			ft_launch_calc(t_env *e, t_opencl *cl)
 	size_t	global[1];
 	int		err;
 
+	err = 0;
 	init_cl_e(e, e->cl_e);
-	cl->kernel = clCreateKernel(cl->kernel_program, "ft_start_calc", &err);
-	err ? ft_l_err(err, 8) : 0;
 	ft_l_clcreatebuffer(e, cl, err);
 	ft_l_clsetkernelarg(cl, err);
 	global[0] = *(e->nb_obj_pix[0]);

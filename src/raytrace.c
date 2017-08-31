@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 12:35:50 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 16:41:46 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/30 15:32:54 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,22 @@ three)->r_refrac));
 
 void		ft_ray_init(t_env *e, t_three **three, int *ret, int id)
 {
+	t_parse_obj *lst;
+	t_parse_obj *tmp;
+
 	if (!(*three = (t_three *)malloc(sizeof(t_three))))
 		ft_error(MALLOC, "add_branch");
 	(*three)->r_refrac = NULL;
 	(*three)->r_reflec = NULL;
 	(*three)->id = id + 1;
-	*ret = ft_get_obj_neg(e->l_obj[id], get_obj_list(e,
-*(e->begin_three), *three));
+	lst = get_obj_list(e, *(e->begin_three), *three);
+	*ret = ft_get_obj_neg(e->l_obj[id], lst);
+	while (lst)
+	{
+		tmp = lst->next;
+		free(lst);
+		lst = tmp;
+	}
 }
 
 void		ft_raytracer(t_env *e, t_ray ray, t_three **three)

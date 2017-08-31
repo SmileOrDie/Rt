@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 20:06:29 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/04 13:31:47 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 13:40:48 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		get_texture_2(t_envg *e, int y, char *path)
 	{
 		if (ft_strcmp(path, (e->path_tex)[y]) == 0)
 		{
+			free(path);
 			e->parse_obj->obj.id_texture = y + 1;
 			break ;
 		}

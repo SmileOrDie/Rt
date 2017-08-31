@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 16:25:56 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/08/03 11:58:15 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/30 14:44:35 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ void		ft_init_opencl(t_envg *e, t_opencl *cl)
 	size_t	len;
 	char	buffer[100000];
 
-	if (!(e->cl_e = (t_env_cl *)malloc(sizeof(t_env_cl))))
-		ft_error(MALLOC, "opencl.c => void ft_init_opencl(...)");
-	if (!(e->cl_e->cl = (t_opencl *)malloc(sizeof(t_opencl))))
-		ft_error(MALLOC, "opencl.c => void ft_init_opencl(...)");
 	err = clGetPlatformIDs(1, &cl->platform, NULL);
 	err = clGetDeviceIDs(cl->platform, CL_DEVICE_TYPE_ALL, 1, &cl->device, 0);
 	cl->context = clCreateContext(0, 1, &cl->device, NULL, NULL, &err);
@@ -75,6 +71,8 @@ void		ft_init_opencl(t_envg *e, t_opencl *cl)
 		"clGetProgramBuildInfo -> cl->kernel_program -> ", ft_itoa(err))) : 0;
 		ft_error("\n", buffer);
 	}
+	cl->kernel = clCreateKernel(cl->kernel_program, "ft_start_calc", &err);
+	err ? ft_l_err(err, 8) : 0;
 	e->cl_e->cl = cl;
 }
 

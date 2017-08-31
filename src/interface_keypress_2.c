@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/03 16:42:11 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/30 15:05:01 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void		free_env_parse(t_envg *e)
 {
 	e->cam.set = 0;
 	e->anti_a = 1;
-	free(e->e->texture);
-	e->e->texture = NULL;
 	while (e->parse_obj)
 	{
+		free(e->parse_obj->obj.name);
 		free(e->parse_obj);
 		e->parse_obj = e->parse_obj->next;
 	}
 	while (e->parse_light)
 	{
+		free(e->parse_light->light.name);
 		free(e->parse_light);
 		e->parse_light = e->parse_light->next;
 	}

@@ -79,7 +79,6 @@ void		copy_cube(t_obj obj, int fd, t_envg *e)
 		ft_putstr_fd(fd, "\t\t\"texture\" : \"",
 				e->path_tex[(int)obj.id_texture - 1], "\"", NULL);
 	ft_putstr_fd(fd, "\n\t},\n", NULL);
-	printf("posssss x === %f\n", obj.dir.x);
 }
 
 void		copy_sphere(t_obj obj, int fd, t_envg *e)

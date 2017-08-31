@@ -18,7 +18,6 @@ static int		save_obj(t_envg *e, t_parse_obj *obj, int fd)
 	{
 		while (obj)
 		{
-			printf("\nobj->next == %d \n", obj->obj.type);
 			if (obj->obj.type == 6)
 				copy_square(obj->obj, fd, e);
 			else if (obj->obj.type == 7)

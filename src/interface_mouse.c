@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/23 14:26:30 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 16:25:30 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0},
 	NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0},
 		0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0
-	}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL, NULL,
+	}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL,
 	NULL, NULL, 0, 0, 0, NULL};
 
 static void		init_variable(t_envg *e)

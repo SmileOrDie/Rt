@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:50:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/28 18:56:19 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 13:23:41 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ t_env				*ft_create_tab_env(t_env e, int i)
 {
 	t_env	*tab;
 
-	tab = (t_env *)malloc(sizeof(t_env) * i);
+	if (!(tab = (t_env *)malloc(sizeof(t_env) * i)))
+		ft_error(MALLOC, "ft_create_tab_env");
 	while (i--)
 	{
 		tab[i] = e;

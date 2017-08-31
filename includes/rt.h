@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/22 19:36:41 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/08/30 14:17:02 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,6 @@ typedef struct				s_env
 	int						wait;
 	t_pos					win;
 	void					(*filter_t)(struct s_env *, int, int);
-	char					*tmp_texture;
 	t_env_cl				*cl_e;
 	t_mlx					*texture;
 	int						anti_a;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_4.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:54:58 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/28 19:00:26 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/31 14:10:15 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void			mlx_put_load(t_env *e, int i)
 	t_pos l;
 
 	l = (t_pos){e->win.w / e->anti_a, e->win.h / e->anti_a};
-	if (!e->mlx.mlx || !e->mlx.win || !e->wait_img[i] ||
+	if (!e->b_screen || !e->wait_img[i] ||
 		!(e->size[i].w <= l.w && e->size[i].h <= l.h))
 		return ;
 	e->wait = i + 1;
@@ -42,6 +42,7 @@ static long int		ft_launch_thread(t_env *e)
 	}
 	if (!(e->tab_light = (t_l_obj *)malloc(sizeof(t_l_obj) * size_f)))
 		ft_error(MALLOC, "ft_launch");
+	free(tab_env);
 	return (size_f);
 }
 
@@ -66,6 +67,8 @@ static void			ft_launch_free(t_env *e, unsigned int limit)
 		free_branch(e->tab_three[i++]);
 	free(e->tab_three);
 	free(e->tab_light);
+	*(e->nb_obj_pix[0]) ? free(e->cl_e->color_lst) : 0;
+	free(e->coef_t);
 	e->b_screen = 0;
 	e->flag = 0;
 }
@@ -78,7 +81,6 @@ void				*ft_launch(void *env)
 	int				i;
 
 	e = (t_env *)env;
-	printf("%f\n", e->amb);
 	i = -1;
 	while (++i < 8)
 	{
