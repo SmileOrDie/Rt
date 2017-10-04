@@ -6,29 +6,38 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 12:04:26 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/13 18:47:58 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 18:08:41 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void			init_id(t_env *e)
+void			init_id(t_envg *e)
 {
-	int			i;
+	int			id;
+	int			nb;
 	t_parse_obj	*b;
 
-	i = 0;
+	id = 0;
+	nb = 0;
 	b = e->parse_obj;
 	if (b)
 	{
-		e->parse_obj->obj.id = 0;
+		e->parse_obj->obj.id = id;
 		while (b)
 		{
-			b->obj.id = i++;
+			b->obj.id = id++;
+			if (b->obj.type == 7)
+				id += 5;
+			else if (b->obj.type == 8)
+				id++;
+			else if (b->obj.type == 9)
+				id += 2;
 			b = b->next;
+			nb++;
 		}
 	}
-	e->nb_obj = i;
+	e->nb_obj = nb;
 }
 
 void			del_elem(t_envg *e, int i)
@@ -37,27 +46,13 @@ void			del_elem(t_envg *e, int i)
 		del_light(e, i);
 	else
 		del_obj(e, i);
-}//	ft_creat_lst_obj(e->e);
+}
 
 void			ft_strcpy_nbr(char **dest, double d)
 {
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-	double	neg;
+	char *tmp;
 
-	neg = (d < 0) ? -1.0 : 1.0;
-	tmp = ft_itoa((int)d);
-	d = (d - ((int)d * neg));
-	if (d > 0)
-	{
-		tmp2 = ft_strjoin(tmp, ".");
-		free(tmp);
-		tmp3 = ft_itoa(d * 10000);
-		tmp = ft_strjoin(tmp2, tmp3);
-		free(tmp3);
-		free(tmp2);
-	}
+	tmp = ft_dtoa(d);
 	ft_strcpy(*dest, tmp);
 	free(tmp);
 }
@@ -91,7 +86,7 @@ void			modif_light(t_envg *e, int light)
 
 void			modif_default(t_envg *e)
 {
-	if (!e->e->cam)
+	if (e->cam.set == 0)
 	{
 		ft_strcpy_nbr(&(e->line[19]), 0);
 		ft_strcpy_nbr(&(e->line[20]), 0);
@@ -103,12 +98,12 @@ void			modif_default(t_envg *e)
 		ft_strcpy_nbr(&(e->line[26]), 0);
 		return ;
 	}
-	ft_strcpy_nbr(&(e->line[19]), e->e->cam->eye.x);
-	ft_strcpy_nbr(&(e->line[20]), e->e->cam->eye.y);
-	ft_strcpy_nbr(&(e->line[21]), e->e->cam->eye.z);
-	ft_strcpy_nbr(&(e->line[22]), e->e->cam->l_at.x);
-	ft_strcpy_nbr(&(e->line[23]), e->e->cam->l_at.y);
-	ft_strcpy_nbr(&(e->line[24]), e->e->cam->l_at.z);
-	ft_strcpy_nbr(&(e->line[25]), e->e->mlx->w / e->e->anti_a);
-	ft_strcpy_nbr(&(e->line[26]), e->e->mlx->h / e->e->anti_a);
+	ft_strcpy_nbr(&(e->line[19]), e->cam.eye.x);
+	ft_strcpy_nbr(&(e->line[20]), e->cam.eye.y);
+	ft_strcpy_nbr(&(e->line[21]), e->cam.eye.z);
+	ft_strcpy_nbr(&(e->line[22]), e->cam.l_at.x);
+	ft_strcpy_nbr(&(e->line[23]), e->cam.l_at.y);
+	ft_strcpy_nbr(&(e->line[24]), e->cam.l_at.z);
+	ft_strcpy_nbr(&(e->line[25]), e->win.w / e->anti_a);
+	ft_strcpy_nbr(&(e->line[26]), e->win.h / e->anti_a);
 }

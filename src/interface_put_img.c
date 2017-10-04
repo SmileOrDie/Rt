@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 12:03:34 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 17:05:39 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 13:24:29 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,36 @@
 
 static void		put_img1(t_envg *e, int x, int y)
 {
-	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img, x, y);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img, x, y);
 }
 
 static void		put_img2(t_envg *e, int i, int pos_x, int pos_y)
 {
 	if (i == 1)
-		get_img(e->mlx, &e->img, "./xpm_file/Check_V.xpm");
+		get_img(&e->mlx, &e->img, "./xpm_file/Check_V.xpm");
 	else
 	{
-		get_img(e->mlx, &e->img, "./xpm_file/Check_C.xpm");
+		get_img(&e->mlx, &e->img, "./xpm_file/Check_C.xpm");
 		pos_y += 8;
 	}
-	mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img, pos_x, pos_y);
+	mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img, pos_x, pos_y);
 }
 
 static void		put_img3(t_envg *e)
 {
 	char		*str;
 	int			img;
-	int			nb_obj;
 	t_parse_obj	*pos;
 
 	img = e->i_lst + 15;
-	nb_obj = 0;
-	pos = e->e->parse_obj;
-	while (pos)
+	while (e->i_lst < img && e->i_lst < e->nb_obj)
 	{
-		nb_obj++;
-		pos = pos->next;
-	}
-	while (e->i_lst < img && e->i_lst < nb_obj)
-	{
-		pos = srch_obj(e, e->i_lst);
-		mlx_put_image_to_window(e->mlx->mlx, e->mlx->win, e->img.img, 40,
+		pos = srch_obj(e, srch_id(e, e->i_lst));
+		mlx_put_image_to_window(e->mlx.mlx, e->mlx.win, e->img.img, 40,
 			200 + ((e->i_lst % 15) * 30));
 		str = ft_strdup(pos->obj.name);
-		mlx_string_put(e->mlx->mlx, e->mlx->win, 70,
-			200 + ((e->i_lst % 15) * 30), 0xFFFFFF, str);
+		string_put(e, (int[2]){70,
+			200 + ((e->i_lst % 15) * 30)}, 0xFFFFFF, str);
 		free(str);
 		e->i_lst++;
 	}
@@ -64,7 +56,6 @@ static void		put_img_2(t_envg *e)
 	put_img2(e, ((e->filter.red == 1) ? 1 : 0), 200, 522);
 	put_img2(e, ((e->filter.sepia == 1) ? 1 : 0), 40, 547);
 	put_img2(e, ((e->filter.old == 1) ? 1 : 0), 120, 547);
-//	put_img2(e, ((e->filter.cartoon == 1) ? 1 : 0), 200, 547);
 }
 
 void			put_img(t_envg *e, int img)

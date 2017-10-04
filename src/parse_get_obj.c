@@ -16,7 +16,7 @@ t_obj	g_default_object = {0, 0, 0, 0, {0, 0, 0, 0}, {1, 0, 0, 0},
 	{0, 0, 0, 0}, 0, 0, 0, 0, NULL, {255, 255, 255, 255}, 0, 0, 0};
 t_light	g_default_light = {{0, 0, 0, 0}, {255, 255, 255, 255}, 0, 0, NULL};
 
-void			increase_l_obj(t_env *e)
+void			increase_l_obj(t_envg *e)
 {
 	t_parse_obj	*tmp;
 
@@ -25,7 +25,7 @@ void			increase_l_obj(t_env *e)
 	e->parse_obj = tmp;
 }
 
-int				get_object(char *line, int *x, t_env *e, char *name)
+int				get_object(char *line, int *x, t_envg *e, char *name)
 {
 	increase_l_obj(e);
 	e->parse_obj->obj = g_default_object;
@@ -51,7 +51,7 @@ int				get_object(char *line, int *x, t_env *e, char *name)
 	return (1);
 }
 
-void			increase_light(t_env *e)
+void			increase_light(t_envg *e)
 {
 	t_parse_light *tmp;
 
@@ -60,7 +60,7 @@ void			increase_light(t_env *e)
 	e->parse_light = tmp;
 }
 
-void			get_light2(char *line, int *x, t_env *e, char *name)
+void			get_light2(char *line, int *x, t_envg *e, char *name)
 {
 	if (ft_strcmp(name, "color") == 0)
 		e->parse_light->light.color = get_t_color(line, x);
@@ -73,7 +73,7 @@ void			get_light2(char *line, int *x, t_env *e, char *name)
 	}
 }
 
-void			get_light(char *line, int *x, t_env *e)
+void			get_light(char *line, int *x, t_envg *e)
 {
 	char	*name;
 

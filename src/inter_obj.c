@@ -99,20 +99,10 @@ double			inter_cylinder(t_obj cyl, t_vector o, t_vector dir)
 	tmp2 = new_v(abc[0], abc[1], abc[2]);
 	t[2] = solve_quad(vpscal(tmp, tmp), vpscal(tmp, tmp2) * 2,
 			vpscal(tmp2, tmp2) - cyl.radius * cyl.radius);
-// <<<<<<< HEAD
 	if (t[2] != -1 && cyl.angle != 0)
 		return ((sqrt((double)(cyl.angle * cyl.angle) + cyl.radius * cyl.radius)
-		 > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, t[2]))))) ? t[2] : -1.0);
-	return (t[2]);
-// =======
-// 	if (ret != -1 && cyl.angle != 0)
-// 	{
-// 		if (sqrt((double)(cyl.angle * cyl.angle) + cyl.radius * cyl.radius) > vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, ret)))))
-// 			return (ret);
-// 		return (-1.0);
-// 	}
-// 	return (ret);
-// >>>>>>> c8e17f8aca114a42659c8de7490f8ab51a7c825b
+		> vsize(vsub(cyl.pos, vadd(o, vmult_dbl(dir, t[2]))))) ? t[2] : -1.0);
+		return (t[2]);
 }
 
 double			inter_cone(t_obj cone, t_vector o, t_vector dir)

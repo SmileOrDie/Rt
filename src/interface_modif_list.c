@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 18:35:52 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/13 18:41:21 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/26 16:15:38 by phmoulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void			modif_list(t_envg *e, int obj)
 	type_obj[6] = "cube";
 	type_obj[7] = "cone_l";
 	type_obj[8] = "cylinder_l";
-	// type_obj[4] = "";
 	load_img(e, 3);
 	e->f_key = 0;
 	e->volet = (t_tab_valid){0, 0, 1, 0, 0};

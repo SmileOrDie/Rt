@@ -6,11 +6,29 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:09:03 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 19:21:27 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 15:33:52 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
+
+int				select_pos(t_envg *e, int x, int y)
+{
+	int i;
+
+	i = 0;
+	if (e->volet.add == 1)
+		return (select_add(e, x, y));
+	else if (e->volet.conf == 1)
+		return (select_conf(e, x, y));
+	else if (e->volet.info == 1)
+		return (select_info(e, x, y));
+	else if (e->volet.del == 1)
+		return (select_del(e, x, y));
+	else if (e->volet.home == 1)
+		return (select_home(e, x, y));
+	return (-1);
+}
 
 int				add_tab(t_envg *e)
 {
@@ -60,12 +78,12 @@ void			home_tab(t_envg *e)
 {
 	t_parse_obj *b;
 
-	b = e->e->parse_obj;
-	e->e->nb_obj = 0;
+	b = e->parse_obj;
+	e->nb_obj = 0;
 	if (b)
 		while (b)
 		{
-			e->e->nb_obj++;
+			e->nb_obj++;
 			b = b->next;
 		}
 	e->volet = (t_tab_valid) {1, 0, 0, 0, 0};
@@ -73,8 +91,8 @@ void			home_tab(t_envg *e)
 	load_img(e, 1);
 	load_img(e, 15);
 	(e->i_lst > 15) ? load_img(e, 16) : 0;
-	(e->e->nb_obj > e->page + 15) ? load_img(e, 17) : 0;
-	(e->e->nb_obj > 0 && e->e->cam != NULL) ? load_img(e, 27) : load_img(e, 28);
+	(e->nb_obj > e->page + 15) ? load_img(e, 17) : 0;
+	(e->nb_obj > 0 && e->cam.set) ? load_img(e, 27) : load_img(e, 28);
 	(e->error != -1) ? error_gestion(e, 0, 0) : 0;
 }
 
@@ -84,5 +102,5 @@ void			del_tab(t_envg *e)
 	load_img(e, 4);
 	load_img(e, 19);
 	(e->i_lst > 15) ? load_img(e, 16) : 0;
-	(e->e->nb_obj > e->page + 15) ? load_img(e, 17) : 0;
+	(e->nb_obj > e->page + 15) ? load_img(e, 17) : 0;
 }

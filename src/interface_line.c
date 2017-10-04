@@ -6,11 +6,28 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 18:34:24 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/13 17:59:40 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/02 13:23:14 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
+
+void			string_put(t_envg *e, int size[2], int color, char *str)
+{
+	char	*s;
+	int		len;
+
+	len = ft_strlen(str) - 1;
+	s = NULL;
+	if (len > 30)
+	{
+		s = ft_strjoin("...", str + ft_strlen(str) - 28);
+		mlx_string_put(e->mlx.mlx, e->mlx.win, size[0], size[1], color, s);
+		free(s);
+	}
+	else
+		mlx_string_put(e->mlx.mlx, e->mlx.win, size[0], size[1], color, str);
+}
 
 void			add_line(char *dest, char *src, int f)
 {
@@ -42,7 +59,7 @@ void			del_line(t_envg *e)
 static void		mlx_put_string(t_envg *e, int line, char *string)
 {
 	e->volet.info == 1 ? line -= 40 : 0;
-	mlx_string_put(e->mlx->mlx, e->mlx->win, e->line_pos[line].w + 6,
+	mlx_string_put(e->mlx.mlx, e->mlx.win, e->line_pos[line].w + 6,
 		e->line_pos[line].h + 4, 0xffffff, string);
 	if (string)
 		free(string);

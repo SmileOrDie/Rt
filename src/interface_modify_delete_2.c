@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_modify_delete_2.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 18:40:27 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/13 18:45:19 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/07/27 15:28:12 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void			del_light(t_envg *e, int i)
 	t_parse_light	*b;
 	t_parse_light	*f_l;
 
-	b = e->e->parse_light;
+	b = e->parse_light;
 	f_l = srch_light(e, i);
 	if (i > 0)
 	{
@@ -43,7 +43,7 @@ void			del_light(t_envg *e, int i)
 	else if (i == 0)
 	{
 		if (f_l == b)
-			e->e->parse_light = e->e->parse_light->next;
+			e->parse_light = e->parse_light->next;
 		free(b->light.name);
 		free(b);
 	}
@@ -51,9 +51,9 @@ void			del_light(t_envg *e, int i)
 
 static void		free_f_obj(t_parse_obj *b, t_parse_obj *f_obj, t_parse_obj *obj)
 {
-	while (b->next)
+	while (obj && b->next)
 	{
-		if (obj->obj.id == b->next->obj.id)
+		if (b->next && obj->obj.id == b->next->obj.id)
 		{
 			f_obj = b->next;
 			b->next = f_obj->next;
@@ -73,16 +73,17 @@ void			del_obj(t_envg *e, int i)
 
 	f_obj = NULL;
 	obj = srch_obj(e, i);
-	b = e->e->parse_obj;
+	b = e->parse_obj;
 	if (i > 0)
 		free_f_obj(b, f_obj, obj);
 	else if (i == 0)
 	{
 		if (obj->obj.id == b->obj.id)
-			e->e->parse_obj = e->e->parse_obj->next;
+			e->parse_obj = e->parse_obj->next;
 		free(b->obj.name);
 		free(b);
 		b = NULL;
 	}
-	init_id(e->e);
+	e->nb_obj--;
+	init_id(e);
 }

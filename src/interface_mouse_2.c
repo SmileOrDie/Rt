@@ -3,43 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   interface_mouse_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 13:44:42 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/16 16:46:22 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 16:24:18 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void			ft_exit(t_envg *e)
+static void		free_texture(t_env *e)
 {
-	pthread_cancel(e->thread);
-	if (e->e->mlx->img)
-		mlx_destroy_image(e->e->mlx->mlx, e->e->mlx->img);
-	if (e->e->mlx->win)
-		mlx_destroy_window(e->e->mlx->mlx, e->e->mlx->win);
-	e->e->mlx->img = NULL;
-	e->e->mlx->win = NULL;
-	e->run = 0;
+	int x;
+
+	x = 0;
+	if (e->nb_tex == 0)
+	{
+		free(e->texture);
+		return ;
+	}
+	while (x < e->nb_tex)
+	{
+		e->texture[x].crenelage == 1 ? mlx_destroy_image(e->mlx.mlx, e->
+			texture[x].img) : free(e->texture[x].data);
+		x++;
+	}
+	free(e->texture);
 }
 
-int				select_pos(t_envg *e, int x, int y)
+void			ft_exit(t_envg *e)
 {
-	int i;
-
-	i = 0;
-	if (e->volet.add == 1)
-		return (select_add(e, x, y));
-	else if (e->volet.conf == 1)
-		return (select_conf(e, x, y));
-	else if (e->volet.info == 1)
-		return (select_info(e, x, y));
-	else if (e->volet.del == 1)
-		return (select_del(e, x, y));
-	else if (e->volet.home == 1)
-		return (select_home(e, x, y));
-	return (-1);
+	if (e->e->mlx.img)
+		mlx_destroy_image(e->e->mlx.mlx, e->e->mlx.img);
+	if (e->e->mlx.win)
+		mlx_destroy_window(e->e->mlx.mlx, e->e->mlx.win);
+	e->e->mlx.img = NULL;
+	e->e->mlx.win = NULL;
+	e->e->mlx.data = NULL;
+	free_texture(e->e);
+	free(e->e->l_obj);
+	free(e->e->light);
+	e->run = 0;
 }
 
 static void		volet_target_2(t_envg *e)

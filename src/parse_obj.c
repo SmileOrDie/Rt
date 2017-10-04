@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:35:01 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/07/16 20:36:52 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 14:03:40 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-void	get_texture(char *line, int *x, t_env *e)
+void	get_texture(char *line, int *x, t_envg *e)
 {
 	char	*path;
 	char	**new;
@@ -21,11 +21,12 @@ void	get_texture(char *line, int *x, t_env *e)
 	y = 0;
 	get_string(line, x, &path);
 	y = get_texture_2(e, y, path);
-	if ((e->path_tex)[y] == NULL)
+	if (e->path_tex == NULL || e->path_tex[y] == NULL)
 	{
-		new = malloc(sizeof(char*) * (y + 2));
+		if (!(new = malloc(sizeof(char*) * (y + 2))))
+			ft_error(MALLOC, "get_texture");
 		y = 0;
-		while ((e->path_tex)[y] != NULL)
+		while (e->path_tex != NULL && (e->path_tex)[y] != NULL)
 		{
 			new[y] = (e->path_tex)[y];
 			y++;
@@ -35,10 +36,11 @@ void	get_texture(char *line, int *x, t_env *e)
 		free(e->path_tex);
 		e->path_tex = new;
 		e->parse_obj->obj.id_texture = y + 1;
+		e->nb_tex++;
 	}
 }
 
-void	add_obj22(char *line, int *x, t_env *e, char *rez)
+void	add_obj22(char *line, int *x, t_envg *e, char *rez)
 {
 	int y;
 	int tmp;
@@ -66,7 +68,7 @@ void	add_obj22(char *line, int *x, t_env *e, char *rez)
 		add_obj22_2(e, x, y, line);
 }
 
-void	add_obj23(char *line, int *x, t_env *e, char *rez)
+void	add_obj23(char *line, int *x, t_envg *e, char *rez)
 {
 	int y;
 	int tmp;
@@ -93,7 +95,7 @@ void	add_obj23(char *line, int *x, t_env *e, char *rez)
 		add_obj23_2(e, x, y, line);
 }
 
-void	add_obj24(char *line, int *x, t_env *e, char *rez)
+void	add_obj24(char *line, int *x, t_envg *e, char *rez)
 {
 	if (ft_strcmp(rez, "color") == 0)
 		e->parse_obj->obj.color = get_t_color(line, x);
@@ -103,7 +105,7 @@ void	add_obj24(char *line, int *x, t_env *e, char *rez)
 		e->parse_obj->obj.dir = get_t_vector(line, x, 1);
 }
 
-void	add_obj2(char *line, int *x, t_env *e, int type)
+void	add_obj2(char *line, int *x, t_envg *e, int type)
 {
 	static int	id = 0;
 	static int	group = 1;

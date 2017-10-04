@@ -12,27 +12,6 @@
 
 #include "../includes/interface_rt.h"
 
-// void    convert_file(char **path)
-// {
-//     char *new_path;
-//     int len;
-//     char line[512];
-
-//     len = ft_strlen(*path);
-//     new_path = ft_strdup(*path);
-//     new_path[len - 1] = 'm';
-//     new_path[len - 2] = 'p';
-//     new_path[len - 3] = 'x';
-//     ft_strcpy(line, "convert ");
-//     ft_strcat(line, *path);
-//     ft_strcat(line, " ");
-//     ft_strcat(line, new_path);
-//     system(line);
-//     printf("line = %s\n", line);
-//     free(*path);
-//     path = &new_path;
-// }
-
 static int	interface_keypress_1(t_envg *e)
 {
 	if (e->volet.add == 1)

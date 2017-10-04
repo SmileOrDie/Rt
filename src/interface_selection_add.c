@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:29:14 by shamdani          #+#    #+#             */
-/*   Updated: 2017/07/16 18:56:58 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/03 16:45:47 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ static int	select_add_2(t_envg *e, int x, int y, int i)
 	}
 	if (x > 160 && x < 180 && y > 490 && y < 510)
 		e->line[30][1] = (e->line[30][1] == 1) ? 0 : 1;
-	else if (e->page > 2 && x > 50 && x < 100 && y > 715 && y < 736)
+	else if (e->page > 2 && x > 50 && x < 150 && y > 715 && y < 736)
 		e->page -= 3;
-	else if (e->page + 3 < e->e->nb_tex && x > 258 && x < 356 && y > 715 &&
+	else if (e->page + 3 < e->nb_tex && x > 258 && x < 356 && y > 715 &&
 		y < 736)
 		e->page += 3;
 	e->volet.add == 0 ? conf_tab(e) : add_tab(e);
@@ -94,7 +94,7 @@ static int	select_add_1(t_envg *e, int x, int y, int i)
 			y > e->line_pos[31].h && y < e->line_pos[31].h + 30)
 		return (31);
 	i = 0;
-	b = e->e->parse_obj;
+	b = e->parse_obj;
 	while (b)
 	{
 		if (b->obj.id == e->obj + e->page)
@@ -124,7 +124,7 @@ int			select_add(t_envg *e, int x, int y)
 		{
 			creat_elem(e);
 			(e->light == -1) ?
-			del_elem(e, e->obj + e->page) : del_elem(e, e->light + e->page);
+			del_elem(e, e->obj) : del_elem(e, e->light + e->page);
 		}
 		e->i_lst = 0;
 		e->page = 0;

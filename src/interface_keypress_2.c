@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_keypress_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/13 17:51:16 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/30 15:05:01 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,67 +34,56 @@ void		clean_str(char **clean, int f)
 
 void		free_env_parse(t_envg *e)
 {
-	free(e->e->cam);
-	e->e->cam = NULL;
-	while (e->e->parse_obj)
+	e->cam.set = 0;
+	e->anti_a = 1;
+	while (e->parse_obj)
 	{
-		free(e->e->parse_obj);
-		e->e->parse_obj = e->e->parse_obj->next;
+		free(e->parse_obj->obj.name);
+		free(e->parse_obj);
+		e->parse_obj = e->parse_obj->next;
 	}
-	while (e->e->parse_light)
+	while (e->parse_light)
 	{
-		free(e->e->parse_light);
-		e->e->parse_light = e->e->parse_light->next;
+		free(e->parse_light->light.name);
+		free(e->parse_light);
+		e->parse_light = e->parse_light->next;
 	}
-	e->e->parse_obj = NULL;
-	e->e->parse_light = NULL;
+	e->parse_obj = NULL;
+	e->parse_light = NULL;
 	clean_str(&e->line[42], 0);
-	ft_parse_j(e->line[42], e->e);
-	init_id(e->e);
+	ft_parse_j(e->line[42], e);
+	init_id(e);
 	clean_str(&e->line[42], 1);
 	modif_default(e);
 	home_tab(e);
 }
 
-int			failed_texture(t_envg *e, int i, int x)
+static int	check_path_tex(t_envg *e, int *y)
 {
-	free(e->e->path_tex[x]);
-	e->e->path_tex[x] = NULL;
-	e->e->nb_tex--;
-	e->error = i;
-	home_tab(e);
-	return (i);
-}
-
-int			add_texture(t_envg *e)
-{
-	int			x;
-	char		*path;
 	struct stat	test;
+	int			len;
 
-	x = 0;
-	while (e->e->path_tex[x++])
-		;
-	e->e->nb_tex = x - 1;
-	if (!(e->e->texture = (t_mlx *)malloc(sizeof(t_mlx) * x)))
-		e->error = 6;
-	x = -1;
-	while (e->e->path_tex[++x])
+	*y = -1;
+	while (e->path_tex != NULL && (e->path_tex)[++(*y)] != NULL)
 	{
-		path = ft_strjoin("./", e->e->path_tex[x]);
-		// if (!ft_strcmp(path + (ft_strlen(path) - 4), ".png"))
-		//     convert_file(&path);
-		if (stat(path, &test) == -1)
-			return (failed_texture(e, 7, x));
-		if (!(e->e->texture[x].img = mlx_xpm_file_to_image(e->e->mlx->mlx,
-				path, &e->e->texture[x].w, &e->e->texture[x].h)))
-			return (failed_texture(e, 8, x));
-		if (!(e->e->texture[x].data = mlx_get_data_addr(e->e->texture[x].img,
-				&e->e->texture[x].bpp,
-				&e->e->texture[x].sizeline, &e->e->texture[x].endian)))
-			return (failed_texture(e, 9, x));
+		if (ft_strcmp(e->line[41], (e->path_tex)[*y]) == 0)
+			return (-9);
 	}
-	return (-1);
+	len = ft_strlen(e->line[41]) - 4;
+	if ((ft_strcmp(((e->line[41]) + len), ".xpm")) && (
+		ft_strcmp(((e->line[41]) + len), ".XPM")) && (
+	ft_strcmp(((e->line[41]) + len), ".jpg")) && (
+	ft_strcmp(((e->line[41]) + len), ".png")) && (
+	ft_strcmp(((e->line[41]) + len), ".jpeg")) && (
+	ft_strcmp(((e->line[41]) + len), ".JPG")) && (
+	ft_strcmp(((e->line[41]) + len), ".PNG")) && (
+	ft_strcmp(((e->line[41]) + len), ".JPEG")) && (
+	ft_strcmp(((e->line[41]) + len), ".gif")) && (
+	ft_strcmp(((e->line[41]) + len), ".GIF")))
+		return (-8);
+	else if (stat(e->line[41], &test) == -1)
+		return (-7);
+	return (1);
 }
 
 void		add_new_texture(t_envg *e)
@@ -102,26 +91,25 @@ void		add_new_texture(t_envg *e)
 	char	**new;
 	int		y;
 
-	y = -1;
 	clean_str(&e->line[41], 0);
-	while ((e->e->path_tex)[++y] != NULL)
-		if (ft_strcmp(e->line[41], (e->e->path_tex)[y]) == 0)
-			break ;
-	if ((e->e->path_tex)[y] == NULL)
+	e->error = check_path_tex(e, &y);
+	if (e->error > 0 && (e->path_tex == NULL || e->path_tex[y] == NULL))
 	{
-		if (!(new = (char **)malloc(sizeof(char *) * (y + 1))))
+		if (!(new = (char **)malloc(sizeof(char *) * (y + 2))))
 			ft_error(MALLOC, "add_new_texture => interface_keypress.c");
-		y = -1;
-		while ((e->e->path_tex)[++y] != NULL)
-			new[y] = (e->e->path_tex)[y];
+		y = 0;
+		while (e->path_tex != NULL && (e->path_tex)[y] != NULL)
+		{
+			new[y] = (e->path_tex)[y];
+			y++;
+		}
 		new[y] = ft_strdup(e->line[41]);
 		new[y + 1] = NULL;
-		free(e->e->path_tex);
-		e->e->path_tex = new;
-		e->e->nb_tex++;
+		free(e->path_tex);
+		e->path_tex = new;
+		e->nb_tex++;
 	}
-	free(e->e->texture);
-	e->error = add_texture(e);
+	e->error *= -1;
 	clean_str(&e->line[41], 1);
 	home_tab(e);
 }

@@ -1,0 +1,26 @@
+build/SDL_coreaudio.lo: \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/SDL_coreaudio.m \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../../SDL_internal.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../../dynapi/SDL_dynapi.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../../dynapi/SDL_dynapi_overrides.h \
+  include/SDL_config.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_platform.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/begin_code.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/close_code.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_audio.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_stdinc.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_config.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_error.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_endian.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_mutex.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_thread.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_atomic.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_rwops.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../SDL_audio_c.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../SDL_sysaudio.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/SDL_coreaudio.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/include/SDL_assert.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../../thread/SDL_systhread.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../../thread/SDL_thread_c.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../../thread/pthread/SDL_systhread_c.h \
+  /Users/pde-maul/Documents/42/RT/SDL2-2.0.5/src/audio/coreaudio/../../thread/../SDL_error_c.h

@@ -53,8 +53,6 @@ int			circ_check(char **def)
 		return (4);
 	else if (!def[12][0] || ft_atoi(def[12]) < 1)
 		return (5);
-//	else if (!def[16][0] || ft_atoi(def[16]) < 1)
-//		return (5);
 	return (-1);
 }
 
@@ -68,8 +66,6 @@ int			plane_check(char **def)
 		return (3);
 	else if (!def[9][0] || !def[10][0] || !def[11][0])
 		return (4);
-//	else if (!def[16][0] || ft_atoi(def[16]) < 1)
-//		return (5);
 	return (-1);
 }
 

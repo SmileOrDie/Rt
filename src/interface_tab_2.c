@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_tab_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 19:15:42 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/16 19:21:20 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/08/22 17:49:14 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		conf_tab2(t_envg *e, int i)
 	int				nb;
 	t_parse_light	*b;
 
-	b = e->e->parse_light;
+	b = e->parse_light;
 	nb = 0;
 	while (b)
 	{
@@ -52,6 +52,7 @@ static void		conf_tab2(t_envg *e, int i)
 		i++;
 	}
 	put_img7(e);
+	put_img8(e);
 	load_img(e, 21);
 	load_img(e, 24);
 	(e->i_lst > 3) ? load_img(e, 22) : 0;
