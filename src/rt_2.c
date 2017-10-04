@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:50:57 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/30 13:23:41 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/10/04 18:10:37 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ void				free_branch(t_three *branch)
 
 static void			run_rt_2(t_env *e, double *opti, int x, int y)
 {
-	t_vector	p_cam;
 	t_vector	v_ray;
 
-	p_cam = new_v(e->cam.l.x + opti[0] * (double)x + opti[1] *
-	(double)y, e->cam.l.y + opti[2] * (double)x + opti[3] * (double)y,
-	e->cam.l.z + opti[4] * (double)x + opti[5] * (double)y);
-	v_ray = vsub(p_cam, e->cam.eye);
+	(void)opti;
+	v_ray = vrot(e->cam.up, -opti[0] / 2 + x / (double)e->win.w * opti[0], e->cam.dir);
+	v_ray = vrot(vcross(e->cam.up, e->cam.dir), -opti[1] / 2 + y / (double)e->win.h * opti[1], v_ray);
 	vnorm(&v_ray);
 	e->begin_three = &(e->tab_three[x + y * e->win.w]);
 	ft_raytracer(e, (t_ray){e->cam.eye, v_ray, 0, 1,
@@ -75,13 +73,10 @@ void				*run_rt(void *env)
 	double		opti[6];
 
 	e = (t_env *)env;
-	opti[0] = e->cam.u.x * (e->cam.w / e->win.w);
-	opti[1] = e->cam.up.x * (e->cam.h / e->win.h);
-	opti[2] = e->cam.u.y * (e->cam.w / e->win.w);
-	opti[3] = e->cam.up.y * (e->cam.h / e->win.h);
-	opti[4] = e->cam.u.z * (e->cam.w / e->win.w);
-	opti[5] = e->cam.up.z * (e->cam.h / e->win.h);
+	opti[0] = e->win.w >= e->win.h ? e->cam.fov : e->cam.fov * (double)e->win.w / e->win.h;
+	opti[1] = e->win.h >= e->win.w ? e->cam.fov : e->cam.fov * (double)e->win.h / e->win.w;
 	y = 0;
+	printf("eye = %f %f %f\n", e->cam.eye.x, e->cam.eye.y, e->cam.eye.z);
 	while (y < e->win.h)
 	{
 		x = e->start;

@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/02 18:08:40 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/10/04 16:59:04 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ t_vector			creat_cam_2(t_envg *e, int i)
 		e->cam.n.z, e->cam.up.x * e->cam.n.y - e->cam.up.y *
 		e->cam.n.x));
 	else if (i == 0)
-		return (new_v(e->cam.c.x - e->cam.u.x * (e->cam.w / 2) -
-		e->cam.up.x * (e->cam.h / 2), e->cam.c.y - e->cam.u.y *
+		return (new_v(e->cam.dir.x - e->cam.u.x * (e->cam.w / 2) -
+		e->cam.up.x * (e->cam.h / 2), e->cam.dir.y - e->cam.u.y *
 		(e->cam.w / 2) - e->cam.up.y * (e->cam.h / 2),
-		e->cam.c.z - e->cam.u.z * (e->cam.w / 2) -
+		e->cam.dir.z - e->cam.u.z * (e->cam.w / 2) -
 		e->cam.up.z * (e->cam.h / 2)));
 		return (new_v(0, 0, 0));
 }
@@ -100,7 +100,7 @@ void				creat_cam(t_envg *e)
 	e->cam.u = creat_cam_2(e, 1);
 	e->cam.h = tan(M_PI * (e->cam.fov / 2) / 180) * 2 * e->cam.dist;
 	e->cam.w = e->cam.h * ((float)e->win.w / e->win.h);
-	e->cam.c = new_v(e->cam.eye.x - e->cam.n.x * e->cam.dist,
+	e->cam.dir = new_v(e->cam.eye.x - e->cam.n.x * e->cam.dist,
 		e->cam.eye.y - e->cam.n.y * e->cam.dist,
 		e->cam.eye.z - e->cam.n.z * e->cam.dist);
 	e->cam.l = creat_cam_2(e, 0);

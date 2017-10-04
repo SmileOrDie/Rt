@@ -6,22 +6,11 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:54:58 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/10/02 16:24:43 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/10/04 17:48:51 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
-
-static void			mlx_put_load(t_env *e, int i)
-{
-	t_pos l;
-
-	l = (t_pos){e->win.w / e->anti_a, e->win.h / e->anti_a};
-	if (!e->mlx.mlx || !e->mlx.win || !e->wait_img[i] ||
-		!(e->size[i].w <= l.w && e->size[i].h <= l.h))
-		return ;
-	e->wait = i + 1;
-}
 
 static long int		ft_launch_thread(t_env *e)
 {
@@ -48,11 +37,8 @@ static long int		ft_launch_thread(t_env *e)
 
 static void			ft_launch_after(t_env *e)
 {
-	mlx_put_load(e, 1);
 	get_l_tab(e);
-	mlx_put_load(e, 2);
 	ft_launch_calc(e, e->cl_e->cl);
-	mlx_put_load(e, 3);
 	get_image(e);
 	e->filter_t != NULL ? e->filter_t(e, 0, 0) : 0;
 	e->wait = 5;
@@ -93,7 +79,6 @@ void				*ft_launch(void *env)
 		ft_error(MALLOC, "e->coef_t => ft_launch");
 	if (!(e->tab_three = (t_three **)malloc(sizeof(t_three *) * l)))
 		ft_error(MALLOC, "e->tab_three => ft_launch");
-	mlx_put_load(e, 0);
 	if ((size[0] = ft_launch_thread(e)) > 0)
 		ft_launch_after(e);
 	else

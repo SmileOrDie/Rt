@@ -6,62 +6,74 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/04 13:52:19 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/10/04 18:52:12 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-static void		cam_cal(t_envg *e, t_vector l, int l_at)
-{
-	if (l_at == 0)
-		e->e->cam.eye = vadd(e->e->cam.eye, l);
-	else
-		e->e->cam.l_at = vadd(e->e->cam.l_at, l);
-	e->e->cam.n = vsub(e->e->cam.eye, e->e->cam.l_at);
-	vnorm(&e->e->cam.n);
-	e->e->cam.u = new_v(e->e->cam.up.y * e->e->cam.n.z - e->e->cam.up.z *
-	e->e->cam.n.y, e->e->cam.up.z * e->e->cam.n.x - e->e->cam.up.x *
-	e->e->cam.n.z, e->e->cam.up.x * e->e->cam.n.y - e->e->cam.up.y *
-	e->e->cam.n.x);
-	e->e->cam.h = tan(M_PI * (e->e->cam.fov / 2) / 180) * 2 * e->e->cam.dist;
-	e->e->cam.w = e->e->cam.h * ((float)e->e->win.w / e->e->win.h);
-	e->e->cam.c = new_v(e->e->cam.eye.x - e->e->cam.n.x * e->e->cam.dist,
-	e->e->cam.eye.y - e->e->cam.n.y * e->e->cam.dist,
-	e->e->cam.eye.z - e->e->cam.n.z * e->e->cam.dist);
-	e->e->cam.l = new_v(e->e->cam.c.x - e->e->cam.u.x * (e->e->cam.w / 2) -
-	e->e->cam.up.x * (e->e->cam.h / 2), e->e->cam.c.y - e->e->cam.u.y *
-	(e->e->cam.w / 2) - e->e->cam.up.y * (e->e->cam.h / 2),
-	e->e->cam.c.z - e->e->cam.u.z * (e->e->cam.w / 2) - e->e->cam.up.z *
-	(e->e->cam.h / 2));
-}
-
 static int		keypress_2(int key, t_envg *e, int nb_press)
 {
+	t_vector	cross;
+	double		len;
+
+	(void)nb_press;
+	cross = vcross(e->e->cam.up, e->e->cam.dir);
+	vnorm(&cross);
 	if (key == KEY_W)
-		cam_cal(e, (t_vector){0, 10 * nb_press, 0, 0}, 1);
-	else if (key == RIGHT)
-		cam_cal(e, (t_vector){-10 * nb_press, 0, 0, 0}, 0);
-	else if (key == DOWN)
-		cam_cal(e, (t_vector){0, 10 * nb_press, 0, 0}, 0);
-	else if (key == UP)
-		cam_cal(e, (t_vector){0, -10 * nb_press, 0, 0}, 0);
-	else if (key == PAD_TIRET)
-		cam_cal(e, (t_vector){0, 0, -10 * nb_press, 0}, 0);
-	else if (key == PAD_PLUS)
-		cam_cal(e, (t_vector){0, 0, 10 * nb_press, 0}, 0);
+	{
+		e->e->cam.eye = vadd(e->e->cam.eye, vmult_dbl(e->e->cam.up, 10 * nb_press));
+		e->e->cam.l_at = vadd(e->e->cam.l_at, vmult_dbl(e->e->cam.up, 10 * nb_press));
+	}
 	else if (key == KEY_S)
-		cam_cal(e, (t_vector){0, -10 * nb_press, 0, 0}, 1);
+	{
+		e->e->cam.eye = vadd(e->e->cam.eye, vmult_dbl(e->e->cam.up, -10 * nb_press));
+		e->e->cam.l_at = vadd(e->e->cam.l_at, vmult_dbl(e->e->cam.up, -10 * nb_press));
+	}
 	else if (key == KEY_A)
-		cam_cal(e, (t_vector){10 * nb_press, 0, 0, 0}, 1);
+	{
+		e->e->cam.eye = vadd(e->e->cam.eye, vmult_dbl(cross, -10 * nb_press));
+		e->e->cam.l_at = vadd(e->e->cam.l_at, vmult_dbl(cross, -10 * nb_press));
+	}
 	else if (key == KEY_D)
-		cam_cal(e, (t_vector){-10 * nb_press, 0, 0, 0}, 1);
-	else if (key == KEY_R)
-		cam_cal(e, (t_vector){0, 0, 10 * nb_press, 0}, 1);
-	else if (key == KEY_F)
-		cam_cal(e, (t_vector){0, 0, -10 * nb_press, 0}, 1);
+	{
+		e->e->cam.eye = vadd(e->e->cam.eye, vmult_dbl(cross, 10 * nb_press));
+		e->e->cam.l_at = vadd(e->e->cam.l_at, vmult_dbl(cross, 10 * nb_press));
+	}
+	else if (key == RIGHT)
+	{
+		e->e->cam.dir = vmult_dbl(vrot(e->e->cam.up, -5 * nb_press, e->e->cam.dir), -1);
+		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
+		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
+	}
+	else if (key == LEFT)
+	{
+		e->e->cam.dir = vmult_dbl(vrot(e->e->cam.up, 5 * nb_press, e->e->cam.dir), -1);
+		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
+		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
+	}
+	else if (key == DOWN)
+	{
+		e->e->cam.dir = vmult_dbl(vrot(cross, -5 * nb_press, e->e->cam.dir), -1);
+		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
+		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
+	}
+	else if (key == UP)
+	{
+		e->e->cam.dir = vmult_dbl(vrot(cross, 5 * nb_press, e->e->cam.dir), -1);
+		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
+		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
+	}
+	else if (key == PAD_TIRET)
+		e->e->cam.eye = vadd(e->e->cam.eye, vmult_dbl(e->e->cam.dir, -10 * nb_press));
+	else if (key == PAD_PLUS)
+		e->e->cam.eye = vadd(e->e->cam.eye, vmult_dbl(e->e->cam.dir, 10 * nb_press));
 	else
 		return (0);
+	e->e->cam.dir = vsub(e->e->cam.l_at, e->e->cam.eye);
+	vnorm(&e->e->cam.dir);
+	e->e->cam.up = vcross(vcross(e->e->cam.dir, e->e->cam.up), e->e->cam.dir);
+	vnorm(&e->e->cam.up);
 	return (1);
 }
 
@@ -76,14 +88,13 @@ int				keypress(int key, t_envg *e)
 	}
 	else
 	{
+		printf("nb_press = %d\n", nb_press);
 		e->e->wait = 0;
 		if (key == ESC)
 		{
 			ft_exit(e);
 			e->e->b_screen = 1;
 		}
-		if (key == LEFT)
-			cam_cal(e, (t_vector){10 * nb_press, 0, 0, 0}, 0);
 		else if (!keypress_2(key, e, nb_press))
 			return (1);
 		pthread_create(&e->thread, NULL, ft_launch, e->e);

@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:55:29 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/10/02 19:26:14 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/10/04 18:02:31 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void			create_sdl_texture(t_envg *e, char *path, int x)
 
 	if ((surface = IMG_Load(path)))
 	{
-		e->e->texture[x].data = (char *)ft_strsub2(surface->pixels, (size_t)surface->h * (size_t)surface->w * 4, surface);
+		e->e->texture[x].data = (char *)ft_strsub2(surface->pixels,
+			 (size_t)surface->h * (size_t)surface->w * 4, surface);
 		printf("format:\n\tbit par pixel = %d\n\tMAsk r g b a = %x %x %x %x\n\tBits par pix = %d\n", surface->format->BitsPerPixel, surface->format->Rmask, surface->format->Gmask, surface->format->Bmask, surface->format->Amask, surface->format->BytesPerPixel);
 		e->e->texture[x].h = surface->h;
 		e->e->texture[x].w = surface->w;
@@ -57,7 +58,7 @@ void				ft_get_image_texture(t_envg *e)
 	while (e->path_tex && e->path_tex[x])
 		x++;
 	e->nb_tex = x;
-	free(e->e->texture);
+	printf("text: %d\n", e->nb_tex);
 	if (!(e->e->texture = (t_mlx *)malloc(sizeof(t_mlx) * x)))
 		ft_error(MALLOC, "ft_get_image_texture");
 	x = 0;

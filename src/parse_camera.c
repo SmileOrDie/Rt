@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:05:13 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/08/02 18:12:08 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/10/04 16:59:45 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,10 @@ t_cam	g_default_camera = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60,
 
 void		get_camera3(t_envg *e)
 {
-	e->cam.n = vsub(e->cam.eye, e->cam.l_at);
-	vnorm(&e->cam.n);
-	e->cam.u = new_v(e->cam.up.y * e->cam.n.z - e->cam.up.z *
-		e->cam.n.y, e->cam.up.z * e->cam.n.x - e->cam.up.x *
-		e->cam.n.z, e->cam.up.x * e->cam.n.y - e->cam.up.y *
-		e->cam.n.x);
-	e->cam.h = tan(M_PI * (e->cam.fov / 2) / 180) * 2 * e->cam.dist;
-	e->cam.w = e->cam.h * ((float)e->win.w / e->win.h);
-	e->cam.c = new_v(e->cam.eye.x - e->cam.n.x * e->cam.dist,
-		e->cam.eye.y - e->cam.n.y * e->cam.dist,
-		e->cam.eye.z - e->cam.n.z * e->cam.dist);
-	e->cam.l = new_v(e->cam.c.x - e->cam.u.x * (e->cam.w / 2) -
-		e->cam.up.x * (e->cam.h / 2), e->cam.c.y - e->cam.u.y *
-		(e->cam.w / 2) - e->cam.up.y * (e->cam.h / 2),
-		e->cam.c.z - e->cam.u.z * (e->cam.w / 2) - e->cam.up.z *
-		(e->cam.h / 2));
+	e->cam.dir = vsub(e->cam.l_at, e->cam.eye);
+	vnorm(&e->cam.dir);
+	e->cam.up = vcross(vcross(e->cam.dir, e->cam.up), e->cam.dir);
+
 }
 
 static void	get_camera2(char *line, int *x, t_envg *e, char *name)

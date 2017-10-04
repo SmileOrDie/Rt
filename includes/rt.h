@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/30 14:17:02 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/10/04 16:56:30 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct				s_cam
 	double					fov;
 	double					h;
 	double					w;
-	t_vector				c;
+	t_vector				dir;
 	t_vector				l;
 	t_vector				n;
 	t_vector				u;
