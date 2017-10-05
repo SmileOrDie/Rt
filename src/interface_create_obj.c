@@ -68,12 +68,16 @@ void				creat_elem(t_envg *e)
 
 void				creat_cam(t_envg *e)
 {
+	e->win.w = ft_atoi(e->line[25]) * e->anti_a;
+	e->win.h = ft_atoi(e->line[26]) * e->anti_a;
 	e->cam = g_default_camera_g;
 	e->cam.eye = new_v(ft_atof(e->line[19]), ft_atof(e->line[20]),
 		ft_atof(e->line[21]));
 	e->cam.l_at = new_v(ft_atof(e->line[22]), ft_atof(e->line[23]),
 		ft_atof(e->line[24]));
 	e->cam.dir = vsub(e->cam.l_at, e->cam.eye);
+	if (e->cam.dir.x == 0 && e->cam.dir.y == 0 && e->cam.dir.z == 0)
+		e->cam.dir.z = 1;
 	vnorm(&e->cam.dir);
 	e->cam.up = new_v(0.0, 1.0, 0.0);
 	e->cam.up = vcross(e->cam.dir, vcross(e->cam.up, e->cam.dir));

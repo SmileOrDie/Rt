@@ -22,6 +22,7 @@ static void		init_variable(t_envg *e)
 	e->run = 1;
 	*(e->e) = g_env_default;
 	e->e->cam = e->cam;
+	e->e->win = e->win;
 	e->e->nb_tex = e->nb_tex;
 	e->e->anti_a = e->anti_a;
 	e->e->filter_t = NULL;
