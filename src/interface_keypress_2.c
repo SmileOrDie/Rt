@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/10/04 15:18:58 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:47:04 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void		free_env_parse(t_envg *e)
 	t_parse_light *tmp;
 	t_parse_obj *tmp2;
 
-	e->cam.set = 0;
 	e->anti_a = 1;
+	e->cam.set = 0;
 	while (e->parse_obj)
 	{
 		free(e->parse_obj->obj.name);

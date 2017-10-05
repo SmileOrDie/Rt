@@ -6,16 +6,15 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:01:00 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/30 16:25:30 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:51:37 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
 t_env	g_env_default = {(t_mlx){NULL, NULL, NULL, NULL, 4, 0, 0, W, H, 0, 0},
-	NULL, NULL, NULL, NULL, (t_cam){{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0},
-		0, 0, 0, 0, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0
-	}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL,
+	NULL, NULL, NULL, NULL, (t_cam){{0, 0, -300, 0}, {0, 0, 0, 0}, {0, 1, 0, 0}, 60,
+	{0, 0, 1, 0}, 1}, 0, 0, 1, 0, NULL, 0, 0, 1, 1, {0, 0, 0}, NULL, 0, 1, {W, H}, NULL,
 	NULL, NULL, 0, 0, 0, NULL};
 
 static void		init_variable(t_envg *e)
@@ -70,14 +69,11 @@ static void		interface_mouse_click_3(t_envg *e)
 		e->thread = NULL;
 		ft_exit(e);
 	}
-	if (e->cam.view == 0)
-	{
-		init_variable(e);
-		init_mlx_raytrace(e);
-		ft_creat_lst_obj(e);
-		ft_get_image_texture(e);
-		pthread_create(&e->thread, NULL, ft_launch, e->e);
-	}
+	init_variable(e);
+	init_mlx_raytrace(e);
+	ft_creat_lst_obj(e);
+	ft_get_image_texture(e);
+	pthread_create(&e->thread, NULL, ft_launch, e->e);
 }
 
 static void		interface_mouse_click_2(t_envg *e, int x, int y)

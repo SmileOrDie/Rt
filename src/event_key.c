@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 12:38:08 by shamdani          #+#    #+#             */
-/*   Updated: 2017/10/04 18:52:12 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/10/05 17:00:20 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,25 @@ static int		keypress_2(int key, t_envg *e, int nb_press)
 	}
 	else if (key == RIGHT)
 	{
-		e->e->cam.dir = vmult_dbl(vrot(e->e->cam.up, -5 * nb_press, e->e->cam.dir), -1);
+		e->e->cam.dir = vmult_dbl(vrot(e->e->cam.up, -1 * nb_press, e->e->cam.dir), -1);
 		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
 		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
 	}
 	else if (key == LEFT)
 	{
-		e->e->cam.dir = vmult_dbl(vrot(e->e->cam.up, 5 * nb_press, e->e->cam.dir), -1);
+		e->e->cam.dir = vmult_dbl(vrot(e->e->cam.up, 1 * nb_press, e->e->cam.dir), -1);
 		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
 		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
 	}
 	else if (key == DOWN)
 	{
-		e->e->cam.dir = vmult_dbl(vrot(cross, -5 * nb_press, e->e->cam.dir), -1);
+		e->e->cam.dir = vmult_dbl(vrot(cross, -1 * nb_press, e->e->cam.dir), -1);
 		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
 		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
 	}
 	else if (key == UP)
 	{
-		e->e->cam.dir = vmult_dbl(vrot(cross, 5 * nb_press, e->e->cam.dir), -1);
+		e->e->cam.dir = vmult_dbl(vrot(cross, 1 * nb_press, e->e->cam.dir), -1);
 		len = vsize(vsub(e->e->cam.l_at, e->e->cam.eye));
 		e->e->cam.eye = vmult_dbl(e->e->cam.dir, len);
 	}

@@ -6,15 +6,14 @@
 /*   By: pde-maul <pde-maul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:05:13 by pde-maul          #+#    #+#             */
-/*   Updated: 2017/10/04 16:59:45 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:52:21 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
 
-t_cam	g_default_camera = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60,
-	150, 480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0},
-	{1, 0, 0, 0}, 1, 0};
+t_cam	g_default_camera = {{0, 0, -300, 0}, {0, 0, 0, 0}, {0, 1, 0, 0}, 60,
+{0, 0, 1, 0}, 1};
 
 void		get_camera3(t_envg *e)
 {
@@ -29,19 +28,6 @@ static void	get_camera2(char *line, int *x, t_envg *e, char *name)
 	int			y;
 	int			tmp;
 
-	if (ft_strcmp(name, "3D") == 0 && ((y = *x) || 1))
-	{
-		if ((tmp = get_number(line, x) || 1) && tmp != 0)
-			e->cam.view = ft_clamp(ft_for_atof(line, y, *x), 0, 2);
-		else
-			ft_error(N_NUM, "get_camera2");
-	}
-	if (ft_strcmp(name, "dist") == 0 && ((y = *x) || 1))
-	{
-		tmp = get_number(line, x);
-		(tmp != 0) ? e->cam.dist = ft_for_atof(line, y, *x) :
-			ft_error(N_NUM, "get_camera2 for dist");
-	}
 	if ((ft_strcmp(name, "fov") == 0) && ((y = *x) || 1))
 	{
 		if ((tmp = get_number(line, x)))

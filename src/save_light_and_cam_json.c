@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_light_and_cam_json.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/28 15:39:12 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/03 14:01:18 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:52:51 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void		save_cam(int fd, t_envg *e)
 	ft_putstr_fd(fd, "\"y\" : ", ft_dtoa(e->cam.up.y), ",\n\t\t\t", NULL);
 	ft_putstr_fd(fd, "\"z\" : ", ft_dtoa(e->cam.up.z), ",\n\t\t},\n", NULL);
 	ft_putstr_fd(fd, "\t\t\"fov\" : ", ft_dtoa(e->cam.fov), ",\n\t\t", NULL);
-	ft_putstr_fd(fd, "\"dist\" : ", ft_dtoa(e->cam.dist), ",\n\t},\n", NULL);
 }
 
 int				save_light_and_cam(t_envg *e, int fd, t_parse_light *light)

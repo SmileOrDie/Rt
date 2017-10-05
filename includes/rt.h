@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/10/04 16:56:30 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/10/05 16:47:22 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,9 @@ typedef struct				s_cam
 	t_vector				eye;
 	t_vector				l_at;
 	t_vector				up;
-	double					dist;
 	double					fov;
-	double					h;
-	double					w;
 	t_vector				dir;
-	t_vector				l;
-	t_vector				n;
-	t_vector				u;
-	int						set;
-	int						view;
+	char					set;
 }							t_cam;
 
 typedef struct				s_three
