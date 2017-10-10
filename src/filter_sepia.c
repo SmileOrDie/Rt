@@ -17,7 +17,7 @@ void	filter_sepia(t_env *e, int x, int y)
 	int		c2[3];
 	int		rgb[5];
 
-	while (y <= e->win.h / e->anti_a)
+	while (y < e->win.h / e->anti_a)
 	{
 		lecture_img(e, rgb, x, y);
 		c2[0] = (0.393 * rgb[0] + 0.769 * rgb[1] + 0.189 * rgb[2]);

@@ -88,14 +88,14 @@ int				keypress(int key, t_envg *e)
 	}
 	else
 	{
-		printf("nb_press = %d\n", nb_press);
 		e->e->wait = 0;
 		if (key == ESC)
 		{
 			ft_exit(e);
 			e->e->b_screen = 1;
+			return (0);
 		}
-		else if (!keypress_2(key, e, nb_press))
+		else if (!keypress_2(key, e, 1))
 			return (1);
 		pthread_create(&e->thread, NULL, ft_launch, e->e);
 		e->e->flag = 1;

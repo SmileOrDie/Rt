@@ -20,7 +20,6 @@ static void			create_sdl_texture(t_envg *e, char *path, int x)
 	{
 		e->e->texture[x].data = (char *)ft_strsub2(surface->pixels,
 			 (size_t)surface->h * (size_t)surface->w * 4, surface);
-		printf("format:\n\tbit par pixel = %d\n\tMAsk r g b a = %x %x %x %x\n\tBits par pix = %d\n", surface->format->BitsPerPixel, surface->format->Rmask, surface->format->Gmask, surface->format->Bmask, surface->format->Amask, surface->format->BytesPerPixel);
 		e->e->texture[x].h = surface->h;
 		e->e->texture[x].w = surface->w;
 		e->e->texture[x].crenelage = 2;
@@ -58,7 +57,6 @@ void				ft_get_image_texture(t_envg *e)
 	while (e->path_tex && e->path_tex[x])
 		x++;
 	e->nb_tex = x;
-	printf("text: %d\n", e->nb_tex);
 	if (!(e->e->texture = (t_mlx *)malloc(sizeof(t_mlx) * x)))
 		ft_error(MALLOC, "ft_get_image_texture");
 	x = 0;

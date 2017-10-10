@@ -51,6 +51,9 @@ static void		get_obj_lst_1(t_envg *e, t_obj obj, int *i)
 	{
 		mat = malloc(sizeof(t_vector) * 3);
 		get_matrice(obj.dir, &mat);
+		mat[0] = vrot(obj.dir, obj.angle, mat[0]);
+		mat[1] = vrot(obj.dir, obj.angle, mat[1]);
+		mat[2] = vrot(obj.dir, obj.angle, mat[2]);
 		cal_mat(e, obj, mat, (double[4]){0, 1, 0.5, (*i)++});
 		cal_mat(e, obj, mat, (double[4]){0, 1, -0.5, (*i)++});
 		cal_mat(e, obj, mat, (double[4]){1, 2, 0.5, (*i)++});

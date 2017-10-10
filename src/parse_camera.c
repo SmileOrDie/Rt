@@ -19,8 +19,8 @@ void		get_camera3(t_envg *e)
 {
 	e->cam.dir = vsub(e->cam.l_at, e->cam.eye);
 	vnorm(&e->cam.dir);
+	vnorm(&e->cam.up);
 	e->cam.up = vcross(vcross(e->cam.dir, e->cam.up), e->cam.dir);
-
 }
 
 static void	get_camera2(char *line, int *x, t_envg *e, char *name)

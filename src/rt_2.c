@@ -57,8 +57,12 @@ static void			run_rt_2(t_env *e, double *opti, int x, int y)
 	t_vector	v_ray;
 
 	(void)opti;
+	vnorm(&e->cam.up);
+	vnorm(&e->cam.dir);
 	v_ray = vrot(e->cam.up, -opti[0] / 2 + x / (double)e->win.w * opti[0], e->cam.dir);
 	v_ray = vrot(vcross(e->cam.up, e->cam.dir), -opti[1] / 2 + y / (double)e->win.h * opti[1], v_ray);
+	// v_ray.x *= v_ray.z;
+	// v_ray.y /= v_ray.z;
 	vnorm(&v_ray);
 	e->begin_three = &(e->tab_three[x + y * e->win.w]);
 	ft_raytracer(e, (t_ray){e->cam.eye, v_ray, 0, 1,
@@ -70,13 +74,14 @@ void				*run_rt(void *env)
 	int			y;
 	int			x;
 	t_env		*e;
-	double		opti[6];
+	double		opti[2];
 
 	e = (t_env *)env;
-	opti[0] = e->win.w >= e->win.h ? e->cam.fov : e->cam.fov * (double)e->win.w / e->win.h;
-	opti[1] = e->win.h >= e->win.w ? e->cam.fov : e->cam.fov * (double)e->win.h / e->win.w;
+	opti[0] = e->win.w < e->win.h ? e->cam.fov : e->cam.fov * (double)e->win.w / e->win.h;
+	opti[1] = e->win.h < e->win.w ? e->cam.fov : e->cam.fov * (double)e->win.h / e->win.w;
+	// opti[0] = e->cam.fov;
+	// opti[1] = e->cam.fov;
 	y = 0;
-	printf("eye = %f %f %f\n", e->cam.eye.x, e->cam.eye.y, e->cam.eye.z);
 	while (y < e->win.h)
 	{
 		x = e->start;

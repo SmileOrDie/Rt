@@ -79,7 +79,6 @@ void				creat_cam(t_envg *e)
 	if (e->cam.dir.x == 0 && e->cam.dir.y == 0 && e->cam.dir.z == 0)
 		e->cam.dir.z = 1;
 	vnorm(&e->cam.dir);
-	e->cam.up = new_v(0.0, 1.0, 0.0);
 	e->cam.up = vcross(e->cam.dir, vcross(e->cam.up, e->cam.dir));
 	e->cam.set = 1;
 }

@@ -17,7 +17,6 @@ static void		free_texture(t_env *e)
 	int x;
 
 	x = 0;
-	printf("crene: %d\n", e->texture[x].crenelage);
 	while (e->texture && x < e->nb_tex)
 	{
 		e->texture[x].crenelage == 1 ? mlx_destroy_image(e->mlx.mlx, e->

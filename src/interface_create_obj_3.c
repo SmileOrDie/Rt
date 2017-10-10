@@ -12,6 +12,9 @@
 
 #include "../includes/interface_rt.h"
 
+t_obj	g_default_object_inter = {0, 0, 0, 0, {0, 0, 0, 0}, {1, 0, 0, 0},
+	{0, 0, 0, 0}, 0, 0, 0, 0, NULL, {255, 255, 255, 255}, 0, 0, 0};
+
 static t_obj	new_obj_2(t_envg *e, t_obj *obj)
 {
 	obj->ind_refrac = (obj->negatif != 0) ? 1 :
@@ -32,6 +35,7 @@ t_obj			new_obj(t_envg *e)
 {
 	t_obj			obj;
 
+	obj = g_default_object_inter;
 	check_new_obj(e, &obj);
 	obj.id = e->nb_obj;
 	obj.negatif = e->line[30][1];
