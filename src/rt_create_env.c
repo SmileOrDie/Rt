@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 11:41:31 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/03 12:07:03 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/08 18:58:44 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,7 @@ void					ft_creat_lst_obj(t_envg *e)
 	if (!(e->e->light = (t_light *)malloc(sizeof(t_light) * e->e->nb_light)))
 		ft_error(MALLOC, "e->e->light -> rt.h");
 	ft_create_obj_light(e, 0, 0);
+	printf("e->e->nb_obj = %d\n\n", e->e->nb_obj);
+	printf("e->e->group_max = %d\n", e->e->group_max);
+	print_obj(e->e, e->e->nb_obj);
 }

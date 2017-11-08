@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 13:44:42 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/30 16:24:18 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/08 17:34:37 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ static void		free_texture(t_env *e)
 	int x;
 
 	x = 0;
-	if (e->nb_tex == 0)
-	{
-		free(e->texture);
-		return ;
-	}
-	while (x < e->nb_tex)
+	while (e->texture && x < e->nb_tex)
 	{
 		e->texture[x].crenelage == 1 ? mlx_destroy_image(e->mlx.mlx, e->
-			texture[x].img) : free(e->texture[x].data);
+			texture[x].img) : 0;
+		e->texture[x].crenelage == 2 ? free(e->texture[x].data) : 0;
+		e->texture[x].crenelage = 0;
 		x++;
 	}
-	free(e->texture);
+	e->nb_tex = 0;
+	// free(e->texture);
+	e->texture = NULL;
 }
 
 void			ft_exit(t_envg *e)

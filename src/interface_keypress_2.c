@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/30 15:05:01 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/08 17:28:16 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,52 @@ void		clean_str(char **clean, int f)
 	}
 }
 
+// void		free_env_parse(t_envg *e)
+// {
+// 	e->cam.set = 0;
+// 	e->anti_a = 1;
+// 	while (e->parse_obj)
+// 	{
+// 		free(e->parse_obj->obj.name);
+// 		free(e->parse_obj);
+// 		e->parse_obj = e->parse_obj->next;
+// 	}
+// 	while (e->parse_light)
+// 	{
+// 		free(e->parse_light->light.name);
+// 		free(e->parse_light);
+// 		e->parse_light = e->parse_light->next;
+// 	}
+// 	e->parse_obj = NULL;
+// 	e->parse_light = NULL;
+// 	clean_str(&e->line[42], 0);
+// 	ft_parse_j(e->line[42], e);
+// 	init_id(e);
+// 	clean_str(&e->line[42], 1);
+// 	modif_default(e);
+// 	home_tab(e);
+// }
+
 void		free_env_parse(t_envg *e)
 {
-	e->cam.set = 0;
+	t_parse_light *tmp;
+	t_parse_obj *tmp2;
+
 	e->anti_a = 1;
+	e->cam.set = 0;
 	while (e->parse_obj)
 	{
 		free(e->parse_obj->obj.name);
+		tmp2 = e->parse_obj->next;
 		free(e->parse_obj);
-		e->parse_obj = e->parse_obj->next;
+		e->parse_obj = tmp2;
 	}
 	while (e->parse_light)
 	{
 		free(e->parse_light->light.name);
+		tmp = e->parse_light->next;
 		free(e->parse_light);
-		e->parse_light = e->parse_light->next;
+		e->parse_light = tmp;
 	}
 	e->parse_obj = NULL;
 	e->parse_light = NULL;

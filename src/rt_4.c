@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:54:58 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/31 14:10:15 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/08 16:50:26 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void			mlx_put_load(t_env *e, int i)
 	t_pos l;
 
 	l = (t_pos){e->win.w / e->anti_a, e->win.h / e->anti_a};
-	if (!e->b_screen || !e->wait_img[i] ||
+	if (!e->mlx.mlx || !e->mlx.win || !e->wait_img[i] ||
 		!(e->size[i].w <= l.w && e->size[i].h <= l.h))
 		return ;
 	e->wait = i + 1;
@@ -67,7 +67,7 @@ static void			ft_launch_free(t_env *e, unsigned int limit)
 		free_branch(e->tab_three[i++]);
 	free(e->tab_three);
 	free(e->tab_light);
-	*(e->nb_obj_pix[0]) ? free(e->cl_e->color_lst) : 0;
+	free(e->cl_e->color_lst);
 	free(e->coef_t);
 	e->b_screen = 0;
 	e->flag = 0;
@@ -82,6 +82,7 @@ void				*ft_launch(void *env)
 
 	e = (t_env *)env;
 	i = -1;
+	e->cl_e->color_lst = NULL;
 	while (++i < 8)
 	{
 		size[i] = 0;

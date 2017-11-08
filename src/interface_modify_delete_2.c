@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 18:40:27 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/07/27 15:28:12 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/08 18:04:23 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,15 @@ void			del_light(t_envg *e, int i)
 	}
 }
 
-static void		free_f_obj(t_parse_obj *b, t_parse_obj *f_obj, t_parse_obj *obj)
+static void		free_f_obj(t_parse_obj *b, t_parse_obj *obj)
 {
 	while (obj && b->next)
 	{
-		if (b->next && obj->obj.id == b->next->obj.id)
+		if (obj->obj.id == b->next->obj.id)
 		{
-			f_obj = b->next;
-			b->next = f_obj->next;
-			free(f_obj->obj.name);
-			free(f_obj);
+			b->next = obj->next;
+			free(obj->obj.name);
+			free(obj);
 			break ;
 		}
 		b = b->next;
@@ -68,14 +67,12 @@ static void		free_f_obj(t_parse_obj *b, t_parse_obj *f_obj, t_parse_obj *obj)
 void			del_obj(t_envg *e, int i)
 {
 	t_parse_obj	*b;
-	t_parse_obj	*f_obj;
 	t_parse_obj	*obj;
 
-	f_obj = NULL;
 	obj = srch_obj(e, i);
 	b = e->parse_obj;
 	if (i > 0)
-		free_f_obj(b, f_obj, obj);
+		free_f_obj(b, obj);
 	else if (i == 0)
 	{
 		if (obj->obj.id == b->obj.id)

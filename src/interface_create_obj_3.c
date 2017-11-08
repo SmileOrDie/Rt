@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   interface_create_obj_3.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/24 18:49:52 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/24 19:05:38 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/11/08 19:10:38 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/interface_rt.h"
+
+t_obj	g_def_object = {0, 0, 0, 0, {0, 0, 0, 0}, {1, 0, 0, 0},
+	{0, 0, 0, 0}, 0, 0, 0, 0, NULL, {255, 255, 255, 255}, 0, 0, 0};
 
 static t_obj	new_obj_2(t_envg *e, t_obj *obj)
 {
@@ -32,6 +35,7 @@ t_obj			new_obj(t_envg *e)
 {
 	t_obj			obj;
 
+	obj = g_def_object;
 	check_new_obj(e, &obj);
 	obj.id = e->nb_obj;
 	obj.negatif = e->line[30][1];

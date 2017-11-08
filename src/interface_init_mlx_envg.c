@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_init_mlx_envg.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 18:49:39 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/08/24 18:25:40 by phmoulin         ###   ########.fr       */
+/*   Updated: 2017/11/08 17:49:14 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void		init_envg2(t_envg *e, t_env *env)
 	e->run = 0;
 	e->filter = (t_filter){0, 0, 0, 0, 0, 0};
 	e->error = -1;
+	e->parse_obj = NULL;
+	e->parse_light = NULL;
 }
 
 void			init_envg(t_envg *e, t_env *env)

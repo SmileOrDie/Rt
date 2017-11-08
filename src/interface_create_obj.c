@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/14 16:11:19 by shamdani          #+#    #+#             */
-/*   Updated: 2017/08/02 18:08:40 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/08 19:07:10 by shamdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_cam	g_default_camera_g = {{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 60, 150,
 	480, 650, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, 1, 0};
-
+	
 static void			creat_light(t_envg *e)
 {
 	t_parse_light *b;
@@ -36,12 +36,13 @@ static void			creat_light(t_envg *e)
 }
 
 static void			creat_obj(t_envg *e)
-{
+{	
 	t_parse_obj *b;
 	t_parse_obj *new;
 
 	if (!(new = (t_parse_obj *)malloc(sizeof(t_parse_obj))))
 		ft_error(MALLOC, "new -> inteface_create_obj.h");
+
 	new->obj = new_obj(e);
 	new->next = NULL;
 	b = e->parse_obj;
@@ -79,7 +80,7 @@ t_vector			creat_cam_2(t_envg *e, int i)
 		(e->cam.w / 2) - e->cam.up.y * (e->cam.h / 2),
 		e->cam.c.z - e->cam.u.z * (e->cam.w / 2) -
 		e->cam.up.z * (e->cam.h / 2)));
-		return (new_v(0, 0, 0));
+	return (new_v(0, 0, 0));
 }
 
 void				creat_cam(t_envg *e)
