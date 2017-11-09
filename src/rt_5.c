@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_5.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 18:55:29 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/11/08 17:20:12 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/09 13:31:26 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void			create_sdl_texture(t_envg *e, char *path, int x)
 	if ((surface = IMG_Load(path)))
 	{
 		e->e->texture[x].data = (char *)ft_strsub2(surface->pixels,
-			 (size_t)surface->h * (size_t)surface->w * 4, surface);
+			(size_t)surface->h * (size_t)surface->w * 4, surface);
 		e->e->texture[x].h = surface->h;
 		e->e->texture[x].w = surface->w;
 		e->e->texture[x].crenelage = 2;
@@ -27,7 +27,8 @@ static void			create_sdl_texture(t_envg *e, char *path, int x)
 	}
 	else
 		ft_error("SDL2 : ", (char *)SDL_GetError());
-}	
+}
+
 void				all_texture(t_envg *e, char *path, int x)
 {
 	int				l;

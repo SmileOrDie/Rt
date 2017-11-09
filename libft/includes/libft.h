@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/15 19:28:38 by shamdani          #+#    #+#             */
-/*   Updated: 2017/10/02 19:25:49 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/11/09 13:10:38 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 unsigned char		*ft_strsub2(int const *s, size_t len, SDL_Surface *surface);
-char				*ft_strsub(char const *s, unsigned int start,  size_t len);
+char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);

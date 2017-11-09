@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface_mouse_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/16 13:44:42 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/11/08 17:34:37 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/09 13:31:22 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void		free_texture(t_env *e)
 		x++;
 	}
 	e->nb_tex = 0;
-	// free(e->texture);
 	e->texture = NULL;
 }
 

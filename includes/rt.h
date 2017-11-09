@@ -6,7 +6,7 @@
 /*   By: shamdani <shamdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:45:45 by shamdani          #+#    #+#             */
-/*   Updated: 2017/11/08 18:39:39 by shamdani         ###   ########.fr       */
+/*   Updated: 2017/11/09 13:18:39 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,8 +283,6 @@ t_color2					get_color(unsigned char r, unsigned char g,
 	unsigned char b);
 
 void						creat_lst(char **line, t_env *e, int count);
-
-void						print_obj(t_env *e, int id);
 
 void						ft_launch_calc(t_env *e, t_opencl *cl);
 
