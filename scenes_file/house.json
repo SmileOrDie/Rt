@@ -1,0 +1,180 @@
+{
+	"plane"  :
+	{
+		"name": "plan_sol",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : -250,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 125,
+			"b" : 30
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+		"texture" : "texture_file/wow_grass.jpg"
+	},
+	"plane"  :
+	{
+		"name": "plan_plafond",
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 250,
+			"z" : 0
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 0,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 30,
+			"g" : 120,
+			"b" : 200
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 1,
+			"z" : 0
+		},
+	},
+	"sphere"  :
+	{
+		"name": "sphere_rigth",
+		"radius" :  100,
+		"pos" :
+		{
+			"x" : 100,
+			"y" : -175,
+			"z" : 50
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 1,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 1,
+			"y" : 0,
+			"z" : 1
+		},
+		"angle" : 0,
+	},
+	"sphere"  :
+	{
+		"name": "sphere_left",
+		"radius" :  100,
+		"pos" :
+		{
+			"x" : -100,
+			"y" : -175,
+			"z" : 50
+		},
+		"ind_refrac" : 1.33,
+		"ind_reflec" : 1,
+		"ind_transp" : 0,
+		"color" :
+		{
+			"r" : 0,
+			"g" : 255,
+			"b" : 255
+		},
+		"dir" :
+		{
+			"x" : 1,
+			"y" : 0,
+			"z" : 1
+		},
+		"angle" : 0,
+	},
+
+	"ambient" : 0.00000001,
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : -70,
+			"y" : 70,
+			"z" : -250
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light1"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 70,
+			"z" : -350
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light3"
+	},
+	"light" :
+	{
+		"pos" :
+		{
+			"x" : 70,
+			"y" : 70,
+			"z" : -250
+		},
+		"color" :
+		{
+			"r" : 255,
+			"g" : 255,
+			"b" : 255
+		},
+		"name" : "light2"
+	},
+	"camera" :
+	{
+		"pos" :
+		{
+			"x" : 0,
+			"y" : 150,
+			"z" : -700
+		},
+		"dir" :
+		{
+			"x" : 0,
+			"y" : 0,
+			"z" : 0
+		},
+		"up" :
+		{
+			"x" : 0,
+			"y" : -1,
+			"z" : 0
+		},
+		"fov" : 60
+	},
+	"image size" : [  800  , 500 ]
+}
