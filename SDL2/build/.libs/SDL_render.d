@@ -1,0 +1,36 @@
+build/SDL_render.lo: \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/src/render/SDL_render.c \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/src/render/../SDL_internal.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/src/render/../dynapi/SDL_dynapi.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/src/render/../dynapi/SDL_dynapi_overrides.h \
+  include/SDL_config.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_platform.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/begin_code.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/close_code.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_assert.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_config.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_hints.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_stdinc.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_log.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_render.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_rect.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_error.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_pixels.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_endian.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_rwops.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_video.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_surface.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_blendmode.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/src/render/SDL_sysrender.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_events.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_keyboard.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_keycode.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_scancode.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_mouse.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_joystick.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_gamecontroller.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_quit.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_gesture.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/include/SDL_touch.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/src/render/SDL_yuv_sw_c.h \
+  /Users/shamdani/Desktop/Rt_folder/Rt_github/SDL2-2.0.5/src/render/software/SDL_render_sw_c.h
