@@ -125,7 +125,7 @@ uchar4		get_color(__global t_mlx *texture, double4 p_hit, t_obj obj)
 	else if ((obj.type == 2 || obj.type == 5 || obj.type == 6) && obj.id_texture > 0)
 	{
 		dir = vsub(p_hit, obj.pos);
-		test = (obj.dir.x == 1 || obj.dir.x == -1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0}; 
+		test = (obj.dir.x == 1 || obj.dir.x == -1) ? (double4){0, 1, 0, 0} : (double4){1, 0, 0, 0};
 		tmp = vcross(obj.dir, test);
 		tmp = vnorm(tmp);
 		x = ((int)vpscal(tmp, dir)) % texture[obj.id_texture - 1].w;
@@ -233,7 +233,7 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 				list_obj[tab_obj_light_id[count]] = (list_obj[tab_obj_light_id[count]] || e->l_obj[tab_obj_light_id[count]].type == 5 || e->l_obj[tab_obj_light_id[count]].type == 2 || e->l_obj[tab_obj_light_id[count]].type == 6) ? 0 : 1;
 			else
 				list_group[e->l_obj[tab_obj_light_id[count]].group] = list_group[e->l_obj[tab_obj_light_id[count]].group] ? 0 : 1;
-			flag = 0;				
+			flag = 0;
 			t = 0;
 			while (t < e->nb_obj)
 			{
@@ -263,10 +263,8 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 				l_color.g = l_color.g * (double)((tmp_color.g / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
 				l_color.b = l_color.b * (double)((tmp_color.b / 255.0) * (e->l_obj[tab_obj_light_id[count]].ind_transp));
 			}
-			else if (tab_obj_light_t[count] >= 0 && list_obj[tab_obj_light_id[count]] && flag == 1 && e->l_obj[tab_obj_light_id[count]].negatif == 0 && e->l_obj[tab_obj_light_id[count]].type == 2)
-			{
-				printf("type = %d et name = %s\n", e->l_obj[tab_obj_light_id[count]].type, e->l_obj[tab_obj_light_id[count]].name);
-			}
+			// else if (tab_obj_light_t[count] >= 0 && list_obj[tab_obj_light_id[count]] && flag == 1 && e->l_obj[tab_obj_light_id[count]].negatif == 0 && e->l_obj[tab_obj_light_id[count]].type == 2)
+			//	printf("type = %d et name = %s\n", e->l_obj[tab_obj_light_id[count]].type, e->l_obj[tab_obj_light_id[count]].name);
 			count++;
 		}
 		// printf("Bienvenue ==================\n");
@@ -296,9 +294,9 @@ uchar4		add_light(__global t_env_cl *e, uchar4 pixel, double4 p_hit, t_obj obj, 
 		// printf("il y a un problem ?\n");
 		i++;
 	}
-	pixel.r = pixel.r * (1 - (double)(e->amb) / 100.0) + colorobj.r * e->amb / 100.0; 
-	pixel.g = pixel.g * (1 - (double)(e->amb) / 100.0) + colorobj.g * e->amb / 100.0; 
-	pixel.b = pixel.b * (1 - (double)(e->amb) / 100.0) + colorobj.b * e->amb / 100.0; 
+	pixel.r = pixel.r * (1 - (double)(e->amb) / 100.0) + colorobj.r * e->amb / 100.0;
+	pixel.g = pixel.g * (1 - (double)(e->amb) / 100.0) + colorobj.g * e->amb / 100.0;
+	pixel.b = pixel.b * (1 - (double)(e->amb) / 100.0) + colorobj.b * e->amb / 100.0;
 	i = 0;
 	while (i < e->nb_light)
 	{

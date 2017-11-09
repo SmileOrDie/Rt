@@ -6,7 +6,7 @@
 /*   By: phmoulin <phmoulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 16:18:11 by phmoulin          #+#    #+#             */
-/*   Updated: 2017/11/09 13:27:45 by pde-maul         ###   ########.fr       */
+/*   Updated: 2017/11/09 13:38:57 by pde-maul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		clean_str(char **clean, int f)
 	}
 }
 
-static void	clean_env(t_env *e)
+static void	clean_env(t_envg *e)
 {
 	e->parse_obj = NULL;
 	e->parse_light = NULL;
