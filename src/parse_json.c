@@ -86,6 +86,5 @@ void			ft_parse_j(char *name, t_envg *e)
 	ft_check_obj_neg(e);
 	while (e->path_tex && e->path_tex[i])
 		i++;
-	e->e->nb_tex = i;
 	e->nb_tex = i;
 }

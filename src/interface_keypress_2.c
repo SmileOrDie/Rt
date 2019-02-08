@@ -73,11 +73,12 @@ static int	check_path_tex(t_envg *e, int *y)
 	struct stat	test;
 	int			len;
 
-	*y = -1;
-	while (e->path_tex != NULL && (e->path_tex)[++(*y)] != NULL)
+	*y = 0;
+	while (e->path_tex != NULL && (e->path_tex)[*y] != NULL)
 	{
 		if (ft_strcmp(e->line[41], (e->path_tex)[*y]) == 0)
 			return (-9);
+		(*y)++;
 	}
 	len = ft_strlen(e->line[41]) - 4;
 	if ((ft_strcmp(((e->line[41]) + len), ".xpm")) && (
